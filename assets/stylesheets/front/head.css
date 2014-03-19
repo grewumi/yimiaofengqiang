@@ -6,6 +6,21 @@
 .clearfix{
 	clear:both;
 }
+/* head-tips-bar*/
+.head-tips-bar{
+	width:1080px;margin:0 auto;height:26px;position:relative;background:#F0EFF0;padding-top:5px;
+}
+.head-tips-bar .left{
+	float:left;
+}
+.head-tips-bar .right{
+	float:right;
+}
+.head-tips-bar .right a{
+	display:inline-block;text-decoration:none;color:#000;background:#fff;border:solid 1px #ddd;padding:2px 6px;font-size:13px;
+	font-family:"ËÎÌו";
+}
+/* end-head-tips-bar*/
 .head-around{
 	background:#BF0000;
 }

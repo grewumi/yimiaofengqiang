@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gbk">
+<meta name="keywords" content="一秒疯抢,免费试用,九块邮,9块邮,9.9包邮,九块邮官网,9块9,9.9包邮网,9.9包邮,九块九包邮,9.9元全国包邮,九块邮独享,9块9包邮官网 ">
+<meta name="Description" content="一秒疯抢-九块邮(9块9包邮)官网,精选九块邮独家独享9.9包邮,9.9元天天特价商品,9.9元全国包邮每天更新!找最全九块九包邮商品,就上9.9包邮官网.九块邮小幸福,超低价格,超值特价秒杀惊喜不断!">
+<title>一秒疯抢 - 天天有特价,时时在更新</title>
+<link rel="stylesheet" href="/assets/stylesheets/front/index.css" />
+<link rel="stylesheet" href="/assets/stylesheets/front/head.css" />
+<link rel="stylesheet" href="/assets/stylesheets/front/foot.css" />
+<script type="text/javascript"  src="/assets/Javascripts/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+	$(window).scroll(function() {
+		if($(window).scrollTop() >  $(".head-around").height()+80){
+			$(".head-nav-around").addClass("scoll_nav")
+		}else{
+			$(".head-nav-around").removeClass( "scoll_nav")
+		}
+	});  
+})
+</script>
+</head>
+<body>
+{include file="front/head.html"}
+<div class="around-index">
+	<div class="main-index">
+		<div class="sub-index">
+			<a href="/" {if !$procat}class="cur"{/if}>全部</a>
+			{foreach key=k item=v from=$procats}
+				<a href="{spUrl a=index procat=$v.type}" {if $procat==$v.type}class="cur"{/if}>{$v.name}</a>
+			{/foreach}
+		</div>
+		<div class="item-list">
+			{foreach key=k item=iv from=$items}
+			<div class="item-row {if $k==0}row-left{elseif $k==3}row-right{/if}">
+				{foreach key=k item=v from=$iv}
+				<div style="position:relative;display:none;">
+					<a data-type="0" biz-itemid="{$v.iid}" data-tmpl="290x380" data-tmplid="5" data-rd="2" data-style="2" data-border="1" href="http://item.taobao.com/item.htm?id={$v.iid}">http://item.taobao.com/item.htm?id={$v.iid}</a>
+				</div>
+				<div class="item" style="display:block;">
+					{if $admin}
+					<div class="admin-edit">
+						<a target="_blank" href="{spUrl c=admin a=delpro id=$v.id}">删除</a>
+						<a target="_blank" href="{spUrl c=admin a=modpro id=$v.id}">修改</a>
+					</div>
+					{/if}
+					<div class="item-pic" style="position:relative;">
+						<img src="{$v.pic}" alt="{$v.title}" />
+						<a data-type="0" biz-itemid="{$v.iid}" data-tmpl="260x260" data-tmplid="1765" data-rd="2" data-style="2" data-border="0" href="http://detail.tmall.com/item.htm?id={$v.iid}"></a>
+						<!-- <a target="_blank" date-type="0" biz-itemid="{$v.iid}" href="{$v.link}"></a> -->
+					</div>
+					<div class="item-title position"><a target="_blank" href="{spUrl c=main a=deal id=$v.id}">{$v.title}</a></div>
+					<!-- <a target="_blank" date-type="0" biz-itemid="{$v.iid}" href="{$v.link}"> -->
+						<div class="item-price position" style="position:relative;">
+							<span class="price">
+								<b>￥</b>{(int)$v.nprice}
+								<span>.{$v.nprice_tail}</span>
+							</span>
+							<span class="old-price">{$v.oprice}</span>
+							<span class="buy"></span>
+							<a data-type="0" biz-itemid="{$v.iid}" data-tmpl="250x56" data-tmplid="1860" data-rd="2" data-style="2" data-border="0" href="http://detail.tmall.com/item.htm?id={$v.iid}"></a>
+						</div>
+					<!--  </a> -->
+				</div>
+				{/foreach}
+			</div>
+			{/foreach}
+			<div class="clearfix"></div>
+		</div>
+		<div class="xiai-page">
+		    {if $pager}
+		    	<!--在当前页不是第一页的时候，显示前页和上一页-->
+			    {if $pager.current_page != $pager.first_page}
+				   <a class="yema-or-cur" href="{spUrl c=main a=index procat=$procat type=$type price=$price q=$q page=$pager.prev_page}">上一页</a> 
+			    {/if}
+			    <!--开始循环页码，同时如果循环到当前页则不显示链接-->
+			    {foreach from=$pager.all_pages item=thepage}
+			            {if $thepage != $pager.current_page}
+			            	{if $thepage<=$pager.current_page+8 && $thepage>=$pager.current_page-2}
+			                	<a class="yema-or-cur" href="{spUrl c=main a=index procat=$procat type=$type price=$price q=$q page=$thepage}">{$thepage}</a>
+			            	{/if}									
+			            {else}
+			            	<b class="cur">{$thepage}</b>
+			            {/if}
+			    {/foreach}
+			    <!--在当前页不是最后一页的时候，显示下一页和后页-->
+			    {if $pager.current_page != $pager.last_page}
+			    	<a class="yema-or-cur" href="{spUrl c=main a=index procat=$procat type=$type price=$price q=$q page=$pager.next_page}">下一页</a>
+			    {/if}
+			{/if}
+		</div>
+	</div>
+</div>
+{include file="front/foot.html"}
+</body>
+</html>

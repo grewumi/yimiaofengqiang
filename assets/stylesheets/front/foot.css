@@ -1,0 +1,41 @@
+@CHARSET "gbk";
+.xiai-foot-around{
+	background:url(/assets/images/front/index/background_bg.png);
+	height:75px;
+}
+.xiai-foot-around .xiai-foot{
+	width:990px;	
+	height:100%;
+	margin:0 auto;
+	background:url(/assets/images/front/index/foot_filter_hover.jpg);
+	position:relative;
+}
+.xiai-foot-around .xiai-foot a{
+	display:inline-block;
+	float:left;
+	width:247.5px;
+	height:100%;
+}
+.xiai-foot-around .tongji{
+	display:none;
+}
+.xiai-foot-around .links{
+	width:990px;
+	height:100px;
+	margin:10px auto;
+	background:#fff;
+}
+.xiai-foot-around .links .link-mark{
+	text-align:center;
+	padding-top:5px;
+}
+.xiai-foot-around .links .link a{
+	color:gray;
+	font-size:14px;
+	margin-right:10px;
+}
+.xiai-foot-around .links .link{
+	width:960px;
+	margin:10px auto;
+	text-align:center;
+}

@@ -1,0 +1,70 @@
+@CHARSET "gbk";
+
+body{
+	background:url(/assets/images/front/index/background_bg.png);
+}
+*{
+	padding:0px;margin:0px;
+}
+.deal-main{
+	width:1080px;
+	margin:15px auto;
+}
+.deal-left{
+	width:800px;
+}
+.item-deal{
+	position:relative;
+	font-size:16px;
+	color:#888;
+	font-family:"Î¢ÈíÑÅºÚ";
+}
+.item-deal .item-img{
+	float:left;
+	margin-right:10px;
+}
+.item-deal .item-img,.item-img img{
+	width:310px;
+	height:310px
+}
+.item-deal .item-tit{
+	float:left;
+	width:480px;
+	overflow:hidden;
+	font-size:36px;
+	height:48px;
+	text-decoration:none;
+}
+.item-deal .item-tit a{
+	color:#888;
+}
+.item-deal span{
+	display:inline-block;
+}
+.item-deal del{
+	display:inline-block;
+	width:200px;
+	margin-top:10px;
+}
+.item-deal .nprice{
+	width:200px;
+	margin-top:10px;
+	color:#FF68B8;
+	font-size:38px;
+}
+.item-deal .buy{
+	width:127px;
+	height:37px;
+	background:#FD2F70;
+	color:#fff;
+	margin-top:10px;
+	text-align:center;
+	line-height:37px;
+	border-radius:5px;
+}
+.item-img tkbox,tkbox,.item-tit tkbox{
+	position:absolute;top:0px;
+}
+.clearfix{
+	clear:both;
+}

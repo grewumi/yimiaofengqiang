@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<title>一秒疯抢 - 用户中心</title>
+<link rel="stylesheet" href="/assets/stylesheets/front/head.css" />
+<link rel="stylesheet" href="/assets/stylesheets/front/foot.css" />
+<link rel="stylesheet" href="/assets/stylesheets/front/iinfo.css" />
+<script type="text/javascript"  src="/assets/Javascripts/jquery-2.0.3.min.js"></script>
+</head>
+<body>
+{include file="front/head.html"}
+<div class="iinfo-around">
+	<div class="iinfo">
+		<div class="left">
+			<ul>
+				<li class="hd">账户中心</li>
+				<li><a href="/?c=user&a=iinfo&act=info">基本信息</a></li>
+				<li><a href="/?c=user&a=iinfo&act=ww">我的旺旺</a></li>
+				<li>报名宝贝</li>
+				<li>收货地址</li>
+				<li><a href="/?c=user&a=iinfo&act=hyjf">我的积分</a></li>
+				<li><a href="/?c=user&a=iinfo&act=hyjf">我的钱包</a><span><a href="/?c=user&a=iinfo&act=cz">充值</a></span></li>
+				<li><a href="/?c=user&a=iinfo&act=ggw">我的广告位</a><span><a href="/?c=user&a=iinfo&act=ggwdh">兑换</a></span></li>
+			</ul>
+		</div>
+		{if $act=='info' || !$act}
+		<div class="right">
+			<div><label>用户名:</label><span>{$uname}<a href="/?c=user&a=login&cmd=out">退出</a></span></div>
+			<div><label>积分:</label><span>{$hyjf}</span></div>
+			<div><label>上次登录:</label><span>{$lastlogin}</span></div>
+			<div><label>注册时间:</label><span></span></div>
+			<div><label>邮箱:</label><span>{$uemail}</span></div>
+			<div><label>性别:</label><span></span></div>
+			<div><label>生日:</label><span></span></div>
+			<div><label>所在地:</label><span></span></div>
+		</div>
+		{elseif $act=='ww'}
+		<div class="right">
+			<div><span style="color:gray;">旺旺绑定,绑定后只能报名旺旺所在店铺的商品</span></div>
+			<div>
+				{if !$ww}
+				<form action="/?c=user&a=iinfo&act=ww" method="post">
+					<span>旺旺号：</span>
+					<input name="ww" />
+					<input type="submit" name="submit" value="绑定">
+				</form>
+				{else}
+					<span>旺旺号：{$ww}</span>
+				{/if}
+			</div>
+		</div>
+		{elseif $act=='hyjf'}
+		<div class="right">
+			<div>我的积分<span>{$hyjf}</span></div>
+		</div>
+		{elseif $act=='cz'}
+		<div class="right">
+			<div><span>请扫码充值(充值完成请联系QQ：850177915)</span></div>
+			<div><img style="width:200px;height:200px;" src="/assets/images/front/iinfo/sk.png" /></div>
+		</div>
+		{elseif $act=='ggw'}
+		<div class="right">
+			{if !$ggws}
+			<div><span style="color:gray;">您没有任何广告位</span></div>
+			{else}
+			<h4 style="color:gray;">您有以下已兑换的广告位</h4>
+			{foreach key=k item=v from=$ggws}
+			<div><label>商品IID：</label><span>{$v.iid}</span></div>
+			<div><label>状态：</label><span>{if $v.dh==1}已兑换->待排期{else if $v.dh==2}已兑换->已排期->待上线{else if $v.dh==3}已兑换->已排期->已上线{/if}</span></div>
+			<div><label>消耗：</label><span>900积分</span></div>
+			<hr />
+			{/foreach}
+			{/if}
+		</div>
+		{elseif $act=='ggwdh'}
+		<div class="right">
+			<div>
+				<div><label>咨询QQ：</label><span>850177915</span></div>
+				<div><label>类型：</label><span>会员积分（900积分）{if $hyjf<900}<span style="color:red;">你的积分不足,请充值</span>{/if}</span></div>
+				<form action="/?c=user&a=iinfo&act=ggwdh" method="post">
+					<div>
+						<label>商品IID：</label><input name="iid"/>
+						{if $hyjf>=900}
+						<input type="submit" name="submit" value="提交">
+						{else}
+						<a>请充值</a>
+						{/if}
+					</div>
+				</form>
+			</div>
+		</div>
+		{/if}
+	<div class="clearfix"></div>	
+	</div>
+</div>
+{include file="front/foot.html"}
+</body>
+</html>

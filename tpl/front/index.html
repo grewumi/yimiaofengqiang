@@ -17,7 +17,12 @@ $(document).ready(function(e) {
 		}else{
 			$(".head-nav-around").removeClass( "scoll_nav")
 		}
-	});  
+		if( $(window).scrollTop() >200 ){  //判断滚动后高度超过200px,就显示  
+			$("#gotop").fadeIn(400); //淡出     
+		}else{      
+			$("#gotop").stop().fadeOut(400); //如果返回或者没有超过,就淡入.必须加上stop()停止之前动画,否则会出现闪动   
+		}
+	});
 })
 </script>
 </head>

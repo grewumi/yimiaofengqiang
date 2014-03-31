@@ -680,33 +680,16 @@ class UzCaiji{
 				if($mode==2)
 					echo json_encode($this->items);
 			}elseif($website=='yuansu'){
-				$this->url = 'http://yuansu.uz.taobao.com';
+				$this->url = 'http://yuansu.uz.taobao.com/view/baohuasuan.php';
 				$result = file_get_contents($this->url);
-				$yuansuptn = '/class="lff-con(.+?)first"(.+?)class="floor-item(.+?)class="clear"/is';
+				$yuansuptn = '/<table(.+?)class="img">(.+?)<\/td>(.+?)class="tejia">(.+?)<\/td>(.+?)class="iid">(.+?)<\/td>(.+?)<\/table>/is';
 				preg_match_all($yuansuptn,$result,$yuansuarr,PREG_SET_ORDER);
-				$yfzqgR = $yuansuarr[0][3];
-				$bkjpR = $yuansuarr[1][3];
 				
-				$yuansuarr = null;
-				// 一分钟抢光
-				$yuansuptn = '/class="img"(.+?)<a(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<img(.+?)src="(.+?)"(.+?)class="price"(.+?)<\/font>(\d+\.?\d+)(.+?)<\/div>/is';
-				preg_match_all($yuansuptn,$yfzqgR,$yuansuarr,PREG_SET_ORDER);
-				//print_r($yuansuarr);
+				//var_dump($yuansuarr);
 				foreach($yuansuarr as $k => $v){
-					$yfzqg[] = array('iid'=>$v[4],'nprice'=>$v[11]);//,'pic'=>preg_replace('/_210x210.jpg/i','_310x310.jpg',$v[8])
+					$bkjp[] = array('iid'=>$v[6],'nprice'=>$v[4],'pic'=>$v[2]);//,'pic'=>preg_replace('/_210x210.jpg/i','_310x310.jpg',$v[8])
 				}
-				$yuansu['yfzqg'] = $yfzqg;
-				// END - 一分钟抢光
-				
-				$yuansuarr = null;
-				// 爆款精品
-				$yuansuptn = '/class="img"(.+?)<a(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<img(.+?)src="(.+?)"(.+?)class="price"(.+?)<\/font>(\d+\.?\d+)(.+?)<\/div>/is';
-				preg_match_all($yuansuptn,$bkjpR,$yuansuarr,PREG_SET_ORDER);
-				//print_r($yuansuarr);
-				foreach($yuansuarr as $k => $v){
-					$bkjp[] = array('iid'=>$v[4],'nprice'=>$v[11]);//,'pic'=>preg_replace('/_210x210.jpg/i','_310x310.jpg',$v[8])
-				}
-				$yuansu['bkjp'] = $bkjp; 
+				$yuansu['all'] = $bkjp; 
 				// END - 爆款精品
 				
 				//var_dump($yuansu);

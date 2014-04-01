@@ -2,15 +2,11 @@
 class user extends spController{
 	public function __construct(){
 		parent::__construct();
+		$this->supe_uid = $GLOBALS['G_SP']['supe_uid'];
 		$this->ucenter = spClass('spUcenter');
 		$this->users = spClass("m_u");
+		$this->member = spClass("m_member");
 		$this->ggw = spClass("m_ggw");
-		if($_SESSION['user'])
-			$this->uname = $_SESSION['user'];
-		if($this->uname){
-			if(!$this->users->find(array('username'=>$this->uname)))
-				$this->users->create(array('username'=>$this->uname,'lastlogin'=>date("Y-m-d H:i:s")));
-		}
 	}
 	public function register(){
 		$this->registersuccess = 0;
@@ -46,8 +42,8 @@ class user extends spController{
 	}
 	public function login(){
 		/* 设置签名 */
-		$app_key = '21726073';/*填写appkey */
-		$secret='c23972d5f868ce97b17e66298a228136';/*填入Appsecret'*/
+		$app_key = '21726073';
+		$secret='c23972d5f868ce97b17e66298a228136';
 		$timestamp=time()."000";
 		$message = $secret.'app_key'.$app_key.'timestamp'.$timestamp.$secret;
 		$mysign=strtoupper(hash_hmac("md5",$message,$secret));
@@ -56,8 +52,8 @@ class user extends spController{
 		/*  END - 设置签名*/
 		$loginstatus = $this->spArgs('cmd');
 		if($loginstatus == 'out'){
-			$_SESSION['user'] = 0;
-			header("Location:/?c=user&a=login");
+			clearcookie();
+			//header("Location:/?c=user&a=login");
 		}elseif($loginstatus == 'reg'){
 			$this->register();
 		}else{
@@ -67,38 +63,70 @@ class user extends spController{
 				$email = $this->spArgs("email");
 				$questionid = $this->spArgs("questionid");
 				$answer = $this->spArgs("answer");
-				$userinfo = $this->ucenter->uc_user_login($username,$password,$email);
-				$uid = $userinfo[0];
-				$uname = $userinfo[1];
-				//var_dump($userinfo);
-				if($uid > 0) {
+				$userinfo = $this->ucenter->uc_user_login($username,$password);
+				$mtime = explode(' ', microtime());
+				$uinfo = array(
+					'uid'=>$userinfo[0],
+					'username'=>$userinfo[1],
+					'password'=>md5($userinfo[0].'|'.$mtime[1]),
+					'email'=>$userinfo[3],
+				);
+				//var_dump($uinfo);
+				//echo $uinfo['password'];
+				if($uinfo['uid'] > 0) {
 					$this->loginsuccess = 1;
-					$userinfo = $this->ucenter->uc_get_user($username);
-					$_SESSION['user'] = $uname;
+					$GLOBALS['G_SP']['supe_uid'] = $uinfo['uid'];
+					//设置cookie
+					ssetcookie('auth', authcode($uinfo['password'].'\t'.$uinfo['uid'], 'ENCODE'), 31536000);
+					ssetcookie('loginuser', $uinfo['username'], 31536000);
+					ssetcookie('_refer', '');
+					// end - 设置cookie
 					$this->loginnote = '登录成功';
-				} elseif($uid == -1) {
+				} elseif($uinfo['uid'] == -1) {
 					$this->loginnote = '用户不存在,或者被删除';
-				} elseif($uid == -2) {
+				} elseif($uinfo['uid'] == -2) {
 					$this->loginnote = '密码错误';
 				} else {
 					$this->loginnote = '未定义';
 				}
 			}
 		}
-		if($_SESSION['user']){
-			$this->users->update(array('username'=>$_SESSION['user']),array('lastlogin'=>date("Y-m-d H:i:s")));
+		if($GLOBALS['G_SP']['supe_uid']){
+			//var_dump($uinfo);
+			if(!$this->member->find(array('uid'=>$GLOBALS['G_SP']['supe_uid']))){
+				$this->member->create($uinfo);
+			}
+			if(!$this->users->find(array('uid'=>$GLOBALS['G_SP']['supe_uid']))){
+				//echo '新用户入库';
+				$newuser = array(
+					'uid'=>$GLOBALS['G_SP']['supe_uid'],
+					'username'=>$uinfo['username'],
+					'lastlogin'=>date("Y-m-d H:i:s")
+				);
+				//var_dump($newuser);
+				$this->users->create($newuser);
+				//echo $this->users->dumpSql();
+				//echo '用户入库完成';
+			}else{
+				$this->users->update(array('uid'=>$GLOBALS['G_SP']['supe_uid']),array('lastlogin'=>date("Y-m-d H:i:s")));
+			}
 			header("Location:/?c=user&a=iinfo");
 		}
 		$this->cmd = $loginstatus;
 		$this->display("front/login.html");
 	}
 	public function iinfo(){
-		if(!$_SESSION['user'])
+		if(!$GLOBALS['G_SP']['supe_uid'])
 			header("Location:/?c=user&a=login");
-		//echo $_SESSION['user'];
 		$act = $this->spArgs("act");
 		$this->act = $act;
-		$uinfo = $this->users->find(array('username'=>$this->uname));
+		
+		$uinfos = $this->member->find(array('uid'=>$GLOBALS['G_SP']['supe_uid']));
+		$this->uname = $uinfos['username'];
+		
+		$uinfo = $this->users->find(array('username'=>$uinfos['username']));
+		//var_dump($uinfo);
+		
 		$this->lastlogin = $uinfo['lastlogin'];
 		$this->ww = $uinfo['ww'];
 		$this->hyjf = $uinfo['hyjf'];
@@ -117,7 +145,7 @@ class user extends spController{
 			}
 		}
 		
-		$uinfo = $this->ucenter->uc_get_user($_SESSION['user']);
+		$uinfo = $this->ucenter->uc_get_user($this->uname);
 		$this->uemail = $uinfo[2];//var_dump($uinfo);
 		$this->display("front/iinfo.html");
 	}

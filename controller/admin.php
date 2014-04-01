@@ -866,13 +866,7 @@ class admin extends spController{
 					$v['act_from'] = 1;
 				}
 				if($_SESSION['iscaijiuser']=='cong'){
-					if($v['nprice']<10){
-						$v['act_from'] = 1;
-					}elseif($v['nprice']>=10 and $v['nprice']<20){
-						$v['act_from'] = 2;
-					}else{
-						$v['act_from'] = 3;
-					}
+					$v['act_from'] = 3;
 				}
 				if($_SESSION['iscaijiuser']=='9kuaigou'){
 					if($v['cat']==27)

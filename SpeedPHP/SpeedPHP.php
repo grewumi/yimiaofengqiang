@@ -20,7 +20,6 @@ require(SP_PATH."/spFunctions.php");
 
 // 载入配置文件
 $GLOBALS['G_SP'] = spConfigReady(require(SP_PATH."/spConfig.php"),$spConfig);
-
 // 根据配置文件进行一些全局变量的定义
 if('debug' == $GLOBALS['G_SP']['mode']){
 	define("SP_DEBUG",TRUE); // 当前正在调试模式下

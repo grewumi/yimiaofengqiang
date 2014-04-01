@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gbk">
+<meta name="keywords" content="淘宝网,网购,省钱,淘宝返利,返利网,商城,返现,一秒疯抢,免费试用">
+<meta name="Description" content="一秒疯抢-最好用的返利网站。从一秒疯抢去淘宝网及网上商城购物，可获得高达50%额外返利，一键快速返利，满10元即可提现；一键收藏数十万网友推荐的海量超值商品信息，让网购更省钱。">
+<title>一秒疯抢 - 天天有特价,时时在更新</title>
+</head>
+<body style="margin:0px;padding:0px;">
+<div style="background:#BF0000;">
+	<div style="width:720px;margin:0 auto;height:80px;padding-top:20px;position:relative;">
+		<div style="width:180px;height:80px;background:#BF0000 url(http://img03.taobaocdn.com/imgextra/i3/1602138689/T2_lxvXpFXXXXXXXXX_!!1602138689.png);float:left;"></div>
+		<div style="float:right;color:#fff;font-size:20px;margin:10px 40px 0px 0px;">
+			站外地址:<a style="color:#fff;" target="_blank" href="http://yimiaofengqiang.432gou.com">http://yimiaofengqiang.432gou.com</a><br/>
+			U站地址：<a style="color:#fff;" target="_blank" href="http://yinxiang.uz.taobao.com">http://yinxiang.uz.taobao.com</a>
+		</div>
+	</div>
+</div>
+<div style="background:#000;">
+	<div style="width:720px;margin:0 auto;">
+		<a style="display:inline-block;padding:5px 18px;color:#fff;text-decoration:none;{if $index}background:#BF0000;{/if}" href="/" >首页</a>
+		<a style="display:inline-block;padding:5px 18px;color:#fff;text-decoration:none;{if $price=="1_10"}background:#BF0000;{/if}" href="{spUrl c=main a=index price=1_10}">9.9专区</a>
+		<a style="display:inline-block;padding:5px 18px;color:#fff;text-decoration:none;{if $price=="10_20"}background:#BF0000;{/if}" href="{spUrl c=main a=index price=10_20}">19.9专区</a>
+		<a style="display:inline-block;padding:5px 18px;color:#fff;text-decoration:none;{if $price=="20_30"}background:#BF0000;{/if}" href="{spUrl c=main a=index price=20_30}">29.9专区</a>
+		<a style="display:inline-block;padding:5px 18px;color:#fff;text-decoration:none;{if $price=="30_40"}background:#BF0000;{/if}" href="{spUrl c=main a=index price=20_30}">39.9专区</a>
+	</div>
+</div>
+<div style="background:url(http://img01.taobaocdn.com/imgextra/i1/1602138689/T2L1IdXglbXXXXXXXX_!!1602138689.png);">
+	<div style="width:720px;margin:0 auto;">
+		<div style="text-align:center;padding-top:20px;">
+			<a href="/" {if !$procat}style="color:#333;"{/if}>全部</a>
+			{foreach key=k item=v from=$procats}
+				<a href="{spUrl a=index procat=$v.type}" style="display:inline-block;text-decoration:none;padding:0 10px;font-size:16px;color:#acacac;margin-bottom:15px;{if $procat==$v.type}color:#333;{/if}">{$v.name}</a>
+			{/foreach}
+		</div>
+		<div style="margin-top:10px;">
+			{foreach key=k item=iv from=$items}
+			<div style="width:330px;margin:3px 20px 5px 3px;float:left;{if $k==0}margin-left:0px;{elseif $k==3}margin-right:0px;{/if}">
+				{foreach key=k item=v from=$iv}
+				<div style="background:#fff;margin:8px auto;">
+					<div><a target="_blank" href="{$v.link}"><img style="width:330px;height:330px;" src="{$v.pic}"/></a></div>
+					<div style="height:26px;overflow:hidden;line-height:26px;width:310px;margin:0px auto;"><a style="text-decoration:none;color:#5e5e5e;font-size:14px;" target="_blank" href="{$v.link}">{$v.title}</a></div>
+					<a style="text-decoration:none;" target="_blank" href="{$v.link}">
+						<div style="padding:0px;font-weight:bolder;font-size:28px;line-height:42px;color:#FF3366;position:relative;width:310px;margin:5px auto;">
+							<span style="letter-spacing:-2px;font-family:'Microsoft Yahei','Arial','Verda','tahoma';margin-left:3px;display: inline-block;margin-top: 12px;font-size:46px;">
+								<b style="font-size:16px;">￥</b>{(int)$v.nprice}
+								<span style="font-size:25px;display:inline-block;margin-left:-8px;">.{$v.nprice_tail}</span>
+							</span>
+							<span style="margin-left:-10px;color:gray;text-decoration: line-through;font-size: 14px;font-weight:normal;letter-spacing: -1px;font-family: Tahoma,Helvetica,Arial,'宋体',sans-serif;">{$v.oprice}</span>
+							<span style="width:87px;height:56px;display:inline-block;position: absolute;right: 0px;background:url(http://img02.taobaocdn.com/imgextra/i2/1602138689/T2IwXBXulaXXXXXXXX_!!1602138689.jpg);"></span>
+						</div>
+					</a>
+				</div>
+				{/foreach}
+			</div>
+			{/foreach}
+			<div style="clear:both;"></div>
+		</div>
+		<div class="xiai-page">
+		    {if $pager}
+			    共有商品{$pager.total_count}个，共有{$pager.total_page}页（每页{$pager.page_size}个商品）：
+			    <!--在当前页不是第一页的时候，显示前页和上一页-->
+			    {if $pager.current_page != $pager.first_page}
+				    <a href="{spUrl c=main a=index procat=$procat type=$type price=$price q=$q page=$pager.first_page}">第一页</a> |
+				    <a href="{spUrl c=main a=index procat=$procat type=$type price=$price q=$q page=$pager.prev_page}">上一页</a> |
+			    {/if}
+			    <!--开始循环页码，同时如果循环到当前页则不显示链接-->
+			    {foreach from=$pager.all_pages item=thepage}
+			            {if $thepage != $pager.current_page}
+			            	{if $thepage<=$pager.current_page+8 && $thepage>=$pager.current_page-2}
+			                	<a href="{spUrl c=main a=index procat=$procat type=$type price=$price q=$q page=$thepage}">{$thepage}</a>
+			            	{/if}									
+			            {else}
+			            	<b>{$thepage}</b>
+			            {/if}
+			    {/foreach}
+			    <!--在当前页不是最后一页的时候，显示下一页和后页-->
+			    {if $pager.current_page != $pager.last_page}
+			    	|
+				    <a href="{spUrl c=main a=index procat=$procat type=$type price=$price q=$q page=$pager.next_page}">下一页</a> |
+				    <a href="{spUrl c=main a=index procat=$procat type=$type price=$price q=$q page=$pager.last_page}">尾页</a>
+			    {/if}
+			{/if}
+		</div>
+	</div>
+</div>
+<div class="xiai-foot-around">
+	<div class="xiai-foot">
+		<a href="{spUrl c=main a=index type=1}"></a>
+		<a href="{spUrl c=main a=index price=1_10}"></a>
+		<a href="{spUrl c=main a=index procat=27}"></a>
+		<a href="/view"></a>
+	</div>
+	<script type="text/javascript">
+    (function(win,doc){
+	        var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+	        if (!win.alimamatk_show) {
+	            s.charset = "gbk";
+	            s.async = true;
+	            s.src = "http://a.alimama.cn/tkapi.js";
+	            h.insertBefore(s, h.firstChild);
+	        };
+	        var o = {
+	        	pid: "mm_17679372_4246421_14410027",/*推广单元ID，用于区分不同的推广渠道*/
+		        appkey: "21640609",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+	            unid: ""/*自定义统计字段*/
+	        };
+	        win.alimamatk_onload = win.alimamatk_onload || [];
+	        win.alimamatk_onload.push(o);
+	    })(window,document);
+	</script>
+</div>
+</body>
+</html>

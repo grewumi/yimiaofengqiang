@@ -2,6 +2,7 @@
 class admin extends spController{
 	public function __construct(){
 		parent::__construct();
+		$this->supe_uid = $GLOBALS['G_SP']['supe_uid'];
 		import('public-data.php');
 		import("function_login_taobao.php");
 		//loginTaobao('liushiyan8','liujun987');
@@ -863,6 +864,15 @@ class admin extends spController{
 						$v['act_from'] = 3;
 				}else{
 					$v['act_from'] = 1;
+				}
+				if($_SESSION['iscaijiuser']=='cong'){
+					if($v['nprice']<10){
+						$v['act_from'] = 1;
+					}elseif($v['nprice']>=10 and $v['nprice']<20){
+						$v['act_from'] = 2;
+					}else{
+						$v['act_from'] = 3;
+					}
 				}
 				if($_SESSION['iscaijiuser']=='9kuaigou'){
 					if($v['cat']==27)

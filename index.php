@@ -8,10 +8,10 @@ $spConfig = array(
 		'host' => 'localhost',  // 数据库地址，一般都可以是localhost
          //'host' => 'www.yimiaofengqiang.com',
 		'login' => 'root', // 数据库用户名
-		//'password' => 'N]j]78R>jPKEML7edAC(',  // 数据库密码
-		'password' => '',
-		//'database' => 'xiai' // 数据库的库名称
-		'database' => 'net37372922' // 数据库的库名称					
+		'password' => 'N]j]78R>jPKEML7edAC(',  // 数据库密码
+		//'password' => '',
+		'database' => 'xiai' // 数据库的库名称
+		//'database' => 'net37372922' // 数据库的库名称					
 	),
 	// smarty配置
 	'view' => array(
@@ -109,7 +109,17 @@ $spConfig = array(
 	),
 	'mode' => 'release',
 	'dispatcher_error' => "import(APP_PATH.'/404.html');exit();",
+	'supe_uid' => '',
+	'SC' => array(
+		'cookiepre' => 'ymfq_', //COOKIE前缀
+		'cookiedomain' => '', //COOKIE作用域
+		'cookiepath' => '/', //COOKIE作用路径
+	),
+	'timestamp' => time(),
 );
 require(SP_PATH."/SpeedPHP.php");
 import('md5password.php');
+import("func.php");
+import('common.php');
+checkauth();
 spRun(); 

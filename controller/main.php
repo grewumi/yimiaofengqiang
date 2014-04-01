@@ -2,6 +2,7 @@
 class main extends spController{
 	public function __construct(){
 		parent::__construct();
+		$this->supe_uid = $GLOBALS['G_SP']['supe_uid'];
 		$agent = strtolower($_SERVER['HTTP_USER_AGENT']);
 		//echo $agent;
 		$is_pc = strpos($agent,'windows nt') ? true : false;
@@ -20,6 +21,7 @@ class main extends spController{
 		if($is_android){
 			 header("Location:http://m.yimiaofengqiang.com");
 		}
+		
 	}
 	public function view(){
 		$this->display("front/index_bak.html");
@@ -108,7 +110,7 @@ class main extends spController{
 			$where = $q.' and '.$baseSql;
 		}
 		
-		$itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
+		$itemsTemp = $pros->spPager($page,56)->findAll($where,$order);//$pros->spPager($page,56)->findAll($where,$order);
 		
 		// 这里用foreach & 改变数组的值的时候最后一个数据带有 & 符号,导致最后一条数据重复
 		for($i=0;$i<count($itemsTemp);$i++){
@@ -125,16 +127,21 @@ class main extends spController{
 				array_push($itemList[$k%4],$v);
 			}
 		}
+		
+		$smarty = $this->getView();
+		//$smarty->caching = true; // 开启缓存
+		//$smarty->cache_lifetime = 480; // 页面缓存8分钟
+		
 		//var_dump($itemList);
 		if(!$procat && !$type && !$price)
-			$this->index = "index";
-		$this->procat = $procat;
-		$this->type = $type;
-		$this->price = $price;
-		$this->procats = $procats;
-		$this->pager = $pros->spPager()->getPager();
-		$this->items = $itemList;
-		$this->admin = $_SESSION['admin'];
+			$smarty->assign("index",'index');//$this->index = "index";
+		$smarty->assign("procat",$procat);//$this->procat = $procat;
+		$smarty->assign("type",$type);//$this->type = $type;
+		$smarty->assign("price",$price);//$this->price = $price;
+		$smarty->assign("procats",$procats);//$this->procats = $procats;
+		$smarty->assign("pager",$pros->spPager()->getPager());//$this->pager = $pros->spPager()->getPager();
+		$smarty->assign("items",$itemList);//$this->items = $itemList;
+		$smarty->assign("admin",$_SESSION['admin'],true);//$this->admin = $_SESSION['admin'];
 		
 		// 输出静态页面
 		/* $content = $this->getView()->fetch("front/index.html");
@@ -144,9 +151,9 @@ class main extends spController{
 		//spClass('spHtml')->make(array('main','index'));
 		// END 输出静态页面
 		if($mode)
-			$this->display("front/mailindex.html");
+			$smarty->display("front/mailindex.html");
 		else
-			$this->display("front/index.html");
+			$smarty->display("front/index.html");
 	}
 	public function user(){
 		$pros = spClass("m_pro");

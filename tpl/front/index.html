@@ -27,7 +27,7 @@ $(document).ready(function(e) {
 </script>
 </head>
 <body>
-{include file="front/head.html"}
+{include file="front/head.html" cache_liftetime=500}
 <div class="around-index">
 	<div class="main-index">
 		<div class="sub-index">
@@ -40,9 +40,6 @@ $(document).ready(function(e) {
 			{foreach key=k item=iv from=$items}
 			<div class="item-row {if $k==0}row-left{elseif $k==3}row-right{/if}">
 				{foreach key=k item=v from=$iv}
-				<div style="position:relative;display:none;">
-					<a data-type="0" biz-itemid="{$v.iid}" data-tmpl="290x380" data-tmplid="5" data-rd="2" data-style="2" data-border="1" href="http://item.taobao.com/item.htm?id={$v.iid}">http://item.taobao.com/item.htm?id={$v.iid}</a>
-				</div>
 				<div class="item" style="display:block;">
 					{if $admin}
 					<div class="admin-edit">
@@ -51,22 +48,21 @@ $(document).ready(function(e) {
 					</div>
 					{/if}
 					<div class="item-pic" style="position:relative;">
-						<img src="{$v.pic}" alt="{$v.title}" />
-						<a data-type="0" biz-itemid="{$v.iid}" data-tmpl="260x260" data-tmplid="1765" data-rd="2" data-style="2" data-border="0" href="http://detail.tmall.com/item.htm?id={$v.iid}"></a>
-						<!-- <a target="_blank" date-type="0" biz-itemid="{$v.iid}" href="{$v.link}"></a> -->
+						<a target="_blank" href="{spUrl c=main a=deal id=$v.id}">
+							<img src="{$v.pic}" alt="{$v.title}" />
+						</a>
 					</div>
 					<div class="item-title position"><a target="_blank" href="{spUrl c=main a=deal id=$v.id}">{$v.title}</a></div>
-					<!-- <a target="_blank" date-type="0" biz-itemid="{$v.iid}" href="{$v.link}"> -->
-						<div class="item-price position" style="position:relative;">
-							<span class="price">
-								<b>гд</b>{(int)$v.nprice}
-								<span>.{$v.nprice_tail}</span>
-							</span>
-							<span class="old-price">{$v.oprice}</span>
+					<div class="item-price position" style="position:relative;">
+						<span class="price">
+							<b>гд</b>{(int)$v.nprice}
+							<span>.{$v.nprice_tail}</span>
+						</span>
+						<span class="old-price">{$v.oprice}</span>
+						<a target="_blank" href="{spUrl c=main a=deal id=$v.id}">
 							<span class="buy"></span>
-							<a data-type="0" biz-itemid="{$v.iid}" data-tmpl="250x56" data-tmplid="1860" data-rd="2" data-style="2" data-border="0" href="http://detail.tmall.com/item.htm?id={$v.iid}"></a>
-						</div>
-					<!--  </a> -->
+						</a>
+					</div>
 				</div>
 				{/foreach}
 			</div>
@@ -97,6 +93,6 @@ $(document).ready(function(e) {
 		</div>
 	</div>
 </div>
-{include file="front/foot.html"}
+{include file="front/foot.html" cache_liftetime=500}
 </body>
 </html>

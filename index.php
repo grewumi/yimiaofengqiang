@@ -42,6 +42,7 @@ $spConfig = array(
 				//'view'=>'main@view',
 				'view'=>'main@view',
 				'user'=>'main@user',
+				'outitems'=>'main@outitems',
 				'iteminfo'=>'admin@getiteminfo',
 				'xuqi'=>'admin@xuqi',
 				'postDataToUz'=>'admin@postDataToUz',
@@ -93,7 +94,8 @@ $spConfig = array(
 	
 			//通信相关
 			'UC_KEY' => 'YgergE52d7yUJ1EEHRYHKCFAS4wUW28lw8GUcUp1wiyitclPr46XR7xtOlwnm754', // 与 UCenter 的通信密钥, 要与 UCenter 保持一致
-			'UC_API' => 'http://ucenter.com', // UCenter 的 URL 地址, 在调用头像时依赖此常量
+			'UC_API' => 'http://yonghu.yimiaofengqiang.com',
+			//'UC_API' => 'http://ucenter.com', // UCenter 的 URL 地址, 在调用头像时依赖此常量
 			'UC_CHARSET' => 'gbk', // UCenter 的字符集
 			'UC_IP' => '127.0.0.1', // UCenter 的 IP, 当 UC_CONNECT 为非 mysql 方式时, 并且当前应用服务器解析
 			'UC_APPID' => 1 // 当前应用的 ID

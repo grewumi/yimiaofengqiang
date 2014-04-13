@@ -195,7 +195,7 @@ class main extends spController{
 		}
 		if($this->spArgs('searchIid')){
 			if($this->isInThere($this->spArgs('sIid'))){ // 商品是否存在
-				$pro = $pros->find(array('iid'=>$this->spArgs('sIid')));
+				$pro = $pros->find(array('iid'=>trim($this->spArgs('sIid'))));
 			
 				if($pro['ischeck']){
 					if($pro['ischeck']==1)

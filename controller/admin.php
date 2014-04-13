@@ -439,20 +439,24 @@ class admin extends spController{
 		
 		//import('public-data.php');
 		$pros = spClass('m_pro');		
-		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and postdt>=curdate()';
+		$where = 'st<=curdate() and et>=curdate() and ischeck=1';
 		$noyj = $this->spArgs('noyj');
-		if($noyj=='yes')
-                    $items = $pros->findAll($where.' and commission_rate=-1');
+		$date = $this->spArgs('date');
+		if($noyj=='yes'){
+			if($date=='today')
+				$items = $pros->findAll($where.'  and postdt>=curdate() and commission_rate=-1');
+			elseif($date=='all')
+				$items = $pros->findAll($where.' and commission_rate=-1');
+		}
 		$this->items = $items;
-		
-                $this->itemCounts = count($items);
+		$this->itemCounts = count($items);
                 
 		foreach($items as $k=>$v){
-                    $iidarr[] = array(iid=>$v['iid']);
+			$iidarr[] = array(iid=>$v['iid']);
 		}	
 				
 		$this->iidarr = $iidarr;
-					
+		$this->yjdate = $date;			
 		//$timestamp=time()."000";
 		//$app_key = '12636285';
 		//$secret = '63e664fafc1f3f03a7b8ad566c42819d';
@@ -476,10 +480,14 @@ class admin extends spController{
 		ini_set('pcre.backtrack_limit', 999999999); // 回溯超载
 		ini_set('pcre.recursion_limit', 99999); // 资源开大就行
 		// end - 采集开春哥
-                
-		$pros = spClass('m_pro');		
-		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and postdt>=curdate()';
-		$items = $pros->findAll($where.' and commission_rate=-1');
+        $date = $this->spArgs('date');        
+		$pros = spClass('m_pro');
+		$where = 'st<=curdate() and et>=curdate() and ischeck=1';
+		if($date=='today')
+			$items = $pros->findAll($where.' and postdt>=curdate() and commission_rate=-1');
+		elseif($date=='all')
+			$items = $pros->findAll($where.' and commission_rate=-1');
+		
 		foreach($items as $k=>$v){
 			$yj = getCommissionRate($v['iid']);
 			$itemTemp = array('commission_rate'=>$yj);
@@ -951,10 +959,12 @@ class admin extends spController{
 		if($this->loginalimama){
 			$yj = getCommissionRate($iid);
 			//echo $yj.'<br/>';
-			$item['commission_rate'] = $yj;
-			if($iid && $yj){
-				$pros->update(array('iid'=>$iid),$item);
-			}
+			if($yj && $yj>1)
+				$item['commission_rate'] = $yj;
+			else
+				$item['commission_rate'] = -1;
+			$pros->update(array('iid'=>$iid),$item);
+			
 		}
 		//print_r($yjarr1);
 	}

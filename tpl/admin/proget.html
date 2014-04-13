@@ -30,11 +30,12 @@
 				</div>
 				<div class="proget-ctrl">
 					<h3>佣金更新</h3>
-					<a href="?noyj=yes">未更新佣金</a>
+					<a href="?noyj=yes&date=today">当日未更新佣金</a>
+					<a href="?noyj=yes&date=all">所有未更新佣金</a>
 					<div>	
 						<p>
-                                                    <a style="text-decoration:none;" href="{spUrl c=admin a=updateyj}"><input type="button" value="更新佣金" /></a>
-                                                    <span style="color:red;margin-left:10px;">{$itemCounts}</span>未更新
+								<a style="text-decoration:none;" href="{spUrl c=admin a=updateyj date=$yjdate}"><input type="button" value="更新佣金" /></a>
+								<span style="color:red;margin-left:10px;">{$itemCounts}</span>未更新
 						</p>		
 						{foreach key=k item=v from=$items}
 							<input value="{$v.iid}"/>

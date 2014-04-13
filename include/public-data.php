@@ -1,6 +1,6 @@
 <?php
 global $caijiusers,$website;
-define('COMISSIONRATESORT',0);
+define('COMISSIONRATESORT',1);
 $website = array(
 	'jiukuaiyou'=>array('actType'=>4,'name'=>'æ≈øÈ” ','rank'=>19), // æ≈øÈ” 
 	'zhe800'=>array('actType'=>5,'name'=>'’€800','rank'=>18), // ’€800

@@ -158,9 +158,8 @@ class uuApi{
 	}
 	public function upload($imageData,$codeType,$auth=false)
 	{	
-		if(!file_exists($imageData["tmp_name"])){return '-1003';}
-		if(!$this->iswriteable($this->dest_folder)){ return '-9999';};
-
+		//if(!file_exists($imageData["tmp_name"])){return '-1003';}
+		//if(!$this->iswriteable($this->dest_folder)){ return '-9999';};
 
 		$fname = $imageData["name"];
 		$fname_array = explode('.',$fname);
@@ -175,13 +174,14 @@ class uuApi{
 			'image/x-png'
 		);
 		if(!in_array($imageData["type"],$uptypes)){return '-3007';}
-		$randval = date('Y-m-dgis').'-'.mt_rand(1000000,9999999);
-		$saveImgPath=$this->dest_folder.$randval.'.'.$extend;
-		move_uploaded_file($imageData["tmp_name"],$saveImgPath);	//修改文件
-		if(!file_exists(realpath($saveImgPath))){ return '-1003';};
+		//$randval = date('Y-m-dgis').'-'.mt_rand(1000000,9999999);
+		//$saveImgPath=$this->dest_folder.$randval.'.'.$extend;
+		//move_uploaded_file($imageData["tmp_name"],$saveImgPath);	//修改文件
+		//if(!file_exists(realpath($saveImgPath))){ return '-1003';};
 		if(!is_numeric($codeType)){return '-3004';}
 		$data=array(
-			'img'=>'@'.realpath($saveImgPath),
+			//'img'=>'@'.realpath($saveImgPath),
+			'img'=>'@'.realpath('tmp/Checkcode.jpg'),
 			'key'=>$this->userKey,
 			'sid'=>$this->softID,
 			'skey'=>$this->softContentKEY,
@@ -194,8 +194,10 @@ class uuApi{
 
 		if($auth){$data=$data+$ver;}
 		$url = $this->getServerUrl('upload').'/Upload/Processing.aspx?R='.mktime(time());
+		//print_r($data);
 		$result=$this->uuGetUrl($url,$data);
-		@unlink($saveImgPath);	//删除上传的文件
+		//@unlink($saveImgPath);	//删除上传的文件
+		//@unlink('/tmp/Checkcode.jpg');
 		return $result;
 	}
 	public function getResult($codeID)
@@ -219,12 +221,15 @@ class uuApi{
 	public function autoRecognition($imagePath,$codeType)
 	{
 		$result=$this->upload($imagePath,$codeType,$auth=true);
+		//echo $result;
 		if($result>0){
 			$arrayResult=explode("|",$result);
 			if(!empty($arrayResult[1])){return $arrayResult[1];}
 			return $this->getResult($result);
+		}else{
+			return -1;
 		}
-		return $result;
+		//return $result;
 	}
 	private function uuGetUrl($url,$postData=false,$closeUrl=true)
 	{

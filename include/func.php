@@ -115,19 +115,25 @@ function getImage($url,$save_dir='',$filename='',$type=0){
 		$ch=curl_init();
 		$timeout=5;
 		curl_setopt($ch,CURLOPT_URL,$url);
+		curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false); 
+		curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,false);
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
 		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
 		$img=curl_exec($ch);
 		curl_close($ch);
+		//echo $img;
     }else{
-	    ob_start(); 
-	    readfile($url);
-	    $img=ob_get_contents(); 
-	    ob_end_clean(); 
+		//echo $url;
+		ob_start();
+		readfile($url);
+		$img = ob_get_contents(); 
+		ob_end_clean(); 
     }
     //$size=strlen($img);
+	//echo $img;
     //文件大小 
-    $fp2=@fopen($save_dir.$filename,'a');
+	//echo $save_dir.$filename;
+    $fp2=@fopen($save_dir.$filename,'w');
     fwrite($fp2,$img);
     fclose($fp2);
 	unset($img,$url);

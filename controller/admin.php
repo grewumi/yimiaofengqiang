@@ -5,8 +5,10 @@ class admin extends spController{
 		$this->supe_uid = $GLOBALS['G_SP']['supe_uid'];
 		import('public-data.php');
 		import("function_login_taobao.php");
-		//loginTaobao('liushiyan8','liujun987');
-		
+		if(loginTaobao('liushiyan8','liujun987'))
+			$this->loginalimama = 1;
+		else
+			$this->loginalimama = 0;
 		global $caijiusers,$website;
 		$this->caijiusers = $caijiusers;
 		
@@ -479,9 +481,9 @@ class admin extends spController{
 		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and postdt>=curdate()';
 		$items = $pros->findAll($where.' and commission_rate=-1');
 		foreach($items as $k=>$v){
-                    $yj = getCommissionRate($v['iid']);
-                    $itemTemp = array('commission_rate'=>$yj);
-                    $pros->update(array('iid'=>$v['iid']),$item);
+			$yj = getCommissionRate($v['iid']);
+			$itemTemp = array('commission_rate'=>$yj);
+			$pros->update(array('iid'=>$v['iid']),$itemTemp);
 		}	 
 		$this->display("admin/uzcaiji.html");
 		header("Location:/proget.html");
@@ -589,7 +591,7 @@ class admin extends spController{
 						echo $v['iid'].' 添加失败,数据库操作失败!<br/>';
 					else{
 						//$this->upyjscript($v['iid'],$actType);
-						//$this->updateyjPhp($v['iid']);
+						$this->updateyjPhp($v['iid']);
 						echo $v['iid'].' 添加成功!<br/>';
 					}
 				}else{
@@ -600,7 +602,7 @@ class admin extends spController{
 						echo $v['iid'].' 更新失败,数据库操作失败!<br/>';
 					else{
 						//$this->upyjscript($v['iid'],$actType);
-						//$this->updateyjPhp($v['iid']);
+						$this->updateyjPhp($v['iid']);
 						echo $v['iid'].' 更新成功!<br/>';
 					}
 		
@@ -945,12 +947,14 @@ class admin extends spController{
 		
                  * 
                  */
-                $pros = spClass('m_pro');
-                $yj = getCommissionRate($iid);
-                //echo $yj.'<br/>';
-		$item['commission_rate'] = $yj;
-		if($iid && $yj){
-			$pros->update(array('iid'=>$iid),$item);
+        $pros = spClass('m_pro');
+		if($this->loginalimama){
+			$yj = getCommissionRate($iid);
+			//echo $yj.'<br/>';
+			$item['commission_rate'] = $yj;
+			if($iid && $yj){
+				$pros->update(array('iid'=>$iid),$item);
+			}
 		}
 		//print_r($yjarr1);
 	}

@@ -19,7 +19,7 @@ function getCheckcode($referer){
 	preg_match_all($ptn,$result,$arr,PREG_SET_ORDER);
 	//echo $arr[0][2];
 	//$arr[0][2]	= 'http://img02.taobaocdn.com/bao/uploaded/i2/T1FMxUFChnXXXXXXXX_!!0-item_pic.jpg';
-	$url = 'http://xiai.com?c=virtualapi&a=getCheckcode&imgurl='.urlencode($arr[0][2]);
+	$url = 'http://www.yimiaofengqiang.com?c=virtualapi&a=getCheckcode&imgurl='.urlencode($arr[0][2]);
 	//echo $url;
 	$result = file_get_contents($url);
 	return $result;

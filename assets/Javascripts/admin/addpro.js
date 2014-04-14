@@ -49,6 +49,18 @@ function userhuoqu(){
 		    	//alert('bubaoyou');
 		    	$("input#nopostage").checked = true;
 		    }
+			/* 佣金检测 */
+			if(dataObj.commission_rate>0){
+				if(dataObj.commission_rate < 10)
+					$("span.reporttips").append("<em class='tips'>佣金小于10%</em>");
+				else
+					var yjisok = 1;
+			}else{
+				$("span.reporttips").append("<em class='tips'>佣金未设置</em>");
+			}
+			/* END - 佣金检测 */
+			if(yjisok)
+				$("input#userReport").attr("disabled",false);
 		});
 	});
 }

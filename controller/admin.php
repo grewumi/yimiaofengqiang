@@ -94,10 +94,13 @@ class admin extends spController{
 		$item['title'] = iconv('utf-8','gb2312',$item['title']);
 		$item['title'] = preg_replace('/【.+?】/i','',$item['title']);
 		$item['nick'] = iconv('utf-8','gb2312',$item['nick']);
+		$item['commission_rate'] = getCommissionRate($item['iid']);
+		if($item['commission_rate']<1)
+			$item['commission_rate'] = -1;
 		// end - 字符转换
 		//$item['sid'] = getShop($item['nick']);
 		//var_dump($item);
-		echo '{"iid":"'.$item['iid'].'","title":"'.$item['title'].'","nick":"'.$item['nick'].'","pic":"'.$item['pic'].'","oprice":"'.$item['oprice'].'","st":"'.$item['st'].'","et":"'.$item['et'].'","cid":"'.$item['cid'].'","link":"'.$item['link'].'","rank":'.$item['rank'].',"postdt":"'.$item['postdt'].'","ischeck":'.$item['ischeck'].',"volume":'.$item['volume'].',"carriage":'.$item['carriage'].',"shopshow":'.$item['shopshow'].',"shopv":'.$item['shopv'].',"cat":'.$item['cat'].'}';
+		echo '{"iid":"'.$item['iid'].'","title":"'.$item['title'].'","nick":"'.$item['nick'].'","pic":"'.$item['pic'].'","oprice":"'.$item['oprice'].'","st":"'.$item['st'].'","et":"'.$item['et'].'","cid":"'.$item['cid'].'","link":"'.$item['link'].'","rank":'.$item['rank'].',"postdt":"'.$item['postdt'].'","ischeck":'.$item['ischeck'].',"volume":'.$item['volume'].',"carriage":'.$item['carriage'].',"shopshow":'.$item['shopshow'].',"shopv":'.$item['shopv'].',"cat":'.$item['cat'].',"commission_rate":'.$item['commission_rate'].'}';
 	}
 	
 	// 后台首页

@@ -364,6 +364,10 @@ function getCommissionRate($iid){
     $url = 'http://pub.alimama.com/pubauc/searchAuctionList.json?q=http%3A%2F%2Fitem.taobao.com%2Fitem.htm%3Fid%3D'.$iid;
     $html = openhttp_login($url, '',$cookie, '', '', 0);
     $result = json_decode($html,1);
-    if($result)
-        return $result['data']['pagelist'][0]['commissionRate']/100;
+    if($result){
+		if($result['data']['pagelist'])
+			return $result['data']['pagelist'][0]['commissionRate']/100;
+		else
+			return -1;
+	}
 }

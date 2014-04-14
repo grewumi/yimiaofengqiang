@@ -157,3 +157,10 @@ body{
 	width:80px;
 }
 /* end - 后台商品修改样式 添加样式 */
+
+.reporttips{
+	display:block;padding-top:3px;
+}
+.reporttips .tips{
+	color:red;margin-left:8px;
+}

@@ -254,8 +254,12 @@ class admin extends spController{
 					'shopshow'=>$_POST['shopshow'],
 					'shopv'=>$_POST['shopv'],
 					'ww'=>$_POST['ww'],
-					'nick'=>$_POST['ww']
+					'nick'=>$_POST['ww'],
 			);
+			if($_POST['commissionrate'])
+				$item['commission_rate'] = $_POST['commissionrate'];
+			else
+				$item['commission_rate'] = -1;
 			if($_POST['forward'])
 				$item['postdt'] = date("Y-m-d H:i:s");
 			if($mode!='try'){// 试用商品添加
@@ -351,6 +355,10 @@ class admin extends spController{
 					'ww'=>$_POST['ww'],
 					'nick'=>$_POST['ww']
 			);
+			if($_POST['commissionrate'])
+				$item['commission_rate'] = $_POST['commissionrate'];
+			else
+				$item['commission_rate'] = -1;
 			if($_POST['forward']){
 				$item['st'] = date('Y-m-d');
 				$item['postdt'] = date('Y-m-d H:i:s');

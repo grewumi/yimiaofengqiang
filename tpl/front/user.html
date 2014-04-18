@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gbk">
-<title>一秒疯抢 - 商家报名</title>
+<title>一秒疯抢 - 商家{if $ac=='bm'}报名{elseif $ac=='cx'}查询{/if}</title>
 <link rel="stylesheet" href="/assets/stylesheets/front/user.css" />
 <link rel="stylesheet" href="/assets/stylesheets/front/head.css" />
 <link rel="stylesheet" href="/assets/stylesheets/front/foot.css" />
@@ -140,6 +140,13 @@ $(document).ready(function(){
 	{/if}
 </div>
 <div class="clearfix"></div>
+<div class="chat">
+	<a href="/?c=user&a=login">快速通道</a><br />
+	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=850177915&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:850177915:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+	<br /><br />
+	免费通道<br />
+	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=350544519&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:850177915:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+</div>
 {include file="front/foot.html"}
 </body>
 </html>

@@ -12,11 +12,14 @@ $website = array(
 	'taofen8'=>array('actType'=>8,'name'=>'淘粉吧','rank'=>13), // 外站  淘粉吧
 	'tejiayitian'=>array('actType'=>14,'name'=>'特价一天','rank'=>12), // 特价一天
 	'yuansu'=>array('actType'=>21,'name'=>'爆划算','rank'=>11), // 爆划算
+	'zhekouba'=>array('actType'=>28,'name'=>'折扣吧','rank'=>11), //折扣吧
 	'mmrizhi'=>array('actType'=>27,'name'=>'美美购','rank'=>10), // 美美购
+	'aitaoba'=>array('actType'=>29,'name'=>'爱淘吧','rank'=>9), //爱淘吧
 	'mao'=>array('actType'=>17,'name'=>'特价猫','rank'=>9), // 特价猫
 	'jiejie'=>array('actType'=>25,'name'=>'姐逛街','rank'=>8), // 姐逛街
 	'vipzxhd'=>array('actType'=>13,'name'=>'vip专享活动','rank'=>7), // vip专享活动
 	'zhuanbao'=>array('actType'=>15,'name'=>'开心赚宝','rank'=>6), //开心赚宝
+	
 	'mytehui'=>array('actType'=>6,'name'=>'VIP特惠','rank'=>5), // VIP特惠
 	'vipgouyouhui'=>array('actType'=>9,'name'=>'VIP购优惠','rank'=>4), // VIP购优惠
 	'huiyuangou'=>array('actType'=>2,'name'=>'会员购','rank'=>3), // 会员购

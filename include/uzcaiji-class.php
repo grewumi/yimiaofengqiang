@@ -807,6 +807,25 @@ class UzCaiji{
 				$this->items = $sylm;
 				if($mode==2)
 					echo json_encode($this->items);
+			}elseif($website=='zhekouba'){
+				$this->url = 'http://www.432gou.com/?c=main&a=outzs';
+				$result = file_get_contents($this->url);
+				$this->items = json_decode($result);
+				if($mode==2)
+					echo json_encode($this->items);
+				
+			}elseif($website=='aitaoba'){
+				$this->url = 'http://aitaoba.uz.taobao.com';
+				$result = file_get_contents($this->url);
+				$atbptn = '/class="show1"(.+?)class="good-title"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)class="price-current"(.+?)<\/em>(.+?)<\/span>(.+?)<\/li>/is';
+				preg_match_all($atbptn,$result,$atbarr,PREG_SET_ORDER);
+				foreach($atbarr as $k => $v){
+					$atb[] = array('iid'=>$v[4],'nprice'=>$v[8]);
+				}
+				$atbcj['all'] = $atb;
+				$this->items = $atbcj;
+				if($mode==2)
+					echo json_encode($this->items);
 			}
 			
 		}

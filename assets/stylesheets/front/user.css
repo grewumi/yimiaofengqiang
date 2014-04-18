@@ -13,8 +13,7 @@ body{
 }
 /* 用户报名页样式 */
 .user-info{
-	width:1080px;
-	margin:0 auto;
+	width:1080px;margin:0 auto;padding-top:20px
 }
 .user-info ul{
 	color:red;
@@ -30,16 +29,32 @@ body{
 	color:blue;
 }
 /* 前台用户报名页面用户查询 */
-.user-info .user-search{
-	margin:10px auto 0px auto;
-	width:700px;
-	text-align:center;
+.user-search{
+	margin:10px auto;width:1080px;text-align:center;background:#fff;height:100px;padding-top:50px;
 }
-.user-info .user-search span{
+.user-search form{
+	display:block;margin:0px auto;height:35px;width:50%;
+}
+.user-search form input{
+	height:100%;
+}
+.user-search form input.siid{
+	width:60%;
+}
+.user-search span{
 	color:red;
 	margin-right:5px;
 }
 /* end - 前台用户报名页面用户查询 */
+.user-report{
+	background:#fff;margin:10px auto;width:1080px;
+}
+.user-report .ur{
+	float:left;margin-left:15px;width:46%;
+}
+.user-report .ur .mod-info{
+	margin:0px;
+}
 .user-report .gengduotupian{
 	color:gray;
 }
@@ -61,6 +76,19 @@ body{
 }
 .user-report .admin-modpro .mod-info .row .timeTips{
 	margin-left:10px;
+}
+
+.user-report .zsyq{
+	float:right;border:1px solid #ddd;width:42%;margin:8px;padding:20px 8px;
+}
+.user-report .zsyq h1{
+	font-size:24px;text-align:center;margin-bottom:10px;
+}
+.user-report .zsyq ul{
+	list-style-type:decimal;width:86%;margin:0px auto;font-size:15px;
+}
+.user-report .zsyq li{
+	margin:15px 0px;
 }
 /* end - 用户报名页样式 */
 

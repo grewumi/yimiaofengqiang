@@ -440,12 +440,10 @@ class UzCaiji{
 				$result = file_get_contents($this->url);
 				$tf8ptn = '/class="tf8_sp-1"(.+?)class="footer_body"/is';
 				preg_match_all($tf8ptn,$result,$tf8arr,PREG_SET_ORDER);
-				//print_r($tf8arr);
-				$tf8ptn = '/<li(.+?)itemid(.+?)(\d+)(.+?)pic(.+?)"(.+?)"(.+?)c(.+?)price(.+?)(\d+\.?\d+)(.+?)>/is';
+				$tf8ptn = '/<li(.+?)class="tf8_spimg-1"(.+?)name="url_(\d+)"(.+?)class="tf8-index-d2"(.+?)class="tf8-d2-span2">(\d+)<\/span>(.+?)class="tf8-d2-span3">(\.?\d+)<\/span>(.+?)<\/li>/is';
 				preg_match_all($tf8ptn,$tf8arr[0][0],$tf8arr1,PREG_SET_ORDER);
-				//print_r($tf8arr1);
 				foreach($tf8arr1 as $k => $v){
-					$tf8zx[] = array('iid'=>$v[3],'nprice'=>$v[10]);//,'pic'=>$v[6]
+					$tf8zx[] = array('iid'=>$v[3],'nprice'=>$v[6].$v[8]);//,'pic'=>$v[6]
 				}
 				$tf8['tf8zx'] = $tf8zx;
 				//var_dump($tf8);
@@ -810,7 +808,8 @@ class UzCaiji{
 			}elseif($website=='zhekouba'){
 				$this->url = 'http://www.432gou.com/?c=main&a=outzs';
 				$result = file_get_contents($this->url);
-				$this->items = json_decode($result);
+				$zhekouba = json_decode($result,true);
+				$this->items = $zhekouba;
 				if($mode==2)
 					echo json_encode($this->items);
 				

@@ -43,6 +43,7 @@ function userhuoqu(){
 		    $("input#link").val(dataObj.link);
 		    $("input#pic").val(dataObj.pic);
 		    $("input#ww").val(dataObj.nick);
+			$("input#commissionrate").val(dataObj.commission_rate);
 		    if(dataObj.carriage){
 		    	//alert('baoyou');
 		    	$("input#postage").checked = true;

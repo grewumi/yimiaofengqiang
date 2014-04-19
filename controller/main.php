@@ -181,6 +181,7 @@ class main extends spController{
 				'rank'=>500,
 				'postdt'=>date('Y-m-d H:i:s'),
 				'phone'=>$_POST['phone'],
+				'commission_rate'=>$_POST['commissionrate'],
 				//以下类别暂时用未定
 				'cat'=>$_POST['cat']
 			);

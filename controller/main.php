@@ -161,6 +161,8 @@ class main extends spController{
 		$procats = $m_procats->findAll('isshow=1','type asc');
 		$this->procats = $procats;
 		$this->ac = $this->spArgs("ac");
+		if(!$this->ac)
+			$this->ac = 'bm';
 		if($_POST['userReport']){
 			$item = array(
 				'iid'=>$_POST['iid'],

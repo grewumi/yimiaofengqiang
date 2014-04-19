@@ -1,4 +1,5 @@
 <?php
+require 'checklogo.php';
 function getapiurl($website){
 	$apiIp = '121.199.33.15';
 	return 'http://'.$apiIp.'/uzcaiji/type/'.$website.'.html';

@@ -9,6 +9,7 @@ class admin extends spController{
 			$this->loginalimama = 1;
 		else
 			$this->loginalimama = 0;
+		//echo $this->loginalimama;
 		global $caijiusers,$website;
 		$this->caijiusers = $caijiusers;
 		

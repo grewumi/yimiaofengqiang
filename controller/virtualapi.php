@@ -26,6 +26,7 @@ class virtualapi extends spController{
   }
   public function getCheckcode(){
 	$imgurl = urldecode($this->spArgs("imgurl"));
+	//$imgurl .= '&_r_='.time().rand(000,1000);
 	//echo $imgurl;
 	$img = getImage($imgurl,'tmp','Checkcode.jpg',1);
 	//var_dump($img);
@@ -57,6 +58,19 @@ class virtualapi extends spController{
 	}else{
 		//echo 'µÇÂ¼Ê§°Ü£¬´íÎó´úÂëÎª£º'.$loginStatus.'<br/>';
 	}
+  }
+  
+  public function checklogo(){
+	$iid = $this->spArgs('iid');
+	$where = $this->spArgs('where');
+	$shop = $this->spArgs('shop');
+	if(!$shop)
+		$shop = 'c';
+	if($where=='left'){
+		echo '{"show":'.checkleftlogo($iid,$shop).'}';		
+	}elseif($where=='dec'){
+		echo '{"show":'.checkxqylogo($iid,$shop).'}';
+	} 
   }
 }
 ?>

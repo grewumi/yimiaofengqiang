@@ -19,7 +19,7 @@ function getCheckcode($referer){
 	preg_match_all($ptn,$result,$arr,PREG_SET_ORDER);
 	//echo $arr[0][2];
 	//$arr[0][2]	= 'http://img02.taobaocdn.com/bao/uploaded/i2/T1FMxUFChnXXXXXXXX_!!0-item_pic.jpg';
-	$url = 'http://www.yimiaofengqiang.com?c=virtualapi&a=getCheckcode&imgurl='.urlencode($arr[0][2]);
+	$url = 'http://ymfq.com?c=virtualapi&a=getCheckcode&imgurl='.urlencode($arr[0][2]);
 	//echo $url;
 	$result = file_get_contents($url);
 	return $result;
@@ -234,7 +234,8 @@ function loginTaobao($user = '', $pass = '')
 		'fc'=>'default',
 		'style'=>'minisimple',
 		'css_style'=>'',
-		'tid'=>'XOR_1_000000000000000000000000000000_63584054400B0F717B750379',
+		//'tid'=>'XOR_1_000000000000000000000000000000_63584054400B0F717B750379',
+		'tid'=>'',
 		'support'=>'000001',
 		'CtrlVersion'=>urlencode('1,0,0,7'),
 		'loginType'=>3,
@@ -260,7 +261,7 @@ function loginTaobao($user = '', $pass = '')
 		'oslanguage'=>'',
 		'sr'=>'1440*900',
 		'osVer'=>urlencode('windows|6.1'),
-		'naviVer'=>'ie%7C9'
+		'naviVer'=>urlencode('firefox|22')
 	);
 	/* END - POST参数 */
 	foreach($par as $k=>$v){
@@ -271,14 +272,16 @@ function loginTaobao($user = '', $pass = '')
 	/* 取得token */
     $html = openhttp_login($url, $data, '', $referer, '', 0);
     $token_info = json_decode($html,true);
+	//echo $html;
     if($token_info['state'] == 1){
 	    $token = trim($token_info['data']['token']);
 		$loginsuccess = 1;
     }else{
 		$token_info = null;
-		//header("Content-type: text/html; charset=utf-8");  
-		$andcheckcode = 'need_check_code=true&TPL_checkcode='.trim(getCheckcode($referer));
-        //echo $andcheckcode;
+		//header("Content-type: text/html; charset=utf-8");
+		$checkcode = trim(getCheckcode($referer));
+		$andcheckcode = 'need_check_code=true&TPL_checkcode='.$checkcode;
+        //echo trim(getCheckcode($referer));
 		$data = preg_replace('/need_check_code=&TPL_checkcode=/',$andcheckcode,$data);
 		//echo $data;
 		//die('get token error :: '.$html);
@@ -294,7 +297,7 @@ function loginTaobao($user = '', $pass = '')
 			$loginsuccess = 0;
 		}
     }
-	//echo $token;
+	//echo $html;
 	if($loginsuccess){
 		$url = 'https://passport.alipay.com/mini_apply_st.js?site=0&token=' . $token . '&callback=vstCallback69';
 		$html = openhttp_login($url, '', '', $referer, '', 0);

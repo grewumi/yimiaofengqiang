@@ -32,7 +32,7 @@ function huoqu(){
 }
 function userhuoqu(){
 	$("input#yijianhuoqu").click(function(){
-		var iid = $("#iid").val();
+		var iid = $("#iid").val();		
 		$.get("/iteminfo.html",{
 		    iid:iid
 		},function(data){
@@ -53,14 +53,56 @@ function userhuoqu(){
 			/* Ó¶½ğ¼ì²â */
 			if(dataObj.commission_rate>0){
 				if(dataObj.commission_rate < 10)
-					$("span.reporttips").append("<em class='tips'>Ó¶½ğĞ¡ÓÚ10%</em>");
+					$("span.reporttips").append("<em class='tips'>Ó¶½ğĞ¡ÓÚ10%,</em>");
 				else
 					var yjisok = 1;
 			}else{
-				$("span.reporttips").append("<em class='tips'>Ó¶½ğÎ´ÉèÖÃ</em>");
+				$("span.reporttips").append("<em class='tips'>Ó¶½ğÎ´ÉèÖÃ,</em>");
 			}
 			/* END - Ó¶½ğ¼ì²â */
-			if(yjisok)
+			
+			/* ×ó²àLOGO¼ì²â */
+			if(dataObj.shopshow){//Cµê
+				$url = "/?c=virtualapi&a=checklogo&where=left&shop=c&iid=" + dataObj.iid;
+			}else{
+				$url = "/?c=virtualapi&a=checklogo&where=left&shop=t&iid=" + dataObj.iid;
+			}
+			var leftok = -1;
+			$.ajax({
+				url:$url,
+				async:false,
+				success:function(dataleft){
+					var dataleftObj=eval("("+dataleft+")");
+					if(dataleftObj.show>0)
+						leftok = 1;
+					else
+						$("span.reporttips").append("<em class='tips'>×ó²àLOGOÎ´ÉèÖÃ,</em>");
+					
+				}
+			});
+			/* END - ×ó²àLOGO¼ì²â */
+			
+			/* ÏêÇéÒ³LOGO¼ì²â */
+			if(dataObj.shopshow){//Cµê
+				$url = "/?c=virtualapi&a=checklogo&where=dec&shop=c&iid=" + dataObj.iid;
+			}else{
+				$url = "/?c=virtualapi&a=checklogo&where=dec&shop=t&iid=" + dataObj.iid;
+			}
+			var decok = -1;
+			$.ajax({
+				url:$url,
+				async:false,
+				success:function(datadec){
+					var datadecObj=eval("("+datadec+")");
+					if(datadecObj.show>0)
+						decok = 1;
+					else
+						$("span.reporttips").append("<em class='tips'>ÏêÇéÒ³LOGOÎ´ÉèÖÃ,</em>");
+					
+				}
+			});
+			/* END - ÏêÇéÒ³LOGO¼ì²â */
+			if(yjisok>0 && leftok>0 && decok>0)
 				$("input#userReport").attr("disabled",false);
 		});
 	});

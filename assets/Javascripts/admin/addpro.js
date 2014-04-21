@@ -63,7 +63,7 @@ function userhuoqu(){
 			/* END - Ó¶½ð¼ì²â */
 			
 			/* ×ó²àLOGO¼ì²â */
-			if(dataObj.shopshow){//Cµê
+			/* if(dataObj.shopshow){//Cµê
 				$url = "/?c=virtualapi&a=checklogo&where=left&shop=c&iid=" + dataObj.iid;
 			}else{
 				$url = "/?c=virtualapi&a=checklogo&where=left&shop=t&iid=" + dataObj.iid;
@@ -80,7 +80,7 @@ function userhuoqu(){
 						$("span.reporttips").append("<em class='tips'>×ó²àLOGOÎ´ÉèÖÃ,</em>");
 					
 				}
-			});
+			}); */
 			/* END - ×ó²àLOGO¼ì²â */
 			
 			/* ÏêÇéÒ³LOGO¼ì²â */
@@ -103,7 +103,7 @@ function userhuoqu(){
 				}
 			});
 			/* END - ÏêÇéÒ³LOGO¼ì²â */
-			if(yjisok>0 && leftok>0 && decok>0)
+			if(yjisok>0 && decok>0)
 				$("input#userReport").attr("disabled",false);
 		});
 	});

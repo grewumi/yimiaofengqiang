@@ -80,6 +80,7 @@ function checkleftlogo($iid,$shop='c'){
 		$url = 'http://sd4.tbcdn.cn/asyn.htm?'.$posts;
 		//echo $url;
 		$result = file_get_contents($url);
+		//echo $result;
 		return checklogo($result);	
 	}elseif($shop=='t'){
 		$pars = getpar($iid);

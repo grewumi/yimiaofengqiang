@@ -1,34 +1,34 @@
 <?php
 /**
-	è¯´æ˜ï¼šæ­¤ç±»å‡½æ•°æ˜¯ä¼˜ä¼˜äº‘å›¾ç‰‡è¯†åˆ«å¹³å°çš„APIæ¥å£,è°ƒç”¨ç±»ä¸­çš„å‡½æ•°å¯ä»¥è¿›è¡Œå›¾ç‰‡è¯†åˆ«
-		 ä¼˜ä¼˜äº‘å®˜ç½‘ï¼šwww.uuwise.com
-		 QQï¼š87280085
-	æ³¨æ„ï¼šä½¿ç”¨ä¹‹å‰ï¼Œéœ€è¦åœ¨æœ¬æ–‡ä»¶åŒä¸€ä¸ªç›®å½•ä¸‹é¢å»ºç«‹ä¸€ä¸ªeveryoneç”¨æˆ·å¯è¯»å¯å†™çš„ä¸´æ—¶å›¾ç‰‡å­˜æ”¾ç›®å½•ï¼Œåç§°ä¸ºï¼štempimg
+	ËµÃ÷£º´ËÀàº¯ÊıÊÇÓÅÓÅÔÆÍ¼Æ¬Ê¶±ğÆ½Ì¨µÄAPI½Ó¿Ú,µ÷ÓÃÀàÖĞµÄº¯Êı¿ÉÒÔ½øĞĞÍ¼Æ¬Ê¶±ğ
+		 ÓÅÓÅÔÆ¹ÙÍø£ºwww.uuwise.com
+		 QQ£º87280085
+	×¢Òâ£ºÊ¹ÓÃÖ®Ç°£¬ĞèÒªÔÚ±¾ÎÄ¼şÍ¬Ò»¸öÄ¿Â¼ÏÂÃæ½¨Á¢Ò»¸öeveryoneÓÃ»§¿É¶Á¿ÉĞ´µÄÁÙÊ±Í¼Æ¬´æ·ÅÄ¿Â¼£¬Ãû³ÆÎª£ºtempimg
 	
-	ç±»ä¸­çš„å…¬æœ‰å‡½æ•°ï¼š
-		 setSoftInfo($softID,$softKey);				//è®¾ç½®è½¯ä»¶IDå’ŒKEY
-		 userLogin($userName,$passWord);			//ç”¨æˆ·ç™»å½•,ç™»å½•æˆåŠŸè¿”å›ç”¨æˆ·çš„ID
-		 getPoint($userName,$passWord);				//è·å–ç”¨æˆ·å‰©ä½™é¢˜åˆ†
-		 upload($imagePath,$codeType);				//æ ¹æ®å›¾ç‰‡è·¯å¾„ä¸Šä¼ ,è¿”å›éªŒè¯ç åœ¨æœåŠ¡å™¨çš„ID,$codeTypeå–å€¼æŸ¥çœ‹ï¼šhttp://www.uuwise.com/price.html
-		 getResult($codeID);						//æ ¹æ®éªŒè¯ç IDè·å–è¯†åˆ«ç»“æœ
-		 autoRecognition($imagePath,$codeType);		//å°†uploadå’ŒgetResultæ”¾åˆ°ä¸€ä¸ªå‡½æ•°æ¥æ‰§è¡Œ,è¿”å›éªŒè¯ç è¯†åˆ«ç»“æœ
-		 reportError($codeID);						//è¯†åˆ«ç»“æœä¸æ­£ç¡®æŠ¥é”™è¯¯
-		 regUser($userName,$userPassword)			//æ³¨å†Œæ–°ç”¨æˆ·,æ³¨å†ŒæˆåŠŸè¿”å›æ–°ç”¨æˆ·çš„ID
-		 pay($userName,$Card);						//å……å€¼é¢˜åˆ†ï¼Œå……å€¼æˆåŠŸè¿”å›ç”¨æˆ·å½“å‰é¢˜åˆ†
+	ÀàÖĞµÄ¹«ÓĞº¯Êı£º
+		 setSoftInfo($softID,$softKey);				//ÉèÖÃÈí¼şIDºÍKEY
+		 userLogin($userName,$passWord);			//ÓÃ»§µÇÂ¼,µÇÂ¼³É¹¦·µ»ØÓÃ»§µÄID
+		 getPoint($userName,$passWord);				//»ñÈ¡ÓÃ»§Ê£ÓàÌâ·Ö
+		 upload($imagePath,$codeType);				//¸ù¾İÍ¼Æ¬Â·¾¶ÉÏ´«,·µ»ØÑéÖ¤ÂëÔÚ·şÎñÆ÷µÄID,$codeTypeÈ¡Öµ²é¿´£ºhttp://www.uuwise.com/price.html
+		 getResult($codeID);						//¸ù¾İÑéÖ¤ÂëID»ñÈ¡Ê¶±ğ½á¹û
+		 autoRecognition($imagePath,$codeType);		//½«uploadºÍgetResult·Åµ½Ò»¸öº¯ÊıÀ´Ö´ĞĞ,·µ»ØÑéÖ¤ÂëÊ¶±ğ½á¹û
+		 reportError($codeID);						//Ê¶±ğ½á¹û²»ÕıÈ·±¨´íÎó
+		 regUser($userName,$userPassword)			//×¢²áĞÂÓÃ»§,×¢²á³É¹¦·µ»ØĞÂÓÃ»§µÄID
+		 pay($userName,$Card);						//³äÖµÌâ·Ö£¬³äÖµ³É¹¦·µ»ØÓÃ»§µ±Ç°Ìâ·Ö
 	
-	ç±»ä¸­çš„å…¬æœ‰å˜é‡ï¼š
-		 $macAddress='00e021ac7d';					//å®¢æˆ·æœºçš„macåœ°å€,æœåŠ¡å™¨æš‚æ—¶æ²¡æœ‰ç”¨,åæœŸå‡†å¤‡ç”¨äºç»‘å®šmacåœ°å€		èµ‹å€¼æ–¹æ³•ï¼š $obj->macAddress='00e021ac7d'; 
-		 $timeOut='60000';							//è¶…æ—¶æ—¶é—´,å»ºè®®ä¸è¦æ”¹åŠ¨æ­¤å€¼									èµ‹å€¼æ–¹æ³•ï¼š $obj->timeOut=60000;
+	ÀàÖĞµÄ¹«ÓĞ±äÁ¿£º
+		 $macAddress='00e021ac7d';					//¿Í»§»úµÄmacµØÖ·,·şÎñÆ÷ÔİÊ±Ã»ÓĞÓÃ,ºóÆÚ×¼±¸ÓÃÓÚ°ó¶¨macµØÖ·		¸³Öµ·½·¨£º $obj->macAddress='00e021ac7d'; 
+		 $timeOut='60000';							//³¬Ê±Ê±¼ä,½¨Òé²»Òª¸Ä¶¯´ËÖµ									¸³Öµ·½·¨£º $obj->timeOut=60000;
 		 
-	å‡½æ•°è°ƒç”¨æ–¹æ³•ï¼š
-		 éœ€è¦å…ˆnewä¸€ä¸ªå¯¹è±¡
+	º¯Êıµ÷ÓÃ·½·¨£º
+		 ĞèÒªÏÈnewÒ»¸ö¶ÔÏó
 		 $obj=new uuApi;
-		 $obj->setSoftInfo('2097','b7ee76f547e34516bc30f6eb6c67c7db');	//å¦‚ä½•è·å–è¿™ä¸¤ä¸ªå€¼ï¼Ÿè¯·æŸ¥çœ‹è¿™ä¸ªé¡µé¢ï¼šhttp://dll.uuwise.com/index.php?n=ApiDoc.GetSoftIDandKEY
+		 $obj->setSoftInfo('2097','b7ee76f547e34516bc30f6eb6c67c7db');	//ÈçºÎ»ñÈ¡ÕâÁ½¸öÖµ£¿Çë²é¿´Õâ¸öÒ³Ãæ£ºhttp://dll.uuwise.com/index.php?n=ApiDoc.GetSoftIDandKEY
 		 $obj->userLogin('userName','userPassword');
 		 $result=autoRecognition($imagePath,$codeType);
-	é”™è¯¯ä»£ç ï¼š
-		-9999  ä¸´æ—¶å›¾ç‰‡ç›®å½•ä¸ºç©ºï¼ éœ€è¦åœ¨uuapi.phpåŒç›®å½•ä¸‹å»ºç«‹ä¸€ä¸ªeveryoneç”¨æˆ·å¯è¯»å†™çš„tempimgç›®å½•
-		-9998  CodeIDä¸æ˜¯æ•°å­—
+	´íÎó´úÂë£º
+		-9999  ÁÙÊ±Í¼Æ¬Ä¿Â¼Îª¿Õ£¡ ĞèÒªÔÚuuapi.phpÍ¬Ä¿Â¼ÏÂ½¨Á¢Ò»¸öeveryoneÓÃ»§¿É¶ÁĞ´µÄtempimgÄ¿Â¼
+		-9998  CodeID²»ÊÇÊı×Ö
 */
 
 class uuApi{
@@ -42,7 +42,7 @@ class uuApi{
 	private $userKey;
 	private $softContentKEY;
 	
-	private $dest_folder = "/tmp/";	//ä¸´æ—¶å›¾ç‰‡æ–‡ä»¶å¤¹
+	private $dest_folder = "/tmp/";	//ÁÙÊ±Í¼Æ¬ÎÄ¼ş¼Ğ
 	private $uuUrl;
 	private $uhash;
 	private $uuVersion='1.1.0.1';
@@ -50,10 +50,10 @@ class uuApi{
 	private $gkey;
 	private $sessionIsMatch=true;
 	
-	private $enablelog = true;			//æ˜¯å¦å¯ç”¨æ—¥å¿—åŠŸèƒ½ï¼Œtrueä¸ºå¼€å¯ï¼Œfalseä¸ºå…³é—­
+	private $enablelog = true;			//ÊÇ·ñÆôÓÃÈÕÖ¾¹¦ÄÜ£¬trueÎª¿ªÆô£¬falseÎª¹Ø±Õ
 
-	public $macAddress='00e021ac7d';	//å®¢æˆ·æœºçš„macåœ°å€,æœåŠ¡å™¨æš‚æ—¶æ²¡æœ‰ç”¨,åæœŸå‡†å¤‡ç”¨äºç»‘å®šmacåœ°å€		èµ‹å€¼æ–¹æ³•ï¼š $obj->macAddress='00e021ac7d'; 
-	public $timeOut=60000;				//è¶…æ—¶æ—¶é—´,å»ºè®®ä¸è¦æ”¹åŠ¨æ­¤å€¼									èµ‹å€¼æ–¹æ³•ï¼š $obj->timeOut=60000;
+	public $macAddress='00e021ac7d';	//¿Í»§»úµÄmacµØÖ·,·şÎñÆ÷ÔİÊ±Ã»ÓĞÓÃ,ºóÆÚ×¼±¸ÓÃÓÚ°ó¶¨macµØÖ·		¸³Öµ·½·¨£º $obj->macAddress='00e021ac7d'; 
+	public $timeOut=60000;				//³¬Ê±Ê±¼ä,½¨Òé²»Òª¸Ä¶¯´ËÖµ									¸³Öµ·½·¨£º $obj->timeOut=60000;
 	
 	public function setSoftInfo($id,$key)
 	{
@@ -176,7 +176,7 @@ class uuApi{
 		if(!in_array($imageData["type"],$uptypes)){return '-3007';}
 		//$randval = date('Y-m-dgis').'-'.mt_rand(1000000,9999999);
 		//$saveImgPath=$this->dest_folder.$randval.'.'.$extend;
-		//move_uploaded_file($imageData["tmp_name"],$saveImgPath);	//ä¿®æ”¹æ–‡ä»¶
+		//move_uploaded_file($imageData["tmp_name"],$saveImgPath);	//ĞŞ¸ÄÎÄ¼ş
 		//if(!file_exists(realpath($saveImgPath))){ return '-1003';};
 		if(!is_numeric($codeType)){return '-3004';}
 		$data=array(
@@ -196,7 +196,7 @@ class uuApi{
 		$url = $this->getServerUrl('upload').'/Upload/Processing.aspx?R='.mktime(time());
 		//print_r($data);
 		$result=$this->uuGetUrl($url,$data);
-		//@unlink($saveImgPath);	//åˆ é™¤ä¸Šä¼ çš„æ–‡ä»¶
+		//@unlink($saveImgPath);	//É¾³ıÉÏ´«µÄÎÄ¼ş
 		//@unlink('/tmp/Checkcode.jpg');
 		return $result;
 	}
@@ -209,7 +209,7 @@ class uuApi{
 		while($result=='-3'&&($timer<$this->timeOut))
 		{
 			$result=$this->uuGetUrl($url,false,false);
-			usleep(100000);	//ä¸€ç™¾æ¯«ç§’ä¸€æ¬¡
+			usleep(100000);	//Ò»°ÙºÁÃëÒ»´Î
 		}
 		curl_close($this->uuUrl);
 		if($result=='-3')
@@ -233,7 +233,7 @@ class uuApi{
 	}
 	private function uuGetUrl($url,$postData=false,$closeUrl=true)
 	{
-		$log=date('Y-m-d H:i:s').' è¯·æ±‚è¿æ¥ä¸ºï¼š'.$url."\r\n";
+		$log=date('Y-m-d H:i:s').' ÇëÇóÁ¬½ÓÎª£º'.$url."\r\n";
 
 		$uid=isset($this->uid)?($this->uid):'100';
 		$default=array(
@@ -269,11 +269,11 @@ class uuApi{
 
 		$info=curl_exec($this->uuUrl);
 
-		$log=$log.date('Y-m-d H:i:s').' è¿”å›ç»“æœä¸ºä¸ºï¼š'.$info."\r\n";
+		$log=$log.date('Y-m-d H:i:s').' ·µ»Ø½á¹ûÎªÎª£º'.$info."\r\n";
 		$this->outlogs($log);
 		if($info == false)
         {
-			 //return "cURL Error (".curl_errno($this->uuUrl)."): ".curl_error($this->uuUrl)."\n"; //curlé”™è¯¯
+			 //return "cURL Error (".curl_errno($this->uuUrl)."): ".curl_error($this->uuUrl)."\n"; //curl´íÎó
 
 			 $log=$log."cURL Error (".curl_errno($this->uuUrl)."): ".curl_error($this->uuUrl)."\r\n";
 			 curl_close($this->uuUrl);

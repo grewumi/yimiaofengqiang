@@ -1,4 +1,16 @@
 <?php
+function trimall($str)//删除空格
+{
+	$qian=array(" ","　","\t","\n","\r");$hou=array("","","","","");
+	return str_replace($qian,$hou,$str);	
+}
+/*C点左侧代码获取*/
+function getleft($iid){
+	$result = file_get_contents('http://item.taobao.com/item.htm?id='.$iid);
+	$ptn = '/Hub.config.set(.+?)async_sys(.+?)api:\'(.+?)\'(.+?)api:\'(.+?)\'(.+?)support/is';
+	preg_match_all($ptn,$result,$arr,PREG_SET_ORDER);
+	//return $arr[0][4];
+}
 function getpararr($text){
 	$temp = explode(";",trim($text));
 	foreach($temp as $k=>$v){
@@ -50,7 +62,7 @@ function getpar($iid,$where='left',$shop='c'){
 */
 function checkleftlogo($iid,$shop='c'){
 	if($shop=='c'){
-		$pars = getpar($iid);
+		/* $pars = getpar($iid);
 		$post = array(
 			'p'=>1,
 			'g'=>'dc',
@@ -77,7 +89,8 @@ function checkleftlogo($iid,$shop='c'){
 		foreach($post as $k=>$v){
 			$posts .= $k.'='.$v.'&'; 
 		}
-		$url = 'http://sd4.tbcdn.cn/asyn.htm?'.$posts;
+		$url = 'http://sd4.tbcdn.cn/asyn.htm?'.$posts; */
+		$url = getleft($iid);
 		//echo $url;
 		$result = file_get_contents($url);
 		//echo $result;
@@ -126,7 +139,7 @@ function checklogo($result){
 		if(strstr($result,'yinxiang.uz.taobao.com'))
 			return 2;
 		else{
-			if(strstr(htmlspecialchars($result),'yinxiang.uz.taobao.com'))
+			if(strstr(html_entity_decode($result),'yinxiang.uz.taobao.com'))
 				return 2;
 			else
 				return -1;

@@ -67,6 +67,7 @@ class virtualapi extends spController{
 	if(!$shop)
 		$shop = 'c';
 	if($where=='left'){
+		//checkleftlogo($iid,$shop);
 		echo '{"show":'.checkleftlogo($iid,$shop).'}';		
 	}elseif($where=='dec'){
 		echo '{"show":'.checkxqylogo($iid,$shop).'}';

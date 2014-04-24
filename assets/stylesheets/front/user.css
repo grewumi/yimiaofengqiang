@@ -204,3 +204,15 @@ body{
 	width: 90%;margin:0px auto;
 }
 /* END - 报名提示 */
+
+/* 玩法 */
+.user-around .wanfa{
+	width:1080px;margin:10px auto;
+}
+.user-around .wanfa p{
+	text-align:center;
+}
+.user-around .wanfa a{
+	font-size:32px;text-decoration:none;color:gray;
+}
+/* END - 玩法 */

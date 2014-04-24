@@ -201,7 +201,7 @@ body{
 	width:1080px;margin:0 auto;background:#F9F0E1;padding:10px 0px;margin-top:10px;border:1px solid #999999;
 }
 .report-tips p{
-	width: 90%;margin:0px auto;
+	width: 90%;margin:0px auto;font-size:18px;color:red;
 }
 /* END - 报名提示 */
 

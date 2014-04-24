@@ -5,11 +5,6 @@ class admin extends spController{
 		$this->supe_uid = $GLOBALS['G_SP']['supe_uid'];
 		import('public-data.php');
 		import("function_login_taobao.php");
-		if(loginTaobao('liushiyan8','liujun987'))
-			$this->loginalimama = 1;
-		else
-			$this->loginalimama = 0;
-//		echo $this->loginalimama;
 		global $caijiusers,$website;
 		$this->caijiusers = $caijiusers;
 		
@@ -95,7 +90,7 @@ class admin extends spController{
 		$item['title'] = iconv('utf-8','gb2312',$item['title']);
 		$item['title'] = preg_replace('/【.+?】/i','',$item['title']);
 		$item['nick'] = iconv('utf-8','gb2312',$item['nick']);
-		$item['commission_rate'] = getCommissionRate($item['iid']);
+		$item['commission_rate'] = $this->getCommissionRate(trim($item['iid']));
 		if($item['commission_rate']<1)
 			$item['commission_rate'] = -1;
 		$item['volume'] = getvolume($iid,$item['shopshow']);
@@ -104,7 +99,21 @@ class admin extends spController{
 		//var_dump($item);
 		echo '{"iid":"'.$item['iid'].'","title":"'.$item['title'].'","nick":"'.$item['nick'].'","pic":"'.$item['pic'].'","oprice":"'.$item['oprice'].'","st":"'.$item['st'].'","et":"'.$item['et'].'","cid":"'.$item['cid'].'","link":"'.$item['link'].'","rank":'.$item['rank'].',"postdt":"'.$item['postdt'].'","ischeck":'.$item['ischeck'].',"volume":'.$item['volume'].',"carriage":'.$item['carriage'].',"shopshow":'.$item['shopshow'].',"shopv":'.$item['shopv'].',"cat":'.$item['cat'].',"commission_rate":'.$item['commission_rate'].'}';
 	}
-	
+	public function getCommissionRate($iid){
+		if(getCommissionRate('38510058624')=='-2'){//cookie模拟登录失败
+			if(loginTaobao('liushiyan8','liujun987'))//重新登录(验证码登录),更新cookie
+				$this->loginalimama = 1;
+			else
+				$this->loginalimama = 0;
+			
+			if($this->loginalimama)//登录成功
+				return getCommissionRate($iid);
+			else
+				return -2;
+		}else{//cookie模拟登陆
+			return getCommissionRate($iid);
+		}
+	}
 	// 后台首页
 	public function index(){
 		ini_set('memory_limit','256M');
@@ -951,36 +960,10 @@ class admin extends spController{
 	
 	// 更新佣金插件PHP版
 	public function updateyjPhp($iid,$cookie=''){
-		/*set_time_limit(0);
-		// 采集开春哥
-		ini_set('memory_limit', '64M'); // 内存超载
-		ini_set('pcre.backtrack_limit', 999999999); // 回溯超载
-		ini_set('pcre.recursion_limit', 99999); // 资源开大就行
-		// end - 采集开春哥
-		$this->url = 'http://tao.as/tools/getcommission.php?item_id='.$iid;
-		$result = file_get_contents($this->url);
-		
-		// 匹配佣金
-		$yjptn = '/<tr>(.+?)<\/tr>/is';
-		preg_match_all($yjptn,$result,$yjarr,PREG_SET_ORDER);
-		$yjptn = '/<strong>(.+?)%<\/strong>/i';
-		preg_match_all($yjptn,$yjarr[0][1],$yjarr1,PREG_SET_ORDER);
-		$yj = $yjarr1[0][1];
-		
-                 * 
-                 */
         $pros = spClass('m_pro');
-		if($this->loginalimama){
-			$yj = getCommissionRate($iid);
-			//echo $yj.'<br/>';
-			if($yj && $yj>1)
-				$item['commission_rate'] = $yj;
-			else
-				$item['commission_rate'] = -1;
-			$pros->update(array('iid'=>$iid),$item);
+		$yj = $this->getCommissionRate($iid);
+		$pros->update(array('iid'=>$iid),$item);
 			
-		}
-		//print_r($yjarr1);
 	}
 	// 更新佣金插件
 	public function updateyjonce(){

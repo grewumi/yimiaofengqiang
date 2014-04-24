@@ -109,25 +109,8 @@ function getCookie($type = 'db')
     }
 }
 
-function read_log($filename = '')
-{
+function read_log($filename = ''){
     return trim(file_get_contents($filename));
-
-	//$filename = "log/log.txt";
-
-	if(!$handle = fopen($filename, "r")) {
- 		print "读取文件: $filename 出错";
- 		exit;
-	}
-
-	while(!feof($handle))
-  	{
-  		$rows[] = trim(fgets($handle));
-  	}
-
-	fclose($handle);
-
-	return $rows;
 }
 
 function isLogin($content)
@@ -364,6 +347,7 @@ function loginTaobao($user = '', $pass = '')
 function getCommissionRate($iid){
     global $cookie_info_real;
 	$cookie = getCookie('cookie.txt');
+	//echo $cookie;
     $url = 'http://pub.alimama.com/pubauc/searchAuctionList.json?q=http%3A%2F%2Fitem.taobao.com%2Fitem.htm%3Fid%3D'.$iid;
     $html = openhttp_login($url, '',$cookie, '', '', 0);
     $result = json_decode($html,1);
@@ -372,5 +356,8 @@ function getCommissionRate($iid){
 			return $result['data']['pagelist'][0]['commissionRate']/100;
 		else
 			return -1;
+	}else{
+		return -2;
 	}
 }
+?>

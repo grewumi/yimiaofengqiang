@@ -12,6 +12,7 @@ function huoqu(){
 		    $("input#pic").val(dataObj.pic);
 		    $("input#ww").val(dataObj.nick);
 			$("input#commissionrate").val(dataObj.commission_rate);
+			$("input#volume").val(dataObj.volume);
 		    if(dataObj.carriage){
 		    	$(":radio[name='carriage'][value='1']").attr("checked","checked");
 		    }else{
@@ -51,6 +52,15 @@ function userhuoqu(){
 		    	//alert('bubaoyou');
 		    	$("input#nopostage").checked = true;
 		    }
+			
+			/* 销量检测 */
+			if(dataObj.volume < 10)
+				$("span.reporttips").append("<em class='tips'>销量小于10,</em>");
+			else
+				var xlisok = 1;
+
+			/* END - 销量检测 */
+			
 			/* 佣金检测 */
 			if(dataObj.commission_rate>0){
 				if(dataObj.commission_rate < 10)
@@ -103,7 +113,7 @@ function userhuoqu(){
 				}
 			});
 			/* END - 详情页LOGO检测 */
-			if(yjisok>0 && leftok>0 && decok>0)
+			if(xlisok>0 && yjisok>0 && leftok>0 && decok>0)
 				$("input#userReport").attr("disabled",false);
 		});
 	});

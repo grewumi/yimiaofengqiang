@@ -9,7 +9,7 @@ class admin extends spController{
 			$this->loginalimama = 1;
 		else
 			$this->loginalimama = 0;
-		//echo $this->loginalimama;
+//		echo $this->loginalimama;
 		global $caijiusers,$website;
 		$this->caijiusers = $caijiusers;
 		
@@ -69,7 +69,7 @@ class admin extends spController{
 		/* if(!$_SESSION['admin'])
 			header("Location:/login.html"); */
 		
-		$iid = $this->spArgs('iid');
+		$iid = trim($this->spArgs('iid'));
 		
 		$catmaps = spClass("m_catmap");
 		import('tbapi.php');
@@ -98,6 +98,7 @@ class admin extends spController{
 		$item['commission_rate'] = getCommissionRate($item['iid']);
 		if($item['commission_rate']<1)
 			$item['commission_rate'] = -1;
+		$item['volume'] = getvolume($iid,$item['shopshow']);
 		// end - ◊÷∑˚◊™ªª
 		//$item['sid'] = getShop($item['nick']);
 		//var_dump($item);
@@ -604,6 +605,7 @@ class admin extends spController{
 				else
 					$item['act_from'] = 1;
 				$item['last_modify'] = date("Y-m-d H:i:s");
+				$item['volume'] = getvolume($v['iid'],$item['shopshow']);
 				//var_dump($item);
 				if(!$pros->find(array('iid'=>$v['iid']))){ //√ª’“µΩ
 					$item['postdt'] = date("Y-m-d H:i:s");

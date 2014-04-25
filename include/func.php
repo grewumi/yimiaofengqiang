@@ -1,5 +1,6 @@
 <?php
 require 'checklogo.php';
+require 'checkrate.php';
 require 'getvolume.php';
 function getapiurl($website){
 	$apiIp = '121.199.33.15';

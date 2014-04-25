@@ -62,6 +62,30 @@ function userhuoqu(){
 
 			/* END - ÏúÁ¿¼ì²â */
 			
+			/* ĞÅÓş¼ì²â */
+			var rateisok = -1;
+			if(dataObj.shopshow){//Cµê
+				$url = "/?c=virtualapi&a=checkrate&iid=" + dataObj.iid;
+				
+				$.ajax({
+					url:$url,
+					async:false,
+					success:function(dataleft){
+						var dataleftObj=eval("("+dataleft+")");
+						if(dataleftObj.show>0)
+							rateisok = 1;
+						else
+							$("span.reporttips").append("<em class='tips'>µêÆÌĞÅÓşÃ»ÓĞÒ»×©,</em>");
+
+					}
+				}); 
+			}else{
+				rateisok = 1;
+			}
+			
+
+			/* END - ĞÅÓş¼ì²â */
+			
 			/* Ó¶½ğ¼ì²â */
 			if(dataObj.commission_rate>0){
 				if(dataObj.commission_rate < 10)
@@ -114,7 +138,7 @@ function userhuoqu(){
 				}
 			});
 			/* END - ÏêÇéÒ³LOGO¼ì²â */
-			if(xlisok>0 && yjisok>0 && leftok>0 && decok>0)
+			if(xlisok>0 && rateisok>0 && yjisok>0 && leftok>0 && decok>0)
 				$("input#userReport").attr("disabled",false);
 		});
 	});

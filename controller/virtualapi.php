@@ -73,6 +73,11 @@ class virtualapi extends spController{
 		echo '{"show":'.checkxqylogo($iid,$shop).'}';
 	} 
   }
+  
+  public function checkrate(){
+	  $iid = $this->spArgs('iid');
+	  echo '{"show":'.checkrate(trim($iid)).'}';		
+  }
 }
 ?>
 

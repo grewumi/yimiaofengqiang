@@ -191,10 +191,10 @@ class main extends spController{
 			}else{
 				$art = $pros->create($item);
 				if($art){	//修改成功后跳转
-					$submitTips = '添加成功';
+					$submitTips = '已成功提交，请耐心等待审核！';
 					header("{spUrl c=main a=user}");
 				}else
-					$submitTips = '添加失败';
+					$submitTips = '提交失败，请刷新页面重新提交！';
 			}
 		}
 		if($this->spArgs('searchIid')){

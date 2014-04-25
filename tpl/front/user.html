@@ -52,12 +52,12 @@ $(document).ready(function(){
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">
-						<label>商品ID:</label><input name="iid" id="iid" type="text" onKeyUp="value=value.replace(/[^\d]/gi,'');" onpaste="value=value.replace(/[^\d]/gi,'');" />
-						<input name="yijianhuoqu" id="yijianhuoqu" class="btn" type="button" value="一键获取"/>
+						<label>商品ID:</label><input name="iid" id="iid" type="text" onKeyUp="value=value.replace(/[^\d]/gi,'');" onpaste="value=value.replace(/[^\d]/gi,'');" title="商品ID为商品链接http://item.taobao.com/htm?id=8888888中的8888888这串数字" />
+						<input name="yijianhuoqu" id="yijianhuoqu" class="btn" type="button" value="一键获取" />
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">
-						<label>标题:</label><input class="long" name="title" id="title" type="text" />
+						<label>标题:</label><input class="long" name="title" id="title" type="text" title="标题请保持在14个字符内" />
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">
@@ -123,7 +123,7 @@ $(document).ready(function(){
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">
-						<label>联系电话:</label><input class="long" name="phone" type="text" />
+						<label>联系电话:</label><input class="long" name="phone" type="text" title="请务必填写！" />
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">

@@ -174,7 +174,7 @@ class main extends spController{
 				'title'=>$_POST['title'],
 				'carriage'=>$_POST['carriage'],
 				'num'=>(int)$_POST['num'],//活动数量
-				'ww'=>$_POST['ww'],
+				'nick'=>$_POST['ww'],
 				'zk'=>@ceil(10*$_POST['nprice']/$_POST['oprice']),
 				'link'=>'http://item.taobao.com/item.htm?id='.$_POST['iid'],
 				'ischeck'=>0,
@@ -182,6 +182,7 @@ class main extends spController{
 				'postdt'=>date('Y-m-d H:i:s'),
 				'phone'=>$_POST['phone'],
 				'commission_rate'=>$_POST['commissionrate'],
+				'volume'=>$_POST['volume'],
 				//以下类别暂时用未定
 				'cat'=>$_POST['cat']
 			);

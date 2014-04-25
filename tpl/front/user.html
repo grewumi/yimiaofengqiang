@@ -51,7 +51,6 @@ $(document).ready(function(){
 						<label class="tips">{if $submitTips}{$submitTips}{/if}</label>						
 						<div class="clearfix"></div>
 					</div>
-					
 					<div class="row">
 						<label>商品ID:</label><input name="iid" id="iid" type="text" onKeyUp="value=value.replace(/[^\d]/gi,'');" onpaste="value=value.replace(/[^\d]/gi,'');" />
 						<input name="yijianhuoqu" id="yijianhuoqu" class="btn" type="button" value="一键获取"/>
@@ -78,12 +77,16 @@ $(document).ready(function(){
 						<label>活动价:</label><input class="short" name="nprice" type="text" />
 						<div class="clearfix"></div>
 					</div>
+					<div class="row" style="display:none;">
+						<label>销量:</label><input class="short" name="volume" id="volume" type="text" />
+						<div class="clearfix"></div>
+					</div>
 					<div class="row">
 						<label>活动数量:</label><input class="short" name="num" type="text" />
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">
-						<label>提交时间:</label><input class="short" name="st" type="text" value="{if $today}{$today}{/if}" /><em class="timeTips">格式为:(2013-05-06)</em>
+						<label>提交时间:</label><input class="short" name="st" type="text" value="{$smarty.now|date_format:"%Y-%m-%d"}" /><em class="timeTips">格式为:({$smarty.now|date_format:"%Y-%m-%d"})</em>
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">

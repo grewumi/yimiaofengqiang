@@ -682,24 +682,7 @@ class admin extends spController{
 		ini_set('pcre.backtrack_limit', 999999999); // 回溯超载
 		ini_set('pcre.recursion_limit', 99999); // 资源开大就行
 		// end - 采集开春哥
-		//loginTaobao('天呐你真帅','pp1044835155');
 		
-		/*echo '<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
-			<script src="http://a.tbcdn.cn/apps/top/x/sdk.js?appkey=21511111"></script>';
-		// TOP API
-		$timestamp=time()."000";
-		//$app_key = '12636285';
-		//$secret = '63e664fafc1f3f03a7b8ad566c42819d';
-		$app_key = '21511111';
-		$secret = '4b7df3004e66b43f4632e2a85fe3f308';
-		$message = $secret.'app_key'.$app_key.'timestamp'.$timestamp.$secret;
-		$mysign=strtoupper(hash_hmac("md5",$message,$secret));
-		setcookie("timestamp",$timestamp);
-		setcookie("sign",$mysign);
-		// END TOP API 
-                 * 
-                 */
-	
 		import('uzcaiji-class.php');
 		$xiaiCaiji = spClass('UzCaiji');
 				
@@ -962,6 +945,7 @@ class admin extends spController{
 	public function updateyjPhp($iid,$cookie=''){
         $pros = spClass('m_pro');
 		$yj = $this->getCommissionRate($iid);
+		$item['commission_rate'] = $yj;
 		$pros->update(array('iid'=>$iid),$item);
 			
 	}

@@ -41,7 +41,7 @@ function getvolume($iid,$shop){
 			preg_match_all($ptn,$result,$arr,PREG_SET_ORDER);
 			$volume = trim($arr[0][6]);
 		}
-		if($volume)
+		if($volume>=0)
 			return trim($volume);	
 		else
 			return -1;

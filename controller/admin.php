@@ -949,6 +949,24 @@ class admin extends spController{
 		$pros->update(array('iid'=>$iid),$item);
 			
 	}
+	public function updatevolume(){
+		$pros = spClass('m_pro');
+		$where = 'st<=curdate() and et>=curdate() and ischeck=1';
+		$items = $pros->findAll($where);
+		foreach($items as $k=>$v){
+			$volume = getvolume($v['iid'],$v['shopshow']);
+			if($volume>=0){
+				$itemTemp = array('volume'=>$volume);
+				if($pros->update(array('iid'=>$v['iid']),$itemTemp))
+					echo '更新成功.<br />';
+				else
+					echo '更新失败.<br />';
+			}else{
+				echo '获取失败.<br />';
+			}
+			
+		}
+	}
 	// 更新佣金插件
 	public function updateyjonce(){
 		if(!$_SESSION['admin'])

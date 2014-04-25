@@ -18,6 +18,8 @@ function getvolumeurl($iid,$shop='c'){
 
 /* 
  * 获取商品销量
+ * C店有时候获取不到，打开的时候页面空白
+ * 返回值，获取错误返回-1
  */
 function getvolume($iid,$shop){
 	if($shop){

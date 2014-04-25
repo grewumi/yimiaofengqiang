@@ -7,9 +7,12 @@ function trimall($str)//删除空格
 /*C点左侧代码获取*/
 function getleft($iid){
 	$result = file_get_contents('http://item.taobao.com/item.htm?id='.$iid);
-	$ptn = '/Hub.config.set(.+?)async_sys(.+?)api:\'(.+?)\'(.+?)api:\'(.+?)\'(.+?)support/is';
+	$ptn = '/Hub.config.set(.+?)async_sys(.+?)support/is';
 	preg_match_all($ptn,$result,$arr,PREG_SET_ORDER);
-	//return $arr[0][4];
+	$str = trimall($arr[0][2]);
+	$ptn = '/api(.+?)api:\'(.+?)\'/is';
+	preg_match_all($ptn,$str,$arr1,PREG_SET_ORDER);
+	return $arr1[0][2];
 }
 function getpararr($text){
 	$temp = explode(";",trim($text));

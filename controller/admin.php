@@ -94,6 +94,8 @@ class admin extends spController{
 		if($item['commission_rate']<1)
 			$item['commission_rate'] = -1;
 		$item['volume'] = getvolume($iid,$item['shopshow']);
+		if(!$item['volume'])
+			$item['volume'] = -1;
 		// end - ×Ö·û×ª»»
 		//$item['sid'] = getShop($item['nick']);
 		//var_dump($item);
@@ -951,7 +953,7 @@ class admin extends spController{
 	}
 	public function updatevolume(){
 		$pros = spClass('m_pro');
-		$where = 'st<=curdate() and et>=curdate() and ischeck=1';
+		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and volume=0 or volume=200';
 		$items = $pros->findAll($where);
 		foreach($items as $k=>$v){
 			$volume = getvolume($v['iid'],$v['shopshow']);

@@ -17,7 +17,7 @@
 		<a href="{spUrl c=admin a=pro sh=ck2}">未通过</a>
 		<a href="{spUrl c=admin a=addpro}">添加商品</a>
 		<form action="{spUrl c=admin a=pro}" method="post">
-			<input name="q"/>
+			<input name="q" onpaste="value=value.replace(/[^\d]/gi,'');" onKeyUp="value=value.replace(/[^\d]/gi,'');" />
 			<input type="submit" value="搜索"/>
 		</form>
 	</div>

@@ -187,6 +187,7 @@ class main extends spController{
 				'cat'=>$_POST['cat']
 			);
 			if($this->isInThere($item['iid'])){
+				$pros->update(array('iid'=>$item['iid']),array('ischeck'=>0));
 				$submitTips = '商品已存在,请勿重复添加';
 			}else{
 				$art = $pros->create($item);

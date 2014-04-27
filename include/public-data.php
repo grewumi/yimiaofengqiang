@@ -14,7 +14,7 @@ $website = array(
 	'yuansu'=>array('actType'=>21,'name'=>'爆划算','rank'=>11), // 爆划算
 	'zhekouba'=>array('actType'=>28,'name'=>'折扣吧','rank'=>11), //折扣吧
 	'mmrizhi'=>array('actType'=>27,'name'=>'美美购','rank'=>10), // 美美购
-	'aitaoba'=>array('actType'=>29,'name'=>'爱淘吧','rank'=>9), //爱淘吧
+	
 	'mao'=>array('actType'=>17,'name'=>'特价猫','rank'=>9), // 特价猫
 	'jiejie'=>array('actType'=>25,'name'=>'姐逛街','rank'=>8), // 姐逛街
 	'yimiaofengqiang'=>array('actType'=>20,'name'=>'一秒疯抢','rank'=>7), // 一秒疯抢
@@ -24,7 +24,7 @@ $website = array(
 	'vipgouyouhui'=>array('actType'=>9,'name'=>'VIP购优惠','rank'=>4), // VIP购优惠
 	'huiyuangou'=>array('actType'=>2,'name'=>'会员购','rank'=>3), // 会员购
 	'tealife'=>array('actType'=>7,'name'=>'淘牛品','rank'=>2), // 淘牛品
-	
+	'aitaoba'=>array('actType'=>29,'name'=>'爱淘吧','rank'=>1), //爱淘吧
 	//'qiang'=>array('actType'=>3,'name'=>'抢牛品','tcounts'=>count($pros->findAll('act_from=3 and '.$where))), // 抢牛品
 	//'10mst'=>array('actType'=>10,'name'=>'秒杀通'), // 秒杀通
 	//'tejiafengqiang'=>array('actType'=>16,'name'=>'特价疯抢'), // 特价疯抢

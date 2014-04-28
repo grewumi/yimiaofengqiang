@@ -629,6 +629,7 @@ class admin extends spController{
 					}
 				}else{
 					unset($item['act_from']);
+					unset($item['rank']);
 					//$itemPostdt = $pros->find(array('iid'=>$v['iid']));
 					//$item['postdt'] = $itemPostdt['postdt'];
 					if(!$pros->update(array('iid'=>$v['iid']),$item))

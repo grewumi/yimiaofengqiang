@@ -31,6 +31,37 @@ function huoqu(){
 		});
 	});
 }
+
+function setrank(){
+	 $(".set500").click(function(){
+		 $("#rank").val(500);
+	 });
+	  $(".set499").click(function(){
+		 $("#rank").val(499);
+	 });
+}
+
+function getvolume(){
+	 $(".getVolume").click(function(){
+		var iid = $("#iid").val();		
+		$.get("/iteminfo.html",{
+		    iid:iid
+		},function(data){
+			var dataObj=eval("("+data+")"); //转换为json对象
+			$url = "/?c=virtualapi&a=getvolume&iid=" + dataObj.iid + "&shop=" + dataObj.shopshow;
+			$.ajax({
+			   url:$url,
+			   async:false,
+			   success:function(datavolumeObj){
+				   var datavolObj=eval("("+datavolumeObj+")");
+					$("#volume").val(datavolObj.show);
+			   }
+		   });
+		});
+		
+	});
+}
+
 function userhuoqu(){
 	$("input#yijianhuoqu").click(function(){
 		var iid = $("#iid").val();		

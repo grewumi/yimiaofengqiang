@@ -78,6 +78,12 @@ class virtualapi extends spController{
 	  $iid = $this->spArgs('iid');
 	  echo '{"show":'.checkrate(trim($iid)).'}';		
   }
+  
+   public function getvolume(){
+	  $iid = $this->spArgs('iid');
+	  $shop = $this->spArgs('shop');
+	  echo '{"show":'.getvolume($iid,$shop).'}';		
+  }
 }
 ?>
 

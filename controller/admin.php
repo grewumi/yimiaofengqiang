@@ -752,11 +752,11 @@ class admin extends spController{
 		}
 		$contents = "pic=$item[pic]&&cat=$item[cat]&&iid=$item[iid]&&oprice=$item[oprice]&&nprice=$item[nprice]&&st=$item[st]&&et=$item[et]&&act_from=$item[act_from]&&rank=$item[rank]&&title=$item[title]&&link=$item[link]&&slink=$item[slink]&&volume=$item[volume]&&postdt=$item[postdt]&&xujf=$item[xujf]&&remark=$item[remark]&&type=$item[type]&&content=$item[content]&&zk=$item[zk]&&carriage=$item[carriage]&&commission_rate=$item[commission_rate]&&ischeck=$item[ischeck]&&last_modify=$item[last_modify]";
 		$opts = array(
-				'http'=>array(
-						'method'=>"POST",
-						'content'=>$contents,
-						'timeout'=>900,
-				));
+			'http'=>array(
+					'method'=>"POST",
+					'content'=>$contents,
+					'timeout'=>900,
+			));
 		//echo $contents.'<br />';
 		$context = stream_context_create($opts);
 		
@@ -808,12 +808,7 @@ class admin extends spController{
 		echo '</script>';
 	}
 	public function postDataToUz($mode='php'){
-		
-		ini_set('memory_limit', '126M'); // 内存超载
-		ini_set('pcre.backtrack_limit', 999999999); // 回溯超载
-		ini_set('pcre.recursion_limit', 99999); // 资源开大就行
 		set_time_limit(0);
-		
 		if(!$_SESSION['admin'])
 			if(!$_SESSION['iscaijiuser'])
 				header("Location:/login.html");
@@ -842,16 +837,18 @@ class admin extends spController{
 				else
 					$where = 'act_from='.$v['actType'].' and '.$baseSql.' and postdt>=curdate()';
 			}
-			$items_zu['actfrom'.$v['actType']] = $pros->findAll($where);
+			$items_zu['actfrom'.$v['actType']] = $pros->findAll($where,'commission_rate asc');//佣金低->高组合，插入的时候就反过来基于postdt时间为now(),
 		}
-		
+		//var_dump($items_zu);
+			
 		foreach($items_zu as $k=>$iv){
 			foreach($iv as $k=>$v){
 				$itemsTemp[] = $v;
 			}
 		}
-			
-		$itemsReal = array_no_empty($itemsTemp);
+		
+//		var_dump($itemsTemp);
+		$itemsReal = $itemsTemp;
 		
 		if(count($itemsReal)>1000)
 			$item_zu_tmp = array_chunk($itemsReal,1000);

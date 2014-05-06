@@ -196,8 +196,8 @@ function getItemDetail($num_iid,$mode=1){
 				"nick"=>htmlspecialchars($result['nick']),
 				"pic"=>htmlspecialchars($result['pic_url'].'_310x310.jpg'),
 				"oprice"=>$result['price'],			
-				"st"=>$result['list_time'],
-				"et"=>$result['delist_time'],
+				"st"=>$result['list_time'],//商品上架时间
+				"et"=>$result['delist_time'],//商品下架时间
 				"cid"=>$result['cid'],
 				"link"=>'http://item.taobao.com/item.htm?id='.$num_iid,
 				"rank"=>500,

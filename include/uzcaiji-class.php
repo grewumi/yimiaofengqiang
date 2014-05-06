@@ -22,100 +22,16 @@ class UzCaiji{
 				$this->url = 'http://huiyuangou.uz.taobao.com/';
 				$result = file_get_contents($this->url);
 				
-				/* // 匹配爆款
-			    $hygptn = '/class="hyg_nav1"(.+?)nav1_check1(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<img(.+?)src="(.+?)"(.+?)>(\d+\.?\d+)<\/b><del>(.+?)nav1_check2/is';	
-			    preg_match_all($hygptn,$result,$hygarr,PREG_SET_ORDER);
-			    //print_r($hygarr);
-				foreach($hygarr as $k => $v){
-					//$bk[] = array('iid'=>$v[4],'nprice'=>$v[10],'pic'=>$v[8]);
-					$bk[] = array('iid'=>$v[4],'nprice'=>$v[10]);
-				}
-				$huiyuangou['bk'] = $bk;
-				// end - 匹配爆款结束
-				
-				// 匹配9.9
-				$hygptn = '/class="nav4"(.+?)class="nav5"/is';
+				$hygptn = '/class="index_gcontent2"(.+?)class="paging"/is';
 				preg_match_all($hygptn,$result,$hygarr,PREG_SET_ORDER);
-				$hygptn = '/class="hyg_goods_wk"(.+?)class="hyg_goods"(.+?)class="hyg_goods_img"(.+?)<img(.+?)src="(.+?)"(.+?)>(\d+\.?\d+)<\/b><del>(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"/is';
+				
+				$hygptn = '/<li>(.+?)class="bugie"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)class="tggoodinfo"(.+?)<span>(\d+\.?\d+)<\/span>(.+?)<\/li>/is';
 				preg_match_all($hygptn,$hygarr[0][0],$hygarr1,PREG_SET_ORDER);
-				//print_r($hygarr1);
+				
 				foreach($hygarr1 as $k => $v){
-					//$zq99[] = array('iid'=>$v[10],'nprice'=>$v[7],'pic'=>$v[5]);
-					$zq99[] = array('iid'=>$v[10],'nprice'=>$v[7]);
+					$hyg[] = array('iid'=>$v[4],'nprice'=>$v[8]);
 				}
-				$huiyuangou['zq99'] = $zq99;
-				// end -9.9
-				
-				// 匹配一分钟抢购
-				$hygptn = '/class="nav7"(.+?)name="nineteen"/is';
-				preg_match_all($hygptn,$result,$hygarr,PREG_SET_ORDER);
-				$hygptn = '/class="hyg_goods_wk"(.+?)class="hyg_goods"(.+?)class="hyg_goods_img"(.+?)<img(.+?)src="(.+?)"(.+?)>(\d+\.?\d+)<\/b><del>(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"/is';
-				preg_match_all($hygptn,$hygarr[0][0],$hygarr1,PREG_SET_ORDER);
-				//print_r($hygarr1);
-				foreach($hygarr1 as $k => $v){
-					//$yfzqg[] = array('iid'=>$v[10],'nprice'=>$v[7],'pic'=>$v[5]);
-					$yfzqg[] = array('iid'=>$v[10],'nprice'=>$v[7]);
-				}
-				$huiyuangou['yfzqg'] = $yfzqg;
-				//var_dump($yfzqg);
-				// end - 一分钟抢购
-				
-				// 惠品折清仓
-				$hygptn = '/class="nav9"(.+?)name="hot"/is';
-				preg_match_all($hygptn,$result,$hygarr,PREG_SET_ORDER);
-				$hygptn = '/class="hyg_goods_wk"(.+?)class="hyg_goods"(.+?)class="hyg_goods_img"(.+?)<img(.+?)src="(.+?)"(.+?)>(\d+\.?\d+)<\/b><del>(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"/is';
-				preg_match_all($hygptn,$hygarr[0][0],$hygarr1,PREG_SET_ORDER);
-				//print_r($hygarr1);
-				foreach($hygarr1 as $k => $v){
-					//$hpzqc[] = array('iid'=>$v[10],'nprice'=>$v[7],'pic'=>$v[5]);
-					$hpzqc[] = array('iid'=>$v[10],'nprice'=>$v[7]);
-				}
-				$huiyuangou['hpzqc'] = $hpzqc;
-				// end - 惠品折清仓
-				
-				// 限时抢购
-				$hygptn = '/class="nav11"(.+?)name="brand"/is';
-				preg_match_all($hygptn,$result,$hygarr,PREG_SET_ORDER);
-				$hygptn = '/class="hyg_goods_wk"(.+?)class="hyg_goods"(.+?)class="hyg_goods_img"(.+?)<img(.+?)src="(.+?)"(.+?)>(\d+\.?\d+)<\/b><del>(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"/is';
-				preg_match_all($hygptn,$hygarr[0][0],$hygarr1,PREG_SET_ORDER);
-				foreach($hygarr1 as $k => $v){
-					//$xsqg[] = array('iid'=>$v[10],'nprice'=>$v[7],'pic'=>$v[5]);
-					$xsqg[] = array('iid'=>$v[10],'nprice'=>$v[7]);
-				}
-				$huiyuangou['xsqg'] = $xsqg;
-				// end - 限时抢购  */
-				
-				$hygptn = '/class="b6hyg_today"(.+?)class="b6hyg_index_next"/is';
-				preg_match_all($hygptn,$result,$hygarr,PREG_SET_ORDER);
-				$jxspR = $hygarr[0][0];
-				
-				$hygarr = null;
-				$hygptn = '/class="b6hyg_today b6hyg_tdzp"(.+?)name="hotbrand"/is';
-				preg_match_all($hygptn,$result,$hygarr,PREG_SET_ORDER);
-				$tdzpR = $hygarr[0][0];
-				
-				$hygarr = null;
-				// 精选商品
-				$hygptn = '/class="b6today_goods"(.+?)class="b6zk_bk(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<img(.+?)data-ks-lazyload="(.+?)"(.+?)class="b6b1">(.+?)(\d+\.?\d+)(.+?)class="b6b2"/is';
-				preg_match_all($hygptn,$jxspR,$hygarr,PREG_SET_ORDER);
-				foreach($hygarr as $k => $v){
-					$jxsp[] = array('iid'=>$v[4],'nprice'=>$v[11],'pic'=>$v[8]);
-				}
-				$huiyuangou['jxsp'] = $jxsp;
-				// END - 精选商品
-				
-				$hygarr = null;
-				// 精品热卖
-				$hygptn = '/class="b6today_goods"(.+?)class="b6zk_bk(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<img(.+?)data-ks-lazyload="(.+?)"(.+?)class="b6b1">(.+?)(\d+\.?\d+)(.+?)class="b6b2"/is';
-				preg_match_all($hygptn,$tdzpR,$hygarr,PREG_SET_ORDER);
-				//print_r($hygarr);
-				foreach($hygarr as $k => $v){
-					$tdzp[] = array('iid'=>$v[4],'nprice'=>$v[11],'pic'=>$v[8]);
-				}
-				$huiyuangou['tdzp'] = $tdzp;
-				// END - 精品热卖
-				
-				//var_dump($huiyuangou);
+				$huiyuangou['sy'] = $hyg;
 				$this->items = $huiyuangou;
 				if($mode==2)
 					echo json_encode($this->items);

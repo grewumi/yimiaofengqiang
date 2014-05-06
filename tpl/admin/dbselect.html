@@ -21,10 +21,13 @@
 					<h3>采集数据一键同步</h3>
 					{if $username}
 					<del>
-						<!-- <a target="_blank" href="{spUrl c=admin a=postDataToUz}"> -->
+						{if !$caijiisuse}
+						<a target="_blank" href="{spUrl c=admin a=postDataToUz}">
 							{$username}
-						<!-- </a> -->
-						(暂停开放)
+						</a>
+						{else}
+							{$username}<span style="color:red;">(请等待前一位导入完，一般时间为4~8分钟)</span>
+						{/if}
 					</del>
 					{else}
 					<span style="color:red;">余额不足！！</span>

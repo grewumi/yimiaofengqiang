@@ -22,6 +22,19 @@ function get_url_content($url) {
 	}
 }
 
+// N维数组去空值
+function array_no_empty($arr) {
+    if (is_array($arr)) {
+        foreach ( $arr as $k => $v ) {
+            if (empty($v)) unset($arr[$k]);
+            elseif (is_array($v)) {
+                $arr[$k] = array_no_empty($v);
+            }
+        }
+    }
+    return $arr;
+}
+
 //cookie设置
 function ssetcookie($var, $value, $life=0) {
 	setcookie($GLOBALS['G_SP']['SC']['cookiepre'].$var, $value, $life?($GLOBALS['G_SP']['timestamp']+$life):0, $GLOBALS['G_SP']['SC']['cookiepath'], $GLOBALS['G_SP']['SC']['cookiedomain'], $_SERVER['SERVER_PORT']==443?1:0);

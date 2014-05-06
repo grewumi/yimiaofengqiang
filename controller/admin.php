@@ -461,6 +461,7 @@ class admin extends spController{
 		if(!$_SESSION['admin'])
 			header("Location:/login.html");
 		
+		
 		//import('public-data.php');
 		$pros = spClass('m_pro');		
 		$where = 'st<=curdate() and et>=curdate() and ischeck=1';
@@ -630,6 +631,7 @@ class admin extends spController{
 				}else{
 					unset($item['act_from']);
 					unset($item['rank']);
+					//$item['et'] = date("Y-m-d",86400*7+time());
 					//$itemPostdt = $pros->find(array('iid'=>$v['iid']));
 					//$item['postdt'] = $itemPostdt['postdt'];
 					if(!$pros->update(array('iid'=>$v['iid']),$item))
@@ -806,6 +808,7 @@ class admin extends spController{
 		echo '</script>';
 	}
 	public function postDataToUz($mode='php'){
+		
 		ini_set('memory_limit', '126M'); // 内存超载
 		ini_set('pcre.backtrack_limit', 999999999); // 回溯超载
 		ini_set('pcre.recursion_limit', 99999); // 资源开大就行
@@ -820,98 +823,117 @@ class admin extends spController{
 		$noAd = 'type!=87';
 		$baseSql .= ' and '.$noAd; // 当天的预告过滤
 		
+		$control = spClass('m_control');
+		$caiji_control = $control->find(array('type'=>1));
+		if($caiji_control['isuse'])
+			exit();
+		else
+			$control->update(array('type'=>1),array('isuse'=>1));
+		
+		
+		//var_dump($control->find());
 		$pros = spClass('m_pro');
 		
-		// 各个平台的数据单独导
-		$type = $this->spArgs('type');
-		$actfrom = $this->website[$this->spArgs('type')]['actType'];
-		if($actfrom){ // 每个平台选择			
-			$page = $this->spArgs('page',1);
-			if($actfrom==2 || $actfrom==6 || $actfrom==9)// 会员购,VIP特惠，VIP购优惠不过滤佣金
-				$where = 'act_from='.$actfrom.' and '.$baseSql.' and postdt>=curdate()';
-			else{
+		// 一键导入数据重组
+		foreach($this->website as $k=>$v){
+			if($k!='none'){
 				if(COMISSIONRATESORT)
-					$where = 'act_from='.$actfrom.' and '.$baseSql.' and postdt>=curdate()  and commission_rate>=5';
+					$where = 'act_from='.$v['actType'].' and '.$baseSql.' and postdt>=curdate() and commission_rate>=5';
 				else
-					$where = 'act_from='.$actfrom.' and '.$baseSql.' and postdt>=curdate()';
+					$where = 'act_from='.$v['actType'].' and '.$baseSql.' and postdt>=curdate()';
 			}
-		}else{ // 全部
-			$page = $this->spArgs('page',1);
-			if(COMISSIONRATESORT)
-				$where = $baseSql.' and postdt>=curdate() and commission_rate>=5';
-			else
-				$where = $baseSql.' and postdt>=curdate()';
+			$items_zu['actfrom'.$v['actType']] = $pros->findAll($where);
 		}
 		
-		$items = $pros->findAll($where); //,'commission_rate asc'
-		foreach($items as $k=>$v){
-			if(is_numeric($v['iid'])){
-				if(empty($v['phone']))
-					$v['phone'] = '123456789';
-				$v['rank'] = 500;
-				if(!$v['shopshow'])
-					$v['shopshow']=1;
-				if(!$v['shopv'])
-					$v['shopv']=0;
-				$v['title'] = preg_replace('/【.+?】/i','',$v['title']);
-				if($_SESSION['iscaijiuser']=='zhe800w' || $_SESSION['iscaijiuser']=='55128' || $_SESSION['iscaijiuser']=='haowo' || $_SESSION['iscaijiuser']=='xinxin' || $_SESSION['iscaijiuser']=='cong' || $_SESSION['iscaijiuser']=='lijie' || $_SESSION['iscaijiuser']=='x0123' || $_SESSION['iscaijiuser']=='9kuaigou' || $_SESSION['iscaijiuser']=='xx0123' || $_SESSION['iscaijiuser']=='ugou'){
-					if($v['nprice']<10)
-						$v['type'] = 2;
-					elseif($v['nprice']>10 && $v['nprice']<20)
-						$v['type'] = 3;
-					elseif($v['nprice']>20 && $v['nprice']<30)
-						$v['type'] = 5;
-					elseif($v['nprice']>30 && $v['nprice']<40)
-						$v['type'] = 7;
-					elseif($v['nprice']>=40)
-						$v['type'] = 4;
-				}elseif($_SESSION['iscaijiuser']=='shiyonglianmeng'){
-					if($v['nprice']<10)
-						$v['type'] = 2;
-					elseif($v['nprice']>10 && $v['nprice']<20)
-						$v['type'] = 3;
-					elseif(($v['nprice']/$v['oprice'])*10<=3)
-						$v['type'] = 6;
-					else
-						$v['type'] = 8;
-						
-				}
-				if($_SESSION['iscaijiuser']=='ifengqiang' || $_SESSION['iscaijiuser']=='9kuaigou'){
-					if($v['nprice']<10)
-						$v['act_from'] = 2;
-					else
-						$v['act_from'] = 3;
-				}else{
-					$v['act_from'] = 1;
-				}
-				if($_SESSION['iscaijiuser']=='cong'){
-					$v['act_from'] = 3;
-				}
-				if($_SESSION['iscaijiuser']=='9kuaigou'){
-					if($v['cat']==27)
-						$v['cat']=22;
-					$sqlout_sec .= $sqlout_fir." ('".$v['title']."','".$v['oprice']."','".$v['nprice']."','".$v['pic']."','".$v['st']."','".$v['et']."','".$v['type']."','".$v['cat']."','".$v['ischeck']."','http://item.taobao.com/item.htm?id=".$v['iid']."','".$v['rank']."','".$v['num']."','".$v['slink']."','".$v['ww']."','".$v['snum']."','".$v['xujf']."','".date("Y-m-d H:i:s")."','".$v['zk']."','".$v['iid']."','".$v['volume']."','".$v['content']."','".$v['remark']."','".$v['nick']."','".$v['reason']."','".$v['carriage']."','".$v['commission_rate']."','".date("Y-m-d H:i:s")."','".$v['click_num']."','".$v['phone']."','".$v['act_from']."','".$v['shopshow']."','".$v['shopv']."')  ON DUPLICATE KEY UPDATE last_modify=now(),cat=".$v['cat'].",et='".$v['et']."',commission_rate=".$v['commission_rate'].";";
-				}
-				else
-					$sqlout_sec .= $sqlout_fir." ('".$v['title']."','".$v['oprice']."','".$v['nprice']."','".$v['pic']."','".$v['st']."','".$v['et']."','".$v['type']."','".$v['cat']."','".$v['ischeck']."','http://item.taobao.com/item.htm?id=".$v['iid']."','".$v['rank']."','".$v['num']."','".$v['slink']."','".$v['ww']."','".$v['snum']."','".$v['xujf']."','".date("Y-m-d H:i:s")."','".$v['zk']."','".$v['iid']."','".$v['volume']."','".$v['content']."','".$v['remark']."','".$v['nick']."','".$v['reason']."','".$v['carriage']."','".$v['commission_rate']."','".date("Y-m-d H:i:s")."','".$v['click_num']."','".$v['phone']."','".$v['act_from']."','".$v['shopshow']."','".$v['shopv']."')  ON DUPLICATE KEY UPDATE last_modify=now(),cat=".$v['cat'].",et='".$v['et']."',commission_rate=".$v['commission_rate'].";";
-				if($_SESSION['iscaijiuser']=='yuansu')
-					$v['pic'] = preg_replace('/_310x310.jpg/i','',$v['pic']);
-				
-				if($_SESSION['iscaijiuser']){
-					if($mode=='php')
-						$this->postDataToUzPhp($v,$_SESSION['iscaijiuser']);
-					else 
-						$this->postDataToUzScripts($sqlout_sec,$_SESSION['iscaijiuser']);
-				}else{
-					if($mode=='php')
-						$this->postDataToUzPhp($v,'admin');
-					else 
-						$this->postDataToUzScripts($sqlout_sec,'admin');
-				}
-				$sqlout_sec = null;
+		foreach($items_zu as $k=>$iv){
+			foreach($iv as $k=>$v){
+				$itemsTemp[] = $v;
 			}
-			
 		}
+			
+		$itemsReal = array_no_empty($itemsTemp);
+		
+		if(count($itemsReal)>1000)
+			$item_zu_tmp = array_chunk($itemsReal,1000);
+		else 
+			$item_zu_tmp[0] = $itemsReal;
+		
+		//var_dump($item_zu_tmp);
+		//$items = $pros->findAll($where); //,'commission_rate asc'
+		foreach($item_zu_tmp as $k=>$iv){
+			foreach($iv as $k=>$v){
+				if(is_numeric($v['iid'])){
+					if(empty($v['phone']))
+						$v['phone'] = '123456789';
+					$v['rank'] = 500;
+					if(!$v['shopshow'])
+						$v['shopshow']=1;
+					if(!$v['shopv'])
+						$v['shopv']=0;
+					$v['title'] = preg_replace('/【.+?】/i','',$v['title']);
+					if($_SESSION['iscaijiuser']=='zhe800w' || $_SESSION['iscaijiuser']=='55128' || $_SESSION['iscaijiuser']=='haowo' || $_SESSION['iscaijiuser']=='xinxin' || $_SESSION['iscaijiuser']=='cong' || $_SESSION['iscaijiuser']=='lijie' || $_SESSION['iscaijiuser']=='x0123' || $_SESSION['iscaijiuser']=='9kuaigou' || $_SESSION['iscaijiuser']=='xx0123' || $_SESSION['iscaijiuser']=='ugou'){
+						if($v['nprice']<10)
+							$v['type'] = 2;
+						elseif($v['nprice']>10 && $v['nprice']<20)
+							$v['type'] = 3;
+						elseif($v['nprice']>20 && $v['nprice']<30)
+							$v['type'] = 5;
+						elseif($v['nprice']>30 && $v['nprice']<40)
+							$v['type'] = 7;
+						elseif($v['nprice']>=40)
+							$v['type'] = 4;
+					}elseif($_SESSION['iscaijiuser']=='shiyonglianmeng'){
+						if($v['nprice']<10)
+							$v['type'] = 2;
+						elseif($v['nprice']>10 && $v['nprice']<20)
+							$v['type'] = 3;
+						elseif(($v['nprice']/$v['oprice'])*10<=3)
+							$v['type'] = 6;
+						else
+							$v['type'] = 8;
+
+					}
+					if($_SESSION['iscaijiuser']=='ifengqiang' || $_SESSION['iscaijiuser']=='9kuaigou'){
+						if($v['nprice']<10)
+							$v['act_from'] = 2;
+						else
+							$v['act_from'] = 3;
+					}else{
+						$v['act_from'] = 1;
+					}
+					if($_SESSION['iscaijiuser']=='cong'){
+						$v['act_from'] = 3;
+					}
+					if($_SESSION['iscaijiuser']=='9kuaigou'){
+						if($v['cat']==27)
+							$v['cat']=22;
+						$sqlout_sec .= $sqlout_fir." ('".$v['title']."','".$v['oprice']."','".$v['nprice']."','".$v['pic']."','".$v['st']."','".$v['et']."','".$v['type']."','".$v['cat']."','".$v['ischeck']."','http://item.taobao.com/item.htm?id=".$v['iid']."','".$v['rank']."','".$v['num']."','".$v['slink']."','".$v['ww']."','".$v['snum']."','".$v['xujf']."','".date("Y-m-d H:i:s")."','".$v['zk']."','".$v['iid']."','".$v['volume']."','".$v['content']."','".$v['remark']."','".$v['nick']."','".$v['reason']."','".$v['carriage']."','".$v['commission_rate']."','".date("Y-m-d H:i:s")."','".$v['click_num']."','".$v['phone']."','".$v['act_from']."','".$v['shopshow']."','".$v['shopv']."')  ON DUPLICATE KEY UPDATE last_modify=now(),cat=".$v['cat'].",et='".$v['et']."',commission_rate=".$v['commission_rate'].";";
+					}
+					else
+						$sqlout_sec .= $sqlout_fir." ('".$v['title']."','".$v['oprice']."','".$v['nprice']."','".$v['pic']."','".$v['st']."','".$v['et']."','".$v['type']."','".$v['cat']."','".$v['ischeck']."','http://item.taobao.com/item.htm?id=".$v['iid']."','".$v['rank']."','".$v['num']."','".$v['slink']."','".$v['ww']."','".$v['snum']."','".$v['xujf']."','".date("Y-m-d H:i:s")."','".$v['zk']."','".$v['iid']."','".$v['volume']."','".$v['content']."','".$v['remark']."','".$v['nick']."','".$v['reason']."','".$v['carriage']."','".$v['commission_rate']."','".date("Y-m-d H:i:s")."','".$v['click_num']."','".$v['phone']."','".$v['act_from']."','".$v['shopshow']."','".$v['shopv']."')  ON DUPLICATE KEY UPDATE last_modify=now(),cat=".$v['cat'].",et='".$v['et']."',commission_rate=".$v['commission_rate'].";";
+					if($_SESSION['iscaijiuser']=='yuansu')
+						$v['pic'] = preg_replace('/_310x310.jpg/i','',$v['pic']);
+
+					if($_SESSION['iscaijiuser']){
+						if($mode=='php')
+							$this->postDataToUzPhp($v,$_SESSION['iscaijiuser']);
+						else 
+							$this->postDataToUzScripts($sqlout_sec,$_SESSION['iscaijiuser']);
+					}else{
+						if($mode=='php')
+							$this->postDataToUzPhp($v,'admin');
+						else 
+							$this->postDataToUzScripts($sqlout_sec,'admin');
+					}
+					$sqlout_sec = null;
+				}
+
+			}
+			echo date("H:i:s").'暂停';
+			sleep(210);
+			echo date("H:i:s").'继续';
+		}
+		$control->update(array('type'=>1),array('isuse'=>0));
 	}
 	
 	public function upyjscript($iid,$actType){
@@ -998,6 +1020,10 @@ class admin extends spController{
 		
 		
 		$pros = spClass('m_pro');
+		
+		$control = spClass("m_control");
+		$caiji_control = $control->find(array('type'=>1));
+		$this->caijiisuse = $caiji_control['isuse'];
 		
 		// 当天采集的数据
 //		if(COMISSIONRATESORT){

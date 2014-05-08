@@ -35,7 +35,11 @@
 					
 					{elseif !$iscaijiuser}
 					<h3>采集数据一键同步</h3>
-					<a target="_blank" href="{spUrl c=admin a=postDataToUz}">一秒疯抢</a>
+						{if !$caijiisuse}
+						<a target="_blank" href="{spUrl c=admin a=postDataToUz}">一秒疯抢</a>
+						{else}
+						一秒疯抢<span style="color:red;">(请等待前一位导入完，一般时间为4~8分钟)</span>
+						{/if}
 					{/if}
 				</div>
 				

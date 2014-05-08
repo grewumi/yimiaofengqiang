@@ -1018,6 +1018,7 @@ class admin extends spController{
 		
 		$pros = spClass('m_pro');
 		
+		// 一件导入控制
 		if(SETAJAXTOUZ){
 			$control = spClass("m_control");
 			$caiji_control = $control->find(array('type'=>1));
@@ -1026,6 +1027,12 @@ class admin extends spController{
 			$this->caijiisuse = 1;
 		}
 		
+		// SQL文件导入控制
+		if(SETFILETOUZ){
+			$control = spClass("m_control");
+			$getsql_control = $control->find(array('type'=>2));
+			$this->getsqlisuse = $getsql_control['isuse'];
+		}
 		
 		// 当天采集的数据
 //		if(COMISSIONRATESORT){
@@ -1103,6 +1110,14 @@ class admin extends spController{
 	
 		$pros = spClass('m_pro');
 		
+		// 队列下载
+		$control = spClass('m_control');
+		$getsql_control = $control->find(array('type'=>2));
+		if($getsql_control['isuse'])
+			exit();
+		else
+			$control->update(array('type'=>2),array('isuse'=>1));
+		
 		// 一键导入数据重组
 		foreach($this->website as $k=>$v){
 			if($k!='none'){
@@ -1123,15 +1138,21 @@ class admin extends spController{
 		
 		$itemsReal = $itemsTemp;
 		
-		if(count($itemsReal)>1000)
-			$item_zu_tmp = array_chunk($itemsReal,1000);
+		if(count($itemsReal)>3000)
+			$item_zu_tmp = array_chunk($itemsReal,3000);
 		else 
 			$item_zu_tmp[0] = $itemsReal;
 		
 		header("Content-Type:text/html;charset=UTF-8");
 		
-		$sqlout_fir = "INSERT INTO `fstk_pro` (`title`, `oprice`, `nprice`, `pic`, `st`, `et`, `type`, `cat`, `ischeck`, `link`, `rank`, `num`, `slink`, `ww`, `snum`, `xujf`, `postdt`, `zk`, `iid`, `volume`, `content`, `remark`, `nick`, `reason`, `carriage`, `commission_rate`, `last_modify`, `click_num`, `phone`, `act_from`,`shopshow`,`shopv`) VALUES ";
-
+		$sqlout_fir = 'INSERT INTO fstk_pro(title,oprice,nprice,pic,st,et,type,cat,ischeck,link,rank,num,slink,ww,snum,xujf,postdt,zk,iid,volume,content,remark,nick,reason,carriage,commission_rate,last_modify,click_num,phone,act_from,shopshow,shopv) VALUES ';
+		
+		//清空文件夹
+		$datalist=list_dir('./tmp/sqlout/');
+		foreach($datalist as $k=>$val){   
+			unlink($val);
+		}   
+			
 		foreach($item_zu_tmp as $k=>$iv){
 			$i += 1;
 			$file = fopen('./tmp/sqlout/'.$filename.'-part'.$i.'.sql',"w+");
@@ -1179,7 +1200,7 @@ class admin extends spController{
 					if($_SESSION['iscaijiuser']=='cong'){
 						$v['act_from'] = 3;
 					}
-					$sqlout_sec = $sqlout_fir." ('".$v['title']."','".$v['oprice']."','".$v['nprice']."','".$v['pic']."','".$v['st']."','".$v['et']."','".$v['type']."','".$v['cat']."','".$v['ischeck']."','http://item.taobao.com/item.htm?id=".$v['iid']."','".$v['rank']."','".$v['num']."','".$v['slink']."','".$v['ww']."','".$v['snum']."','".$v['xujf']."','".date("Y-m-d H:i:s")."','".$v['zk']."','".$v['iid']."','".$v['volume']."','".$v['content']."','".$v['remark']."','".$v['nick']."','".$v['reason']."','".$v['carriage']."','".$v['commission_rate']."','".date("Y-m-d H:i:s")."','".$v['click_num']."','".$v['phone']."','".$v['act_from']."','".$v['shopshow']."','".$v['shopv']."')  ON DUPLICATE KEY UPDATE last_modify=now(),cat=".$v['cat'].",et='".$v['et']."',commission_rate=".$v['commission_rate']."\n";
+					$sqlout_sec = $sqlout_fir.' ("'.$v["title"].'","'.$v["oprice"].'","'.$v["nprice"].'","'.$v["pic"].'","'.$v["st"].'","'.$v["et"].'","'.$v["type"].'","'.$v["cat"].'","'.$v["ischeck"].'","http://item.taobao.com/item.htm?id='.$v["iid"].'","'.$v["rank"].'","'.$v["num"].'","'.$v["slink"].'","'.$v["ww"].'","'.$v["snum"].'","'.$v["xujf"].'","'.date("Y-m-d H:i:s").'","'.$v["zk"].'","'.$v["iid"].'","'.$v["volume"].'","'.$v["content"].'","'.$v["remark"].'","'.$v["nick"].'","'.$v["reason"].'","'.$v["carriage"].'","'.$v["commission_rate"].'","'.date("Y-m-d H:i:s").'","'.$v["click_num"].'","'.$v["phone"].'","'.$v["act_from"].'","'.$v["shopshow"].'","'.$v["shopv"].'")  ON DUPLICATE KEY UPDATE last_modify=now(),cat='.$v["cat"].',et="'.$v["et"].'",commission_rate='.$v["commission_rate"]."\n";
 					//echo $sqlout_sec;
 					$file = fopen('./tmp/sqlout/'.$filename.'-part'.$i.'.sql',"a+");
 					if(!$file)
@@ -1219,6 +1240,7 @@ class admin extends spController{
 		header("Content-Transfer-Encoding: binary"); //告诉浏览器，这是二进制文件    
 		header('Content-Length: '. filesize($zipfilename)); //告诉浏览器，文件大小   
 		@readfile($zipfilename); 
+		$control->update(array('type'=>2),array('isuse'=>0));
 	}
 	
 	// 数据导出

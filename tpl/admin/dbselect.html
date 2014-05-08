@@ -66,7 +66,11 @@
 				</div>
 				<div class="dbselect-ctrl">
 					<h3>TAE2.0 sql文件导出</h3>
+					{if $getsqlisuse}
+							一秒疯抢提示：<span style="color:red;">(请等待前一位下载完)</span>
+					{else}
 					<a target="_blank" href="/?c=admin&a=savesqltouz">导出文件</a>
+					{/if}
 					<h3>导出</h3>
 					<div class="admin-page">
 					    {if $pager}

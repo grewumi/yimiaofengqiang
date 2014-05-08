@@ -2,6 +2,7 @@
 global $caijiusers,$website;
 define('COMISSIONRATESORT',1);
 define('SETAJAXTOUZ',0);
+define('SETFILETOUZ',1);
 $website = array(
 	'jiukuaiyou'=>array('actType'=>4,'name'=>'╬е©Исй','rank'=>19), // ╬е©Исй
 	'zhe800'=>array('actType'=>5,'name'=>'уш800','rank'=>18), // уш800

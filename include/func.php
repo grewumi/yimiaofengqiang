@@ -155,4 +155,23 @@ function getImage($url,$save_dir='',$filename='',$type=0){
 	unset($img,$url);
     return array('file_name'=>$filename,'save_path'=>$save_dir.$filename,'error'=>0);
 }
+//获取文件列表
+function list_dir($dir){
+	$result = array();
+	if (is_dir($dir)){
+		$file_dir = scandir($dir);
+		foreach($file_dir as $file){
+			if ($file == '.' || $file == '..'){
+				continue;
+			}
+			elseif (is_dir($dir.$file)){
+				$result = array_merge($result, list_dir($dir.$file.'/'));
+			}
+			else{
+				array_push($result, $dir.$file);
+			}
+		}
+	}
+	return $result;
+}
 ?>

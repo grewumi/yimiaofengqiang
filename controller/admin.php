@@ -1018,9 +1018,14 @@ class admin extends spController{
 		
 		$pros = spClass('m_pro');
 		
-		$control = spClass("m_control");
-		$caiji_control = $control->find(array('type'=>1));
-		$this->caijiisuse = $caiji_control['isuse'];
+		if(SETAJAXTOUZ){
+			$control = spClass("m_control");
+			$caiji_control = $control->find(array('type'=>1));
+			$this->caijiisuse = $caiji_control['isuse'];
+		}else{
+			$this->caijiisuse = 1;
+		}
+		
 		
 		// 当天采集的数据
 //		if(COMISSIONRATESORT){
@@ -1054,6 +1059,7 @@ class admin extends spController{
 		
 		$itemsTemp = $pros->spPager($page,50)->findAll($where);
 		
+		
 		// 采集用户的信息
 		if($_SESSION['iscaijiuser']){
 			$this->iscaijiuser = $_SESSION['iscaijiuser'];
@@ -1063,7 +1069,7 @@ class admin extends spController{
 		$this->type = $type;
 		$this->actfrom = $actfrom;
 		$this->pager = $pros->spPager()->getPager();
-                
+        $this->todayoutsql = $filename = $_SESSION['iscaijiuser'].'-'.date("Y-m-d").'.sql';        
         $this->dbselectCur = 1;
 		$this->display("admin/dbselect.html");
 	}
@@ -1083,6 +1089,136 @@ class admin extends spController{
 		$sqlout_sec .= $sqlout_fir.' ("'.$v['title'].'","'.$v['oprice'].'","'.$v['nprice'].'","'.$v['pic'].'","'.$v['st'].'","'.$v['et'].'","'.$v['type'].'","'.$v['cat'].'","'.$v['ischeck'].'","http://item.taobao.com/item.htm?id='.$v['iid'].'","'.$v['rank'].'","'.$v['num'].'","'.$v['slink'].'","'.$v['ww'].'","'.$v['snum'].'","'.$v['xujf'].'",now(),"'.$v['zk'].'","'.$v['iid'].'","'.$v['volume'].'","'.$v['content'].'","'.$v['remark'].'","'.$v['nick'].'","'.$v['reason'].'","'.$v['carriage'].'","'.$v['commission_rate'].'",now(),"'.$v['click_num'].'","'.$v['phone'].'","'.$v['act_from'].'","'.$v['shopshow'].'","'.$v['shopv'].'")  ON DUPLICATE KEY UPDATE last_modify=now(),cat='.$v['cat'].',pic='.$v['pic'].',et="'.$v['et'].'",commission_rate='.$v['commission_rate'].';';
 		echo $sqlout_sec;
 		
+	}
+	
+	//导出数据数据存储为sql文件
+	public function savesqltouz(){
+		if(!$_SESSION['admin'])
+			if(!$_SESSION['iscaijiuser'])
+				header("Location:/login.html");
+		$filename = $_SESSION['iscaijiuser'].date("Y-m-d");
+		$baseSql = 'st<=curdate() and et>=curdate() and ischeck=1';
+		$noAd = 'type!=87';
+		$baseSql .= ' and '.$noAd; // 当天的预告过滤
+	
+		$pros = spClass('m_pro');
+		
+		// 一键导入数据重组
+		foreach($this->website as $k=>$v){
+			if($k!='none'){
+				if(COMISSIONRATESORT)
+					$where = 'act_from='.$v['actType'].' and '.$baseSql.' and postdt>=curdate() and commission_rate>=5';
+				else
+					$where = 'act_from='.$v['actType'].' and '.$baseSql.' and postdt>=curdate()';
+			}
+			$items_zu['actfrom'.$v['actType']] = $pros->findAll($where,'commission_rate asc');//佣金低->高组合，插入的时候就反过来基于postdt时间为now(),
+		}
+		//var_dump($items_zu);
+			
+		foreach($items_zu as $k=>$iv){
+			foreach($iv as $k=>$v){
+				$itemsTemp[] = $v;
+			}
+		}
+		
+		$itemsReal = $itemsTemp;
+		
+		if(count($itemsReal)>1000)
+			$item_zu_tmp = array_chunk($itemsReal,1000);
+		else 
+			$item_zu_tmp[0] = $itemsReal;
+		
+		header("Content-Type:text/html;charset=UTF-8");
+		
+		$sqlout_fir = "INSERT INTO `fstk_pro` (`title`, `oprice`, `nprice`, `pic`, `st`, `et`, `type`, `cat`, `ischeck`, `link`, `rank`, `num`, `slink`, `ww`, `snum`, `xujf`, `postdt`, `zk`, `iid`, `volume`, `content`, `remark`, `nick`, `reason`, `carriage`, `commission_rate`, `last_modify`, `click_num`, `phone`, `act_from`,`shopshow`,`shopv`) VALUES ";
+
+		foreach($item_zu_tmp as $k=>$iv){
+			$i += 1;
+			$file = fopen('./tmp/sqlout/'.$filename.'-part'.$i.'.sql',"w+");
+			fclose($file);
+			foreach($iv as $k=>$v){
+				if(is_numeric($v['iid'])){
+					if(empty($v['phone']))
+						$v['phone'] = '123456789';
+					$v['rank'] = 500;
+					if(!$v['shopshow'])
+						$v['shopshow']=1;
+					if(!$v['shopv'])
+						$v['shopv']=0;
+					$v['title'] = preg_replace('/【.+?】/i','',$v['title']);
+					if($_SESSION['iscaijiuser']=='zhe800w' || $_SESSION['iscaijiuser']=='55128' || $_SESSION['iscaijiuser']=='haowo' || $_SESSION['iscaijiuser']=='xinxin' || $_SESSION['iscaijiuser']=='cong' || $_SESSION['iscaijiuser']=='lijie' || $_SESSION['iscaijiuser']=='x0123' || $_SESSION['iscaijiuser']=='9kuaigou' || $_SESSION['iscaijiuser']=='xx0123' || $_SESSION['iscaijiuser']=='ugou'){
+						if($v['nprice']<10)
+							$v['type'] = 2;
+						elseif($v['nprice']>10 && $v['nprice']<20)
+							$v['type'] = 3;
+						elseif($v['nprice']>20 && $v['nprice']<30)
+							$v['type'] = 5;
+						elseif($v['nprice']>30 && $v['nprice']<40)
+							$v['type'] = 7;
+						elseif($v['nprice']>=40)
+							$v['type'] = 4;
+					}elseif($_SESSION['iscaijiuser']=='shiyonglianmeng'){
+						if($v['nprice']<10)
+							$v['type'] = 2;
+						elseif($v['nprice']>10 && $v['nprice']<20)
+							$v['type'] = 3;
+						elseif(($v['nprice']/$v['oprice'])*10<=3)
+							$v['type'] = 6;
+						else
+							$v['type'] = 8;
+
+					}
+					if($_SESSION['iscaijiuser']=='ifengqiang' || $_SESSION['iscaijiuser']=='9kuaigou'){
+						if($v['nprice']<10)
+							$v['act_from'] = 2;
+						else
+							$v['act_from'] = 3;
+					}else{
+						$v['act_from'] = 1;
+					}
+					if($_SESSION['iscaijiuser']=='cong'){
+						$v['act_from'] = 3;
+					}
+					$sqlout_sec = $sqlout_fir." ('".$v['title']."','".$v['oprice']."','".$v['nprice']."','".$v['pic']."','".$v['st']."','".$v['et']."','".$v['type']."','".$v['cat']."','".$v['ischeck']."','http://item.taobao.com/item.htm?id=".$v['iid']."','".$v['rank']."','".$v['num']."','".$v['slink']."','".$v['ww']."','".$v['snum']."','".$v['xujf']."','".date("Y-m-d H:i:s")."','".$v['zk']."','".$v['iid']."','".$v['volume']."','".$v['content']."','".$v['remark']."','".$v['nick']."','".$v['reason']."','".$v['carriage']."','".$v['commission_rate']."','".date("Y-m-d H:i:s")."','".$v['click_num']."','".$v['phone']."','".$v['act_from']."','".$v['shopshow']."','".$v['shopv']."')  ON DUPLICATE KEY UPDATE last_modify=now(),cat=".$v['cat'].",et='".$v['et']."',commission_rate=".$v['commission_rate']."\n";
+					//echo $sqlout_sec;
+					$file = fopen('./tmp/sqlout/'.$filename.'-part'.$i.'.sql',"a+");
+					if(!$file)
+						echo '文件打开失败';
+					fwrite($file,iconv('gbk','utf-8',$sqlout_sec));
+					$sqlout_sec = null;
+				}
+			}
+			fclose($file);
+		}
+		
+		//获取列表 
+		$datalist=list_dir('./tmp/sqlout/');
+		//var_dump($datalist);
+		$zipfilename = "./tmp/".$filename.".zip"; //最终生成的文件名（含路径）   
+		unlink($zipfilename);
+		if(!file_exists($zipfilename)){   
+			//重新生成文件   
+			$zip = new ZipArchive();//使用本类，linux需开启zlib，windows需取消php_zip.dll前的注释   
+			if ($zip->open($zipfilename, ZIPARCHIVE::CREATE)!==TRUE) {   
+				exit('无法打开文件，或者文件创建失败');
+			}   
+			foreach($datalist as $k=>$val){   
+				if(file_exists($val)){   
+					$zip->addFile($val,basename($val));//第二个参数是放在压缩包中的文件名称，如果文件可能会有重复，就需要注意一下   
+				}   
+			}   
+			$zip->close();//关闭   
+		}   
+		if(!file_exists($zipfilename)){   
+			exit("无法找到文件"); //即使创建，仍有可能失败。。。。   
+		}   
+		header("Cache-Control: public"); 
+		header("Content-Description: File Transfer"); 
+		header('Content-disposition: attachment; filename='.basename($zipfilename)); //文件名   
+		header("Content-Type: application/zip"); //zip格式的   
+		header("Content-Transfer-Encoding: binary"); //告诉浏览器，这是二进制文件    
+		header('Content-Length: '. filesize($zipfilename)); //告诉浏览器，文件大小   
+		@readfile($zipfilename); 
 	}
 	
 	// 数据导出

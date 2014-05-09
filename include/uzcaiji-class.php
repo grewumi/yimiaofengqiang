@@ -354,12 +354,13 @@ class UzCaiji{
 			}elseif($website=='taofen8'){ // ÍâÕ¾  ÌÔ·Û°É
 				$this->url = 'http://www.taofen8.com/';
 				$result = file_get_contents($this->url);
-				$tf8ptn = '/class="tf8_sp-1"(.+?)class="footer_body"/is';
+				$tf8ptn = '/class="tf8_sp-1"(.+?)class="tf8_pagediv-1"/is';
 				preg_match_all($tf8ptn,$result,$tf8arr,PREG_SET_ORDER);
-				$tf8ptn = '/<li(.+?)class="tf8_spimg-1"(.+?)name="url_(\d+)"(.+?)class="tf8-index-d2"(.+?)class="tf8-d2-span2">(\d+)<\/span>(.+?)class="tf8-d2-span3">(\.?\d+)<\/span>(.+?)<\/li>/is';
+				$tf8ptn = '/<li(.+?)class="tf8_spimg-1"(.+?)name="url_(\d+)"(.+?)class="tf8_shop"(.+?)class="tf8-index-d2"(.+?)class="tf8-d2-span2">(\d+\.?\d+)<\/span>(.+?)class="tf8-d2-span3"/is';
 				preg_match_all($tf8ptn,$tf8arr[0][0],$tf8arr1,PREG_SET_ORDER);
+				//print_r($tf8arr1);
 				foreach($tf8arr1 as $k => $v){
-					$tf8zx[] = array('iid'=>$v[3],'nprice'=>$v[6].$v[8]);//,'pic'=>$v[6]
+					$tf8zx[] = array('iid'=>$v[3],'nprice'=>$v[7]);//,'pic'=>$v[6]
 				}
 				$tf8['tf8zx'] = $tf8zx;
 				//var_dump($tf8);

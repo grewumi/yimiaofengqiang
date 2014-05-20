@@ -25,9 +25,19 @@
 		<div class="admin-pro">
 			<div class="pro-info">
 				<ul>
+					<li class="hd">
+						<span class="short">排序</span>
+						<span class="pic">图片</span>
+						<span class="title">标题</span>
+						<span class="short">原价</span>
+						<span class="short">促销价</span>
+						<span class="short">销量</span>
+                        <span class="short">佣金</span>
+						<span>操作</span>
+					</li>	
 				{foreach key=k item=v from=$items}
 					<li>
-						<span>{$v.rank}</span>
+						<span class="short">{$v.rank}</span>
 						<span class="pic"><img src="{$v.pic}" /></span>
 						<a target="_blank" href="http://item.taobao.com/item.htm?id={$v.iid}">
 							<span class="title">{$v.title}</span>
@@ -36,10 +46,12 @@
 						<span class="short">{$v.nprice}</span>
 						<span class="short">{$v.volume}</span>
                                                 <span class="short">{$v.commission_rate}%</span>
-						<span><a href="{spUrl c=admin a=delpro id=$v.id}">删除</a></span>
-						<span><a target="_blank" href="{spUrl c=admin a=modpro id=$v.id}">修改</a></span>
-						<span><a target="_blank" href="{spUrl c=admin a=checkpro id=$v.id}">审核</a></span>
-						<span><a target="_blank" href="{spUrl c=admin a=xuqi id=$v.id}">续期</a></span>
+						<span>
+							<a href="{spUrl c=admin a=delpro id=$v.id}">删除</a>
+							<a target="_blank" href="{spUrl c=admin a=modpro id=$v.id}">修改</a>
+							<a target="_blank" href="{spUrl c=admin a=checkpro id=$v.id}">审核</a>
+							<a target="_blank" href="{spUrl c=admin a=xuqi id=$v.id}">续期</a>
+						</span>
 					</li>
 					{if $v.reason}<div class="reason">{$v.reason}</div>{/if}
 				{/foreach}

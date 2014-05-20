@@ -8,18 +8,30 @@
 }
 .pro-info ul{
 	list-style-type:none; 
+	border:  1px solid #808080;
+	border-bottom:none;
 }
 .pro-info li{
 	position:relative;
-	margin:3px 0px 3px -40px;
+	border-bottom: 1px solid #808080;
 	padding:0px;
 	height:65px;
+}
+.pro-info li.hd span.pic{
+	margin-top:0px;width:60px;
+}
+.pro-info li.hd  span.title{
+	font-size: 16px;padding-top:0px;height:100%;line-height:65px;
+}
+.pro-info li.hd{
+	background:#ccc;
 }
 .pro-info span{
 	display:block;
 	float:left;
 	margin:auto 8px;
 	line-height:65px;
+	text-align: center;
 }
 .pro-info span.pic{
 	margin-top:3px;

@@ -26,7 +26,7 @@
 		</div>
 		{if $act=='info' || !$act}
 		<div class="right">
-			<div><label>用户名:</label><span>{$uname}<a href="/?c=user&a=login&cmd=out">退出</a></span></div>
+			<div><label>用户名:</label><span>{$smarty.cookies.ymfq_loginuser}</span></div>
 			<div><label>积分:</label><span>{$hyjf}</span></div>
 			<div><label>上次登录:</label><span>{$lastlogin}</span></div>
 			<div><label>注册时间:</label><span></span></div>

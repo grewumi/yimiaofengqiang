@@ -9,6 +9,7 @@
 			<a target="_blank" href="/?c=user&a=login">登录</a>
 			<a target="_blank" href="/?c=user&a=login&cmd=reg">注册</a>
 			{else}
+			<a target="_blank" href="/?c=user&a=iinfo">{$smarty.cookies.ymfq_loginuser}</a>
 			<a target="_blank" href="/?c=user&a=login&cmd=out">退出</a>
 			{/if}
 		</div>
@@ -45,6 +46,6 @@
 		<a href="{spUrl c=main a=index price=30_40}" {if $price=="30_40"}class="cur"{/if}>39.9专区</a>
 		<a target="_blank" href="http://heimei.yimiaofengqiang.com">黑妹推荐</a>
 		<a href="{spUrl c=main a=index type=87}" {if $type==87}class="cur"{/if}>明日预告</a>
-		<a target="_blank" href="http://home.yimiaofengqiang.com">个人中心</a>
+		<a target="_blank" href="http://bbs.yimiaofengqiang.com">个人中心</a>
 	</div>
 </div>

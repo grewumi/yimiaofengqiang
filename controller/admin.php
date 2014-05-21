@@ -169,20 +169,23 @@ class admin extends spController{
 			$where .= ' and type='.$type;
 		else
 			$where .= ' and type!=87';
+		
 		if($sh=='no')
 			$where = 'ischeck=0';
 		elseif($sh=='ck2')
 			$where = 'ischeck=2';
-		if($q)
-			$where = 'iid='.$q;
+		
 		if($status)
 			$where = 'et<curdate()';
+		
+		if($q)
+			$where = 'iid='.$q;
 		$itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
 		
 		$this->items = $itemsTemp;
 		$this->pager = $pros->spPager()->getPager();
                 
-                $this->proCur = 1;
+        $this->proCur = 1;
 		$this->display("admin/pro.html");
 	}
 	// …Ã∆∑…Û∫À

@@ -54,6 +54,8 @@ class main extends spController{
 		$headers = "From: $from";
 		mail($to,$subject,$message,$headers);
 		echo "Mail Sent."; */
+		header("Access-Control-Allow-Origin:*");
+		$jsonp = $this->spArgs('jsonp');
 		// 搜索
 		$searchKey = $this->spArgs('searchKey');
 		$q = urldecode($this->spArgs('q'));
@@ -120,6 +122,7 @@ class main extends spController{
 			$temp_npriceTail = explode('.',strval(number_format($itemsTemp[$i]['nprice'],2)));
 			$itemsTemp[$i]['nprice_tail'] = $temp_npriceTail[1];
 		}	
+		
 		//var_dump($itemsTemp);
 		$itemList = array(array(),array(),array(),array());
 		if(!empty($itemsTemp)){
@@ -153,7 +156,15 @@ class main extends spController{
 		if($mode)
 			$smarty->display("front/mailindex.html");
 		else
-			$smarty->display("front/index.html");
+			if($jsonp){
+				foreach($itemList as $k=>&$iv){
+					foreach($iv as $k=>&$v){
+						$v['title'] = iconv('gbk','utf-8',$v['title']);
+					}
+				}
+				echo json_encode($itemList);
+			}else
+				$smarty->display("front/index.html");
 	}
 	public function user(){
 		$pros = spClass("m_pro");
@@ -183,12 +194,24 @@ class main extends spController{
 				'phone'=>$_POST['phone'],
 				'commission_rate'=>$_POST['commissionrate'],
 				'volume'=>$_POST['volume'],
+				'channel'=>2,//此项为用户报名渠道，采集的渠道为1(默认也是采集的渠道号)
 				//以下类别暂时用未定
 				'cat'=>$_POST['cat']
 			);
-			if($this->isInThere($item['iid'])){
-				$pros->update(array('iid'=>$item['iid']),array('ischeck'=>0));
-				$submitTips = '商品已存在,请勿重复添加';
+			if($this->isInThere($item['iid'])){//如果已存在数据库
+				$iteminfo = $pros->find(array('iid'=>trim($item['iid'])));
+				$channel = $iteminfo['channel'];
+				if($channel==1){
+					//如果是采集的，设置渠道号为报名渠道,并设置为未审核状态
+					$pros->update(array('iid'=>trim($item['iid'])),array('channel'=>2,'ischeck'=>0));
+				}elseif($channel==2){
+					//如果已经是报名的，检查其审核状态
+					if($iteminfo['ischeck']==0){
+						$submitTips = '商品已报名,请勿重复报名！';
+					}elseif($iteminfo['ischeck']==2){
+						$submitTips = '商品未通过审核,请联系报名管理！';
+					}
+				}
 			}else{
 				$art = $pros->create($item);
 				if($art){	//修改成功后跳转
@@ -198,20 +221,24 @@ class main extends spController{
 					$submitTips = '提交失败，请刷新页面重新提交！';
 			}
 		}
+		// 报名搜索
 		if($this->spArgs('searchIid')){
 			if($this->isInThere($this->spArgs('sIid'))){ // 商品是否存在
 				$pro = $pros->find(array('iid'=>trim($this->spArgs('sIid'))));
-			
-				if($pro['ischeck']){
-					if($pro['ischeck']==1)
-						$searchTips = '审核通过！';
-					elseif($pro['ischeck']==2)
-						$searchTips ='审核不通过！('.$pro['reason'].')';						
+				// 只有在商品为报名渠道的时候才会显示审核状态，如果是采集渠道则显示为未报名
+				if($pro['channel']==2){
+					if($pro['ischeck']){
+						if($pro['ischeck']==1)
+							$searchTips = '审核通过！';
+						elseif($pro['ischeck']==2)
+							$searchTips ='审核不通过！('.$pro['reason'].')';						
+					}else{
+						$searchTips = '正在审核...';
+					}
 				}else{
-					$searchTips = '正在审核...';
+					$searchTips = '该商品暂未报名！';
 				}
-				
-			}else 
+			}else // 如果没在数据库查到也是未报名
 				$searchTips = '该商品暂未报名！';
 		}
 		// 提交提示

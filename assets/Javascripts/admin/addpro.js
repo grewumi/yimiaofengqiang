@@ -94,25 +94,25 @@ function userhuoqu(){
 			/* END - 销量检测 */
 			
 			/* 信誉检测 */
-			var rateisok = -1;
-			if(dataObj.shopshow){//C店
-				$url = "/?c=virtualapi&a=checkrate&iid=" + dataObj.iid;
-				
-				$.ajax({
-					url:$url,
-					async:false,
-					success:function(dataleft){
-						var dataleftObj=eval("("+dataleft+")");
-						if(dataleftObj.show>0)
-							rateisok = 1;
-						else
-							$("span.reporttips").append("<em class='tips'>店铺信誉没有一砖,</em>");
-
-					}
-				}); 
-			}else{
-				rateisok = 1;
-			}
+//			var rateisok = -1;
+//			if(dataObj.shopshow){//C店
+//				$url = "/?c=virtualapi&a=checkrate&iid=" + dataObj.iid;
+//				
+//				$.ajax({
+//					url:$url,
+//					async:false,
+//					success:function(dataleft){
+//						var dataleftObj=eval("("+dataleft+")");
+//						if(dataleftObj.show>0)
+//							rateisok = 1;
+//						else
+//							$("span.reporttips").append("<em class='tips'>店铺信誉没有一砖,</em>");
+//
+//					}
+//				}); 
+//			}else{
+//				rateisok = 1;
+//			}
 			
 
 			/* END - 信誉检测 */
@@ -169,7 +169,7 @@ function userhuoqu(){
 				}
 			});
 			/* END - 详情页LOGO检测 */
-			if(xlisok>0 && rateisok>0 && yjisok>0 && leftok>0 && decok>0)
+			if(xlisok>0 && yjisok>0 && leftok>0 && decok>0)
 				$("input#userReport").attr("disabled",false);
 		});
 	});

@@ -10,13 +10,13 @@
 <body>
 	{include file="admin/head.html"}
 	<div class="pro-ctrl">
-		<a href="{spUrl c=admin a=pro type=87}">明日预告</a>
-		<a href="{spUrl c=admin a=pro status=ygq}">过期数据</a>
-		<a href="{spUrl c=admin a=pro type=85}">广告位</a>
-		<a href="{spUrl c=admin a=pro sh=no}">未审核</a>
-		<a href="{spUrl c=admin a=pro sh=ck2}">未通过</a>
-		<a href="{spUrl c=admin a=addpro}">添加商品</a>
-		<form action="{spUrl c=admin a=pro}" method="post">
+		<a href="{spUrl c=admin a=pro mode=$mode type=87}">明日预告</a>
+		<a href="{spUrl c=admin a=pro mode=$mode status=ygq}">过期数据</a>
+		<a href="{spUrl c=admin a=pro mode=$mode type=85}">广告位</a>
+		<a href="{spUrl c=admin a=pro mode=$mode sh=no}">未审核</a>
+		<a href="{spUrl c=admin a=pro mode=$mode sh=ck2}">未通过</a>
+		<a href="{spUrl c=admin a=addpro mode=$mode}">添加商品</a>
+		<form action="" method="post">
 			<input name="q" onpaste="value=value.replace(/[^\d]/gi,'');" onKeyUp="value=value.replace(/[^\d]/gi,'');" />
 			<input type="submit" value="搜索"/>
 		</form>
@@ -29,9 +29,15 @@
 						<span class="short">排序</span>
 						<span class="pic">图片</span>
 						<span class="title">标题</span>
+						{if $mode=='pro'}
 						<span class="short">原价</span>
 						<span class="short">促销价</span>
 						<span class="short">销量</span>
+						{elseif $mode=='try'}
+						<span class="short">价值</span>
+						<span class="short">概率</span>
+						<span class="short">数量</span>
+						{/if}
                         <span class="short">佣金</span>
 						<span>操作</span>
 					</li>	
@@ -43,17 +49,27 @@
 							<span class="title">{$v.title}</span>
 						</a>
 						<span class="short">{$v.oprice}</span>
+						{if $mode=='pro'}
 						<span class="short">{$v.nprice}</span>
+						{elseif $mode=='try'}
+						<span class="short">{$v.gailv}</span>
+						{/if}
+						
 						<span class="short">{$v.volume}</span>
                                                 <span class="short">{$v.commission_rate}%</span>
 						<span>
-							<a href="{spUrl c=admin a=delpro id=$v.id}">删除</a>
-							<a target="_blank" href="{spUrl c=admin a=modpro id=$v.id}">修改</a>
-							<a target="_blank" href="{spUrl c=admin a=checkpro id=$v.id}">审核</a>
-							<a target="_blank" href="{spUrl c=admin a=xuqi id=$v.id}">续期</a>
+							<a href="{spUrl c=admin a=delpro mode=$mode id=$v.id}">删除</a>
+							<a target="_blank" href="{spUrl c=admin mode=$mode a=modpro id=$v.id}">修改</a>
+							<a target="_blank" href="{spUrl c=admin mode=$mode a=checkpro id=$v.id}">审核</a>
+							<a target="_blank" href="{spUrl c=admin mode=$mode a=xuqi id=$v.id}">续期</a>
+						</span>
+						<span>
+							<a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid={$v.nick|escape:'url'}&siteid=cntaobao&status=1&charset=utf-8" >
+								<img border="0" src="http://amos.alicdn.com/online.aw?v=2&uid={$v.nick|escape:'url'}&site=cntaobao&s=1&charset=utf-8" alt="点击这里给我发消息" />
+							</a>
 						</span>
 					</li>
-					{if $v.reason}<div class="reason">{$v.reason}</div>{/if}
+					{if $v.ischeck == 2}<div class="reason">{$v.reason}</div>{/if}
 				{/foreach}
 				</ul>
 			</div>

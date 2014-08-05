@@ -101,3 +101,11 @@
 	float:right;
 	margin-top:125px;
 }
+.admin-modpro .modinfo-pic{
+	float:right;
+	margin-top:125px;
+	width:310px;
+}
+.admin-modpro .modinfo-pic img{
+	width:100%;
+}

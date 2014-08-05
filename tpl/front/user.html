@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gbk">
-<title>一秒疯抢 - 商家{if $ac=='bm'}报名{elseif $ac=='cx'}查询{/if}</title>
+<title>一秒疯抢 - {if $mode=='pro'}促销{else}试用{/if}商品{if $ac=='bm'}报名{elseif $ac=='cx'}查询{/if}</title>
 <link rel="stylesheet" href="/assets/stylesheets/front/user.css" />
 <link rel="stylesheet" href="/assets/stylesheets/front/head.css" />
 <link rel="stylesheet" href="/assets/stylesheets/front/foot.css" />
@@ -26,14 +26,27 @@ $(document).ready(function(){
 {/if}
 <div class="user-around">
 	<div class="user-info">
-		<h1>
-			商家{if $ac=='bm'}报名{elseif $ac=='cx'}查询{/if}/ Audit
-		</h1>
+		{if $ac=='cx'}
+			{if $mode=='pro'}
+			<strong style="font-size:34px;">促销商品报名状态查询/Audit</strong>
+			<a href="{spUrl c=main a=user mode=try ac=cx}">切换到试用商品报名查询</a>
+			{else}
+			<strong style="font-size:34px;">试用商品报名状态查询/Audit</strong>
+			<a href="{spUrl c=main a=user mode=pro ac=cx}">切换到促销商品报名查询</a>
+			{/if}
+		{elseif $ac=='bm'}
+			{if $mode=='pro'}
+			<strong style="font-size:34px;">促销商品报名/Audit</strong>
+			<a href="{spUrl c=main a=user mode=try ac=bm}">切换到试用商品报名</a>
+			{else}
+			<strong style="font-size:34px;">试用商品报名/Audit</strong>
+			<a href="{spUrl c=main a=user mode=pro ac=bm}">切换到促销商品报名</a>
+			{/if}
+		{/if}
 	</div>
-	{if $ac=='cx'}
-	
+	{if $ac=='cx'}	
 	<div class="user-search">
-		<form action="{spUrl c=main a=user ac=cx}" method="post">
+		<form method="post" action="">
 			<span>{if $searchTips}{$searchTips}{/if}</span>
 			<input class="siid" name="sIid" type="text" onpaste="value=value.replace(/[^\d]/gi,'');" onKeyUp="value=value.replace(/[^\d]/gi,'');" />
 			<input class="searchiid" name="searchIid" type="submit" value="报名查询" />
@@ -44,9 +57,8 @@ $(document).ready(function(){
 	{elseif $ac=='bm'}
 	<div class="user-report">
 		<div class="admin-modpro ur">
-			<form method="post">
+			<form method="post" action="">
 				<div class="mod-info">
-									
 					<div class="row">					
 						<label class="tips">{if $submitTips}{$submitTips}{/if}</label>						
 						<div class="clearfix"></div>
@@ -69,6 +81,20 @@ $(document).ready(function(){
 						</select>
 						<div class="clearfix"></div>
 					</div>
+					{if $mode=='try'}
+					<div class="row">
+						<label>价值:</label><input class="short" name="oprice" id="oprice" type="text" />
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>概率:</label><input class="short" name="gailv" type="text" />
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>提供数量:</label><input class="short" name="num" type="text" />
+						<div class="clearfix"></div>
+					</div>
+					{elseif  $mode=='pro'}
 					<div class="row">
 						<label>原价:</label><input class="short" name="oprice" id="oprice" type="text" />
 						<div class="clearfix"></div>
@@ -77,12 +103,13 @@ $(document).ready(function(){
 						<label>活动价:</label><input class="short" name="nprice" type="text" />
 						<div class="clearfix"></div>
 					</div>
-					<div class="row" style="display:none;">
-						<label>销量:</label><input class="short" name="volume" id="volume" type="text" />
-						<div class="clearfix"></div>
-					</div>
 					<div class="row">
 						<label>活动数量:</label><input class="short" name="num" type="text" />
+						<div class="clearfix"></div>
+					</div>
+					{/if}
+					<div class="row" style="display:none;">
+						<label>销量:</label><input class="short" name="volume" id="volume" type="text" />
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">
@@ -127,7 +154,7 @@ $(document).ready(function(){
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">
-						<label>提交:</label><input type="submit" name="userReport" id="userReport" value="提交" disabled/>
+						<label>提交:</label><input type="submit" name="userReport" id="userReport" value="提交" />
 						<span class="reporttips"></span>
 						<div class="clearfix"></div>
 					</div>
@@ -159,10 +186,10 @@ $(document).ready(function(){
 <div class="clearfix"></div>
 <div class="chat">
 	<a href="/?c=user&a=login">快速通道</a><br />
-	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=850177915&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:850177915:51" alt="点击这里给我发消息或者加Q850177915" title="点击这里给我发消息或者加Q850177915"/></a>
+	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=850177915&site=qq&menu=yes"><img border="0" src="/assets/images/front/counseling_style_52.png" alt="点击这里给我发消息或者加Q850177915" title="点击这里给我发消息或者加Q850177915"/></a>
 	<br /><br />
 	免费通道<br />
-	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=350544519&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:350544519:51" alt="点击这里给我发消息或者加Q350544519" title="点击这里给我发消息或者加Q350544519"/></a>
+	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=350544519&site=qq&menu=yes"><img border="0" src="/assets/images/front/counseling_style_52.png" alt="点击这里给我发消息或者加Q350544519" title="点击这里给我发消息或者加Q350544519"/></a>
 </div>
 {include file="front/foot.html"}
 </body>

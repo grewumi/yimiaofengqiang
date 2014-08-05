@@ -13,8 +13,11 @@ header("Content-Type:text/html;charset=gbk");
 //$app=array('21463466'=>'91cd273f32da3a640d237595a1e827e0');
 //$app=array('21656198'=>'0e339161e65a6a20a85007dd930d09af');
 //$app=array('21677073'=>'77c4b369298415cad9888dde165c2df0');
+//$app = array('21463466'=>'91cd273f32da3a640d237595a1e827e0');
+$sellsapp = array('21822996'=>'2808f97ce928cb426f15ec792be824b7');
+$app = $sellsapp;
 //$app=array('21632131'=>'fcaca0eb3a6a447531fa4c84387952b0');// taoergaozhi
-$app=array('21446969'=>'d80e57fdba35826c98fe04fbda9257f2');// taoergaozhi
+//$app=array('21446969'=>'d80e57fdba35826c98fe04fbda9257f2');// taoergaozhi
 foreach($app as $k=>$v){
 	global $Key,$Secret;
 	$Key = $k;
@@ -62,7 +65,7 @@ function getItem($num_iid,$mode='taoke')
 		$req->setFields("title,num_iid,nick,pic_url,cid,list_time,detail_url,approve_status,delist_time,price,nick,freight_payer,post_fee,express_fee,ems_fee,auction_point,has_discount");
 		$req->setNumIid($num_iid);
 		$resp = $c->execute($req);
-		//var_dump($resp);
+//		var_dump($resp);
 		$resp = object_to_array($resp->item);
 		//var_dump($resp);
 	}
@@ -108,6 +111,17 @@ function getPcid($cid){
 		return getPcid($pcid);
 	}
 	
+}
+function getPcidNew($cid){
+	$resp = file_get_contents('http://126789.uz.taobao.com//top/getpcid.php?id='.$cid);
+	$rule  = '/class="J_TScriptedModule taeapp(.+?)>(.+?)<\/div>/is';
+	preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
+//	echo trim($result[0][2]);
+	$resp = json_decode(iconv('gbk','utf-8',trim($result[0][2])),1);
+	$resp = array_multi2single($resp);
+	if($resp){
+		return $resp;
+	}
 }
 /* if($_GET['mode']=='ajaxprocat'){
 	include 'dbconfig.php';
@@ -177,13 +191,20 @@ function object_to_array($obj)
 function getShopDetail($nick){
 	
 }
+/*
+ * 默认数据组成
+ * iid(商品ID),title(商品标题),nick,pic,oprice,st,et,cid,link,rank,postdt,ischeck,volume,carriage,shopshow,shopv
+ */
 function getItemDetail($num_iid,$mode=1){
  	if($mode==2){
 		$result = getItem($num_iid,'approve_status');
 	}else{
 		$result = getItem($num_iid,'normal');
-		//var_dump($result);
+//		$result = getItemNew($num_iid,'normal');
+//		var_dump($result);
+//		echo $result['sub_code'];
 		if($result){
+			//var_dump($result);
 			//$url = 'http://detailskip.taobao.com/json/ifq.htm?id='.$num_iid.'&sid=842397175&opt=&q=1';
 			//$result2 = get_url_content($url);
 			//preg_match_all('/quanity: (.*?),/is', $result2, $match2);
@@ -238,10 +259,10 @@ function getItemDetail($num_iid,$mode=1){
 				$item['shopv']=1;
 			else 
 				$item['shopv']=0;
-			
+//			var_dump($item);
 			return $item;
 		}else{
-			return 2;
+			return -2;
 		}
 		/* $result = getItem($num_iid);
 		//var_dump($result);
@@ -257,5 +278,55 @@ function getItemDetail($num_iid,$mode=1){
 		} */
 		
 	}
+}
+
+function getItemNew($num_iid,$mode='taoke'){
+	if($mode == 'normal'){
+		$resp = file_get_contents('http://126789.uz.taobao.com/top/userproInfo.php?id='.$num_iid);
+		$rule  = '/class="J_TScriptedModule taeapp(.+?)>(.+?)<\/div>/is';
+		preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
+//		echo trim($result[0][2]);
+		$resp = json_decode(iconv('gbk','utf-8',trim($result[0][2])),1);
+		$resp = array_multi2single($resp);
+//		var_dump($resp);
+	}elseif($mode == 'taoke'){
+		$req = new TaobaokeItemsDetailGetRequest;
+		$req->setFields("iid,title,detail_url,nick,cid,price,pic_url,seller_credit_score,click_url,shop_click_url");
+		$req->setNumIids($num_iid);
+		$resp = $c->execute($req);
+		$resp = object_to_array($resp->taobaoke_item_details->taobaoke_item_detail);
+		//var_dump($resp);
+	}elseif($mode == 'approve_status'){
+		$req = new ItemGetRequest;
+		$req->setFields("approve_status");
+		$req->setNumIid($num_iid);
+		$resp = $c->execute($req);
+		$resp = object_to_array($resp->item);
+	}
+	if($resp['approve_status']){
+		unset($resp['code']);
+		unset($resp['msg']);
+		unset($resp['sub_code']);
+		unset($resp['sub_msg']);
+	}
+//	var_dump($resp);
+//	echo '<br />';
+	if($resp['approve_status']){
+		return $resp;
+	}else{
+		return null;
+	}
+		
+}
+function array_multi2single($array){
+	static $result_array = array();
+	foreach($array as $k=>$value){
+		if(is_array($value)){
+			array_multi2single($value);
+		}else{
+			$result_array[$k] = $value;
+		}
+	}
+	return $result_array;
 }
 ?>

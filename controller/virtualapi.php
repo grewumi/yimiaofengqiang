@@ -42,21 +42,22 @@ class virtualapi extends spController{
 	if($loginStatus>0){
 		//echo '您的用户ID为：'.$loginStatus.'<br/>';
 		$getPoint=$obj->getPoint($userName,$passWord);
-		//echo '您帐户内的剩余题分还有：'.$getPoint.'<br/><br/>';	//负数就是错误代码
-		
-		//下面开始识别	
-		$file = array(
-			'name'=>'Checkcode.jpg',
-			'type'=>'image/jpeg',
-			'size'=>filesize('/tmp/Checkcode.jpg'),
-			'tmp_name'=>'Checkcode.jpg'
-		);
-		$result=$obj->autoRecognition($file,$codeType);
-		
-		echo $result;
-		//echo '您的图片识别结果为：'.$result;
+		if(!$getPoint)
+			echo '您帐户内的剩余题分还有：'.$getPoint.'<br/><br/>';//负数就是错误代码
+		else{
+			//下面开始识别	
+			$file = array(
+				'name'=>'Checkcode.jpg',
+				'type'=>'image/jpeg',
+				'size'=>filesize('/tmp/Checkcode.jpg'),
+				'tmp_name'=>'Checkcode.jpg'
+			);
+			$result=$obj->autoRecognition($file,$codeType);
+			
+			echo $result;
+		}
 	}else{
-		//echo '登录失败，错误代码为：'.$loginStatus.'<br/>';
+		echo '登录失败，错误代码为：'.$loginStatus.'<br/>';
 	}
   }
   

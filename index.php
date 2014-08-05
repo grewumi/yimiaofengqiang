@@ -11,7 +11,7 @@ $spConfig = array(
 		//'password' => 'N]j]78R>jPKEML7edAC(',  // 数据库密码
 		'password' => '',
 		//'database' => 'xiai' // 数据库的库名称
-		'database' => 'net37372922' // 数据库的库名称					
+		'database' => 'yimiaofengqiang' // 数据库的库名称					
 	),
 	// smarty配置
 	'view' => array(
@@ -110,7 +110,6 @@ $spConfig = array(
 		'enabled' => TRUE, // 开启HTML生成功能
 		//'file_root_name' => 'articles'
 	),
-	'mode' => 'release',
 	'dispatcher_error' => 'import(APP_PATH."/404.html");exit();',
 	'supe_uid' => '',
 	'SC' => array(
@@ -129,6 +128,7 @@ $spConfig = array(
 		'fontfile' => 'font.ttf', //字体文件
 		'format' => 'gif', //验证码输出图片格式
 	),
+//	'mode' => 'release',
 );
 require(SP_PATH."/SpeedPHP.php");
 import('md5password.php');

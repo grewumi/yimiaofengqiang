@@ -7,6 +7,7 @@ class admin extends spController{
 		import("function_login_taobao.php");
 		global $caijiusers,$website;
 		$this->caijiusers = $caijiusers;
+		$this->mode = $this->spArgs('mode');
 		
 		// postdt>=curdate()为当日添加，不包括更新
 		$pros = spClass('m_pro');
@@ -84,15 +85,17 @@ class admin extends spController{
 		}else{
 			$item['cat'] = 42;
 		}
+//		echo $pcid;
 		// end - 查询fstk_catmap对应类目
 			
 		// 字符转换
 		$item['title'] = iconv('utf-8','gb2312',$item['title']);
 		$item['title'] = preg_replace('/【.+?】/i','',$item['title']);
 		$item['nick'] = iconv('utf-8','gb2312',$item['nick']);
-		$item['commission_rate'] = $this->getCommissionRate(trim($item['iid']));
-		if($item['commission_rate']<1)
-			$item['commission_rate'] = -1;
+		$item['commission_rate'] = -1;
+		//$item['commission_rate'] = $this->getCommissionRate(trim($item['iid']));
+		//if($item['commission_rate']<1)
+		//	$item['commission_rate'] = -1;
 		$item['volume'] = getvolume($iid,$item['shopshow']);
 		if(!$item['volume'])
 			$item['volume'] = -1;
@@ -143,8 +146,15 @@ class admin extends spController{
 	// 商品续期
 	public function xuqi(){
 		$id = $this->spArgs("id");
-		$pros = spClass("m_pro");
+		if($this->mode=='try'){
+			$pros = spClass("m_try_items");
+			$referUrl = spUrl('admin','pro',array('mode'=>'try'));
+		}else{
+			$pros = spClass("m_pro");
+			$referUrl = spUrl('admin','pro',array('mode'=>'pro'));
+		}
 		$pros->update(array('id'=>$id),array('et'=>date("Y-m-d",time()+24*60*60*7)));
+		header("Location:".$referUrl);
 	}
 	
 	// 商品管理
@@ -157,8 +167,15 @@ class admin extends spController{
 		$sh = $this->spArgs('sh');
 		$q = $this->spArgs('q');
 		$status = $this->spArgs('status');
-		
-		$pros = spClass("m_pro");
+				
+		if($this->mode=='try'){
+			$pros = spClass("m_try_items");
+			$this->tryItemCur = 1;
+		}
+		else{
+			$pros = spClass("m_pro");
+			$this->proCur = 1;
+		}
 		
 		$page = $this->spArgs('page',1);
 
@@ -185,13 +202,18 @@ class admin extends spController{
 		$this->items = $itemsTemp;
 		$this->pager = $pros->spPager()->getPager();
                 
-        $this->proCur = 1;
+        
 		$this->display("admin/pro.html");
 	}
 	// 商品审核
 	public function checkpro(){
 		$id = $this->spArgs("id");
-		$pros = spClass("m_pro");
+		if($this->mode=='try'){
+			$pros = spClass("m_try_items");
+		}
+		else{
+			$pros = spClass("m_pro");
+		}
 		$pro = $pros->find(array('id'=>$id));
 		if($_POST['checkit']){
 			if($_POST['checkpro']==1){
@@ -222,7 +244,7 @@ class admin extends spController{
 	
 	// 查找是否存在
 	public function isInThere($iid,$table='pro',$field=null){
-		$pros = spClass("m_pro");
+		$pros = spClass("m_".$table);
 		if($field){
 			$count = 0;
 			foreach (self::$dao->query('select * from '.self::$dbconfig['DBPREFIX'].$table.' where enunick='.$field) as $row) {
@@ -242,7 +264,17 @@ class admin extends spController{
 		if(!$_SESSION['admin'])
 			header("Location:/login.html");
 		
-		$pros = spClass("m_pro");
+		if($this->mode=='try'){
+			$pros = spClass("m_try_items");
+			$referUrl = spUrl('admin','pro',array('mode'=>'try'));
+			$this->tryItemCur = 1;
+		}else{
+			$pros = spClass("m_pro");
+			$referUrl = spUrl('admin','pro',array('mode'=>'pro'));
+			$this->proCur = 1;
+		}
+		
+//		$pros = spClass("m_pro");
 		$actfrom = spClass("m_actfrom");
 		$proCat = spClass("m_procat");
 		
@@ -278,27 +310,27 @@ class admin extends spController{
 				$item['commission_rate'] = -1;
 			if($_POST['forward'])
 				$item['postdt'] = date("Y-m-d H:i:s");
-			if($mode!='try'){// 试用商品添加
+			if($this->mode!='try'){// 促销商品添加
 				if($this->isInThere($item['iid'])){
 					$submitTips = '商品已存在,请勿重复添加';
 				}else{
 					$art = $pros->create($item);
 					if($art){	//修改成功后跳转
 						$submitTips = '添加成功';
-						header("{spUrl c=admin a=pro}");
+						header("Location:".$referUrl);
 					}else
 						$submitTips = '添加失败';
 				}
-			}else{
+			}else{// 试用商品添加
 				if($this->isInThere($item['iid'],'try_items')){
-					$submitTips = '商品已存在,请勿重复添加';
+					$submitTips = '试用商品已存在,请勿重复添加';
 				}else{
 					$item['istry'] = 1;
 					$item['gailv'] = $_POST['gailv'];
 					$art = $pros->create($item);
 					if($art){	//修改成功后跳转
 						$submitTips = '添加成功';
-						header("{spUrl c=admin a=pro}");
+						header("Location:".$referUrl);
 					}
 					else
 						$submitTips = '添加失败';
@@ -323,16 +355,28 @@ class admin extends spController{
 	
 	// 删除过期商品
 	public function delgq(){
+		import('tbapi.php');
 		$pros = spClass("m_pro");
+		$gqPros = $pros->findAll('et<curdate()');
+		foreach($gqPros as $k=>$v){
+			$info = getItemDetail($v['iid']);
+			$pros->update(array('iid'=>$v['iid']),array('et'=>$info['et']));
+		}
 		if($pros->delete('et<curdate()'))
 			header("Location:/admin.html");
 	}
 	// 商品删除
 	public function delpro(){
 		$id = $this->spArgs('id');
-		$pros = spClass("m_pro");
+		if($this->mode=='try'){
+			$pros = spClass("m_try_items");
+			$referUrl = spUrl('admin','pro',array('mode'=>'try'));
+		}else{
+			$pros = spClass("m_pro");
+			$referUrl = spUrl('admin','pro',array('mode'=>'pro'));
+		}
 		if($pros->delete(array('id'=>$id)))
-			header("Location:/pro.html");
+			header("Location:".$referUrl);
 	}
 	// 商品修改
 	public function modpro($mode='pro'){
@@ -340,7 +384,16 @@ class admin extends spController{
 		if(!$_SESSION['admin'])
 			header("Location:/login.html");
 		
-		$pros = spClass("m_pro");
+		if($this->mode=='try'){
+			$pros = spClass("m_try_items");
+			$referUrl = spUrl('admin','pro',array('mode'=>'try'));
+			$this->tryItemCur = 1;
+		}else{
+			$pros = spClass("m_pro");
+			$referUrl = spUrl('admin','pro',array('mode'=>'pro'));
+			$this->proCur = 1;
+		}
+		
 		$actfrom = spClass("m_actfrom");
 		$proCat = spClass("m_procat");
 		
@@ -379,19 +432,19 @@ class admin extends spController{
 				$item['st'] = date('Y-m-d');
 				$item['postdt'] = date('Y-m-d H:i:s');
 			}
-			if($mode!='try'){
+			if($this->mode!='try'){
 				$art = $pros->update(array('id'=>$id),$item);
 			}else{
-				//$item['istry'] = 1;
-				//$item['gailv'] = $_POST['gailv'];
-				//$art = self::$proDAO->autoExecute('try_items',$item,'update','where id="'.$id.'"');
+				$item['istry'] = 1;
+				$item['gailv'] = $_POST['gailv'];
+				$art = $pros->update(array('id'=>$id),$item);
 			}
 			if($art){ // 修改成功后跳转
 				$submitTips = '修改成功';
-				if($item!='try')
-					header("{spUrl c=admin a=pro}");
-				//else
-				//	header("Location:/d/tryadmin");
+				if($this->mode!='try')
+					header("Location:".$referUrl);
+				else
+					header("Location:".$referUrl);
 			}else
 				$submitTips = '修改失败';
 		}
@@ -550,7 +603,7 @@ class admin extends spController{
 					$caijiarr = array_merge($caijiarr,$xiaiCaiji->getitems());
 				}
 				echo json_encode($caijiarr);
-			}elseif($actType == 4 || $actType == 11 || $actType == 20){ 
+			}elseif($actType == 4 || $actType == 11){ 
 				//$pages = $xiaiCaiji->Caiji($type,'',3);
 				//$pages = @ceil($pages/45);
 				
@@ -567,6 +620,16 @@ class admin extends spController{
 					$caijiarr = array_merge($caijiarr,$xiaiCaiji->getitems());
 				}
 				echo json_encode($caijiarr);
+			}elseif($actType == 20){
+				$dateTemp = date("Y-m-d",time()-3*24*60*60);
+				$pros = spClass("m_pro");
+				$data = $pros->findAll('act_from=20 and postdt>='.$dateTemp);
+//				var_dump($data);
+				foreach($data as $k =>$v){
+					$all[] = array('iid'=>$v['iid'],'nprice'=>$v['nprice'],'pic'=>$v['pic']);
+				}
+				$jsonData['all'] = $all;
+				echo json_encode($jsonData);
 			}else{
 				//echo $actType;
 				$xiaiCaiji->Caiji($type,'',2);
@@ -586,66 +649,74 @@ class admin extends spController{
 		foreach($items as $k=>$iv){
 			foreach($iv as $v){
 				//echo $v['iid'].'<br/>';
-				$item = getItemDetail($v['iid']);
-					
-				// 现价  && 图片
-				$item['nprice'] = $v['nprice'];
-				if($v['pic'])
-					$item['pic'] = $v['pic'];
-				// end - 现价  && 图片
-					
-				// 递归取得淘宝二级节点
-				$pcid = getPcid($item['cid']);
-				$pcid = $pcid['cid'];
-				// end - 递归取得淘宝二级节点
-		
-				// 查询fstk_catmap对应类目
-				$catMap = $catmaps->find(array('cid'=>$pcid),'','type');
-				//var_dump($catMap);
-				if($catMap){ //如果商品类目有映射
-					$item['cat'] = (int)$catMap['type'];
-				}else{
-					$item['cat'] = 42;
-				}
-				// end - 查询fstk_catmap对应类目
-					
-				// 字符转换
-				$item['title'] = iconv('utf-8','gb2312',$item['title']);
-				$item['title'] = preg_replace('/【.+?】/i','',$item['title']);
-				$item['nick'] = iconv('utf-8','gb2312',$item['nick']);
-				// end - 字符转换
 				
-				if($actType)
-					$item['act_from'] = $actType;
-				else
-					$item['act_from'] = 1;
-				$item['last_modify'] = date("Y-m-d H:i:s");
-				$item['volume'] = getvolume($v['iid'],$item['shopshow']);
-				//var_dump($item);
-				if(!$pros->find(array('iid'=>$v['iid']))){ //没找到
-					$item['postdt'] = date("Y-m-d H:i:s");
-					if(!$pros->create($item))
-						echo $v['iid'].' 添加失败,数据库操作失败!<br/>';
-					else{
-						//$this->upyjscript($v['iid'],$actType);
-						$this->updateyjPhp($v['iid']);
-						echo $v['iid'].' 添加成功!<br/>';
+				$item = getItemDetail($v['iid']);
+				if(!empty($item)){
+					// 现价  && 图片
+					$item['nprice'] = $v['nprice'];
+					if($v['pic'])
+						$item['pic'] = $v['pic'];
+					// end - 现价  && 图片
+
+					// 递归取得淘宝二级节点
+					$pcid = getPcid($item['cid']);
+					$pcid = $pcid['cid'];
+					// end - 递归取得淘宝二级节点
+
+					// 查询fstk_catmap对应类目
+					$catMap = $catmaps->find(array('cid'=>$pcid),'','type');
+					//var_dump($catMap);
+					if($catMap){ //如果商品类目有映射
+						$item['cat'] = (int)$catMap['type'];
+					}else{
+						$item['cat'] = 42;
+					}
+					// end - 查询fstk_catmap对应类目
+
+					// 字符转换
+					$item['title'] = iconv('utf-8','gb2312',$item['title']);
+					$item['title'] = preg_replace('/【.+?】/i','',$item['title']);
+					$item['nick'] = iconv('utf-8','gb2312',$item['nick']);
+					// end - 字符转换
+
+					if($actType)
+						$item['act_from'] = $actType;
+					else
+						$item['act_from'] = 1;
+					$item['last_modify'] = date("Y-m-d H:i:s");
+					$item['volume'] = getvolume($v['iid'],$item['shopshow']);
+					
+					//var_dump($item);
+					if(!$pros->find(array('iid'=>$v['iid']))){ //没找到
+						$item['postdt'] = date("Y-m-d H:i:s");
+
+						if(!$pros->create($item)){
+							echo $v['iid'].' 添加失败,数据库操作失败!<br/>';
+						}else{
+							//$this->upyjscript($v['iid'],$actType);
+							//$this->updateyjPhp($v['iid']);
+							echo $v['iid'].' 添加成功!<br/>';
+						}
+					}else{
+						unset($item['act_from']);
+						unset($item['rank']);
+						//$item['et'] = date("Y-m-d",86400*7+time());
+						//$itemPostdt = $pros->find(array('iid'=>$v['iid']));
+						//$item['postdt'] = $itemPostdt['postdt'];
+
+						if(!$pros->update(array('iid'=>$v['iid']),$item)){
+							echo $v['iid'].' 更新失败,数据库操作失败!<br/>';
+						}else{
+							//$this->upyjscript($v['iid'],$actType);
+							//$this->updateyjPhp($v['iid']);
+							echo $v['iid'].' 更新成功!<br/>';
+						}
+
 					}
 				}else{
-					unset($item['act_from']);
-					unset($item['rank']);
-					//$item['et'] = date("Y-m-d",86400*7+time());
-					//$itemPostdt = $pros->find(array('iid'=>$v['iid']));
-					//$item['postdt'] = $itemPostdt['postdt'];
-					if(!$pros->update(array('iid'=>$v['iid']),$item))
-						echo $v['iid'].' 更新失败,数据库操作失败!<br/>';
-					else{
-						//$this->upyjscript($v['iid'],$actType);
-						$this->updateyjPhp($v['iid']);
-						echo $v['iid'].' 更新成功!<br/>';
-					}
-		
-				}
+					echo $v['iid'].' 获取信息失败!<br/>';
+				}	
+				
 			}
 		}
 		$this->display("admin/uzcaiji.html");
@@ -663,24 +734,21 @@ class admin extends spController{
 		preg_match_all($ptn,$result,$arr,PREG_SET_ORDER);
 		$items = json_decode($arr[0][3],1);
 		$ajaxdata['ajax'] = $items;
-		//var_dump($items);
-		$this->getitems($ajaxdata,'');
+//		var_dump($ajaxdata);
+		$this->getitems($ajaxdata,'20');
 	}
 	
 	// 一键采集
 	public function yjuzcaiji(){
-		foreach($this->website as $k=>$v){
-			if($k!='none')
-				$this->uzcaiji();
-		}
-		$this->display("admin/uzcaiji.html");
+//		exec("uzcaiji.sh",$output);
+//		var_dump($output);
 	}
 	
 	// 采集
 	public function uzcaiji($type=null){
 		
-		if(!$_SESSION['admin'])
-			header("Location:/login.html");
+//		if(!$_SESSION['admin'])
+//			header("Location:/login.html");
 		
 		set_time_limit(0);
               
@@ -712,7 +780,7 @@ class admin extends spController{
 					$items = $xiaiCaiji->getitems();
 					$this->getitems($items, $actType);
 				}
-			}elseif($actType == 4  || $actType == 11 || $actType == 20){ // 卷皮  && 九块邮  && 美美日志
+			}elseif($actType == 4  || $actType == 11){ // 卷皮  && 九块邮  && 美美日志
 				//$pages = $xiaiCaiji->Caiji($type,'',3);
 				//$pages = @ceil($pages/45);
 				$pages = 2;
@@ -729,7 +797,7 @@ class admin extends spController{
 					$this->getitems($items, $actType);
 				}
 			}elseif($actType == 20){
-				$dateTemp = date("Y-m-d",time()-24*60*60);
+				$dateTemp = date("Y-m-d",time()-3*24*60*60);
 				$pros->runSql('update fstk_pro set postdt=curdate() where act_from=20 and postdt>='.$dateTemp);
 			}else{
 				$xiaiCaiji->Caiji($type);
@@ -1130,6 +1198,7 @@ class admin extends spController{
 					$where = 'act_from='.$v['actType'].' and '.$baseSql.' and postdt>=curdate()';
 			}
 			$items_zu['actfrom'.$v['actType']] = $pros->findAll($where,'commission_rate asc');//佣金低->高组合，插入的时候就反过来基于postdt时间为now(),
+			//echo $pros->dumpSql().'<br/>';
 		}
 		//var_dump($items_zu);
 			
@@ -1170,7 +1239,7 @@ class admin extends spController{
 					if(!$v['shopv'])
 						$v['shopv']=0;
 					$v['title'] = preg_replace('/【.+?】/i','',$v['title']);
-					if($_SESSION['iscaijiuser']=='zhe800w' || $_SESSION['iscaijiuser']=='55128' || $_SESSION['iscaijiuser']=='haowo' || $_SESSION['iscaijiuser']=='xinxin' || $_SESSION['iscaijiuser']=='cong' || $_SESSION['iscaijiuser']=='lijie' || $_SESSION['iscaijiuser']=='x0123' || $_SESSION['iscaijiuser']=='9kuaigou' || $_SESSION['iscaijiuser']=='xx0123' || $_SESSION['iscaijiuser']=='ugou'){
+					if($_SESSION['iscaijiuser']=='jumei' || $_SESSION['iscaijiuser']=='tiangou' || $_SESSION['iscaijiuser']=='haowo' || $_SESSION['iscaijiuser']=='xinxin' || $_SESSION['iscaijiuser']=='cong' || $_SESSION['iscaijiuser']=='lijie' || $_SESSION['iscaijiuser']=='x0123' || $_SESSION['iscaijiuser']=='9kuaigou' || $_SESSION['iscaijiuser']=='xx0123' || $_SESSION['iscaijiuser']=='ugou'){
 						if($v['nprice']<10)
 							$v['type'] = 2;
 						elseif($v['nprice']>10 && $v['nprice']<20)
@@ -1203,11 +1272,12 @@ class admin extends spController{
 					if($_SESSION['iscaijiuser']=='cong'){
 						$v['act_from'] = 3;
 					}
-					$sqlout_sec = $sqlout_fir.' ("'.$v["title"].'","'.$v["oprice"].'","'.$v["nprice"].'","'.$v["pic"].'","'.$v["st"].'","'.$v["et"].'","'.$v["type"].'","'.$v["cat"].'","'.$v["ischeck"].'","http://item.taobao.com/item.htm?id='.$v["iid"].'","'.$v["rank"].'","'.$v["num"].'","'.$v["slink"].'","'.$v["ww"].'","'.$v["snum"].'","'.$v["xujf"].'","'.date("Y-m-d H:i:s").'","'.$v["zk"].'","'.$v["iid"].'","'.$v["volume"].'","'.$v["content"].'","'.$v["remark"].'","'.$v["nick"].'","'.$v["reason"].'","'.$v["carriage"].'","'.$v["commission_rate"].'","'.date("Y-m-d H:i:s").'","'.$v["click_num"].'","'.$v["phone"].'","'.$v["act_from"].'","'.$v["shopshow"].'","'.$v["shopv"].'")  ON DUPLICATE KEY UPDATE last_modify=now(),cat='.$v["cat"].',et="'.$v["et"].'",commission_rate='.$v["commission_rate"]."\n";
+					$sqlout_sec = $sqlout_fir.' ("'.$v["title"].'","'.$v["oprice"].'","'.$v["nprice"].'","'.$v["pic"].'","'.$v["st"].'","'.$v["et"].'","'.$v["type"].'","'.$v["cat"].'","'.$v["ischeck"].'","http://item.taobao.com/item.htm?id='.$v["iid"].'","'.$v["rank"].'","'.$v["num"].'","'.$v["slink"].'","'.$v["ww"].'","'.$v["snum"].'","'.$v["xujf"].'","'.date("Y-m-d H:i:s").'","'.$v["zk"].'","'.$v["iid"].'","'.$v["volume"].'","'.$v["content"].'","'.$v["remark"].'","'.$v["nick"].'","'.$v["reason"].'","'.$v["carriage"].'","'.$v["commission_rate"].'","'.date("Y-m-d H:i:s").'","'.$v["click_num"].'","'.$v["phone"].'","'.$v["act_from"].'","'.$v["shopshow"].'","'.$v["shopv"].'")  ON DUPLICATE KEY UPDATE last_modify=now(),cat='.$v["cat"].',et="'.$v["et"].'",commission_rate="'.$v["commission_rate"].'";\n';
 					//echo $sqlout_sec;
 					$file = fopen('./tmp/sqlout/'.$filename.'-part'.$i.'.sql',"a+");
 					if(!$file)
 						echo '文件打开失败';
+					//echo $sqlout_sec.'<br />';
 					fwrite($file,iconv('gbk','utf-8',$sqlout_sec));
 					$sqlout_sec = null;
 				}
@@ -1240,9 +1310,13 @@ class admin extends spController{
 		header("Content-Description: File Transfer"); 
 		header('Content-disposition: attachment; filename='.basename($zipfilename)); //文件名   
 		header("Content-Type: application/zip"); //zip格式的   
+//		header('Content-disposition: attachment; filename='.basename('./tmp/sqlout/'.$filename.'-part1.sql')); //文件名   
+//		header("Content-Type: application/text"); //text格式的 
 		header("Content-Transfer-Encoding: binary"); //告诉浏览器，这是二进制文件    
 		header('Content-Length: '. filesize($zipfilename)); //告诉浏览器，文件大小   
+//		header('Content-Length: '. filesize('./tmp/sqlout/'.$filename.'-part1.sql')); //告诉浏览器，文件大小   
 		@readfile($zipfilename); 
+//		@readfile('./tmp/sqlout/'.$filename.'-part1.sql');
 		$control->update(array('type'=>2),array('isuse'=>0));
 	}
 	
@@ -1288,7 +1362,7 @@ class admin extends spController{
 					$v['phone'] = '123456789';
 				$v['rank'] = 500;
 				$v['title'] = preg_replace('/【.+?】/i','',$v['title']);
-				if($_SESSION['iscaijiuser']=='zhe800w' || $_SESSION['iscaijiuser']=='55128' || $_SESSION['iscaijiuser']=='haowo' || $_SESSION['iscaijiuser']=='xinxin' || $_SESSION['iscaijiuser']=='cong' || $_SESSION['iscaijiuser']=='lijie' || $_SESSION['iscaijiuser']=='x0123' || $_SESSION['iscaijiuser']=='9kuaigou' || $_SESSION['iscaijiuser']=='xx0123' || $_SESSION['iscaijiuser']=='ugou'){
+				if($_SESSION['iscaijiuser']=='jumei' || $_SESSION['iscaijiuser']=='55128' || $_SESSION['iscaijiuser']=='tiangou' || $_SESSION['iscaijiuser']=='xinxin' || $_SESSION['iscaijiuser']=='cong' || $_SESSION['iscaijiuser']=='lijie' || $_SESSION['iscaijiuser']=='x0123' || $_SESSION['iscaijiuser']=='9kuaigou' || $_SESSION['iscaijiuser']=='xx0123' || $_SESSION['iscaijiuser']=='ugou'){
 					if($v['nprice']<10)
 						$v['type'] = 2;
 					elseif($v['nprice']>10 && $v['nprice']<20)

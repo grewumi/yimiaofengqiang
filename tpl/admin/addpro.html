@@ -20,7 +20,7 @@ $(document).ready(function(){
 	<div class="admin-modpro-around">
 		<div class="admin-modpro">
 			
-			<form method="post">
+			<form method="post" action="">
 				<div class="modpro-info">
 					
 					<div class="row">
@@ -60,6 +60,20 @@ $(document).ready(function(){
 						</select>
 						<div class="clearfix"></div>
 					</div>
+					{if $mode=='try'}
+					<div class="row">
+						<label>价值:</label><input class="short" id="oprice" name="oprice" type="text" />
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>概率:</label><input class="short" name="gailv" type="text" />
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>提供数量:</label><input class="short" name="volume" id="volume" type="text" />
+						<div class="clearfix"></div>
+					</div>
+					{elseif $mode=='pro'}
 					<div class="row">
 						<label>原价:</label><input class="short" id="oprice" name="oprice" type="text" />
 						<div class="clearfix"></div>
@@ -73,6 +87,7 @@ $(document).ready(function(){
 						<span><a class="getVolume">获取销量</a></span>
 						<div class="clearfix"></div>
 					</div>
+					{/if}
 					<div class="row">
 						<label>商品链接:</label><input class="long" id="link" type="text" />
 						<span></span>

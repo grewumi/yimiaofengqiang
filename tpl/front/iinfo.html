@@ -40,7 +40,7 @@
 			<div><span style="color:gray;">旺旺绑定,绑定后只能报名旺旺所在店铺的商品</span></div>
 			<div>
 				{if !$ww}
-				<form action="/?c=user&a=iinfo&act=ww" method="post">
+				<form action="" method="post">
 					<span>旺旺号：</span>
 					<input name="ww" />
 					<input type="submit" name="submit" value="绑定">
@@ -56,8 +56,15 @@
 		</div>
 		{elseif $act=='cz'}
 		<div class="right">
-			<div><span>请扫码充值</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=850177915&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:850177915:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></div>
-			<div><img style="width:200px;height:200px;" src="/assets/images/front/iinfo/sk.png" /></div>
+			<div><span>咨询QQ:</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=850177915&site=qq&menu=yes"><img border="0" src="/assets/images/front/counseling_style_52.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></div>
+			<div style="margin-top:80px;">
+				<form name=alipayment action="http://pay.jianqu.org/alipayapi.php" method=post target="_blank">
+					<label>充值金额：</label>
+					<input name="WIDtotal_fee" />
+					<input size="30" name="nick" style="display:none;" value="{$smarty.cookies.ymfq_loginuser}" />
+					<input name="submit" value="充值" type="submit"/>
+				</form>
+			</div>
 		</div>
 		{elseif $act=='ggw'}
 		<div class="right">

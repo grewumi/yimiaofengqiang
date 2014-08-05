@@ -1,6 +1,6 @@
 <?php
 global $caijiusers,$website;
-define('COMISSIONRATESORT',1);
+define('COMISSIONRATESORT',0);
 define('SETAJAXTOUZ',0);
 define('SETFILETOUZ',1);
 $website = array(
@@ -20,6 +20,7 @@ $website = array(
 	'vipzxhd'=>array('actType'=>13,'name'=>'vip×¨Ïí»î¶¯','rank'=>8), // vip×¨Ïí»î¶¯
 	'zhuanbao'=>array('actType'=>15,'name'=>'¿ªÐÄ×¬±¦','rank'=>7), //¿ªÐÄ×¬±¦
 	'aitaoba'=>array('actType'=>29,'name'=>'°®ÌÔ°É','rank'=>6), //°®ÌÔ°É
+	'bujie'=>array('actType'=>30,'name'=>'²½½ÖÍø','rank'=>6), // ²½½ÖÍø
 	'yimiaofengqiang'=>array('actType'=>20,'name'=>'Ò»Ãë·èÇÀ','rank'=>5), // Ò»Ãë·èÇÀ
 	'mytehui'=>array('actType'=>6,'name'=>'VIPÌØ»Ý','rank'=>5), // VIPÌØ»Ý
 	'jiejie'=>array('actType'=>25,'name'=>'½ã¹ä½Ö','rank'=>4), // ½ã¹ä½Ö

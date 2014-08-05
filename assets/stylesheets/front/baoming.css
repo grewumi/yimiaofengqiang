@@ -1,0 +1,62 @@
+@CHARSET "gbk";
+
+body{
+	background:url(/assets/images/front/index/background_bg.png);
+}
+.chat{
+	position:fixed;right:25px;bottom:200px;
+}
+.baoming-info,.choice{
+	width:990px;margin:0 auto;padding-top:20px
+}
+.choice .box{
+	border: 1px solid #dcdcdc;
+	margin: 9px 7px 9px 7px;
+	width: 479px;
+	float: left;
+}
+.choice .box .title{
+	background: #f0f1f2;
+	margin: 1px 1px 0 1px;
+	color: #000000;
+	text-align: center;
+	font-family: "Î¢ÈíÑÅºÚ";
+	font-size: 18px;
+	padding: 16px 28px 16px 28px;
+}
+.choice .box .content{
+	position: relative;
+	background: #ffffff;
+	color: #000000;
+	font-family: "Î¢ÈíÑÅºÚ";
+	font-size: 18px;
+	padding: 0;
+	height: 260px;
+}
+.choice .box .content img{
+	float:left;width:260px;height:235px;
+}
+.choice .box .content .brief{
+	line-height: 26px;
+	padding: 48px 0 20px 20px;
+}
+.choice .box .content .sub{
+	display: block;
+	position: absolute;
+	left: 376px;
+	top: 112px;
+	color: #969696;
+	font-size: 12px;
+	text-decoration: underline;
+}
+.choice .box .content .button{
+	display: block;
+	position: absolute;
+	left: 290px;
+	top: 172px;
+	color: #ffffff;
+	font-size: 16px;
+	line-height: 16px;
+	background: #fe5089;
+	padding: 13px 40px;
+}

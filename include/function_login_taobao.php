@@ -19,10 +19,10 @@ function getCheckcode($referer){
 	preg_match_all($ptn,$result,$arr,PREG_SET_ORDER);
 	//echo $arr[0][2];
 	//$arr[0][2]	= 'http://img02.taobaocdn.com/bao/uploaded/i2/T1FMxUFChnXXXXXXXX_!!0-item_pic.jpg';
-	$url = 'http://ymfq.com?c=virtualapi&a=getCheckcode&imgurl='.urlencode($arr[0][2]);
-	//echo $url;
+	$url = 'http://'.$_SERVER['HTTP_HOST'].'/?c=virtualapi&a=getCheckcode&imgurl='.urlencode($arr[0][2]);
+	echo '<img src="'.$arr[0][2].'" />';
 	$result = file_get_contents($url);
-	return $result;
+	return trim($result);
 }
 /* END - 获取验证码图片地址 */
 
@@ -110,7 +110,7 @@ function getCookie($type = 'db')
 }
 
 function read_log($filename = ''){
-    return trim(file_get_contents($filename));
+    return trim(file_get_contents('../tmp/cookie/'.$filename));
 }
 
 function isLogin($content)
@@ -151,7 +151,7 @@ function array2cookie($cookie_ary)
         $cookie .= $k.'='.$v.';';
     }
 
-    return rtrim($cookie, ';');
+	return rtrim($cookie, ';');
 }
 
 
@@ -166,13 +166,13 @@ function saveCookie($cookie, $type = 'db')
 
 function write_cookie($string, $filename = 'cookie.txt')
 {
-	if (is_writable($filename)) {
-		if(!$handle = fopen($filename, "w")) {
+//	if (is_writable($filename)) {
+		if(!$handle = fopen('../tmp/cookie/'.$filename,"w")) {
          	die("open $filename error.");
 		}
-	} else {
-    	die("$filename No Write.");
-	}
+//	} else {
+//    	die("$filename No Write.");
+//	}
 
     $string = trim($string);
 
@@ -217,14 +217,14 @@ function loginTaobao($user = '', $pass = '')
 		'fc'=>'default',
 		'style'=>'minisimple',
 		'css_style'=>'',
-		//'tid'=>'XOR_1_000000000000000000000000000000_63584054400B0F717B750379',
-		'tid'=>'',
+		'tid'=>'XOR_1_000000000000000000000000000000_665C475344787D070870067F',
+		//'tid'=>'',
 		'support'=>'000001',
 		'CtrlVersion'=>urlencode('1,0,0,7'),
 		'loginType'=>3,
 		'minititle'=>'',
 		'minipara'=>'',
-		'umto'=>'Tbbde2080d975691d0e4e8065e7433eb7',
+		'umto'=>'Td8678f6552c1a89c38bc040e1170c9d0',
 		'pstrong'=>2,
 		'llnick'=>'',
 		'need_sign'=>'',
@@ -232,19 +232,21 @@ function loginTaobao($user = '', $pass = '')
 		'isIgnore'=>'',
 		'full_redirect'=>'true',
 		'popid'=>'',
-		'callback'=>1,
+		'callback'=>'1',
 		'guf'=>'',
 		'not_duplite_str'=>'',
+		//'not_duplite_str'=>'',
 		'need_user_id'=>'',
 		'poy'=>'',
-		'gvfdcname'=>'',
-		'gvfdcre'=>'687474703A2F2F7777772E616C696D616D612E636F6D2F6D656D6265722F6C6F67696E2E68746D3F73706D3D302E302E302E302E333942773772',
+		'gvfdcname'=>'10',
+		//'gvfdcre'=>'687474703A2F2F7777772E616C696D616D612E636F6D2F6D656D6265722F6C6F67696E2E68746D3F73706D3D302E302E302E302E333942773772',
+		'gvfdcre'=>'',
 		'from_encoding'=>'',
 		'sub'=>'',
-		'oslanguage'=>'',
+		'oslanguage'=>'zh-CN',
 		'sr'=>'1440*900',
 		'osVer'=>urlencode('windows|6.1'),
-		'naviVer'=>urlencode('firefox|22')
+		'naviVer'=>urlencode('firefox|29')
 	);
 	/* END - POST参数 */
 	foreach($par as $k=>$v){
@@ -253,26 +255,26 @@ function loginTaobao($user = '', $pass = '')
 	$referer = 'https://login.taobao.com/member/login.jhtml?style=minisimple&from=alimama&redirectURL=http%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3d1&full_redirect=true&disableQuickLogin=true';
 	
 	/* 取得token */
-    $html = openhttp_login($url, $data, '', $referer, '', 0);
+    $html = openhttp_login($url, $data, '', $referer, '', 0);//普通模拟登陆
     $token_info = json_decode($html,true);
-	//echo $html;
-    if($token_info['state'] == 1){
+//	echo $html;
+    if($token_info['state']){
 	    $token = trim($token_info['data']['token']);
 		$loginsuccess = 1;
-    }else{
+    }else{//验证码模拟登陆
 		$token_info = null;
 		//header("Content-type: text/html; charset=utf-8");
-		$checkcode = trim(getCheckcode($referer));
+		$checkcode = getCheckcode($referer);
+		echo $checkcode;
+		
 		$andcheckcode = 'need_check_code=true&TPL_checkcode='.$checkcode;
         //echo trim(getCheckcode($referer));
 		$data = preg_replace('/need_check_code=&TPL_checkcode=/',$andcheckcode,$data);
-		//echo $data;
-		//die('get token error :: '.$html);
-        //die('get token error :: '.$token_info['message']);
-		$html = openhttp_login($url,$data ,'', $referer, '', 0);
-		//echo $html;
+	
+		$html = openhttp_login($url,$data,'', $referer, '', 0);
+		echo $html;
 		$token_info = json_decode($html,true);
-		if($token_info['state'] == 1){
+		if($token_info['state']){
 			$token = trim($token_info['data']['token']);
 			$loginsuccess = 1;
 		}else{
@@ -280,7 +282,10 @@ function loginTaobao($user = '', $pass = '')
 			$loginsuccess = 0;
 		}
     }
-	//echo $html;
+//	echo $html;
+	/* end - token */
+	
+	//存储cookie
 	if($loginsuccess){
 		$url = 'https://passport.alipay.com/mini_apply_st.js?site=0&token=' . $token . '&callback=vstCallback69';
 		$html = openhttp_login($url, '', '', $referer, '', 0);
@@ -288,27 +293,35 @@ function loginTaobao($user = '', $pass = '')
 		$st_info = get_items($html, array('"st":"'), array('"'));
 		$st = $st_info[0];
 		//echo $st;
-		
-		$url = 'https://login.taobao.com/member/vst.htm?st=' . $st . '&params=style%3Ddefault%3F%3D%26longLogin%3D0%26TPL_username%3D'.$user.'%26loginsite%3D0%26from_encoding%3D%26not_duplite_str%3D%26guf%3D%26full_redirect%3D%26isIgnore%3D%26need_sign%3D%26sign%3D%26from%3Dalimama%26TPL_redirect_url%3Dhttp%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3D1%26full_redirect%3Dtrue%26disableQuickLogin%3Dtrue%26tracelog%3DPhoto011%26_ksTS%3D1369726452671_81%26callback%3Djsonp82';
+		$url = 'https://login.taobao.com/member/vst.htm?st='.$st.'&params=style%3Dminisimple%26sub%3D%26TPL_username%3D'.$user.'%26loginsite%3D0%26from_encoding%3D%26not_duplite_str%3D%26guf%3D%26full_redirect%3Dtrue%26isIgnore%3D%26need_sign%3D%26sign%3D%26from%3Dalimama%26TPL_redirect_url%3Dhttp%25253A%25252F%25252Flogin.taobao.com%25252Fmember%25252Ftaobaoke%25252Flogin.htm%25253Fis_login%25253D1%26css_style%3D%26allp%3D&_ksTS=1402049593242_79&callback=jsonp80';
+//		$url = 'https://login.taobao.com/member/vst.htm?st='.$st.'&params=style%3Ddefault%3F%3D%26longLogin%3D0%26TPL_username%3D'.$user.'%26loginsite%3D0%26from_encoding%3D%26not_duplite_str%3D%26guf%3D%26full_redirect%3D%26isIgnore%3D%26need_sign%3D%26sign%3D%26from%3Dalimama%26TPL_redirect_url%3Dhttp%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3D1%26full_redirect%3Dtrue%26disableQuickLogin%3Dtrue%26tracelog%3DPhoto011%26_ksTS%3D1369726452671_81%26callback%3Djsonp82';
 		$html = openhttp_login($url, '', '', '', '', 1);
-		//echo $html;
+//		echo $html;
 		$cookie_info = get_taobao_header_cookie($html);
-		//echo $cookie_info;
+//		print_r($cookie_info);
 		$url_info = get_items($html, array('"url":"'), array('"'));
 		$url = $url_info[0];
 		
 
 		$html = openhttp_login($url, '', array2cookie($cookie_info), '', '', 1);
+		echo $html;
 		$cookie_info_2 = get_taobao_header_cookie($html);
-		//print_r($cookie_info_2);
+		print_r($cookie_info_2);
 		//获取最终的cookie
 		$cookie_info_real = array_merge($cookie_info, $cookie_info_2);
 		
+		$url = 'http://u.alimama.com/union/myunion/myOverview.htm';
+		$html = openhttp_login($url,"",array2cookie($cookie_info_real),"","",1);
+//		echo $html;
+		
 		saveCookie(array2cookie($cookie_info_real), 'file');
+		
 		return true;
 	}else{
+		//echo $html;
 		return false;
 	}
+	// end - 存储cookie
     //-------------1进入alimama页面
     //$url = 'http://u.alimama.com/union/myunion/myOverview.htm';
     //===========================
@@ -347,9 +360,13 @@ function loginTaobao($user = '', $pass = '')
 function getCommissionRate($iid){
     global $cookie_info_real;
 	$cookie = getCookie('cookie.txt');
-	//echo $cookie;
-    $url = 'http://pub.alimama.com/pubauc/searchAuctionList.json?q=http%3A%2F%2Fitem.taobao.com%2Fitem.htm%3Fid%3D'.$iid;
-    $html = openhttp_login($url, '',$cookie, '', '', 0);
+//	echo $cookie;
+//  $url = 'http://pub.alimama.com/pubauc/searchAuctionList.json?q=http%3A%2F%2Fitem.taobao.com%2Fitem.htm%3Fid%3D'.$iid;
+//  $html = openhttp_login($url, '',$cookie, '', '', 0);
+//	$url = 'http://www.alimama.com/index.htm';
+	$url = 'http://u.alimama.com/union/myunion/myOverview.htm';
+	$html = openhttp_login($url,"",$cookie,"","",1);
+//	echo $html;
     $result = json_decode($html,1);
     if($result){
 		if($result['data']['pagelist'])
@@ -358,6 +375,14 @@ function getCommissionRate($iid){
 			return -1;
 	}else{
 		return -2;
+	}
+}
+if($_GET['loginAlimamaTest']){
+	if(loginTaobao('liushiyan8','liujun987')){
+		echo 'login success';
+		//getCommissionRate('123456789');
+	}else{
+		echo 'login failed';
 	}
 }
 ?>

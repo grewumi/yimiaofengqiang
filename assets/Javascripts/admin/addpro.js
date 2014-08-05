@@ -86,10 +86,10 @@ function userhuoqu(){
 		    }
 			
 			/* 销量检测 */
-			if(dataObj.volume < 10)
-				$("span.reporttips").append("<em class='tips'>销量小于10,</em>");
-			else
-				var xlisok = 1;
+//			if(dataObj.volume < 10)
+//				$("span.reporttips").append("<em class='tips'>销量小于10,</em>");
+//			else
+//				var xlisok = 1;
 
 			/* END - 销量检测 */
 			
@@ -118,59 +118,59 @@ function userhuoqu(){
 			/* END - 信誉检测 */
 			
 			/* 佣金检测 */
-			if(dataObj.commission_rate>0){
-				if(dataObj.commission_rate < 10)
-					$("span.reporttips").append("<em class='tips'>佣金小于10%,</em>");
-				else
-					var yjisok = 1;
-			}else{
-				$("span.reporttips").append("<em class='tips'>佣金未设置,</em>");
-			}
+//			if(dataObj.commission_rate>0){
+//				if(dataObj.commission_rate < 10)
+//					$("span.reporttips").append("<em class='tips'>佣金小于10%,</em>");
+//				else
+//					var yjisok = 1;
+//			}else{
+//				$("span.reporttips").append("<em class='tips'>佣金未设置,</em>");
+//			}
 			/* END - 佣金检测 */
 			
 			/* 左侧LOGO检测 */
-			if(dataObj.shopshow){//C店
-				$url = "/?c=virtualapi&a=checklogo&where=left&shop=c&iid=" + dataObj.iid;
-			}else{
-				$url = "/?c=virtualapi&a=checklogo&where=left&shop=t&iid=" + dataObj.iid;
-			}
-			var leftok = -1;
-			$.ajax({
-				url:$url,
-				async:false,
-				success:function(dataleft){
-					var dataleftObj=eval("("+dataleft+")");
-					if(dataleftObj.show>0)
-						leftok = 1;
-					else
-						$("span.reporttips").append("<em class='tips'>左侧LOGO未设置,</em>");
-					
-				}
-			}); 
+//			if(dataObj.shopshow){//C店
+//				$url = "/?c=virtualapi&a=checklogo&where=left&shop=c&iid=" + dataObj.iid;
+//			}else{
+//				$url = "/?c=virtualapi&a=checklogo&where=left&shop=t&iid=" + dataObj.iid;
+//			}
+//			var leftok = -1;
+//			$.ajax({
+//				url:$url,
+//				async:false,
+//				success:function(dataleft){
+//					var dataleftObj=eval("("+dataleft+")");
+//					if(dataleftObj.show>0)
+//						leftok = 1;
+//					else
+//						$("span.reporttips").append("<em class='tips'>左侧LOGO未设置,</em>");
+//					
+//				}
+//			}); 
 			/* END - 左侧LOGO检测 */
 			
 			/* 详情页LOGO检测 */
-			if(dataObj.shopshow){//C店
-				$url = "/?c=virtualapi&a=checklogo&where=dec&shop=c&iid=" + dataObj.iid;
-			}else{
-				$url = "/?c=virtualapi&a=checklogo&where=dec&shop=t&iid=" + dataObj.iid;
-			}
-			var decok = -1;
-			$.ajax({
-				url:$url,
-				async:false,
-				success:function(datadec){
-					var datadecObj=eval("("+datadec+")");
-					if(datadecObj.show>0)
-						decok = 1;
-					else
-						$("span.reporttips").append("<em class='tips'>详情页LOGO未设置,</em>");
-					
-				}
-			});
+//			if(dataObj.shopshow){//C店
+//				$url = "/?c=virtualapi&a=checklogo&where=dec&shop=c&iid=" + dataObj.iid;
+//			}else{
+//				$url = "/?c=virtualapi&a=checklogo&where=dec&shop=t&iid=" + dataObj.iid;
+//			}
+//			var decok = -1;
+//			$.ajax({
+//				url:$url,
+//				async:false,
+//				success:function(datadec){
+//					var datadecObj=eval("("+datadec+")");
+//					if(datadecObj.show>0)
+//						decok = 1;
+//					else
+//						$("span.reporttips").append("<em class='tips'>详情页LOGO未设置,</em>");
+//					
+//				}
+//			});
 			/* END - 详情页LOGO检测 */
-			if(xlisok>0 && yjisok>0 && leftok>0 && decok>0)
-				$("input#userReport").attr("disabled",false);
+//			if(leftok>0 && decok>0)
+//				$("input#userReport").attr("disabled",false);
 		});
 	});
 }

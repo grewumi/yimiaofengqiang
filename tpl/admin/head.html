@@ -1,7 +1,8 @@
 <div class="admin-head-around">
 	<div class="admin-head">
 		<a href="/admin.html" {if $indexCur}class="cur"{/if}>管理首页</a>
-		<a href="/pro.html" {if $proCur}class="cur"{/if}>商品管理</a>
+		<a href="{spUrl c=admin a=pro mode=pro}" {if $proCur}class="cur"{/if}>促销商品管理</a>
+		<a href="{spUrl c=admin a=pro mode=try}" {if $tryItemCur}class="cur"{/if}>试用商品管理</a>
 		<a href="/proget.html" {if $progetCur}class="cur"{/if}>商品采集</a>
 		<a href="/dbselect.html" {if $dbselectCur}class="cur"{/if}>数据导出</a>
 		<a href="/tkreport.html" {if $tkreportCur}class="cur"{/if}>淘客报表</a>

@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<title>后台  - 用户管理</title>
+<link rel="stylesheet" href="/assets/stylesheets/admin/head.css" />
+<link rel="stylesheet" href="/assets/stylesheets/admin/yonghu.css" />
+</head>
+<body>
+	{include file="admin/head.html"}
+	<div class="admin-yonghu-around">
+		{if !$superadmin}
+		<div class="mima">
+			<form method="post" action="/?c=admin&a=yonghu">
+				超级密码：<input name="mima" /><input name="super" type="submit" value="登录" />
+			</form>
+		</div>
+		{else}
+		<div class="admin-yonghu">
+			{if $tips}
+			<div class="tips">
+				<p>{$tips}</p>
+			</div>
+			{/if}
+			<div class="yonghu-info">
+				<table class="info">
+					<tr>
+						<td>用户名</td>
+						<td>会员积分</td>
+					</tr>
+					{foreach key=k item=v from=$usersinfo}
+					<tr>
+						<td>{$v.username}</td>
+						<td>{$v.hyjf}</td>
+					</tr>
+					{/foreach}
+				</table>
+				<form method="post" action="/?c=admin&a=yonghu">
+					<div><label>用户名：</label><input name="username" /></div>
+					<div><label>积分：</label><input name="hyjf" /></div>
+					<div><label></label><input name="submit" type="submit" value="充值" /></div>
+				</form>
+			</div>
+		</div>
+		{/if}
+		<div class="clearfix"></div>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<title>一秒疯抢 - 商家{if $ac=='bm'}报名{elseif $ac=='cx'}查询{/if}</title>
+<link rel="stylesheet" href="/assets/stylesheets/front/user.css" />
+<link rel="stylesheet" href="/assets/stylesheets/front/head.css" />
+<link rel="stylesheet" href="/assets/stylesheets/front/foot.css" />
+<script type="text/javascript"  src="/assets/Javascripts/jquery-2.0.3.min.js"></script>
+<script type="text/javascript"  src="/assets/Javascripts/admin/addpro.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	userhuoqu();
+});
+</script>
+</head>
+<body>
+{include file="front/head.html"}
+<div class="report-tips">
+	<p>商家不要问审核商品能不能上之类的一些问题，审核人员没有那么多时间回复这类问题，【报名注意事项】里面是最基本的要求，如若达不到请绕道,商家报名请按【报名注意事项】要求自助报名,报名系统会检测相关要求，所以不要有侥幸心理！</p>
+</div>
+{if $searchTips}
+<div class="sTips">
+	{$searchTips}
+</div>
+{/if}
+<div class="user-around">
+	<div class="user-info">
+		<h1>
+			商家{if $ac=='bm'}报名{elseif $ac=='cx'}查询{/if}/ Audit
+		</h1>
+	</div>
+	{if $ac=='cx'}
+	
+	<div class="user-search">
+		<form action="{spUrl c=main a=user ac=cx}" method="post">
+			<span>{if $searchTips}{$searchTips}{/if}</span>
+			<input class="siid" name="sIid" type="text" onpaste="value=value.replace(/[^\d]/gi,'');" onKeyUp="value=value.replace(/[^\d]/gi,'');" />
+			<input class="searchiid" name="searchIid" type="submit" value="报名查询" />
+		</form>
+		<div class="clearfix"></div>
+	</div>
+	
+	{elseif $ac=='bm'}
+	<div class="user-report">
+		<div class="admin-modpro ur">
+			<form method="post">
+				<div class="mod-info">
+									
+					<div class="row">					
+						<label class="tips">{if $submitTips}{$submitTips}{/if}</label>						
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>商品ID:</label><input name="iid" id="iid" type="text" onKeyUp="value=value.replace(/[^\d]/gi,'');" onpaste="value=value.replace(/[^\d]/gi,'');" title="商品ID为商品链接http://item.taobao.com/htm?id=8888888中的8888888这串数字" />
+						<input name="yijianhuoqu" id="yijianhuoqu" class="btn" type="button" value="一键获取" />
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>标题:</label><input class="long" name="title" id="title" type="text" title="标题请保持在14个字符内" />
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>类别:</label>
+						<select name="cat">
+						{foreach key=k item=v from=$procats}
+							<option value="{$v.type}"  {if $pro.cat==$v.type}selected="true"{/if}>{$v.name}</option>
+						{/foreach}	
+						</select>
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>原价:</label><input class="short" name="oprice" id="oprice" type="text" />
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>活动价:</label><input class="short" name="nprice" type="text" />
+						<div class="clearfix"></div>
+					</div>
+					<div class="row" style="display:none;">
+						<label>销量:</label><input class="short" name="volume" id="volume" type="text" />
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>活动数量:</label><input class="short" name="num" type="text" />
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>提交时间:</label><input class="short" name="st" type="text" value="{$smarty.now|date_format:"%Y-%m-%d"}" /><em class="timeTips">格式为:({$smarty.now|date_format:"%Y-%m-%d"})</em>
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>商品链接:</label><input class="long" name="link" id="link" type="text" />
+						<span class="kanyixialj"></span>
+						<div class="clearfix"></div>
+					</div>
+				
+					<div class="row">
+						<label>商品图片:</label><input class="long" name="pic" id="pic" type="text" />
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label class="gengduotupian">更多图片:</label>
+						<div class="photo-list">
+							
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>是否包邮:</label>
+						<input type="radio" name="carriage" class="postage" value="1" checked="true" /><label>包邮:</label>
+						<input type="radio" name="carriage" class="nopostage" value="0" /><label>不包邮:</label>
+						<div class="clearfix"></div>
+					</div>
+					<div class="row" style="display:none;">
+						<label>佣金:</label>
+						<input name="commissionrate" id="commissionrate" class="short" readonly="true" />
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>联系旺旺:</label><input class="long" name="ww" id="ww" type="text" />
+						<span class="aliwangwang"></span>
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>联系电话:</label><input class="long" name="phone" type="text" title="请务必填写！" />
+						<div class="clearfix"></div>
+					</div>
+					<div class="row">
+						<label>提交:</label><input type="submit" name="userReport" id="userReport" value="提交" />
+						<span class="reporttips"></span>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</form>
+		</div>	
+		<div class="zsyq">
+			<h1>报名注意事项</h1>
+			<ul>
+				<li>【一秒疯抢】只支持等级<img src="/assets/images/front/zhuan.gif" />以上店铺报名，天猫店铺无等级限制;</li>
+				<li>宝贝必须参加淘客（10%）、包邮, 否则不予通过;</li>
+				<li>活动期间不能调高宝贝价格、调低佣金比率，一经发现，宝贝立即下架，并将该店铺永久列入黑名单，不再允许该店铺任何宝贝报名;</li>
+				<li>报名宝贝库存不少于200件、销量不少于10件;</li>
+				<li>宝贝名称必须以“【一秒疯抢】”开头;</li>
+				<li>报名前，必须悬挂一秒疯抢LOGO，链接到：【一秒疯抢】 LOGO悬挂教程：<a target="_blank" href="http://bbs.yimiaofengqiang.com/forum.php?mod=viewthread&tid=1&extra=page%3D1">http://bbs.yimiaofengqiang.com/forum.php?mod=viewthread&tid=1&extra=page%3D1</a></li>
+				<li>报名图片必须为白底，风格简洁清爽、图像清晰，且不能有促销字样，否则不予通过(图片必须为正方形, 310px*310px最佳);</li>
+			</ul>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	{/if}
+	<div class="wanfa">
+		<p>
+			<a href="#">【我清楚玩法了，现在去免费报名】</a>
+			<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=850177915&site=qq&menu=yes">【你也可以：进入快速付费审核通道】</a>
+		</p>
+	</div>
+</div>
+<div class="clearfix"></div>
+<div class="chat">
+	<a href="/?c=user&a=login">快速通道</a><br />
+	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=850177915&site=qq&menu=yes"><img border="0" src="/assets/images/front/counseling_style_52.png" alt="点击这里给我发消息或者加Q850177915" title="点击这里给我发消息或者加Q850177915"/></a>
+	<br /><br />
+	免费通道<br />
+	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=350544519&site=qq&menu=yes"><img border="0" src="/assets/images/front/counseling_style_52.png" alt="点击这里给我发消息或者加Q350544519" title="点击这里给我发消息或者加Q350544519"/></a>
+</div>
+{include file="front/foot.html"}
+</body>
+</html>

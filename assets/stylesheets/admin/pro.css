@@ -1,0 +1,65 @@
+@CHARSET "gbk";
+.admin-pro{
+	width:990px;
+	margin:0 auto;
+}
+.pro-info{
+	padding-top:80px;
+}
+.pro-info ul{
+	list-style-type:none; 
+	border:  1px solid #808080;
+	border-bottom:none;
+}
+.pro-info li{
+	position:relative;
+	border-bottom: 1px solid #808080;
+	padding:0px;
+	height:65px;
+}
+.pro-info li.hd span.pic{
+	margin-top:0px;width:60px;
+}
+.pro-info li.hd  span.title{
+	font-size: 16px;padding-top:0px;height:100%;line-height:65px;
+}
+.pro-info li.hd{
+	background:#ccc;
+}
+.pro-info span{
+	display:block;
+	float:left;
+	margin:auto 8px;
+	line-height:65px;
+	text-align: center;
+}
+.pro-info span.pic{
+	margin-top:3px;
+}
+.pro-info span.pic img{
+	width:60px;
+	height:60px; 
+}
+.pro-info span.title{
+	width:300px;
+	height:47px;
+	overflow: hidden;
+}
+.pro-info span.short{
+	width:50px
+}
+.pro-info .reason{
+	text-align:center;
+	background:#888;
+	color:#fff;
+	padding:5px 0px;
+}
+.pro-ctrl{
+	padding-top:30px;
+	width:990px;
+	margin:0 auto;
+	position:relative;
+}
+.pro-ctrl a,form{
+	display:inline-block;
+}

@@ -1,0 +1,26 @@
+<div style="margin:0px;padding:0px;">
+	<div style="position:relative;width:950px;margin:0 auto;">
+		<p style="text-align:center;">请将地址：yimiaofengqiang@163.com 加入通讯录,以确保您能及时收到一秒疯抢的邮件。</p>
+	</div>
+	<div style="position:relative;width:950px;margin:0 auto;">
+		<div>
+			<div style="position:relative;">
+				{foreach from=$items item=v key=k}
+				<div style="float:left;width:180px;height:230px;overflow:hidden;margin:0px 0px 0px 0px;border:#FF3366 1px solid;">
+					<a target="_blank" href="http://www.yimiaofengqiang.com/main/deal/id/{$v.id}.html">
+						<img width="180" height="180" src="{$v.pic}" />
+					</a>
+					<a target="_blank" href="http://www.yimiaofengqiang.com/main/deal/id/{$v.id}.html" style="color:gray;">
+						<span style="display:inline-block;width:180px;height:18px;overflow:hidden;">{$v.title}</span>
+					</a>
+					<span style="display:inline-block;width:100px;font-size:18px;color:red;">￥{$v.nprice}<em style="text-decoration:line-through;display:inline-block;font-size:13px;color:gray;margin-left:5px;">{$v.oprice}</em></span>
+					<a target="_blank" href="http://www.yimiaofengqiang.com/main/deal/id/{$v.id}.html" style="text-decoration:none;">
+						<span style="display:inline-block;color:#fff;background:#FD5125;float:right;">立即购买</span>
+					</a>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+</div>

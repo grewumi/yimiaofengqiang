@@ -1,0 +1,218 @@
+@CHARSET "gbk";
+
+body{
+	background:url(/assets/images/front/index/background_bg.png);
+}
+
+.sTips{
+	width:1080px;
+	margin:0 auto;
+	background:#F7EEA5;
+	text-align:center;
+	padding:10px 0px;
+}
+/* 用户报名页样式 */
+.user-info{
+	width:1080px;margin:0 auto;padding-top:20px
+}
+.user-info ul{
+	color:red;
+	margin:15px 0px;
+}
+.user-info ul li{
+	list-style-type:none;
+}
+.user-info .red{
+	color:red;
+}
+.user-info .blue{
+	color:blue;
+}
+/* 前台用户报名页面用户查询 */
+.user-search{
+	margin:10px auto;width:1080px;text-align:center;background:#fff;height:100px;padding-top:50px;
+}
+.user-search form{
+	display:block;margin:0px auto;height:35px;width:50%;
+}
+.user-search form input{
+	height:100%;
+}
+.user-search form input.siid{
+	width:60%;
+}
+.user-search span{
+	color:red;
+	margin-right:5px;
+}
+/* end - 前台用户报名页面用户查询 */
+.user-report{
+	background:#fff;margin:10px auto;width:1080px;
+}
+.user-report .ur{
+	float:left;margin-left:15px;width:46%;
+}
+.user-report .ur .mod-info{
+	margin:0px;
+}
+.user-report .gengduotupian{
+	color:gray;
+}
+.user-report div.photo-list {
+	float:left;
+	width:310px;
+}
+.user-report div.photo-list img {
+    float: left;
+    width: 145px;
+    height: 145px;
+    margin: 2px;
+    border: 1px solid;
+}
+
+.user-report .admin-modpro .mod-info .row .tips{
+	color:red;
+	width:200px;
+}
+.user-report .admin-modpro .mod-info .row .timeTips{
+	margin-left:10px;
+}
+
+.user-report .zsyq{
+	float:right;border:1px solid #ddd;width:42%;margin:8px;padding:20px 8px;
+}
+.user-report .zsyq h1{
+	font-size:24px;text-align:center;margin-bottom:10px;
+}
+.user-report .zsyq ul{
+	list-style-type:decimal;width:86%;margin:0px auto;font-size:15px;
+}
+.user-report .zsyq li{
+	margin:15px 0px;
+}
+/* end - 用户报名页样式 */
+
+/* 后台商品修改样式 添加样式 */
+.admin-modpro {
+	width:1080px;
+	margin:0 auto;
+	padding-top:15px;
+}
+.admin-modpro .mod-pic{
+	float:left;
+	margin-top:325px;
+	width:145px;
+}
+.admin-modpro .mod-pic .old-pic{
+	width:145px;
+}
+.admin-modpro .mod-info .getVolume{
+	cursor:pointer;
+	color:blue;
+}
+.admin-modpro .mod-info {
+	width:500px;
+	margin:25px auto;
+	float:left;
+}
+.admin-modpro .mod-info .row {
+	width:500px;
+	margin:10px 0px;
+}
+.admin-modpro .mod-info .shopshow{
+	display:none;
+}
+.admin-modpro .mod-info .shopv{
+	display:none;
+}
+.admin-modpro .mod-info .row .gengduotupian{
+	color:gray;
+}
+.admin-modpro .mod-info .row .jiabt{
+	margin-left:5px;
+	cursor:pointer;
+	color:blue;
+}
+.admin-modpro .mod-info .row .pro-pic-list{
+	float:left;
+	width:310px;
+}
+.admin-modpro .mod-info .row .pro-pic-list img{
+ 	float: left;
+    width: 145px;
+    height: 145px;
+    margin: 2px;
+    border: 1px solid;
+}
+.admin-modpro .mod-info .row .tips{
+	color:red;
+	width:200px;
+}
+.admin-modpro .mod-info .row .rank{
+	margin-left:10px;
+}
+.admin-modpro .mod-info .row .rank a{
+	margin: 0px 10px;
+	text-decoration:none;
+	cursor:pointer;
+}
+.admin-modpro .mod-info .row  .btn{
+	margin-left:5px;
+}
+.admin-modpro .mod-info span{
+	margin-left:5px;
+}
+.admin-modpro .mod-info a{
+	text-decoration:none;
+}
+.admin-modpro .mod-info label{
+	display:block;
+	float:left;
+	width:80px;
+}
+.admin-modpro .mod-info input{
+	display:block;
+	float:left;
+}
+.admin-modpro .mod-info input.long{
+	width:300px;
+}
+.admin-modpro .mod-info textarea{
+	width:300px;
+	height:80px;
+}
+.admin-modpro .mod-info input.short{
+	width:80px;
+}
+/* end - 后台商品修改样式 添加样式 */
+
+.reporttips{
+	display:block;padding-top:3px;
+}
+.reporttips .tips{
+	color:red;margin-left:8px;
+}
+
+.chat{
+	position:fixed;right:25px;bottom:200px;
+}
+/* 报名提示 report-tips*/
+.report-tips{
+	width:1080px;margin:0 auto;background:#F9F0E1;padding:10px 0px;margin-top:10px;border:1px solid #999999;
+}
+.report-tips p{
+	width: 90%;margin:0px auto;font-size:18px;color:red;
+}
+/* END - 报名提示 */
+
+/* 玩法 */
+.user-around .wanfa{
+	width:1080px;margin:10px auto;
+}
+.user-around .wanfa p{
+	text-align:center;
+}
+.user-around .wanfa a{
+	font-size:32px;text-decoration:none;color:gray;
+}
+/* END - 玩法 */

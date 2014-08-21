@@ -110,7 +110,7 @@ $spConfig = array(
 		'enabled' => TRUE, // 开启HTML生成功能
 		//'file_root_name' => 'articles'
 	),
-        'mode'=>'release',
+        //'mode'=>'release',
 	'dispatcher_error' => 'import(APP_PATH."/404.html");exit();',
 	'supe_uid' => '',
 	'SC' => array(

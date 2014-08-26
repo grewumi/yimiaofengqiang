@@ -6,11 +6,11 @@ $spConfig = array(
 	// 数据库配置
 	'db'=>array(
 		'host' => 'localhost',  // 数据库地址，一般都可以是localhost
-         //'host' => 'www.yimiaofengqiang.com',
+         
 		'login' => 'root', // 数据库用户名
-		'password' => 'N]j]78R>jPKEML7edAC(',  // 数据库密码
-		//'password' => '',
-		'database' => 'xiai' // 数据库的库名称
+		//'password' => 'N]j]78R>jPKEML7edAC(',  // 数据库密码
+		'password' => '',
+		'database' => 'yimiaofengqiang' // 数据库的库名称
 		//'database' => 'net37372922' // 数据库的库名称					
 	),
 	// smarty配置
@@ -119,15 +119,15 @@ $spConfig = array(
 		'cookiepath' => '/', //COOKIE作用路径
 	),
 	'timestamp' => time(),
-	'spVerifyCode' => array( //.....
-		'width' => 60, //.....
-		'height' => 20, //.....
-		'length' => 4, //.......
-		'bgcolor' => '#FFFFFF', //...
-		'noisenum' => 50, //......
-		'fontsize' => 22, //....
-		'fontfile' => 'font.ttf', //....
-		'format' => 'gif', //.........
+	'spVerifyCode' => array( 
+		'width' => 60, 
+		'height' => 20, 
+		'length' => 4, 
+		'bgcolor' => '#FFFFFF', 
+		'noisenum' => 50, 
+		'fontsize' => 22, 
+		'fontfile' => 'font.ttf', 
+		'format' => 'gif', 
 	),
 );
 require(SP_PATH."/SpeedPHP.php");

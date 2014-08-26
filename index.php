@@ -1,17 +1,23 @@
 <?php
 define("SP_PATH",dirname(__FILE__).'/SpeedPHP');
 define("APP_PATH",dirname(__FILE__));
+define('LOCALDEVELOP',TRUE);
 date_default_timezone_set('Asia/Shanghai');
+
+if(LOCALDEVELOP){
+    $dbpasswd = '';
+    $ucapi = 'http://ucenter.com';
+}else{
+    $dbpasswd = 'N]j]78R>jPKEML7edAC(';
+    $ucapi = 'http://yonghu.yimiaofengqiang.com';
+}
 $spConfig = array(
 	// 数据库配置
 	'db'=>array(
 		'host' => 'localhost',  // 数据库地址，一般都可以是localhost
-         
 		'login' => 'root', // 数据库用户名
-		//'password' => 'N]j]78R>jPKEML7edAC(',  // 数据库密码
-		'password' => '',
-		'database' => 'yimiaofengqiang' // 数据库的库名称
-		//'database' => 'net37372922' // 数据库的库名称					
+		'password' =>$dbpasswd ,  // 数据库密码
+		'database' => 'yimiaofengqiang' // 数据库的库名称			
 	),
 	// smarty配置
 	'view' => array(
@@ -39,10 +45,12 @@ $spConfig = array(
 			'suffix' => '.html', // 生成地址的结尾符，网址后缀，可自由设置，如果“.do”或“.myphp”，该参数可为空，默认是.html。
 			'sep' => '/', // 网址参数分隔符，建议是“-_/”之一
 			'map' => array(	// 网址映射
-				//'view'=>'main@view',
 				'view'=>'main@view',
 				'user'=>'main@user',
 				'outitems'=>'main@outitems',
+                                'search' => 'main@search', // 将使得 http://www.example.com/search.html 转向控制器main/动作serach执行
+				'@' => 'main@no', // 1.在map中无法找到其他映射，2. 网址第一个参数并非控制器名称。
+                            
 				'iteminfo'=>'admin@getiteminfo',
 				'xuqi'=>'admin@xuqi',
 				'postDataToUz'=>'admin@postDataToUz',
@@ -66,9 +74,7 @@ $spConfig = array(
 				'dbselect' => 'admin@dbselect',
 				'sqlout' => 'admin@sqlout',
 				'updateyj' => 'admin@updateyj',
-				'updateyjonce' => 'admin@updateyjonce',	
-				'search' => 'main@search', // 将使得 http://www.example.com/search.html 转向控制器main/动作serach执行
-				'@' => 'main@no' // 1.在map中无法找到其他映射，2. 网址第一个参数并非控制器名称。
+				'updateyjonce' => 'admin@updateyjonce',					
 			),
 			'args' => array( // 网址映射附加的隐藏参数，如果针对某个网址映射设置了隐藏参数，则在网址中仅会存在参数值，而参数名称被隐藏。
 				// 生成的网址将会是：http://www.example.com/search-thekey-2.html
@@ -87,16 +93,14 @@ $spConfig = array(
 			//数据库相关 (mysql 连接时, 并且没有设置 UC_DBLINK 时, 需要配置以下变量)
 			'UC_DBHOST' => 'localhost', // UCenter 数据库主机
 			'UC_DBUSER' => 'root', // UCenter 数据库用户名
-			'UC_DBPW' => 'N]j]78R>jPKEML7edAC(', // UCenter 数据库密码
+			'UC_DBPW' => $dbpasswd, // UCenter 数据库密码
 			'UC_DBNAME' => 'ucenter', // UCenter 数据库名称
 			'UC_DBCHARSET' => 'gbk', // UCenter 数据库字符集
 			'UC_DBTABLEPRE' => 'ucenter.uc_', // UCenter 数据库表前缀，务必注意：最好在表前缀前加上库名
 	
 			//通信相关
-			//'UC_KEY' => 'YgergE52d7yUJ1EEHRYHKCFAS4wUW28lw8GUcUp1wiyitclPr46XR7xtOlwnm754', // 与 UCenter 的通信密钥, 要与 UCenter 保持一致
-			'UC_KEY' => 'a839bboOnkjjtp2jinTPz74q4BonmXhWvaPlaXxjZhuL4uy9dz/iJvnNgTXWggo9LgODqQXg6WauuPDNV1dZp1pJEeIYSgwzR0m/O5j9ekHK0ZcvO6bxSJDCc0cq', // 与 UCenter 的通信密钥, 要与 UCenter 保持一致
-			'UC_API' => 'http://yonghu.yimiaofengqiang.com',
-			//'UC_API' => 'http://ucenter.com', // UCenter 的 URL 地址, 在调用头像时依赖此常量
+			'UC_KEY' => 'YgergE52d7yUJ1EEHRYHKCFAS4wUW28lw8GUcUp1wiyitclPr46XR7xtOlwnm754', // 与 UCenter 的通信密钥, 要与 UCenter 保持一致
+			'UC_API' => $ucapi,
 			'UC_CHARSET' => 'gbk', // UCenter 的字符集
 			'UC_IP' => '127.0.0.1', // UCenter 的 IP, 当 UC_CONNECT 为非 mysql 方式时, 并且当前应用服务器解析
 			'UC_APPID' => 1 // 当前应用的 ID
@@ -108,7 +112,6 @@ $spConfig = array(
 	),
 	'html' => array(  // HTML生成配置
 		'enabled' => TRUE, // 开启HTML生成功能
-		//'file_root_name' => 'articles'
 	),
 	'mode' => 'release',
 	'dispatcher_error' => "import(APP_PATH.'/404.html');exit();",

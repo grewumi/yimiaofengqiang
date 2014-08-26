@@ -8,10 +8,10 @@ $spConfig = array(
 		'host' => 'localhost',  // 数据库地址，一般都可以是localhost
                 //'host' => 'www.yimiaofengqiang.com',
 		'login' => 'root', // 数据库用户名
-		'password' => 'N]j]78R>jPKEML7edAC(',  // 数据库密码
-		//'password' => '',
-		//'database' => 'xiai' // 数据库的库名称
-		'database' => 'xiai' // 数据库的库名称					
+		//'password' => 'N]j]78R>jPKEML7edAC(',  // 数据库密码
+		'password' => '',
+		'database' => 'yimiaofengqiang' // 数据库的库名称
+		//'database' => 'xiai' // 数据库的库名称					
 	),
 	// smarty配置
 	'view' => array(
@@ -87,8 +87,8 @@ $spConfig = array(
 			//数据库相关 (mysql 连接时, 并且没有设置 UC_DBLINK 时, 需要配置以下变量)
 			'UC_DBHOST' => 'localhost', // UCenter 数据库主机
 			'UC_DBUSER' => 'root', // UCenter 数据库用户名
-			//'UC_DBPW' => '',
-			'UC_DBPW' => 'N]j]78R>jPKEML7edAC(', // UCenter 数据库密码
+			'UC_DBPW' => '',
+			//'UC_DBPW' => 'N]j]78R>jPKEML7edAC(', // UCenter 数据库密码
 			'UC_DBNAME' => 'ucenter', // UCenter 数据库名称
 			'UC_DBCHARSET' => 'gbk', // UCenter 数据库字符集
 			'UC_DBTABLEPRE' => 'ucenter.uc_', // UCenter 数据库表前缀，务必注意：最好在表前缀前加上库名

@@ -52,6 +52,9 @@ class user extends spController{
 				
 		}
 	}
+	/*
+	 * 
+	 */
 	public function login(){
 		/* 设置签名 */
 //		$app_key = '21726073';
@@ -64,7 +67,12 @@ class user extends spController{
 		/*  END - 设置签名*/
 		//var_dump($_COOKIE);
 	
-		$loginstatus = $this->spArgs('cmd');
+		$loginstatus = $this->spArgs('cmd');	
+		$refer = $this->spArgs("refer");
+		if($refer)
+			ssetcookie('_refer',$refer);
+		else
+			ssetcookie('_refer','');
 		if($loginstatus == 'out'){
 			clearcookie();
 			header("Location:/?c=user&a=login");
@@ -96,7 +104,6 @@ class user extends spController{
 						//设置cookie
 						ssetcookie('auth', authcode($uinfo['password'].'\t'.$uinfo['uid'], 'ENCODE'), 31536000);
 						ssetcookie('loginuser', $uinfo['username'], 31536000);
-						ssetcookie('_refer', '');
 						// end - 设置cookie
 						$this->loginnote = '登录成功';
 					} elseif($uinfo['uid'] == -1) {
@@ -114,9 +121,9 @@ class user extends spController{
 				
 			}
 		}
-		if($GLOBALS['G_SP']['supe_uid']){
+		if($GLOBALS['G_SP']['supe_uid']){ // 登录成功后
 			//var_dump($uinfo);
-			if(!$this->member->find(array('uid'=>$GLOBALS['G_SP']['supe_uid']))){
+			if(!$this->member->find(array('uid'=>$GLOBALS['G_SP']['supe_uid']))){//没有找到用户，插入新数据到member表
 				$this->member->create($uinfo);
 			}
 			if(!$this->users->find(array('uid'=>$GLOBALS['G_SP']['supe_uid']))){
@@ -124,7 +131,7 @@ class user extends spController{
 				$newuser = array(
 					'uid'=>$GLOBALS['G_SP']['supe_uid'],
 					'username'=>$uinfo['username'],
-					'lastlogin'=>date("Y-m-d H:i:s")
+					//'lastlogin'=>date("Y-m-d H:i:s")
 				);
 				//var_dump($newuser);
 				$this->users->create($newuser);
@@ -137,11 +144,16 @@ class user extends spController{
 			// 用户类别
 			$groups = $this->users->find(array('uid'=>$GLOBALS['G_SP']['supe_uid']));
 			$group = $groups['group'];
-			switchtogrouppage($group);		
+			
+			if($_COOKIE[$GLOBALS['G_SP']['SC']['cookiepre'].'_refer'])
+				header("Location:".$_COOKIE[$GLOBALS['G_SP']['SC']['cookiepre'].'_refer']);
+			else
+				switchtogrouppage($group);		
 		}
 		$this->cmd = $loginstatus;
 		$this->display("front/login.html");
 	}
+	
 	public function iinfo(){
 		if(!$GLOBALS['G_SP']['supe_uid'])
 			header("Location:/?c=user&a=login");
@@ -168,6 +180,55 @@ class user extends spController{
 					$this->ggw->create(array('username'=>$this->uname,'iid'=>$iid,'dh'=>1));
 					$this->users->update(array('username'=>$this->uname),array('hyjf'=>$this->hyjf-900));
 				}
+			}
+		}
+		
+		if($act=='cz'){
+			if($this->spArgs("submit")){
+				$total = intval($_POST['money']);
+				if(!$total) {
+				  $total = 900;
+				} 
+//				$pay_bank = trim($_POST['pay_bank']);
+//				$account = $_POST['_account'];
+				$base_path = 'http://'.$_SERVER['HTTP_HOST'].'/?c=user&a=iinfo&act=cz';echo $base_path;
+				$order_id = date('Y-m-d H:i:s', time()); //时间值作为唯一的订单ID号
+				$subject = $body = '充值'.$total.'元';
+				$out_trade_no = date('Y-m-d H:i:s',time());
+				//合作身份者ID，以2088开头的16位纯数字
+				$partner = '2088311838983110';
+				//安全检验码，以数字和字母组成的32位字符
+				$security_code = '5fac3wolaqxry1kqg8s7z5jcij8fsd5h';
+				//签约支付宝账号或卖家支付宝帐户
+				$seller_email = 'jianquds@163.com';
+				$_input_charset = "UTF-8";
+				$sign_type = "MD5"; //签名方式
+				$transport = 'https';//字符编码格式
+				$parameter = array(
+				  "service"        => "create_direct_pay_by_user",  //交易类型
+				  "partner"        => $partner,         //合作商户号
+				  "return_url"     => $base_path.'alipay/return',      //同步返回
+				  "notify_url"     => $base_path.'alipay/notify',      //异步返回
+				  "_input_charset" => 'UTF-8',  //字符集，默认为GBK
+				  "subject"        => $subject,       //商品名称，必填
+				  "body"           => $subject,       //商品描述，必填
+				  "out_trade_no"   => $out_trade_no,     //商品外部交易号，必填（保证唯一性）
+				  "price"          => $total,           //商品单价，必填（价格不能为0）
+				  "payment_type"   => "1",              //默认为1,不需要修改
+				  "quantity"       => "1",              //商品数量，必填
+				  "paymethod"        => 'directPay',
+				  "defaultbank"        => '',
+				  "logistics_fee"      => '0.00',        //物流配送费用
+				  "logistics_payment"  =>'BUYER_PAY',   //物流费用付款方式：SELLER_PAY(卖家支付)、BUYER_PAY(买家支付)、BUYER_PAY_AFTER_RECEIVE(货到付款)
+				  "logistics_type"     =>'EXPRESS',     //物流配送方式：POST(平邮)、EMS(EMS)、EXPRESS(其他快递)
+				  //"receive _mobile" => ”,         //收货人手机
+				  "show_url"       => $base_path,        //商品相关网站
+				  "seller_email"   => $seller_email,     //卖家邮箱，必填
+				);
+				import("alipay.class.inc.php");
+				$alipay = new alipay_service($parameter, $security_code, $sign_type);
+				$link = $alipay->create_url();
+				header("Location: ".$link); 
 			}
 		}
 		

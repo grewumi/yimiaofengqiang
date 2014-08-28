@@ -170,6 +170,8 @@ class main extends spController{
 		$pros = spClass("m_pro");
 		$m_procats = spClass("m_procat");
 		$procats = $m_procats->findAll('isshow=1','type asc');
+                // ²ÎÊý
+		$this->mode = $mode;
 		$this->procats = $procats;
 		$this->ac = $this->spArgs("ac");
 		if(!$this->ac)
@@ -246,9 +248,13 @@ class main extends spController{
 		$this->submitTips = $submitTips;
 		$this->display("front/user.html");
 	}
-	
+        public function baoming(){
+		if(!$this->supe_uid)
+			header("Location:/?c=user&a=login&refer=".urlencode($_SERVER['REDIRECT_URL']));
+		$this->display("front/baoming.html");
+	}
 	public function isInThere($iid,$table='pro',$field=null){
-		$pros = spClass("m_pro");
+		$pros = spClass("m_".$table);
 		if($field){
 			$count = 0;
 			foreach (self::$dao->query('select * from '.self::$dbconfig['DBPREFIX'].$table.' where enunick='.$field) as $row) {

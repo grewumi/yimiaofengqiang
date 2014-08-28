@@ -1,7 +1,7 @@
 <?php
 define("SP_PATH",dirname(__FILE__).'/SpeedPHP');
 define("APP_PATH",dirname(__FILE__));
-define('LOCALDEVELOP',false);
+define('LOCALDEVELOP',true);
 date_default_timezone_set('Asia/Shanghai');
 
 if(LOCALDEVELOP){
@@ -122,15 +122,15 @@ $spConfig = array(
 		'cookiepath' => '/', //COOKIE作用路径
 	),
 	'timestamp' => time(),
-	'spVerifyCode' => array( 
-		'width' => 60, 
-		'height' => 20, 
-		'length' => 4, 
-		'bgcolor' => '#FFFFFF', 
-		'noisenum' => 50, 
-		'fontsize' => 22, 
-		'fontfile' => 'font.ttf', 
-		'format' => 'gif', 
+	'spVerifyCode' => array( //验证码扩展
+		'width' => 60, //验证码宽度
+		'height' => 20, //验证码高度
+		'length' => 4, //验证码字符长度
+		'bgcolor' => '#FFFFFF', //背景色
+		'noisenum' => 50, //图像噪点数量
+		'fontsize' => 22, //字体大小
+		'fontfile' => 'font.ttf', //字体文件
+		'format' => 'gif', //验证码输出图片格式
 	),
 );
 require(SP_PATH."/SpeedPHP.php");

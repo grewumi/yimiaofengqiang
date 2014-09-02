@@ -7,7 +7,7 @@ class admin extends spController{
 		import("function_login_taobao.php");
 		global $caijiusers,$website;
 		$this->caijiusers = $caijiusers;
-		
+		$this->mode = $this->spArgs('mode');
 		// postdt>=curdate()为当日添加，不包括更新
 		$pros = spClass('m_pro');
 		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and postdt>=curdate()';
@@ -145,8 +145,15 @@ class admin extends spController{
 	// 商品续期
 	public function xuqi(){
 		$id = $this->spArgs("id");
-		$pros = spClass("m_pro");
+		if($this->mode=='try'){
+			$pros = spClass("m_try_items");
+			$referUrl = spUrl('admin','pro',array('mode'=>'try'));
+		}else{
+			$pros = spClass("m_pro");
+			$referUrl = spUrl('admin','pro',array('mode'=>'pro'));
+		}
 		$pros->update(array('id'=>$id),array('et'=>date("Y-m-d",time()+24*60*60*7)));
+		header("Location:".$referUrl);
 	}
 	
 	// 商品管理

@@ -196,6 +196,7 @@ class admin extends spController{
 		
 		if($q)
 			$where = 'iid='.$q;
+//                echo $where;
 		$itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
 		
 		$this->items = $itemsTemp;
@@ -208,17 +209,17 @@ class admin extends spController{
 		$id = $this->spArgs("id");
 		if($this->mode=='try'){
 			$pros = spClass("m_try_items");
-		}
-		else{
+		}else{
 			$pros = spClass("m_pro");
 		}
 		$pro = $pros->find(array('id'=>$id));
 		if($_POST['checkit']){
 			if($_POST['checkpro']==1){
-				if($pros->update(array('id'=>$id),array('ischeck'=>1,'type'=>87)))
-					echo '操作成功,商品已通过审核！';
-			}
-			elseif($_POST['checkpro']==2){
+                                if($pros->update(array('id'=>$id),array('ischeck'=>1,'type'=>87))){
+                                    echo $pros->dumpSql();
+                                    echo '操作成功,商品已通过审核！';
+                                }					
+			}elseif($_POST['checkpro']==2){
 				if($_POST['reason'] || $_POST['reasonSelect']){
 					if($_POST['reasonSelect']){
 						foreach($_POST['reasonSelect'] as $v){
@@ -233,7 +234,7 @@ class admin extends spController{
 				}else
 					echo '操作失败,请填写备注！';
 			}
-				header("Location:/pro/sh/no.html");
+//				header("Location:/pro/sh/no.html");
 		}
 		
 		$this->pro = $pro; 

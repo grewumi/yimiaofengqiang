@@ -213,6 +213,8 @@ class main extends spController{
 					//以下类别暂时用未定
 					'cat'=>$_POST['cat']
 				);
+                                if($mode=='try')
+                                    $item['gailv'] = 1000;
 				if($this->isInThere($item['iid'])){//如果已存在数据库
 					$iteminfo = $pros->find(array('iid'=>trim($item['iid'])));
 					$channel = $iteminfo['channel'];

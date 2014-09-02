@@ -17,8 +17,8 @@
 				<li class="hd">账户中心</li>
 				<li><a href="/?c=user&a=iinfo&act=info">基本信息</a></li>
 				<li><a href="/?c=user&a=iinfo&act=ww">我的旺旺</a></li>
-				<li>报名宝贝</li>
-				<li>收货地址</li>
+                                <li><a href="/?c=user&a=iinfo&act=bmbb">报名宝贝</a></li>
+                                <li><a href="/?c=user&a=iinfo&act=shdz">收货地址</a></li>
 				<li><a href="/?c=user&a=iinfo&act=hyjf">我的积分</a></li>
 				<li><a href="/?c=user&a=iinfo&act=hyjf">我的钱包</a><span><a href="/?c=user&a=iinfo&act=cz">充值</a></span></li>
 				<li><a href="/?c=user&a=iinfo&act=ggw">我的广告位</a><span><a href="/?c=user&a=iinfo&act=ggwdh">兑换</a></span></li>
@@ -49,6 +49,14 @@
 					<span>旺旺号：{$ww}</span>
 				{/if}
 			</div>
+		</div>
+                {elseif $act=='bmbb'}
+                <div class="right">
+			<div>报名宝贝<span>报名宝贝</span></div>
+		</div>
+                {elseif $act=='shdz'}
+                <div class="right">
+			<div>收货地址<span>收货地址</span></div>
 		</div>
 		{elseif $act=='hyjf'}
 		<div class="right">

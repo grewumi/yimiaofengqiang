@@ -167,7 +167,14 @@ class admin extends spController{
 		$q = $this->spArgs('q');
 		$status = $this->spArgs('status');
 		
-		$pros = spClass("m_pro");
+		if($this->mode=='try'){
+			$pros = spClass("m_try_items");
+			$this->tryItemCur = 1;
+		}
+		else{
+			$pros = spClass("m_pro");
+			$this->proCur = 1;
+		}
 		
 		$page = $this->spArgs('page',1);
 
@@ -194,7 +201,6 @@ class admin extends spController{
 		$this->items = $itemsTemp;
 		$this->pager = $pros->spPager()->getPager();
                 
-        $this->proCur = 1;
 		$this->display("admin/pro.html");
 	}
 	// …Ã∆∑…Û∫À

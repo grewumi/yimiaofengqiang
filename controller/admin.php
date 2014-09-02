@@ -366,9 +366,15 @@ class admin extends spController{
 	// 商品删除
 	public function delpro(){
 		$id = $this->spArgs('id');
-		$pros = spClass("m_pro");
+		if($this->mode=='try'){
+			$pros = spClass("m_try_items");
+			$referUrl = spUrl('admin','pro',array('mode'=>'try'));
+		}else{
+			$pros = spClass("m_pro");
+			$referUrl = spUrl('admin','pro',array('mode'=>'pro'));
+		}
 		if($pros->delete(array('id'=>$id)))
-			header("Location:/pro.html");
+			header("Location:".$referUrl);
 	}
 	// 商品修改
 	public function modpro($mode='pro'){

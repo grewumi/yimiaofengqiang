@@ -262,7 +262,17 @@ class admin extends spController{
 		if(!$_SESSION['admin'])
 			header("Location:/login.html");
 		
-		$pros = spClass("m_pro");
+		if($this->mode=='try'){
+			$pros = spClass("m_try_items");
+			$referUrl = spUrl('admin','pro',array('mode'=>'try'));
+			$this->tryItemCur = 1;
+		}else{
+			$pros = spClass("m_pro");
+			$referUrl = spUrl('admin','pro',array('mode'=>'pro'));
+			$this->proCur = 1;
+		}
+		
+//		$pros = spClass("m_pro");
 		$actfrom = spClass("m_actfrom");
 		$proCat = spClass("m_procat");
 		
@@ -298,27 +308,27 @@ class admin extends spController{
 				$item['commission_rate'] = -1;
 			if($_POST['forward'])
 				$item['postdt'] = date("Y-m-d H:i:s");
-			if($mode!='try'){// 试用商品添加
+			if($this->mode!='try'){// 促销商品添加
 				if($this->isInThere($item['iid'])){
 					$submitTips = '商品已存在,请勿重复添加';
 				}else{
 					$art = $pros->create($item);
 					if($art){	//修改成功后跳转
 						$submitTips = '添加成功';
-						header("{spUrl c=admin a=pro}");
+						header("Location:".$referUrl);
 					}else
 						$submitTips = '添加失败';
 				}
-			}else{
+			}else{// 试用商品添加
 				if($this->isInThere($item['iid'],'try_items')){
-					$submitTips = '商品已存在,请勿重复添加';
+					$submitTips = '试用商品已存在,请勿重复添加';
 				}else{
 					$item['istry'] = 1;
 					$item['gailv'] = $_POST['gailv'];
 					$art = $pros->create($item);
 					if($art){	//修改成功后跳转
 						$submitTips = '添加成功';
-						header("{spUrl c=admin a=pro}");
+						header("Location:".$referUrl);
 					}
 					else
 						$submitTips = '添加失败';

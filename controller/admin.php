@@ -206,7 +206,12 @@ class admin extends spController{
 	// ÉÌÆ·ÉóºË
 	public function checkpro(){
 		$id = $this->spArgs("id");
-		$pros = spClass("m_pro");
+		if($this->mode=='try'){
+			$pros = spClass("m_try_items");
+		}
+		else{
+			$pros = spClass("m_pro");
+		}
 		$pro = $pros->find(array('id'=>$id));
 		if($_POST['checkit']){
 			if($_POST['checkpro']==1){

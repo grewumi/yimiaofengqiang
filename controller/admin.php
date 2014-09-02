@@ -382,7 +382,16 @@ class admin extends spController{
 		if(!$_SESSION['admin'])
 			header("Location:/login.html");
 		
-		$pros = spClass("m_pro");
+		if($this->mode=='try'){
+			$pros = spClass("m_try_items");
+			$referUrl = spUrl('admin','pro',array('mode'=>'try'));
+			$this->tryItemCur = 1;
+		}else{
+			$pros = spClass("m_pro");
+			$referUrl = spUrl('admin','pro',array('mode'=>'pro'));
+			$this->proCur = 1;
+		}
+		
 		$actfrom = spClass("m_actfrom");
 		$proCat = spClass("m_procat");
 		
@@ -421,19 +430,19 @@ class admin extends spController{
 				$item['st'] = date('Y-m-d');
 				$item['postdt'] = date('Y-m-d H:i:s');
 			}
-			if($mode!='try'){
+			if($this->mode!='try'){
 				$art = $pros->update(array('id'=>$id),$item);
 			}else{
-				//$item['istry'] = 1;
-				//$item['gailv'] = $_POST['gailv'];
-				//$art = self::$proDAO->autoExecute('try_items',$item,'update','where id="'.$id.'"');
+				$item['istry'] = 1;
+				$item['gailv'] = $_POST['gailv'];
+				$art = $pros->update(array('id'=>$id),$item);
 			}
 			if($art){ // 修改成功后跳转
 				$submitTips = '修改成功';
-				if($item!='try')
-					header("{spUrl c=admin a=pro}");
-				//else
-				//	header("Location:/d/tryadmin");
+				if($this->mode!='try')
+					header("Location:".$referUrl);
+				else
+					header("Location:".$referUrl);
 			}else
 				$submitTips = '修改失败';
 		}

@@ -242,7 +242,7 @@ class admin extends spController{
 	
 	// ²éÕÒÊÇ·ñ´æÔÚ
 	public function isInThere($iid,$table='pro',$field=null){
-		$pros = spClass("m_pro");
+		$pros = spClass("m_".$table);
 		if($field){
 			$count = 0;
 			foreach (self::$dao->query('select * from '.self::$dbconfig['DBPREFIX'].$table.' where enunick='.$field) as $row) {

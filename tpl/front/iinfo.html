@@ -52,7 +52,21 @@
 		</div>
                 {elseif $act=='bmbb'}
                 <div class="right">
-			<div>报名宝贝<span>报名宝贝</span></div>
+			<div>
+                            <span><a href="{spUrl c=user a=iinfo act=bmbb mode=pro}">促销宝贝</a></span>
+                            <span><a href="{spUrl c=user a=iinfo act=bmbb mode=try}">试用宝贝</a></span>
+                        </div>
+                        <div>
+                            {if $bmbb}
+                            {foreach key=k item=v from=$bmbb}
+                            商品IID：{$v.iid}
+                            状态：{if $v.ischeck==0}已报名->待审核{else if $v.ischeck==1}已报名->审核通过{else if $v.ischeck==2}已报名->审核不通过（{$v.reason}）{/if}
+                            <hr />
+                            {/foreach}
+                            {else}
+                            还没有宝贝，<a href="{spUrl c=main a=baoming}">去报名</a>
+                            {/if}
+                        </div>
 		</div>
                 {elseif $act=='shdz'}
                 <div class="right">

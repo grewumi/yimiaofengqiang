@@ -8,6 +8,7 @@ class user extends spController{
 		$this->users = spClass("m_u");
 		$this->member = spClass("m_member");
 		$this->ggw = spClass("m_ggw");
+                $this->mode = $this->spArgs("mode");
 	}
 	public function register(){
 		$this->registersuccess = 0;
@@ -103,7 +104,7 @@ class user extends spController{
 						$GLOBALS['G_SP']['supe_uid'] = $uinfo['uid'];
 						//设置cookie
 						ssetcookie('auth', authcode($uinfo['password'].'\t'.$uinfo['uid'], 'ENCODE'), 31536000);
-						ssetcookie('loginuser', $uinfo['username'], 31536000);
+						ssetcookie('loginuser', $uinfo['username'], 31536000);                                         
 						// end - 设置cookie
 						$this->loginnote = '登录成功';
 					} elseif($uinfo['uid'] == -1) {
@@ -123,6 +124,7 @@ class user extends spController{
 		}
 		if($GLOBALS['G_SP']['supe_uid']){ // 登录成功后
 			//var_dump($uinfo);
+                    	
 			if(!$this->member->find(array('uid'=>$GLOBALS['G_SP']['supe_uid']))){//没有找到用户，插入新数据到member表
 				$this->member->create($uinfo);
 			}
@@ -145,6 +147,9 @@ class user extends spController{
 			$groups = $this->users->find(array('uid'=>$GLOBALS['G_SP']['supe_uid']));
 			$group = $groups['group'];
 			
+                        $uinfos = $this->users->find(array('username'=>$uinfo['username']));
+                        ssetcookie('dpww',$uinfos['ww'], 31536000); 
+                        
 			if($_COOKIE[$GLOBALS['G_SP']['SC']['cookiepre'].'_refer'])
 				header("Location:".$_COOKIE[$GLOBALS['G_SP']['SC']['cookiepre'].'_refer']);
 			else
@@ -231,7 +236,16 @@ class user extends spController{
 				header("Location: ".$link); 
 			}
 		}
-		
+                if($act=='bmbb'){
+                    if($this->mode=='try'){
+                            $pros = spClass("m_try_items");
+                    }else{
+                            $pros = spClass("m_pro");
+                    }
+                    $bmbb = $pros->findAll('ww="'.$this->ww.'" and channel=2');
+//                  echo $pros->dumpSql();
+                    $this->bmbb = $bmbb;
+                }
 		$uinfo = $this->ucenter->uc_get_user($this->uname);
 		$this->uemail = $uinfo[2];//var_dump($uinfo);
 		$this->display("front/iinfo.html");

@@ -201,6 +201,7 @@ class main extends spController{
 					'carriage'=>$_POST['carriage'],
 					'num'=>(int)$_POST['num'],//活动数量
 					'nick'=>$_POST['ww'],
+                                        'ww'=>$_POST['ww'],
 					'zk'=>@ceil(10*$_POST['nprice']/$_POST['oprice']),
 					'link'=>'http://item.taobao.com/item.htm?id='.$_POST['iid'],
 					'ischeck'=>0,

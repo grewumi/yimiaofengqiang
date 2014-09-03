@@ -24,6 +24,7 @@ $(document).ready(function(){
 	{$searchTips}
 </div>
 {/if}
+{if $smarty.cookies.ymfq_dpww}
 <div class="user-around">
 	<div class="user-info">
 		{if $ac=='cx'}
@@ -147,7 +148,7 @@ $(document).ready(function(){
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">
-						<label>联系旺旺:</label><input class="long" name="ww" id="ww" type="text" />
+						<label>联系旺旺:</label><input class="long" name="ww" id="ww" type="text" readonly />
 						<span class="aliwangwang"></span>
 						<div class="clearfix"></div>
 					</div>
@@ -185,6 +186,13 @@ $(document).ready(function(){
 		</p>
 	</div>
 </div>
+{else}
+<div class="user-around">
+    <div class="user-info" style="padding:20px 0px;font-size:36px;">
+        请绑定店铺旺旺<a href="{spUrl c=user a=iinfo act=ww}">去绑定</a>
+    </div>  
+</div>
+{/if}
 <div class="clearfix"></div>
 <div class="chat">
 	<a href="/?c=user&a=login">快速通道</a><br />

@@ -77,3 +77,25 @@
 	text-align:center; 
 	margin-top:4px; 
 }
+
+.right-sider{
+	position:fixed;
+	right: 5px;
+	top:170px;
+	width:120px;
+	background:url(/assets/images/front/sider.png);
+}
+.right-sider a{
+	display:block;
+	width:100%;
+	height:29px;
+}
+.right-sider a.sider-cat:hover{
+	color:#BA3061;
+}
+.right-sider a.sider-head{
+	height:56px;
+}
+.right-sider a.sider-top{
+	height:50px;
+}

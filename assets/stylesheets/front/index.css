@@ -21,20 +21,20 @@ body{
 	margin-top:10px;width:1110px;position:relative;/* width:1151px; */
 }
 .item-list .item-row{
-	margin:3px 2px 5px 3px;float:left;width:266px;/* width:278px; */
+	margin:3px 4px 5px 3px;float:left;width:266px;/* width:278px; */
 }
 .item-list .row-left{
-	margin-left:0px;
+	margin-left:0px;padding-left:0px;
 }
 .item-list .row-right{
 	margin-right:0px;
 }
 .item-list .item{
-	background:#fff;margin:8px auto;border:solid 3px #EDF1ED;position:relative;
+	background:#fff;margin:14px auto 14px 0px;position:relative;width:260px;padding-bottom:3px;
 }
 .item-list .item:hover{
-	border:solid 3px #FF3366;
-	background:#F9F0E1;
+    background: none repeat scroll 0 0 #f9f0e1;
+    box-shadow: 0 0 10px rgb(187, 187, 187);
 }
 
 /* 每个商品单元内的内容定位 */
@@ -48,7 +48,7 @@ body{
 
 .item-list .item .admin-edit{
 	position:absolute;
-	right:5px;
+	right:0px;
 	top:5px;
 	width:90px;
 	z-index:9999;

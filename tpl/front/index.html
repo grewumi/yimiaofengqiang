@@ -59,13 +59,8 @@ $(document).ready(function(e) {
 {include file="front/head.html" cache_liftetime=500}
 <div class="around-index">
 	<div class="main-index">
-		<div class="sub-index">
-			<a href="/" {if !$procat}class="cur"{/if}>È«²¿</a>
-			{foreach key=k item=v from=$procats}
-				<a href="{spUrl a=index procat=$v.type}" {if $procat==$v.type}class="cur"{/if}>{$v.name}</a>
-			{/foreach}
-		</div>
 		<div class="item-list">
+                        <img src="http://img02.taobaocdn.com/imgextra/i2/1602138689/T2H0C5XHVaXXXXXXXX-1602138689.png" />
 			{foreach key=k item=iv from=$items}
 			<div class="item-row {if $k==0}row-left{elseif $k==3}row-right{/if}">
 				{foreach key=k item=v from=$iv}

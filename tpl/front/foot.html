@@ -87,3 +87,11 @@
 <a id="gotop" href="#">   
   <span>¡ø</span> 
 </a>
+<!-- ÓÒ±ßÀ¸ -->
+<div class="right-sider">
+	<a class="sider-head"></a>
+	{foreach key=k item=v from=$procats}
+	<a class="sider-cat" href="{spUrl a=index procat=$v.type}"></a>
+	{/foreach}
+	<a class="sider-top" href="#"></a>
+</div>

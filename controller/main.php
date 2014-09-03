@@ -167,7 +167,7 @@ class main extends spController{
 				$smarty->display("front/index.html");
 	}
 	public function user($mode='pro'){//用户报名 && 搜索
-		$users = spClass("m_u");
+                $users = spClass("m_u");
 		if(!$this->supe_uid)
 			header("Location:/?c=user&a=login&refer=".urlencode($_SERVER['REDIRECT_URL']));
 		else
@@ -216,30 +216,36 @@ class main extends spController{
 				);
                                 if($mode=='try')
                                     $item['gailv'] = 1000;
-				if($this->isInThere($item['iid'])){//如果已存在数据库
-					$iteminfo = $pros->find(array('iid'=>trim($item['iid'])));
-					$channel = $iteminfo['channel'];
-					if($channel==1){
-						//如果是采集的，设置渠道号为报名渠道,并设置为未审核状态
-						$pros->update(array('iid'=>trim($item['iid'])),array('channel'=>2,'ischeck'=>0));
-					}elseif($channel==2){
-						//如果已经是报名的，检查其审核状态
-						if($iteminfo['ischeck']==0){
-							$submitTips = '商品已报名,请勿重复报名！';
-						}elseif($iteminfo['ischeck']==1){
-							$submitTips = '商品已通过审核,请等待排期上线！';
-						}elseif($iteminfo['ischeck']==2){
-							$submitTips = '商品未通过审核,请联系报名管理！';
-						}
-					}
-				}else{
-					$art = $pros->create($item);
-					if($art){	//修改成功后跳转
-						$submitTips = '已成功提交，请耐心等待审核！';
-						header("{spUrl c=main a=user}");
-					}else
-						$submitTips = '提交失败，请刷新页面重新提交！';
-				}
+                                
+                                if($_COOKIE['ymfq_dpww']==$item['ww']){
+                                    if($this->isInThere($item['iid'])){//如果已存在数据库
+                                            $iteminfo = $pros->find(array('iid'=>trim($item['iid'])));
+                                            $channel = $iteminfo['channel'];
+                                            if($channel==1){
+                                                    //如果是采集的，设置渠道号为报名渠道,并设置为未审核状态
+                                                    $pros->update(array('iid'=>trim($item['iid'])),array('channel'=>2,'ischeck'=>0));
+                                            }elseif($channel==2){
+                                                    //如果已经是报名的，检查其审核状态
+                                                    if($iteminfo['ischeck']==0){
+                                                            $submitTips = '商品已报名,请勿重复报名！';
+                                                    }elseif($iteminfo['ischeck']==1){
+                                                            $submitTips = '商品已通过审核,请等待排期上线！';
+                                                    }elseif($iteminfo['ischeck']==2){
+                                                            $submitTips = '商品未通过审核,请联系报名管理！';
+                                                    }
+                                            }
+                                    }else{
+                                            $art = $pros->create($item);
+                                            if($art){	//修改成功后跳转
+                                                    $submitTips = '已成功提交，请耐心等待审核！';
+                                                    header("{spUrl c=main a=user}");
+                                            }else
+                                                    $submitTips = '提交失败，请刷新页面重新提交！';
+                                    }                                    
+                                }else{
+                                    $submitTips = '报名商品非绑定绑定旺旺所开店铺，请重新报名！';
+                                }
+
 			}
 		}elseif($this->ac=='cx'){ // 报名搜索
 			if($this->spArgs('searchIid')){

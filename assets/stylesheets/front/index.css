@@ -30,7 +30,7 @@ body{
 	margin-right:0px;
 }
 .item-list .item{
-	background:#fff;margin:14px auto 14px 0px;position:relative;width:260px;padding-bottom:3px;
+	background:#fff;margin:10px auto 12px 0px;position:relative;width:260px;padding-bottom:3px;
 }
 .item-list .item:hover{
     background: none repeat scroll 0 0 #f9f0e1;

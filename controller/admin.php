@@ -166,7 +166,7 @@ class admin extends spController{
 		$sh = $this->spArgs('sh');
 		$q = $this->spArgs('q');
 		$status = $this->spArgs('status');
-                $classification = $this->spArgs('classification');
+                $classification = $this->spArgs('classification')?$this->spArgs('classification'):1;
 		
 		if($this->mode=='try'){
 			$pros = spClass("m_try_items");
@@ -179,13 +179,15 @@ class admin extends spController{
 		
 		$page = $this->spArgs('page',1);
 
-		$where = 'st<=curdate() and et>=curdate() and ischeck=1';
+		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and type!=87';
 		$order = 'rank asc,postdt desc';
 		
-		if($type)
-			$where .= ' and type='.$type;
-		else
-			$where .= ' and type!=87';
+                if($type){
+                    if($type==87)
+                        $where = 'st<=curdate() and et>=curdate() and ischeck=1 and type='.$type;
+                    else
+                        $where .= ' and type='.$type;
+                }
 		
                 if($classification)
                     $where .= ' and classification='.$classification;

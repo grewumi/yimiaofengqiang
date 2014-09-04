@@ -413,7 +413,8 @@ class admin extends spController{
 		$proCat = spClass("m_procat");
 		
 		$id = $this->spArgs('id');
-		
+		$pro = $pros->find(array('id'=>$id));
+                
 		if($_POST['modPro']){
 			$item = array(
 					'pic'=>$_POST['pic'],
@@ -438,7 +439,7 @@ class admin extends spController{
 					'shopshow'=>$_POST['shopshow'],
 					'shopv'=>$_POST['shopv'],
 					'ww'=>$_POST['ww'],
-					'nick'=>$_POST['ww']
+					'nick'=>$_POST['ww'],
 			);
 			if($_POST['commissionrate'])
 				$item['commission_rate'] = $_POST['commissionrate'];
@@ -447,7 +448,9 @@ class admin extends spController{
 			if($_POST['forward']){
 				$item['st'] = date('Y-m-d');
 				$item['postdt'] = date('Y-m-d H:i:s');
-			}
+                        }else{
+                            $item['postdt'] = $pro['postdt'];
+                        }
 			if($this->mode!='try'){
 				$art = $pros->update(array('id'=>$id),$item);
 			}else{
@@ -459,16 +462,16 @@ class admin extends spController{
 			if($art){ // 修改成功后跳转
 				$submitTips = '修改成功';
                                 $this->postDataToUzPhp($item,'admin');
-				if($this->mode!='try')
-					header("Location:".$referUrl);
-				else
-					header("Location:".$referUrl);
+//				if($this->mode!='try')
+//					header("Location:".$referUrl);
+//				else
+//					header("Location:".$referUrl);
 			}else
 				$submitTips = '修改失败';
 		}
 		
 		
-		$pro = $pros->find(array('id'=>$id));
+		
 		$actfroms = $actfrom->findAll();
                 $classifications = $classification->findAll();
 		$proCats = $proCat->findAll();

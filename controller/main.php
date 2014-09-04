@@ -115,6 +115,15 @@ class main extends spController{
 		$itemsTemp = $pros->spPager($page,56)->findAll($where.' and classification=1',$order);//$pros->spPager($page,56)->findAll($where,$order);
                 $itemsC1 = $pros->findAll($where.' and classification=2',$order);//$pros->spPager($page,56)->findAll($where,$order);
 		
+                // 这里用foreach & 改变数组的值的时候最后一个数据带有 & 符号,导致最后一条数据重复
+		for($i=0;$i<count($itemsC1);$i++){
+			$itemsC1[$i]['title'] = preg_replace('/【.+?】/i','',$itemsC1[$i]['title']);
+			$itemsC1[$i]['title'] = preg_replace('/开心赚宝/i','',$itemsC1[$i]['title']);
+			$itemsC1[$i]['oprice'] = number_format($itemsC1[$i]['oprice'],2);
+			$temp_npriceTail = explode('.',strval(number_format($itemsC1[$i]['nprice'],2)));
+			$itemsC1[$i]['nprice_tail'] = $temp_npriceTail[1];
+		}
+                
 		// 这里用foreach & 改变数组的值的时候最后一个数据带有 & 符号,导致最后一条数据重复
 		for($i=0;$i<count($itemsTemp);$i++){
 			$itemsTemp[$i]['title'] = preg_replace('/【.+?】/i','',$itemsTemp[$i]['title']);

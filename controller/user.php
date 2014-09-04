@@ -181,7 +181,7 @@ class user extends spController{
 			$iid = $this->spArgs("iid");
                         if($ww){
                             if($this->users->update(array('username'=>$this->uname),array('ww'=>$ww))){
-                                ssetcookie('dpww',$uinfos['ww'], 31536000); 
+                                ssetcookie('dpww',$ww, 31536000); 
                             }
                         }
 				

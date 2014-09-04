@@ -20,17 +20,8 @@ body{
 .item-list{
 	margin-top:10px;width:1110px;position:relative;/* width:1151px; */
 }
-.item-list .item-row{
-	margin:3px 4px 5px 3px;float:left;width:266px;/* width:278px; */
-}
-.item-list .row-left{
-	margin-left:0px;padding-left:0px;
-}
-.item-list .row-right{
-	margin-right:0px;
-}
 .item-list .item{
-	background:#fff;margin:10px auto 12px 0px;position:relative;width:260px;padding-bottom:3px;
+	background:#fff;margin:10px 13px 12px 0px;position:relative;width:260px;padding-bottom:3px;float:left;
 }
 .item-list .item:hover{
     background: none repeat scroll 0 0 #f9f0e1;

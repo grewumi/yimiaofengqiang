@@ -1,3 +1,22 @@
+<?php /* Smarty version Smarty-3.0.8, created on 2014-09-04 11:16:33
+         compiled from "D:\WebSite\yimiaofengqiang/tpl\admin/addpro.html" */ ?>
+<?php /*%%SmartyHeaderCode:53825407d99129c5d1-53996891%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    'f665bbdea65c112cd5a44a22b9d0075cb1df4fd6' => 
+    array (
+      0 => 'D:\\WebSite\\yimiaofengqiang/tpl\\admin/addpro.html',
+      1 => 1409800274,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '53825407d99129c5d1-53996891',
+  'function' => 
+  array (
+  ),
+  'has_nocache_code' => false,
+)); /*/%%SmartyHeaderCode%%*/?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,7 +35,8 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	{include file="admin/head.html"}
+	<?php $_template = new Smarty_Internal_Template("admin/head.html", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+ echo $_template->getRenderedTemplate(); $_template->rendered_content = null;?><?php unset($_template);?>
 	<div class="admin-modpro-around">
 		<div class="admin-modpro">
 			
@@ -24,7 +44,8 @@ $(document).ready(function(){
 				<div class="modpro-info">
 					
 					<div class="row">
-						<label class="tips">{if $submitTips}{$submitTips}{/if}</label>					
+						<label class="tips"><?php if ($_smarty_tpl->getVariable('submitTips')->value){?><?php echo $_smarty_tpl->getVariable('submitTips')->value;?>
+<?php }?></label>					
 						<div class="clearfix"></div>
 					</div>
 					
@@ -49,18 +70,34 @@ $(document).ready(function(){
 							<option value="87">明日预告</option>
 						</select>
                                                 <select name="classification">
-						{foreach key=k item=v from=$classifications}						
-							<option value="{$v.type}" {if $pro.act_from==$v.type}selected="true"{/if}>{$v.name}</option>
-						{/foreach}
+						<?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable;
+ $_smarty_tpl->tpl_vars['k'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->getVariable('classifications')->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+if ($_smarty_tpl->_count($_from) > 0){
+    foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value){
+ $_smarty_tpl->tpl_vars['k']->value = $_smarty_tpl->tpl_vars['v']->key;
+?>						
+							<option value="<?php echo $_smarty_tpl->tpl_vars['v']->value['type'];?>
+" <?php if ($_smarty_tpl->getVariable('pro')->value['act_from']==$_smarty_tpl->tpl_vars['v']->value['type']){?>selected="true"<?php }?>><?php echo $_smarty_tpl->tpl_vars['v']->value['name'];?>
+</option>
+						<?php }} ?>
 						</select>
 						<select name="cat">
-						{foreach key=k item=v from=$proCats}
-							<option value="{$v.type}"  {if $pro.cat==$v.type}selected="true"{/if}>{$v.name}</option>
-						{/foreach}	
+						<?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable;
+ $_smarty_tpl->tpl_vars['k'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->getVariable('proCats')->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+if ($_smarty_tpl->_count($_from) > 0){
+    foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value){
+ $_smarty_tpl->tpl_vars['k']->value = $_smarty_tpl->tpl_vars['v']->key;
+?>
+							<option value="<?php echo $_smarty_tpl->tpl_vars['v']->value['type'];?>
+"  <?php if ($_smarty_tpl->getVariable('pro')->value['cat']==$_smarty_tpl->tpl_vars['v']->value['type']){?>selected="true"<?php }?>><?php echo $_smarty_tpl->tpl_vars['v']->value['name'];?>
+</option>
+						<?php }} ?>	
 						</select>
 						<div class="clearfix"></div>
 					</div>
-					{if $mode=='try'}
+					<?php if ($_smarty_tpl->getVariable('mode')->value=='try'){?>
 					<div class="row">
 						<label>价值:</label><input class="short" id="oprice" name="oprice" type="text" />
 						<div class="clearfix"></div>
@@ -73,7 +110,7 @@ $(document).ready(function(){
 						<label>提供数量:</label><input class="short" name="volume" id="volume" type="text" />
 						<div class="clearfix"></div>
 					</div>
-					{elseif $mode=='pro'}
+					<?php }elseif($_smarty_tpl->getVariable('mode')->value=='pro'){?>
 					<div class="row">
 						<label>原价:</label><input class="short" id="oprice" name="oprice" type="text" />
 						<div class="clearfix"></div>
@@ -87,18 +124,20 @@ $(document).ready(function(){
 						<span><a class="getVolume">获取销量</a></span>
 						<div class="clearfix"></div>
 					</div>
-					{/if}
+					<?php }?>
 					<div class="row">
 						<label>商品链接:</label><input class="long" id="link" type="text" />
 						<span></span>
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">
-						<label>开始日期:</label><input class="short" name="st" type="text" value="{$st}" />
+						<label>开始日期:</label><input class="short" name="st" type="text" value="<?php echo $_smarty_tpl->getVariable('st')->value;?>
+" />
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">
-						<label>结束日期:</label><input class="short" name="et" type="text" value="{$et}" />
+						<label>结束日期:</label><input class="short" name="et" type="text" value="<?php echo $_smarty_tpl->getVariable('et')->value;?>
+" />
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">

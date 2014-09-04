@@ -112,7 +112,8 @@ class main extends spController{
 			$where = $q.' and '.$baseSql;
 		}
 		
-		$itemsTemp = $pros->spPager($page,56)->findAll($where,$order);//$pros->spPager($page,56)->findAll($where,$order);
+		$itemsTemp = $pros->spPager($page,56)->findAll($where.' and classification=1',$order);//$pros->spPager($page,56)->findAll($where,$order);
+                $itemsC1 = $pros->findAll($where.' and classification=2',$order);//$pros->spPager($page,56)->findAll($where,$order);
 		
 		// 这里用foreach & 改变数组的值的时候最后一个数据带有 & 符号,导致最后一条数据重复
 		for($i=0;$i<count($itemsTemp);$i++){
@@ -124,12 +125,7 @@ class main extends spController{
 		}	
 		
 		//var_dump($itemsTemp);
-		$itemList = array(array(),array(),array(),array());
-		if(!empty($itemsTemp)){
-			foreach($itemsTemp as $k=>$v){
-				array_push($itemList[$k%4],$v);
-			}
-		}
+		$itemList = $itemsTemp;
 		
 		$smarty = $this->getView();
 		//$smarty->caching = true; // 开启缓存
@@ -144,6 +140,7 @@ class main extends spController{
 		$smarty->assign("procats",$procats);//$this->procats = $procats;
 		$smarty->assign("pager",$pros->spPager()->getPager());//$this->pager = $pros->spPager()->getPager();
 		$smarty->assign("items",$itemList);//$this->items = $itemList;
+                $smarty->assign("itemsC1",$itemsC1);//$this->items = $itemList;
 		$smarty->assign("admin",$_SESSION['admin'],true);//$this->admin = $_SESSION['admin'];
 		
 		// 输出静态页面

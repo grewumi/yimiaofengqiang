@@ -166,6 +166,7 @@ class admin extends spController{
 		$sh = $this->spArgs('sh');
 		$q = $this->spArgs('q');
 		$status = $this->spArgs('status');
+                $classification = $this->spArgs('classification');
 		
 		if($this->mode=='try'){
 			$pros = spClass("m_try_items");
@@ -186,6 +187,9 @@ class admin extends spController{
 		else
 			$where .= ' and type!=87';
 		
+                if($classification)
+                    $where .= ' and classification='.$classification;
+                                
 		if($sh=='no')
 			$where = 'ischeck=0';
 		elseif($sh=='ck2')
@@ -275,6 +279,7 @@ class admin extends spController{
 		
 //		$pros = spClass("m_pro");
 		$actfrom = spClass("m_actfrom");
+                $classification = spClass("m_classification");
 		$proCat = spClass("m_procat");
 		
 		if($_POST['modPro']){
@@ -286,7 +291,8 @@ class admin extends spController{
 					'st'=>$_POST['st'],
 					'et'=>$_POST['et'],
 					'cat'=>$_POST['cat'],
-					'act_from' =>$_POST['act_from'],
+					'act_from' =>1,
+                                        'classification' =>$_POST['classification'],
 					'rank'=>(int)$_POST['rank'],
 					'title'=>$_POST['title'],
 					'link'=>'http://item.taobao.com/item.htm?id='.$_POST['iid'],
@@ -310,7 +316,7 @@ class admin extends spController{
 			if($_POST['forward'])
 				$item['postdt'] = date("Y-m-d H:i:s");
 			if($this->mode!='try'){// 促销商品添加
-				if($this->isInThere($item['iid'])){
+                                if($this->isInThere($item['iid'])){
 					$submitTips = '商品已存在,请勿重复添加';
 				}else{
 					$art = $pros->create($item);
@@ -321,6 +327,7 @@ class admin extends spController{
 						$submitTips = '添加失败';
 				}
 			}else{// 试用商品添加
+                                unset($item['classification']);
 				if($this->isInThere($item['iid'],'try_items')){
 					$submitTips = '试用商品已存在,请勿重复添加';
 				}else{
@@ -344,9 +351,11 @@ class admin extends spController{
 		
 		$actfroms = $actfrom->findAll();
 		$proCats = $proCat->findAll();
+                $classifications = $classification->findAll();
 		// 商品类别
 		$this->actfroms = $actfroms;
 		$this->proCats = $proCats;
+                $this->classifications = $classifications;
 		// 提交提示
 		$this->submitTips = $submitTips;
 		$this->display("admin/addpro.html");
@@ -394,6 +403,7 @@ class admin extends spController{
 		}
 		
 		$actfrom = spClass("m_actfrom");
+                $classification = spClass("m_classification");
 		$proCat = spClass("m_procat");
 		
 		$id = $this->spArgs('id');
@@ -407,7 +417,8 @@ class admin extends spController{
 					'st'=>$_POST['st'],
 					'et'=>$_POST['et'],
 					'cat'=>$_POST['cat'],
-					'act_from' =>$_POST['act_from'],
+					'act_from' =>1,
+                                        'classification' =>$_POST['classification'],
 					'rank'=>(int)$_POST['rank'],
 					'title'=>$_POST['title'],
 					'link'=>'http://item.taobao.com/item.htm?id='.$_POST['iid'],
@@ -434,6 +445,7 @@ class admin extends spController{
 			if($this->mode!='try'){
 				$art = $pros->update(array('id'=>$id),$item);
 			}else{
+                                unset($item['classification']);
 				$item['istry'] = 1;
 				$item['gailv'] = $_POST['gailv'];
 				$art = $pros->update(array('id'=>$id),$item);
@@ -451,11 +463,13 @@ class admin extends spController{
 		
 		$pro = $pros->find(array('id'=>$id));
 		$actfroms = $actfrom->findAll();
+                $classifications = $classification->findAll();
 		$proCats = $proCat->findAll();
 		
 		$this->submitTips = $submitTips;
 		$this->pro = $pro;
 		$this->actfroms = $actfroms;
+                $this->classifications = $classifications;
 		$this->proCats = $proCats;
 		$this->display("admin/modpro.html");
 	}

@@ -48,9 +48,9 @@ $(document).ready(function(){
 							<option value="86" {if $pro.type==86}selected="true"{/if}>一秒疯抢招商</option>
 							<option value="87" {if $pro.type==87}selected="true"{/if}>明日预告</option>
 						</select>
-						<select name="act_from">
-						{foreach key=k item=v from=$actfroms}						
-							<option value="{$v.id}" {if $pro.act_from==$v.id}selected="true"{/if}>{$v.name}</option>
+						<select name="classification">
+						{foreach key=k item=v from=$classifications}						
+							<option value="{$v.type}" {if $pro.act_from==$v.type}selected="true"{/if}>{$v.name}</option>
 						{/foreach}
 						</select>
 						<select name="cat">

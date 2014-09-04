@@ -60,10 +60,10 @@ $(document).ready(function(e) {
 <div class="around-index">
 	<div class="main-index">
 		<div class="item-list">
-                        <img src="http://img02.taobaocdn.com/imgextra/i2/1602138689/T2H0C5XHVaXXXXXXXX-1602138689.png" />
-			{foreach key=k item=iv from=$items}
-			<div class="item-row {if $k==0}row-left{elseif $k==3}row-right{/if}">
-				{foreach key=k item=v from=$iv}
+                        {if $index && $pager.current_page==1}
+                        <img src="http://img04.taobaocdn.com/imgextra/i4/1602138689/T28ha5XPpXXXXXXXXX-1602138689.png" />
+                        <div class="item-row">
+				{foreach key=k item=v from=$itemsC1}
 				<div class="item" style="display:block;">
 					{if $admin}
 					<div class="admin-edit">
@@ -90,7 +90,36 @@ $(document).ready(function(e) {
 				</div>
 				{/foreach}
 			</div>
-			{/foreach}
+                        {/if}
+                        <img src="http://img02.taobaocdn.com/imgextra/i2/1602138689/T2H0C5XHVaXXXXXXXX-1602138689.png" />
+			<div class="item-row">
+				{foreach key=k item=v from=$items}
+				<div class="item" style="display:block;">
+					{if $admin}
+					<div class="admin-edit">
+						<a target="_blank" href="{spUrl c=admin a=delpro id=$v.id}">É¾³ý</a>
+						<a target="_blank" href="{spUrl c=admin a=modpro id=$v.id}">ÐÞ¸Ä</a>
+					</div>
+					{/if}
+					<div class="item-pic" style="position:relative;">
+						<a target="_blank" href="{spUrl c=main a=deal id=$v.id}">
+							<img src="{$v.pic}" alt="{$v.title}" />
+						</a>
+					</div>
+					<div class="item-title position"><a target="_blank" href="{spUrl c=main a=deal id=$v.id}">{$v.title}</a></div>
+					<div class="item-price position" style="position:relative;">
+						<span class="price">
+							<b>£¤</b>{(int)$v.nprice}
+							<span>.{$v.nprice_tail}</span>
+						</span>
+						<span class="old-price">{$v.oprice}</span>
+						<a target="_blank" href="{spUrl c=main a=deal id=$v.id}">
+							<span class="buy"></span>
+						</a>
+					</div>
+				</div>
+				{/foreach}
+			</div>
 			<div class="clearfix"></div>
 		</div>
 		<div class="xiai-page">

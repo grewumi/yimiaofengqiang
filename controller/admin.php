@@ -425,7 +425,7 @@ class admin extends spController{
 					'et'=>$_POST['et'],
 					'cat'=>$_POST['cat'],
 					'act_from' =>1,
-                                        'classification' =>$_POST['classification'],
+                                        'classification' =>(int)$_POST['classification'],
 					'rank'=>(int)$_POST['rank'],
 					'title'=>$_POST['title'],
 					'link'=>'http://item.taobao.com/item.htm?id='.$_POST['iid'],
@@ -836,7 +836,7 @@ class admin extends spController{
 		$this->display("admin/uzcaiji.html");
 	}
 	public function postDataToUzPhp($item,$uz){
-		//var_dump($item);
+//		var_dump($item);
 		if($uz=='admin'){
 			$url = 'http://yinxiang.uz.taobao.com/d/getdata';
 		}elseif($uz=='cong'){
@@ -851,7 +851,7 @@ class admin extends spController{
 					'content'=>$contents,
 					'timeout'=>900,
 			));
-		//echo $contents.'<br />';
+//		echo $contents.'<br />';
 		$context = stream_context_create($opts);
 		
 		$html = @file_get_contents($url, false, $context);

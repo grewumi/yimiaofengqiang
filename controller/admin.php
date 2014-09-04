@@ -207,6 +207,9 @@ class admin extends spController{
 		
 		$this->items = $itemsTemp;
 		$this->pager = $pros->spPager()->getPager();
+                $this->type = $type;
+		$this->sh = $sh;
+                $this->classification = $classification;
                 
 		$this->display("admin/pro.html");
 	}

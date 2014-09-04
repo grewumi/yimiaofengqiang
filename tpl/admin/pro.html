@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/assets/stylesheets/admin/page.css" />
 </head>
 <body>
-	{include file="admin/head.html"}
+        {include file="admin/head.html"}
 	<div class="pro-ctrl">
                 <a href="{spUrl c=admin a=pro mode=$mode classification=1}">一秒疯抢</a>
                 <a href="{spUrl c=admin a=pro mode=$mode classification=2}">一秒疯抢独家</a>
@@ -80,14 +80,14 @@
 			    共有商品{$pager.total_count}个，共有{$pager.total_page}页（每页{$pager.page_size}个商品）：
 			    <!--在当前页不是第一页的时候，显示前页和上一页-->
 			    {if $pager.current_page != $pager.first_page}
-				    <a href="{spUrl c=admin a=pro classification=$smarty.get.classification type=$smarty.get.type mode=$smarty.get.mode sh=$smarty.get.sh page=$pager.first_page}">第一页</a> |
-				    <a href="{spUrl c=admin a=pro classification=$smarty.get.classification type=$smarty.get.type mode=$smarty.get.mode sh=$smarty.get.sh page=$pager.prev_page}">上一页</a> |
+				    <a href="{spUrl c=admin a=pro classification=$classification type=$type mode=$mode sh=$sh page=$pager.first_page}">第一页</a> |
+				    <a href="{spUrl c=admin a=pro classification=$classification type=$type mode=$mode sh=$sh page=$pager.prev_page}">上一页</a> |
 			    {/if}
 			    <!--开始循环页码，同时如果循环到当前页则不显示链接-->
 			    {foreach from=$pager.all_pages item=thepage}
 			            {if $thepage != $pager.current_page}
 			            	{if $thepage<=$pager.current_page+8 && $thepage>=$pager.current_page-2}
-			                	<a href="{spUrl c=admin a=pro classification=$smarty.get.classification type=$smarty.get.type mode=$smarty.get.mode sh=$smarty.get.sh page=$thepage}">{$thepage}</a>
+			                	<a href="{spUrl c=admin a=pro classification=$classification type=$type mode=$mode sh=$sh page=$thepage}">{$thepage}</a>
 			            	{/if}									
 			            {else}
 			            	<b>{$thepage}</b>
@@ -96,8 +96,8 @@
 			    <!--在当前页不是最后一页的时候，显示下一页和后页-->
 			    {if $pager.current_page != $pager.last_page}
 			    	|
-				    <a href="{spUrl c=admin a=pro classification=$smarty.get.classification type=$smarty.get.type mode=$smarty.get.mode sh=$smarty.get.sh page=$pager.next_page}">下一页</a> |
-				    <a href="{spUrl c=admin a=pro classification=$smarty.get.classification type=$smarty.get.type mode=$smarty.get.mode sh=$smarty.get.sh page=$pager.last_page}">尾页</a>
+				    <a href="{spUrl c=admin a=pro classification=$classification type=$type mode=$mode sh=$sh page=$pager.next_page}">下一页</a> |
+				    <a href="{spUrl c=admin a=pro classification=$classification type=$type mode=$mode sh=$sh page=$pager.last_page}">尾页</a>
 			    {/if}
 			{/if}
 		</div>

@@ -220,7 +220,7 @@ class admin extends spController{
 		if($_POST['checkit']){
 			if($_POST['checkpro']==1){
                                 if($pros->update(array('id'=>$id),array('ischeck'=>1,'type'=>87))){
-                                    echo $pros->dumpSql();
+//                                    echo $pros->dumpSql();
                                     echo '操作成功,商品已通过审核！';
                                 }					
 			}elseif($_POST['checkpro']==2){
@@ -322,6 +322,7 @@ class admin extends spController{
 					$art = $pros->create($item);
 					if($art){	//修改成功后跳转
 						$submitTips = '添加成功';
+                                                $this->postDataToUzPhp($item,'admin');
 						header("Location:".$referUrl);
 					}else
 						$submitTips = '添加失败';
@@ -379,12 +380,17 @@ class admin extends spController{
 		if($this->mode=='try'){
 			$pros = spClass("m_try_items");
 			$referUrl = spUrl('admin','pro',array('mode'=>'try'));
-		}else{
+                }else{
 			$pros = spClass("m_pro");
 			$referUrl = spUrl('admin','pro',array('mode'=>'pro'));
-		}
-		if($pros->delete(array('id'=>$id)))
-			header("Location:".$referUrl);
+                }
+                $iteminfo = $pros->find(array('id'=>$id));
+                if($pros->delete(array('id'=>$id))){
+                    $item = array('iid'=>$iteminfo['iid'],'del'=>1);
+                    $this->postDataToUzPhp($item,'admin');
+                    header("Location:".$referUrl);
+                }
+		
 	}
 	// 商品修改
 	public function modpro($mode='pro'){
@@ -452,6 +458,7 @@ class admin extends spController{
 			}
 			if($art){ // 修改成功后跳转
 				$submitTips = '修改成功';
+                                $this->postDataToUzPhp($item,'admin');
 				if($this->mode!='try')
 					header("Location:".$referUrl);
 				else
@@ -834,7 +841,7 @@ class admin extends spController{
 		}else{
 			$url = 'http://'.$uz.'.uz.taobao.com/d/getdata';
 		}
-		$contents = "pic=$item[pic]&&cat=$item[cat]&&iid=$item[iid]&&oprice=$item[oprice]&&nprice=$item[nprice]&&st=$item[st]&&et=$item[et]&&act_from=$item[act_from]&&rank=$item[rank]&&title=$item[title]&&link=$item[link]&&slink=$item[slink]&&volume=$item[volume]&&postdt=$item[postdt]&&xujf=$item[xujf]&&remark=$item[remark]&&type=$item[type]&&content=$item[content]&&zk=$item[zk]&&carriage=$item[carriage]&&commission_rate=$item[commission_rate]&&ischeck=$item[ischeck]&&last_modify=$item[last_modify]";
+		$contents = "pic=$item[pic]&&cat=$item[cat]&&iid=$item[iid]&&oprice=$item[oprice]&&nprice=$item[nprice]&&st=$item[st]&&et=$item[et]&&act_from=$item[classification]&&rank=$item[rank]&&title=$item[title]&&link=$item[link]&&slink=$item[slink]&&volume=$item[volume]&&postdt=$item[postdt]&&xujf=$item[xujf]&&remark=$item[remark]&&type=$item[type]&&content=$item[content]&&zk=$item[zk]&&carriage=$item[carriage]&&commission_rate=$item[commission_rate]&&ischeck=$item[ischeck]&&last_modify=$item[last_modify]&&ww=$item[ww]";
 		$opts = array(
 			'http'=>array(
 					'method'=>"POST",

@@ -9,6 +9,7 @@ class user extends spController{
 		$this->member = spClass("m_member");
 		$this->ggw = spClass("m_ggw");
                 $this->mode = $this->spArgs("mode");
+                $this->procats = spClass("m_procat")->findAll();
 	}
 	public function register(){
 		$this->registersuccess = 0;

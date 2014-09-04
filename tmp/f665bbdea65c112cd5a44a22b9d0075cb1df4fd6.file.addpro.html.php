@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.8, created on 2014-09-04 11:16:33
+<?php /* Smarty version Smarty-3.0.8, created on 2014-09-04 16:49:42
          compiled from "D:\WebSite\yimiaofengqiang/tpl\admin/addpro.html" */ ?>
-<?php /*%%SmartyHeaderCode:53825407d99129c5d1-53996891%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:27259540827a6529f01-18715780%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'f665bbdea65c112cd5a44a22b9d0075cb1df4fd6' => 
     array (
       0 => 'D:\\WebSite\\yimiaofengqiang/tpl\\admin/addpro.html',
-      1 => 1409800274,
+      1 => 1409819860,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '53825407d99129c5d1-53996891',
+  'nocache_hash' => '27259540827a6529f01-18715780',
   'function' => 
   array (
   ),
@@ -78,7 +78,7 @@ if ($_smarty_tpl->_count($_from) > 0){
  $_smarty_tpl->tpl_vars['k']->value = $_smarty_tpl->tpl_vars['v']->key;
 ?>						
 							<option value="<?php echo $_smarty_tpl->tpl_vars['v']->value['type'];?>
-" <?php if ($_smarty_tpl->getVariable('pro')->value['act_from']==$_smarty_tpl->tpl_vars['v']->value['type']){?>selected="true"<?php }?>><?php echo $_smarty_tpl->tpl_vars['v']->value['name'];?>
+" <?php if ($_smarty_tpl->getVariable('pro')->value['classification']==$_smarty_tpl->tpl_vars['v']->value['type']){?>selected="true"<?php }?>><?php echo $_smarty_tpl->tpl_vars['v']->value['name'];?>
 </option>
 						<?php }} ?>
 						</select>

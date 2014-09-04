@@ -323,7 +323,7 @@ class admin extends spController{
 					if($art){	//修改成功后跳转
 						$submitTips = '添加成功';
                                                 $this->postDataToUzPhp($item,'admin');
-						header("Location:".$referUrl);
+//						header("Location:".$referUrl);
 					}else
 						$submitTips = '添加失败';
 				}
@@ -388,7 +388,7 @@ class admin extends spController{
                 if($pros->delete(array('id'=>$id))){
                     $item = array('iid'=>$iteminfo['iid'],'del'=>1);
                     $this->postDataToUzPhp($item,'admin');
-                    header("Location:".$referUrl);
+//                    header("Location:".$referUrl);
                 }
 		
 	}
@@ -844,8 +844,11 @@ class admin extends spController{
 		}else{
 			$url = 'http://'.$uz.'.uz.taobao.com/d/getdata';
 		}
-		$contents = "pic=$item[pic]&&cat=$item[cat]&&iid=$item[iid]&&oprice=$item[oprice]&&nprice=$item[nprice]&&st=$item[st]&&et=$item[et]&&act_from=$item[classification]&&rank=$item[rank]&&title=$item[title]&&link=$item[link]&&slink=$item[slink]&&volume=$item[volume]&&postdt=$item[postdt]&&xujf=$item[xujf]&&remark=$item[remark]&&type=$item[type]&&content=$item[content]&&zk=$item[zk]&&carriage=$item[carriage]&&commission_rate=$item[commission_rate]&&ischeck=$item[ischeck]&&last_modify=$item[last_modify]&&ww=$item[ww]";
-		$opts = array(
+                if(!$item[del])
+                    $contents = "pic=$item[pic]&&cat=$item[cat]&&iid=$item[iid]&&oprice=$item[oprice]&&nprice=$item[nprice]&&st=$item[st]&&et=$item[et]&&act_from=$item[classification]&&rank=$item[rank]&&title=$item[title]&&link=$item[link]&&slink=$item[slink]&&volume=$item[volume]&&postdt=$item[postdt]&&xujf=$item[xujf]&&remark=$item[remark]&&type=$item[type]&&content=$item[content]&&zk=$item[zk]&&carriage=$item[carriage]&&commission_rate=$item[commission_rate]&&ischeck=$item[ischeck]&&last_modify=$item[last_modify]&&ww=$item[ww]";
+		else
+                    $contents = "iid=$item[iid]&&del=$item[del]";
+                $opts = array(
 			'http'=>array(
 					'method'=>"POST",
 					'content'=>$contents,

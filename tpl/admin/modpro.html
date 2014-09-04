@@ -50,7 +50,7 @@ $(document).ready(function(){
 						</select>
 						<select name="classification">
 						{foreach key=k item=v from=$classifications}						
-							<option value="{$v.type}" {if $pro.classifications==$v.type}selected="true"{/if}>{$v.name}</option>
+							<option value="{$v.type}" {if $pro.classification==$v.type}selected="true"{/if}>{$v.name}</option>
 						{/foreach}
 						</select>
 						<select name="cat">

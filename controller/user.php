@@ -179,8 +179,12 @@ class user extends spController{
 		if($this->spArgs("submit")){
 			$ww = $this->spArgs("ww");
 			$iid = $this->spArgs("iid");
-			if($ww)
-				$this->users->update(array('username'=>$this->uname),array('ww'=>$ww));
+                        if($ww){
+                            if($this->users->update(array('username'=>$this->uname),array('ww'=>$ww))){
+                                ssetcookie('dpww',$uinfos['ww'], 31536000); 
+                            }
+                        }
+				
 			if($iid){
 				if($this->hyjf>=900){
 					$this->ggw->create(array('username'=>$this->uname,'iid'=>$iid,'dh'=>1));

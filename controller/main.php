@@ -5,6 +5,9 @@ class main extends spController{
 		$this->supe_uid = $GLOBALS['G_SP']['supe_uid'];
 		$agent = strtolower($_SERVER['HTTP_USER_AGENT']);
 		//echo $agent;
+                
+                $this->procats = spClass("m_procat")->findAll('isshow=1','type asc');
+                
 		$is_pc = strpos($agent,'windows nt') ? true : false;
 		$is_iphone = strpos($agent,'iphone') ? true : false;
 		$is_ipad = strpos($agent,'ipad') ? true : false;
@@ -35,7 +38,7 @@ class main extends spController{
 		$id = $this->spArgs('id');
 		$pros = spClass("m_pro");
 		$pro = $pros->find(array('id'=>$id));
-		$this->pro = $pro;
+                $this->pro = $pro;
 		$this->display("front/deal.html");
 	}
 	
@@ -90,10 +93,7 @@ class main extends spController{
 		$page = $this->spArgs('page',1);
 		$type = $this->spArgs('type');
 		$price = $this->spArgs('price');
-		
-		$m_procats = spClass("m_procat");
-		$procats = $m_procats->findAll('isshow=1','type asc');
-		
+				
 		$pros = spClass("m_pro");
 			
 		if($procat || $type || $price){
@@ -146,7 +146,6 @@ class main extends spController{
 		$smarty->assign("procat",$procat);//$this->procat = $procat;
 		$smarty->assign("type",$type);//$this->type = $type;
 		$smarty->assign("price",$price);//$this->price = $price;
-		$smarty->assign("procats",$procats);//$this->procats = $procats;
 		$smarty->assign("pager",$pros->spPager()->getPager());//$this->pager = $pros->spPager()->getPager();
 		$smarty->assign("items",$itemList);//$this->items = $itemList;
                 $smarty->assign("itemsC1",$itemsC1);//$this->items = $itemList;
@@ -183,11 +182,8 @@ class main extends spController{
 			$pros = spClass("m_try_items");
 		elseif($mode=='pro')
 			$pros = spClass("m_pro");
-		$m_procats = spClass("m_procat");
-		$procats = $m_procats->findAll('isshow=1','type asc');
 		// ²ÎÊý
 		$this->mode = $mode;
-		$this->procats = $procats;
 		$this->ac = $this->spArgs("ac");
 		if(!$this->ac)
 			$this->ac = 'bm';

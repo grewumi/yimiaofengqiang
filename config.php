@@ -131,4 +131,10 @@ $spConfig = array(
 		'format' => 'gif', //验证码输出图片格式
 	),
 );
+
+$ajaxToUz = array(
+    'addpro'=>false,
+    'modpro'=>false,
+    'delpro'=>true
+);
 ?>

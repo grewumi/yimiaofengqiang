@@ -1,7 +1,7 @@
 <?php
 define("SP_PATH",dirname(__FILE__).'/SpeedPHP');
 define("APP_PATH",dirname(__FILE__));
-define('LOCALDEVELOP',true);
+define('LOCALDEVELOP',false);
 date_default_timezone_set('Asia/Shanghai');
 if(LOCALDEVELOP){
     $dbpasswd = '';
@@ -10,11 +10,6 @@ if(LOCALDEVELOP){
     $dbpasswd = 'N]j]78R>jPKEML7edAC(';
     $ucapi = 'http://yonghu.yimiaofengqiang.com';
 }
-$ajaxToUz = array(
-    'addpro'=>false,
-    'modpro'=>false,
-    'delpro'=>true
-);
 require 'config.php';
 require(SP_PATH."/SpeedPHP.php");
 import('md5password.php');

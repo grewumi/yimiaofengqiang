@@ -133,8 +133,8 @@ $spConfig = array(
 );
 
 $ajaxToUz = array(
-    'addpro'=>false,
-    'modpro'=>false,
+    'addpro'=>true,
+    'modpro'=>true,
     'delpro'=>true
 );
 ?>

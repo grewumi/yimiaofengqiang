@@ -222,6 +222,13 @@ class admin extends spController{
 			$pros = spClass("m_pro");
 		}
 		$pro = $pros->find(array('id'=>$id));
+                
+//                $userinfo = spClass("m_u")->find(array('ww'=>$pro['ww']));
+//                var_dump($userinfo);
+//		$uinfo =spClass('spUcenter')->uc_get_user($userinfo['username']);
+//		$uemail = $uinfo[2];//var_dump($uinfo);
+//                echo $uemail;
+                
 		if($_POST['checkit']){
 			if($_POST['checkpro']==1){
                                 if($pros->update(array('id'=>$id),array('ischeck'=>1,'type'=>87))){
@@ -244,8 +251,7 @@ class admin extends spController{
 					echo '操作失败,请填写备注！';
 			}
 //				header("Location:/pro/sh/no.html");
-		}
-		
+		}               
 		$this->pro = $pro; 
 		$this->display('admin/checkpro.html');
 	}
@@ -327,7 +333,8 @@ class admin extends spController{
 					$art = $pros->create($item);
 					if($art){	//修改成功后跳转
 						$submitTips = '添加成功';
-                                                $this->postDataToUzPhp($item,'admin');
+                                                if($ajaxToUz['addpro'])
+                                                    $this->postDataToUzPhp($item,'admin');
 //						header("Location:".$referUrl);
 					}else
 						$submitTips = '添加失败';
@@ -392,7 +399,8 @@ class admin extends spController{
                 $iteminfo = $pros->find(array('id'=>$id));
                 if($pros->delete(array('id'=>$id))){
                     $item = array('iid'=>$iteminfo['iid'],'del'=>1);
-                    $this->postDataToUzPhp($item,'admin');
+                    if($ajaxToUz['delpro'])
+                        $this->postDataToUzPhp($item,'admin');
 //                    header("Location:".$referUrl);
                 }
 		
@@ -466,7 +474,8 @@ class admin extends spController{
 			}
 			if($art){ // 修改成功后跳转
 				$submitTips = '修改成功';
-                                $this->postDataToUzPhp($item,'admin');
+                                if($ajaxToUz['modpro'])
+                                    $this->postDataToUzPhp($item,'admin');
 //				if($this->mode!='try')
 //					header("Location:".$referUrl);
 //				else

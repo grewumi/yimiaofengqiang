@@ -223,6 +223,8 @@ class admin extends spController{
 		}
 		$pro = $pros->find(array('id'=>$id));
                 
+                if($ajaxToUz['addpro'])
+                    echo '222';
 //                $userinfo = spClass("m_u")->find(array('ww'=>$pro['ww']));
 //                var_dump($userinfo);
 //		$uinfo =spClass('spUcenter')->uc_get_user($userinfo['username']);
@@ -333,7 +335,7 @@ class admin extends spController{
 					$art = $pros->create($item);
 					if($art){	//修改成功后跳转
 						$submitTips = '添加成功';
-                                                if($ajaxToUz['addpro'])
+                                                if($GLOBALS['G_SP']['ajaxToUz']['addpro'])
                                                     $this->postDataToUzPhp($item,'admin');
 //						header("Location:".$referUrl);
 					}else
@@ -399,7 +401,7 @@ class admin extends spController{
                 $iteminfo = $pros->find(array('id'=>$id));
                 if($pros->delete(array('id'=>$id))){
                     $item = array('iid'=>$iteminfo['iid'],'del'=>1);
-                    if($ajaxToUz['delpro'])
+                    if($GLOBALS['G_SP']['ajaxToUz']['delpro'])
                         $this->postDataToUzPhp($item,'admin');
 //                    header("Location:".$referUrl);
                 }
@@ -474,7 +476,7 @@ class admin extends spController{
 			}
 			if($art){ // 修改成功后跳转
 				$submitTips = '修改成功';
-                                if($ajaxToUz['modpro'])
+                                if($GLOBALS['G_SP']['ajaxToUz']['modpro'])
                                     $this->postDataToUzPhp($item,'admin');
 //				if($this->mode!='try')
 //					header("Location:".$referUrl);

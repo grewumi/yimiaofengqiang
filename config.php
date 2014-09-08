@@ -130,11 +130,10 @@ $spConfig = array(
 		'fontfile' => 'font.ttf', //字体文件
 		'format' => 'gif', //验证码输出图片格式
 	),
-);
-
-$ajaxToUz = array(
-    'addpro'=>true,
-    'modpro'=>true,
-    'delpro'=>true
+        'ajaxToUz' => array(
+            'addpro'=>true,
+            'modpro'=>true,
+            'delpro'=>true
+        )
 );
 ?>

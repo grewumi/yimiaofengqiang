@@ -131,16 +131,14 @@ $spConfig = array(
 		'format' => 'gif', //验证码输出图片格式
 	),
         'ajaxToUz' => array(
-            'addpro'=>true,
-            'modpro'=>true,
-            'delpro'=>true
+            'addpro'=>false,
+            'modpro'=>false,
+            'delpro'=>false
         )
 );
-if(AJAXTOUZ){
-    if(LOCALDEVELOP){
-        $spConfig['ajaxToUz'] = null;
-    }
-}else{
+
+if(LOCALDEVELOP){
     $spConfig['ajaxToUz'] = null;
 }
+
 ?>

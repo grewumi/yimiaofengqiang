@@ -140,5 +140,7 @@ if(AJAXTOUZ){
     if(LOCALDEVELOP){
         $spConfig['ajaxToUz'] = null;
     }
+}else{
+    $spConfig['ajaxToUz'] = null;
 }
 ?>

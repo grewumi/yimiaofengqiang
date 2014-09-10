@@ -83,7 +83,7 @@ class main extends spController{
 				'50_100'=>'nprice<100 and nprice>=50',
 				'100_200'=>'nprice<200 and nprice>=100',
 				'200_9999'=>'nprice>=200',
-                                '40+'=>'nprice>40',    
+                                '40_9999'=>'nprice>40',    
 		);
 		// end - 构造Key和值对应的数组,方便取值 去除商品过期限制et>=curdate()
 		$baseSql = 'st<=curdate() and ischeck=1 and type!=87';

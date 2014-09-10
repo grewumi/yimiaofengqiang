@@ -136,6 +136,9 @@ $spConfig = array(
             'delpro'=>true
         )
 );
-if(LOCALDEVELOP || !AJAXTOUZ)
-    $spConfig['ajaxToUz'] = null;
+if(AJAXTOUZ){
+    if(LOCALDEVELOP){
+        $spConfig['ajaxToUz'] = null;
+    }
+}
 ?>

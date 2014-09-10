@@ -223,13 +223,9 @@ class admin extends spController{
 		}
 		$pro = $pros->find(array('id'=>$id));
                 
-                if($ajaxToUz['addpro'])
-                    echo '222';
-//                $userinfo = spClass("m_u")->find(array('ww'=>$pro['ww']));
-//                var_dump($userinfo);
-//		$uinfo =spClass('spUcenter')->uc_get_user($userinfo['username']);
-//		$uemail = $uinfo[2];//var_dump($uinfo);
-//                echo $uemail;
+                $userinfo = spClass("m_u")->find(array('ww'=>$pro['ww']));
+		$uinfo =spClass('spUcenter')->uc_get_user($userinfo['username']);
+		$uemail = $uinfo[2];//var_dump($uinfo);
                 
 		if($_POST['checkit']){
 			if($_POST['checkpro']==1){
@@ -304,7 +300,7 @@ class admin extends spController{
 					'st'=>$_POST['st'],
 					'et'=>$_POST['et'],
 					'cat'=>$_POST['cat'],
-					'act_from' =>1,
+					'act_from' =>$_POST['act_from'],
                                         'classification' =>$_POST['classification'],
 					'rank'=>(int)$_POST['rank'],
 					'title'=>$_POST['title'],
@@ -439,7 +435,7 @@ class admin extends spController{
 					'st'=>$_POST['st'],
 					'et'=>$_POST['et'],
 					'cat'=>$_POST['cat'],
-					'act_from' =>1,
+					'act_from' =>$_POST['act_from'],
                                         'classification' =>(int)$_POST['classification'],
 					'rank'=>(int)$_POST['rank'],
 					'title'=>$_POST['title'],

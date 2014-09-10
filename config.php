@@ -136,4 +136,6 @@ $spConfig = array(
             'delpro'=>true
         )
 );
+if(LOCALDEVELOP)
+    $spConfig['ajaxToUz'] = null;
 ?>

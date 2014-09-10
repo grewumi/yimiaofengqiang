@@ -45,7 +45,6 @@ $(document).ready(function(){
 							<option value="88" {if $pro.type==88}selected="true"{/if}>每日爆款</option>
 							<option value="89" {if $pro.type==89}selected="true"{/if}>每日精选</option>
 							<option value="85" {if $pro.type==85}selected="true"{/if}>广告位</option>
-							<option value="86" {if $pro.type==86}selected="true"{/if}>一秒疯抢招商</option>
 							<option value="87" {if $pro.type==87}selected="true"{/if}>明日预告</option>
 						</select>
 						<select name="classification">
@@ -58,6 +57,10 @@ $(document).ready(function(){
 							<option value="{$v.type}"  {if $pro.cat==$v.type}selected="true"{/if}>{$v.name}</option>
 						{/foreach}	
 						</select>
+                                                 <select name="act_from">					
+							<option value="1" {if $pro.actfrom==1}selected="true"{/if}>添加产品</option>
+                                                        <option value="20" {if $pro.actfrom==20}selected="true"{/if}>招商产品</option>
+						</select>                                             
 						<div class="clearfix"></div>
 					</div>
 					{if $mode=='try'}
@@ -142,7 +145,7 @@ $(document).ready(function(){
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">
-						<label>旺旺:</label><input class="short" id="ww" name="ww" type="text" value="{$pro.nick}" />
+						<label>旺旺:</label><input class="short" id="ww" name="ww" type="text" value="{$pro.ww}" />
 						<div class="clearfix"></div>
 					</div>
 					<div class="row">

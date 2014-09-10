@@ -40,7 +40,7 @@
 						<span class="short">概率</span>
 						<span class="short">数量</span>
 						{/if}
-                        <span class="short">佣金</span>
+                                                <span class="short">佣金</span>
 						<span>操作</span>
 					</li>	
 				{foreach key=k item=v from=$items}
@@ -70,6 +70,7 @@
 								<img border="0" src="http://amos.alicdn.com/online.aw?v=2&uid={$v.nick|escape:'url'}&site=cntaobao&s=1&charset=utf-8" alt="点击这里给我发消息" />
 							</a>
 						</span>
+                                                
 					</li>
 					{if $v.ischeck == 2}<div class="reason">{$v.reason}</div>{/if}
 				{/foreach}

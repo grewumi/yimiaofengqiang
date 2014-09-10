@@ -231,6 +231,7 @@ class admin extends spController{
 			if($_POST['checkpro']==1){
                                 if($pros->update(array('id'=>$id),array('ischeck'=>1,'type'=>87))){
 //                                    echo $pros->dumpSql();
+                                    $mailsubject = '已通过审核！';
                                     echo '操作成功,商品已通过审核！';
                                 }					
 			}elseif($_POST['checkpro']==2){
@@ -243,13 +244,41 @@ class admin extends spController{
 					if($_POST['reason']){
 						$reason .= $_POST['reason'];
 					}
-					if($pros->update(array('id'=>$id),array('ischeck'=>2,'reason'=>'亲 '.$reason)))
+					if($pros->update(array('id'=>$id),array('ischeck'=>2,'reason'=>'亲 '.$reason))){
+                                                $mailsubject = '不通过审核！('.$reason.')';
 						echo '操作成功,商品不通过审核！';
+                                        }
 				}else
 					echo '操作失败,请填写备注！';
 			}
+                        
+                        $mailbody = "<h1>您报名的商品</h1><br />"
+                        . "<a target='_blank' href='".$pro[link]."'>".$pro[title]."</a><h2><span style='color:red'>".$mailsubject."</span></h2><br />"
+                        . "联系QQ:350544519";
+                
+                        if($uemail){
+                            import("email.class.php");
+                            $smtpserver = "smtp.163.com";//SMTP服务器
+                            $smtpserverport =25;//SMTP服务器端口
+                            $smtpusermail = "yimiaofengqiang@163.com";//SMTP服务器的用户邮箱
+                            $smtpuser = "yimiaofengqiang@163.com";//SMTP服务器的用户帐号
+                            $smtppass = "z123456";//SMTP服务器的用户密码
+
+                            $smtpemailto = $uemail;//发送给谁
+                            $mailsubject = $mailsubject;//邮件主题
+                            $mailbody = $mailbody;//邮件内容
+                            $mailtype = "HTML";//邮件格式（HTML/TXT）,TXT为文本邮件
+                            ##########################################
+                            $smtp = spClass("smtp");
+                            $smtp->smtp($smtpserver,$smtpserverport,true,$smtpuser,$smtppass);//这里面的一个true是表示使用身份验证,否则不使用身份验证.
+                            $smtp->debug = FALSE;//是否显示发送的调试信息
+                            $smtp->sendmail($smtpemailto, $smtpusermail, $mailsubject, $mailbody, $mailtype);
+                        }
+                
 //				header("Location:/pro/sh/no.html");
-		}               
+		}
+
+                               
 		$this->pro = $pro; 
 		$this->display('admin/checkpro.html');
 	}

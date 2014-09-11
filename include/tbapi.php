@@ -107,7 +107,7 @@ function getPcid($cid){
 	
 }
 function getPcidNew($cid){
-	$resp = file_get_contents('http://126789.uz.taobao.com//top/getpcid.php?id='.$cid);
+	$resp = file_get_contents('http://mplife.uz.taobao.com//top/getpcid.php?id='.$cid);
 	$rule  = '/class="J_TScriptedModule taeapp(.+?)>(.+?)<\/div>/is';
 	preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
 //	echo trim($result[0][2]);
@@ -272,7 +272,7 @@ function getItemDetail($num_iid,$mode=1){
 
 function getItemNew($num_iid,$mode='taoke'){
 	if($mode == 'normal'){
-		$resp = file_get_contents('http://126789.uz.taobao.com/top/userproInfo.php?id='.$num_iid);
+		$resp = file_get_contents('http://mplife.uz.taobao.com/top/userproInfo.php?id='.$num_iid);
 		$rule  = '/class="J_TScriptedModule taeapp(.+?)>(.+?)<\/div>/is';
 		preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
 //		echo trim($result[0][2]);

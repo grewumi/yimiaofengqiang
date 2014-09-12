@@ -72,18 +72,22 @@ class admin extends spController{
 		$item = getItemDetail($iid);
 		
 		// 递归取得淘宝二级节点
-		$pcid = getPcidNew($item['cid']);
-		$pcid = $pcid['cid'];
+                if($GLOBALS['G_SP']['autocat']){
+                    $pcid = getPcidNew($item['cid']);
+                    $pcid = $pcid['cid'];
+                    
+                    // 查询fstk_catmap对应类目
+                    $catMap = $catmaps->find(array('cid'=>$pcid),'','type');
+                    //var_dump($catMap);
+                    if($catMap){ //如果商品类目有映射
+                            $item['cat'] = (int)$catMap['type'];
+                    }else{
+                            $item['cat'] = 42;
+                    }
+                }
 		// end - 递归取得淘宝二级节点
 		
-		// 查询fstk_catmap对应类目
-		$catMap = $catmaps->find(array('cid'=>$pcid),'','type');
-		//var_dump($catMap);
-		if($catMap){ //如果商品类目有映射
-			$item['cat'] = (int)$catMap['type'];
-		}else{
-			$item['cat'] = 42;
-		}
+
 //		echo $pcid;
 		// end - 查询fstk_catmap对应类目
 			
@@ -723,19 +727,23 @@ class admin extends spController{
 					// end - 现价  && 图片
 
 					// 递归取得淘宝二级节点
-					$pcid = getPcidNew($item['cid']);
-					$pcid = $pcid['cid'];
+                                        if($GLOBALS['G_SP']['autocat']){
+                                            $pcid = getPcidNew($item['cid']);
+                                            $pcid = $pcid['cid'];
+                                            
+                                            // 查询fstk_catmap对应类目
+                                            $catMap = $catmaps->find(array('cid'=>$pcid),'','type');
+                                            //var_dump($catMap);
+                                            if($catMap){ //如果商品类目有映射
+                                                    $item['cat'] = (int)$catMap['type'];
+                                            }else{
+                                                    $item['cat'] = 42;
+                                            }
+                                            // end - 查询fstk_catmap对应类目
+                                        }
 					// end - 递归取得淘宝二级节点
 
-					// 查询fstk_catmap对应类目
-					$catMap = $catmaps->find(array('cid'=>$pcid),'','type');
-					//var_dump($catMap);
-					if($catMap){ //如果商品类目有映射
-						$item['cat'] = (int)$catMap['type'];
-					}else{
-						$item['cat'] = 42;
-					}
-					// end - 查询fstk_catmap对应类目
+
 
 					// 字符转换
 					$item['title'] = iconv('utf-8','gb2312',$item['title']);
@@ -836,14 +844,16 @@ class admin extends spController{
 		/* $catmaps = spClass("m_catmap");
 		import('tbapi.php'); */
 		//echo $caiji.'<br/>';
-		if($actType){
+		if($actType && $GLOBALS['G_SP']['autocat']){
 			if($actType == 15){ // 赚宝
-				for($page=1;$page<=1;$page++){
-					//$xiaiCaiji->Caiji($type,$page);
-					$xiaiCaiji->Caiji($type);
-					$items = $xiaiCaiji->getitems();
-					$this->getitems($items, $actType);
-				}
+                                 
+                            for($page=1;$page<=1;$page++){
+                               //$xiaiCaiji->Caiji($type,$page);
+                               $xiaiCaiji->Caiji($type);
+                               $items = $xiaiCaiji->getitems();
+                               $this->getitems($items, $actType);
+                           }
+                                
 			}elseif($actType == 4  || $actType == 11){ // 卷皮  && 九块邮  && 美美日志
 				//$pages = $xiaiCaiji->Caiji($type,'',3);
 				//$pages = @ceil($pages/45);
@@ -870,6 +880,16 @@ class admin extends spController{
 				$this->getitems($items, $actType);
 			}
 		}else{
+                    if(!$GLOBALS['G_SP']['autocat'] && $actType){
+                        if($actType == 20){
+                            $dateTemp = date("Y-m-d",time()-3*24*60*60);
+                            $pros->runSql('update fstk_pro set postdt=curdate() where act_from=20 and postdt>='.$dateTemp);
+			}
+                        $xiaiCaiji->Caiji($type);
+                        $items = $xiaiCaiji->getitems();
+                        //var_dump($items);
+                        $this->getitems($items, $actType);
+                    }else
 			echo '没有选择采集站点!';
 		}
 	

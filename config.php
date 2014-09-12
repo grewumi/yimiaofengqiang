@@ -134,7 +134,8 @@ $spConfig = array(
             'addpro'=>true,
             'modpro'=>true,
             'delpro'=>true
-        )
+        ),
+        'autocat'=>true
 );
 
 if(LOCALDEVELOP){

@@ -25,29 +25,7 @@ class UzCaiji{
 				
 				$hygptn = '/class="i_goodscond"(.+?)class="pagingdd/is';
 				preg_match_all($hygptn,$result,$hygarr,PREG_SET_ORDER);
-//				echo $hygarr[0][0];
-				
-//				二级获取		
-//				$hygptn = '/<li>(.+?)href="(.+?)"(.+?)class="id-clickcount1"(.+?)<\/li>/is';
-//				preg_match_all($hygptn,$hygarr[0][0],$hygarr1,PREG_SET_ORDER);
-//				print_r($hygarr1);
-
-//				foreach($hygarr1 as $k => $v){
-//					$hyg[] = $v[2];
-//				}
-//				
-//				$hygarr = null;
-//				foreach($hyg as $v){
-//					$result = file_get_contents('http://huiyuangou.uz.taobao.com'.$v);
-//					$hygptn = '/class="de_goodsd"(.+?)class="de_bkico(.+?)<span>(\d+\.?\d+)<\/span>(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"/is';
-//					preg_match_all($hygptn,$result,$hygarr,PREG_SET_ORDER);
-//					foreach($hygarr as $k => $v){
-//						$hyg1[] = array('iid'=>$v[6],'nprice'=>$v[3]);
-//					}
-//				}
-//				$huiyuangou['sy'] = $hyg1;
-//				end - 二级获取
-				
+			
 				$hygptn = '/<li>(.+?)class="i_zdmsginfol"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)class="bt_price1"(.+?)<em>(\d+\.?\d+)<\/em>(.+?)<\/div>(.+?)<\/li>/is';
 				preg_match_all($hygptn,$hygarr[0][0],$hygarr1,PREG_SET_ORDER);
 //				print_r($hygarr1);
@@ -79,25 +57,63 @@ class UzCaiji{
 					}else{
 						return false;
 					}
-				}else{			
-					$this->url = 'http://jiukuaiyoucom.uz.taobao.com/?m=index&cat=all&ltype=1&page='.$page;
+				}else{
+                                        if(!$GLOBALS['G_SP']['autocat']){
+                                            $catItemsUrl = array(
+                                                '20'=>'http://jiukuaiyoucom.uz.taobao.com/?m=index&cat=fushi',//时尚女装
+                                                '21'=>'',//精品男装
+                                                '22'=>'http://jiukuaiyoucom.uz.taobao.com/?m=index&cat=muying',//母婴儿童
+                                                '23'=>'',//男鞋女鞋
+                                                '24'=>'http://jiukuaiyoucom.uz.taobao.com/?m=index&cat=jujia',//家具百货
+                                                '25'=>'http://jiukuaiyoucom.uz.taobao.com/?m=index&cat=meishi',//美食特产
+                                                '26'=>'http://jiukuaiyoucom.uz.taobao.com/?m=index&cat=xiebaopeishi',//包包配饰
+                                                '27'=>'http://jiukuaiyoucom.uz.taobao.com/?m=index&cat=shuma',//数码家电
+                                                '28'=>'http://jiukuaiyoucom.uz.taobao.com/?m=index&cat=meizhuang',//美容护肤
+                                                '42'=>'http://jiukuaiyoucom.uz.taobao.com/?m=index&cat=wenti',//其他宝贝
+                                            );
+                                        }else{
+                                            $catItemsUrl = 'http://jiukuaiyoucom.uz.taobao.com/?m=index&cat=all&ltype=1&page='.$page;
+                                        }
+
+                                        if(is_array($catItemsUrl)){
+                                            foreach($catItemsUrl as $cat=>$url){
+                                                $result = file_get_contents($url);
+                                                // 匹配商品内容
+                                                $ptn = '/class="jiu-main"(.+?)class="page"/is';
+                                                preg_match_all($ptn,$result,$jiuarr,PREG_SET_ORDER);
+                                                //print_r($jiuarr);
+
+                                                // 匹配单个商品内容
+                                                $ptn = '/<li(.+?)class="price-current"(.+?)<\/em>(\d+\.?\d+)<\/span>(.+?)class="btn(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<\/li>/is';
+                                                preg_match_all($ptn,$jiuarr[0][0],$jiuarr1,PREG_SET_ORDER);
+                                                //print_r($jiuarr1);
+
+                                                foreach($jiuarr1 as $k => $v){
+                                                        $jiuarr2[] = array('iid'=>$v[7],'nprice'=>$v[3],'cat'=>$cat);
+                                                }
+                                                $jiukuaiyou['cat'.$cat] = $jiuarr2;
+                                            }
+                                        }else{
+                                            $result = file_get_contents($catItemsUrl);
+                                            					
+                                            // 匹配商品内容
+                                            $ptn = '/class="jiu-main"(.+?)class="page"/is';
+                                            preg_match_all($ptn,$result,$jiuarr,PREG_SET_ORDER);
+                                            //print_r($jiuarr);
+
+                                            // 匹配单个商品内容
+                                            $ptn = '/<li(.+?)class="price-current"(.+?)<\/em>(\d+\.?\d+)<\/span>(.+?)class="btn(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<\/li>/is';
+                                            preg_match_all($ptn,$jiuarr[0][0],$jiuarr1,PREG_SET_ORDER);
+                                            //print_r($jiuarr1);
+
+                                            foreach($jiuarr1 as $k => $v){
+                                                    $jiuarr2[] = array('iid'=>$v[7],'nprice'=>$v[3]);
+                                            }
+                                            $jiukuaiyou['page'.$page] = $jiuarr2;
+                                        }
 					//echo $this->url;
-					$result = file_get_contents($this->url);
 					
-					// 匹配商品内容
-					$ptn = '/class="jiu-main"(.+?)class="page"/is';
-					preg_match_all($ptn,$result,$jiuarr,PREG_SET_ORDER);
-					//print_r($jiuarr);
-					
-					// 匹配单个商品内容
-					$ptn = '/<li(.+?)class="price-current"(.+?)<\/em>(\d+\.?\d+)<\/span>(.+?)class="btn(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<\/li>/is';
-					preg_match_all($ptn,$jiuarr[0][0],$jiuarr1,PREG_SET_ORDER);
-					//print_r($jiuarr1);
-					
-					foreach($jiuarr1 as $k => $v){
-						$jiuarr2[] = array('iid'=>$v[7],'nprice'=>$v[3]);
-					}
-					$jiukuaiyou['page'.$page] = $jiuarr2;	
+	
 
 					//var_dump($jiukuaiyou);
 					$this->items = $jiukuaiyou;

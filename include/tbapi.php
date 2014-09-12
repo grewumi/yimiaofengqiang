@@ -191,25 +191,19 @@ function getItemDetail($num_iid,$mode=1){
 	}else{
 //		$result = getItem($num_iid,'normal');
 		$result = getItemNew($num_iid,'normal');
-//		var_dump($result);
+		//var_dump($result);
 //		echo $result['sub_code'];
 		if($result){
-			//var_dump($result);
-			//$url = 'http://detailskip.taobao.com/json/ifq.htm?id='.$num_iid.'&sid=842397175&opt=&q=1';
-			//$result2 = get_url_content($url);
-			//preg_match_all('/quanity: (.*?),/is', $result2, $match2);
-			//$volume=$match2[1][0]; //取得销量				
-			//if(!$volume)
 			$volume = 200;
 			$item = array(
 				"iid"=>$num_iid,
 				"title"=>htmlspecialchars($result['title']),
 				"nick"=>htmlspecialchars($result['nick']),
-				"pic"=>htmlspecialchars($result['pic_url'].'_310x310.jpg'),
+				"pic"=>htmlspecialchars(explode(',',$result['item_imgs'])[0].'_310x310.jpg'),
 				"oprice"=>$result['price'],			
 				"st"=>$result['list_time'],//商品上架时间
 				"et"=>$result['delist_time'],//商品下架时间
-				"cid"=>$result['cid'],
+				"cid"=>0,
 				"link"=>'http://item.taobao.com/item.htm?id='.$num_iid,
 				"rank"=>500,
 				"postdt"=>date("Y-m-d"),
@@ -219,36 +213,22 @@ function getItemDetail($num_iid,$mode=1){
 			$item['title'] = preg_replace('/【.+?】/i','',$item['title']);
 			//var_dump($item);
 			// 运费
-			if($result['freight_payer']=='seller')
-				$item['carriage']=1;
-			elseif($result['freight_payer']=='buyer'){
-				if($result['express_fee'])
-					if($result['express_fee']*1<=0.1)
-						$item['carriage']=1;
-					else 
-						$item['carriage']=0;
-				if($result['ems_fee'])
-					if($result['ems_fee']*1<=0.1)
-						$item['carriage']=1;
-					else 
-						$item['carriage']=0;
-				if($result['post_fee'])
-					if($result['post_fee']*1<=0.1)
-						$item['carriage']=1;
-					else
-						$item['carriage']=0;
-			}
-			//echo $result['auction_point'];
+			$item['carriage']=1;
 			// 淘宝或天猫商品(天猫有抽佣)
-			if($result['auction_point'])
+			if($result['tmall'])
 				$item['shopshow']=0; //天猫
 			else 
 				$item['shopshow']=1;
 			// 是否vip打折商品
-			if($result['has_discount'])
-				$item['shopv']=1;
-			else 
-				$item['shopv']=0;
+			$item['shopv']=1;
+                        
+                        $cid = getcid($num_iid,$result['tmall']);//获取商品CID
+                        
+                        if($cid)
+                            $item['cid'] = $cid;
+                        
+                        $item['cat'] = 42;//默认其他分类
+                        
 //			var_dump($item);
 			return $item;
 		}else{
@@ -272,13 +252,12 @@ function getItemDetail($num_iid,$mode=1){
 
 function getItemNew($num_iid,$mode='taoke'){
 	if($mode == 'normal'){
-		$resp = file_get_contents('http://tiangou.uz.taobao.com/top/userproInfo.php?id='.$num_iid);
-		$rule  = '/class="J_TScriptedModule taeapp(.+?)>(.+?)<\/div>/is';
-		preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
-//		echo trim($result[0][2]);
-		$resp = json_decode(iconv('gbk','utf-8',trim($result[0][2])),1);
-		$resp = array_multi2single($resp);
-//		var_dump($resp);
+		$resp = file_get_contents('http://tiangou.uz.taobao.com/top/2.php?id='.$num_iid);
+                $rule  = '/class="J_TScriptedModule taeapp(.+?)>(.+?)<\/div>/is';
+                preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
+        //	echo trim($result[0][2]);
+                $resp = json_decode(iconv('gbk','utf-8',trim($result[0][2])),1);
+                $resp = array_multi2single($resp);
 	}elseif($mode == 'taoke'){
 		$req = new TaobaokeItemsDetailGetRequest;
 		$req->setFields("iid,title,detail_url,nick,cid,price,pic_url,seller_credit_score,click_url,shop_click_url");
@@ -299,9 +278,9 @@ function getItemNew($num_iid,$mode='taoke'){
 		unset($resp['sub_code']);
 		unset($resp['sub_msg']);
 	}
-//	var_dump($resp);
+//        var_dump($resp);
 //	echo '<br />';
-	if($resp['approve_status']){
+	if($resp){
 		return $resp;
 	}else{
 		return null;
@@ -318,5 +297,21 @@ function array_multi2single($array){
 		}
 	}
 	return $result_array;
+}
+function getcid($iid,$tmall){
+    if($tmall){
+        ;
+    }else{
+        $resp = file_get_contents('http://item.taobao.com/item.htm?id='.$iid);
+        $rule  = '/g_config.idata={(.+?)rcid(.+?),(.+?)\'(\d+)\',/is';
+        preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
+//        var_dump($result);
+//	echo trim($result[0][2]);
+        $cid = (int)$result[0][4];
+    }
+    if($cid)
+        return $cid;
+    else
+        return 0;
 }
 ?>

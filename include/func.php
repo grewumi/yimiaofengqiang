@@ -2,6 +2,7 @@
 require 'checklogo.php';
 require 'checkrate.php';
 require 'getvolume.php';
+require 'pregcaijicontent.php';
 function getapiurl($website){
 	$apiIp = '121.199.33.15';
 	return 'http://'.$apiIp.'/uzcaiji/type/'.$website.'.html';

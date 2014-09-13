@@ -191,15 +191,16 @@ function getItemDetail($num_iid,$mode=1){
 	}else{
 //		$result = getItem($num_iid,'normal');
 		$result = getItemNew($num_iid,'normal');
-		//var_dump($result);
+//		var_dump($result);
 //		echo $result['sub_code'];
 		if($result){
 			$volume = 200;
+                        $imgs = explode(',',$result['item_imgs']);
 			$item = array(
 				"iid"=>$num_iid,
 				"title"=>htmlspecialchars($result['title']),
 				"nick"=>htmlspecialchars($result['nick']),
-				"pic"=>htmlspecialchars(explode(',',$result['item_imgs'])[0].'_310x310.jpg'),
+				"pic"=>htmlspecialchars($imgs[0].'_310x310.jpg'),
 				"oprice"=>$result['price'],			
 				"st"=>$result['list_time'],//商品上架时间
 				"et"=>$result['delist_time'],//商品下架时间
@@ -300,7 +301,10 @@ function array_multi2single($array){
 }
 function getcid($iid,$tmall){
     if($tmall){
-        ;
+        $resp = file_get_contents('http://detail.tmall.com/item.htm?id='.$iid);
+        $rule  = '/TShop.Setup(.+?)"categoryId":"(\d+)"/is';
+        preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
+        $cid = (int)$result[0][2];
     }else{
         $resp = file_get_contents('http://item.taobao.com/item.htm?id='.$iid);
         $rule  = '/g_config.idata={(.+?)rcid(.+?),(.+?)\'(\d+)\',/is';

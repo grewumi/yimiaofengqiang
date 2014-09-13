@@ -772,6 +772,7 @@ class admin extends spController{
 					}else{
 						unset($item['act_from']);
 						unset($item['rank']);
+                                                unset($item['cat']);
 						//$item['et'] = date("Y-m-d",86400*7+time());
 						//$itemPostdt = $pros->find(array('iid'=>$v['iid']));
 						//$item['postdt'] = $itemPostdt['postdt'];

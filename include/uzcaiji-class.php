@@ -16,8 +16,10 @@ class UzCaiji{
 	 *  mode:操作模式,默认为直接导入数据库,值 2 为输出json格式,值3为输出新品页数
 	 */ 
 	public function Caiji($website,$page=1,$mode=1){
-                require 'eachptns/'.$website.'.php';
-                global $contentptn,$singleptn;
+                if(file_exists('./eachptns/'.$website.'.php')){
+                    require 'eachptns/'.$website.'.php';
+                    global $contentptn,$singleptn;    
+                }
                 
                 if(!$GLOBALS['G_SP']['autocat']){
                     require 'eachcatsurl/'.$website.'.php';

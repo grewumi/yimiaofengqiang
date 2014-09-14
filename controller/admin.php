@@ -95,10 +95,6 @@ class admin extends spController{
 		$item['title'] = iconv('utf-8','gb2312',$item['title']);
 		$item['title'] = preg_replace('/¡¾.+?¡¿/i','',$item['title']);
 		$item['nick'] = iconv('utf-8','gb2312',$item['nick']);
-		$item['commission_rate'] = -1;
-		//$item['commission_rate'] = $this->getCommissionRate(trim($item['iid']));
-		//if($item['commission_rate']<1)
-		//	$item['commission_rate'] = -1;
 		$item['volume'] = getvolume($iid,$item['shopshow']);
 		if(!$item['volume'])
 			$item['volume'] = -1;

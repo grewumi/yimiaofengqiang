@@ -106,6 +106,7 @@ function getPcid($cid){
 	}
 	
 }
+
 function getPcidNew($cid){
 	$resp = file_get_contents('http://tiangou.uz.taobao.com//top/getpcid.php?id='.$cid);
 	$rule  = '/class="J_TScriptedModule taeapp(.+?)>(.+?)<\/div>/is';
@@ -228,6 +229,8 @@ function getItemDetail($num_iid,$mode=1){
                             $item['cid'] = $cid;
                         
                         $item['cat'] = 42;//默认其他分类
+                        
+                        $item['commission_rate'] = getCommissionRate($item['iid']);
                         
 //			var_dump($item);
 			return $item;

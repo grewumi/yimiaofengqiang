@@ -195,12 +195,11 @@ function getItemDetail($num_iid,$mode=1){
 //		echo $result['sub_code'];
 		if($result){
 			$volume = 200;
-                        $imgs = explode(',',$result['item_imgs']);
 			$item = array(
 				"iid"=>$num_iid,
 				"title"=>htmlspecialchars($result['title']),
 				"nick"=>htmlspecialchars($result['nick']),
-				"pic"=>htmlspecialchars($imgs[0].'_310x310.jpg'),
+				"pic"=>'http://img01.taobaocdn.com/bao/uploaded/ '.$result['pic_url'],
 				"oprice"=>$result['price'],			
 				"st"=>date("Y-m-d"),//商品上架时间
 				"et"=>date("Y-m-d",86400*7+time()),//商品下架时间

@@ -1,5 +1,5 @@
 <?php
-class mpajaxdata extends spController{
+class ajaxdata extends spController{
 	public function index(){
 		$pros = spClass("m_pro");
 		$baseSql = 'st<=curdate() and et>=curdate() and ischeck=1 and type!=87';
@@ -9,4 +9,5 @@ class mpajaxdata extends spController{
 			echo 'update fstk_pro set rank="'.$v['rank'].'",postdt="'.$v['postdt'].'",pic="'.$v['pic'].'" where iid='.$v['iid'].';';
 		}	
 	}
+
 }

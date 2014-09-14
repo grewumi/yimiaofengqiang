@@ -11,8 +11,8 @@ function huoqu(){
 		    $("input#link").val(dataObj.link);
 		    $("input#pic").val(dataObj.pic);
 		    $("input#ww").val(dataObj.nick);
-			$("input#commissionrate").val(dataObj.commission_rate);
-			$("input#volume").val(dataObj.volume);
+                    $("input#commissionrate").val(dataObj.commission_rate);
+                    $("input#volume").val(dataObj.volume);
 		    if(dataObj.carriage){
 		    	$(":radio[name='carriage'][value='1']").attr("checked","checked");
 		    }else{

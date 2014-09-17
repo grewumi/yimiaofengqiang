@@ -10,7 +10,7 @@ include_once 'tbtop/ShopGetRequest.php';
 header("Content-Type:text/html;charset=gbk");
 
 //$app=array('21463466'=>'91cd273f32da3a640d237595a1e827e0');
-$sellsapp = array('21823676'=>'eb0df7a66c853b0b9b077d0981f20ef1');
+$sellsapp = array('23021902'=>'6a18682d4ed4bf5d4c7c3b55cbe21fe1');
 $app = $sellsapp;
 foreach($app as $k=>$v){
 	global $Key,$Secret;
@@ -41,7 +41,7 @@ function getShop($nick){
 	$req->setFields("sid,cid,title,nick,desc,bulletin,pic_path,created,modified");
 	$req->setNick($nick);
 	$resp = $c->execute($req);
-	//var_dump($resp);
+//	var_dump($resp);
 	//$resp = object_to_array($resp->item);
 	if($resp)
 		return $resp;
@@ -209,7 +209,7 @@ function getItemDetail($num_iid,$mode=1){
 				"rank"=>500,
 				"postdt"=>date("Y-m-d"),
 				"ischeck"=>1,
-				"volume"=>$volume			
+				"volume"=>$volume,
 			);
 			$item['title'] = preg_replace('/¡¾.+?¡¿/i','',$item['title']);
 			//var_dump($item);
@@ -281,8 +281,7 @@ function getItemNew($num_iid,$mode='taoke'){
 		unset($resp['sub_code']);
 		unset($resp['sub_msg']);
 	}
-//        var_dump($resp);
-//	echo '<br />';
+
 	if($resp){
 		return $resp;
 	}else{

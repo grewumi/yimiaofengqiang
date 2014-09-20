@@ -192,9 +192,9 @@ function getItemDetail($num_iid,$mode=1){
 	}else{
 //		$result = getItem($num_iid,'normal');
 		$result = getItemNew($num_iid,'normal');
-//		var_dump($result);
-//		echo $result['sub_code'];
-		if($result){
+                if($result<0){
+                    return -1;
+                }else{
 			$volume = 200;
 			$item = array(
 				"iid"=>$num_iid,
@@ -234,21 +234,7 @@ function getItemDetail($num_iid,$mode=1){
                         
 //			var_dump($item);
 			return $item;
-		}else{
-			return -2;
 		}
-		/* $result = getItem($num_iid);
-		//var_dump($result);
-		//获取淘客
-		if($result){
-			$item['link'] = $result['click_url'];
-			$item['slink'] = $result['shop_click_url'];
-			$item['ischeck'] = 1;
-			//var_dump($item);
-			return $item; //获取淘客信息
-		}else{
-			return 2; //没有淘客
-		} */
 		
 	}
 }
@@ -281,11 +267,11 @@ function getItemNew($num_iid,$mode='taoke'){
 		unset($resp['sub_code']);
 		unset($resp['sub_msg']);
 	}
-
-	if($resp){
-		return $resp;
+        
+	if(empty($resp)){
+		return -1;
 	}else{
-		return null;
+		return $resp;
 	}
 		
 }

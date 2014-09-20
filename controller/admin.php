@@ -70,38 +70,43 @@ class admin extends spController{
 		import('tbapi.php');
 		
 		$item = getItemDetail($iid);
-		
-		// 递归取得淘宝二级节点
-                if($GLOBALS['G_SP']['autocat']){
-                    $pcid = getPcidNew($item['cid']);
-                    $pcid = $pcid['cid'];
-                    
-                    // 查询fstk_catmap对应类目
-                    $catMap = $catmaps->find(array('cid'=>$pcid),'','type');
-                    //var_dump($catMap);
-                    if($catMap){ //如果商品类目有映射
-                            $item['cat'] = (int)$catMap['type'];
-                    }else{
-                            $item['cat'] = 42;
-                    }
-                }
-		// end - 递归取得淘宝二级节点
-		
+//                echo $item;
+                if($item<0){
+                    echo $iid.' 获取信息失败!<br/>';;
+                }else{
+                    // 递归取得淘宝二级节点
+                    if($GLOBALS['G_SP']['autocat']){
+                        $pcid = getPcidNew($item['cid']);
+                        $pcid = $pcid['cid'];
 
-//		echo $pcid;
-		// end - 查询fstk_catmap对应类目
-			
-		// 字符转换
-		$item['title'] = iconv('utf-8','gb2312',$item['title']);
-		$item['title'] = preg_replace('/【.+?】/i','',$item['title']);
-		$item['nick'] = iconv('utf-8','gb2312',$item['nick']);
-		$item['volume'] = getvolume($iid,$item['shopshow']);
-		if(!$item['volume'])
-			$item['volume'] = -1;
-		// end - 字符转换
-		//$item['sid'] = getShop($item['nick']);
-		//var_dump($item);
-		echo '{"iid":"'.$item['iid'].'","title":"'.$item['title'].'","nick":"'.$item['nick'].'","pic":"'.$item['pic'].'","oprice":"'.$item['oprice'].'","st":"'.$item['st'].'","et":"'.$item['et'].'","cid":"'.$item['cid'].'","link":"'.$item['link'].'","rank":'.$item['rank'].',"postdt":"'.$item['postdt'].'","ischeck":'.$item['ischeck'].',"volume":'.$item['volume'].',"carriage":'.$item['carriage'].',"shopshow":'.$item['shopshow'].',"shopv":'.$item['shopv'].',"cat":'.$item['cat'].',"commission_rate":'.$item['commission_rate'].'}';
+                        // 查询fstk_catmap对应类目
+                        $catMap = $catmaps->find(array('cid'=>$pcid),'','type');
+                        //var_dump($catMap);
+                        if($catMap){ //如果商品类目有映射
+                                $item['cat'] = (int)$catMap['type'];
+                        }else{
+                                $item['cat'] = 42;
+                        }
+                    }
+                    // end - 递归取得淘宝二级节点
+
+
+        //	    echo $pcid;
+                    // end - 查询fstk_catmap对应类目
+
+                    // 字符转换
+                    $item['title'] = iconv('utf-8','gb2312',$item['title']);
+                    $item['title'] = preg_replace('/【.+?】/i','',$item['title']);
+                    $item['nick'] = iconv('utf-8','gb2312',$item['nick']);
+                    $item['volume'] = getvolume($iid,$item['shopshow']);
+                    if(!$item['volume'])
+                            $item['volume'] = -1;
+                    // end - 字符转换
+                    //$item['sid'] = getShop($item['nick']);
+                    //var_dump($item);
+                    echo '{"iid":"'.$item['iid'].'","title":"'.$item['title'].'","nick":"'.$item['nick'].'","pic":"'.$item['pic'].'","oprice":"'.$item['oprice'].'","st":"'.$item['st'].'","et":"'.$item['et'].'","cid":"'.$item['cid'].'","link":"'.$item['link'].'","rank":'.$item['rank'].',"postdt":"'.$item['postdt'].'","ischeck":'.$item['ischeck'].',"volume":'.$item['volume'].',"carriage":'.$item['carriage'].',"shopshow":'.$item['shopshow'].',"shopv":'.$item['shopv'].',"cat":'.$item['cat'].',"commission_rate":'.$item['commission_rate'].'}';
+
+                }
 	}
 	public function getCommissionRate($iid){
 		if(getCommissionRate('38510058624')=='-2'){//cookie模拟登录失败
@@ -715,75 +720,76 @@ class admin extends spController{
 				//echo $v['iid'].'<br/>';
 				
 				$item = getItemDetail($v['iid']);
-				if(!empty($item)|| $item){
-					// 现价  && 图片
-					$item['nprice'] = $v['nprice'];
-					if($v['pic'])
-						$item['pic'] = $v['pic'];
-					// end - 现价  && 图片
+                                if($item<0){
+                                    echo $v['iid'].' 获取信息失败!<br/>';
+                                }else{
+//                                    echo $v['iid'].' 获取信息CG!<br/>';
+                                    // 现价  && 图片
+                                    $item['nprice'] = $v['nprice'];
+                                    if($v['pic'])
+                                            $item['pic'] = $v['pic'];
+                                    // end - 现价  && 图片
 
-					// 递归取得淘宝二级节点
-                                        if($GLOBALS['G_SP']['autocat']){
-                                            $pcid = getPcidNew($item['cid']);
-                                            $pcid = $pcid['cid'];
-                                            
-                                            // 查询fstk_catmap对应类目
-                                            $catMap = $catmaps->find(array('cid'=>$pcid),'','type');
-                                            //var_dump($catMap);
-                                            if($catMap){ //如果商品类目有映射
-                                                    $item['cat'] = (int)$catMap['type'];
-                                            }else{
-                                                    $item['cat'] = 42;
-                                            }
-                                            // end - 查询fstk_catmap对应类目
+                                    // 递归取得淘宝二级节点
+                                    if($GLOBALS['G_SP']['autocat']){
+                                        $pcid = getPcidNew($item['cid']);
+                                        $pcid = $pcid['cid'];
+
+                                        // 查询fstk_catmap对应类目
+                                        $catMap = $catmaps->find(array('cid'=>$pcid),'','type');
+                                        //var_dump($catMap);
+                                        if($catMap){ //如果商品类目有映射
+                                                $item['cat'] = (int)$catMap['type'];
+                                        }else{
+                                                $item['cat'] = 42;
                                         }
-					// end - 递归取得淘宝二级节点
+                                        // end - 查询fstk_catmap对应类目
+                                    }
+                                    // end - 递归取得淘宝二级节点
 
 
 
-					// 字符转换
-					$item['title'] = iconv('utf-8','gb2312',$item['title']);
-					$item['title'] = preg_replace('/【.+?】/i','',$item['title']);
-					$item['nick'] = iconv('utf-8','gb2312',$item['nick']);
-					// end - 字符转换
+                                    // 字符转换
+                                    $item['title'] = iconv('utf-8','gb2312',$item['title']);
+                                    $item['title'] = preg_replace('/【.+?】/i','',$item['title']);
+                                    $item['nick'] = iconv('utf-8','gb2312',$item['nick']);
+                                    // end - 字符转换
 
-					if($actType)
-						$item['act_from'] = $actType;
-					else
-						$item['act_from'] = 1;
-					$item['last_modify'] = date("Y-m-d H:i:s");
-					$item['volume'] = getvolume($v['iid'],$item['shopshow']);
-					
-					//var_dump($item);
-					if(!$pros->find(array('iid'=>$v['iid']))){ //没找到
-						$item['postdt'] = date("Y-m-d H:i:s");
+                                    if($actType)
+                                            $item['act_from'] = $actType;
+                                    else
+                                            $item['act_from'] = 1;
+                                    $item['last_modify'] = date("Y-m-d H:i:s");
+                                    $item['volume'] = getvolume($v['iid'],$item['shopshow']);
 
-						if(!$pros->create($item)){
-							echo $v['iid'].' 添加失败,数据库操作失败!<br/>';
-						}else{
-							//$this->upyjscript($v['iid'],$actType);
-							//$this->updateyjPhp($v['iid']);
-							echo $v['iid'].' 添加成功!<br/>';
-						}
-					}else{
-						unset($item['act_from']);
-						unset($item['rank']);
-                                                unset($item['cat']);
-						//$item['et'] = date("Y-m-d",86400*7+time());
-						//$itemPostdt = $pros->find(array('iid'=>$v['iid']));
-						//$item['postdt'] = $itemPostdt['postdt'];
+                                    //var_dump($item);
+                                    if(!$pros->find(array('iid'=>$v['iid']))){ //没找到
+                                            $item['postdt'] = date("Y-m-d H:i:s");
 
-						if(!$pros->update(array('iid'=>$v['iid']),$item)){
-							echo $v['iid'].' 更新失败,数据库操作失败!<br/>';
-						}else{
-							//$this->upyjscript($v['iid'],$actType);
-							//$this->updateyjPhp($v['iid']);
-							echo $v['iid'].' 更新成功!<br/>';
-						}
+                                            if(!$pros->create($item)){
+                                                    echo $v['iid'].' 添加失败,数据库操作失败!<br/>';
+                                            }else{
+                                                    //$this->upyjscript($v['iid'],$actType);
+                                                    //$this->updateyjPhp($v['iid']);
+                                                    echo $v['iid'].' 添加成功!<br/>';
+                                            }
+                                    }else{
+                                            unset($item['act_from']);
+                                            unset($item['rank']);
+                                            unset($item['cat']);
+                                            //$item['et'] = date("Y-m-d",86400*7+time());
+                                            //$itemPostdt = $pros->find(array('iid'=>$v['iid']));
+                                            //$item['postdt'] = $itemPostdt['postdt'];
 
-					}
-				}else{
-					echo $v['iid'].' 获取信息失败!<br/>';
+                                            if(!$pros->update(array('iid'=>$v['iid']),$item)){
+                                                    echo $v['iid'].' 更新失败,数据库操作失败!<br/>';
+                                            }else{
+                                                    //$this->upyjscript($v['iid'],$actType);
+                                                    //$this->updateyjPhp($v['iid']);
+                                                    echo $v['iid'].' 更新成功!<br/>';
+                                            }
+
+                                    }
 				}	
 				
 			}
@@ -836,7 +842,7 @@ class admin extends spController{
                                $this->getitems($items, $actType);
                            }
                                 
-			}elseif($actType == 4  || $actType == 11){ // 卷皮  && 九块邮  && 美美日志
+			}elseif($actType == 11 || $actType == 4){ // 卷皮  && 九块邮  
 				//$pages = $xiaiCaiji->Caiji($type,'',3);
 				//$pages = @ceil($pages/45);
 				$pages = 2;

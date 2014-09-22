@@ -60,7 +60,7 @@
 						<span class="short">{$v.volume}</span>
                                                 <span class="short">{$v.commission_rate}%</span>
 						<span>
-							<a href="{spUrl c=admin a=delpro mode=$mode id=$v.id}">删除</a>
+                                                    <a href="{spUrl c=admin a=delpro mode=$mode id=$v.id}" onclick='window.confirm("请仔细核对无误，删除本数据后不能恢复。")'>删除</a>
 							<a target="_blank" href="{spUrl c=admin mode=$mode a=modpro id=$v.id}">修改</a>
 							<a target="_blank" href="{spUrl c=admin mode=$mode a=checkpro id=$v.id}">审核</a>
 							<a target="_blank" href="{spUrl c=admin mode=$mode a=xuqi id=$v.id}">续期</a>

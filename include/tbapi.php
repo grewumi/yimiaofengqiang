@@ -245,8 +245,12 @@ function getItemNew($num_iid,$mode='taoke'){
                 $rule  = '/class="J_TScriptedModule taeapp(.+?)>(.+?)<\/div>/is';
                 preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
         //	echo trim($result[0][2]);
-                $resp = json_decode(iconv('gbk','utf-8',trim($result[0][2])),1);
-                $resp = array_multi2single($resp);
+                if(trim($result[0][2])!='null'){
+                    $resp = json_decode(iconv('gbk','utf-8',trim($result[0][2])),1);
+                    $resp = array_multi2single($resp);
+                }else{
+                    $resp = null;
+                }
 	}elseif($mode == 'taoke'){
 		$req = new TaobaokeItemsDetailGetRequest;
 		$req->setFields("iid,title,detail_url,nick,cid,price,pic_url,seller_credit_score,click_url,shop_click_url");
@@ -268,10 +272,10 @@ function getItemNew($num_iid,$mode='taoke'){
 		unset($resp['sub_msg']);
 	}
         
-	if(empty($resp)){
-		return -1;
+	if($resp){
+            return $resp;
 	}else{
-		return $resp;
+            return -1;
 	}
 		
 }

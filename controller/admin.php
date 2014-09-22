@@ -338,7 +338,7 @@ class admin extends spController{
                                         'classification' =>$_POST['classification'],
 					'rank'=>(int)$_POST['rank'],
 					'title'=>$_POST['title'],
-					'link'=>'http://item.taobao.com/item.htm?id='.$_POST['iid'],
+					'link'=>$_POST['link'],
 					'volume'=>(int)$_POST['volume'],
 					'remark'=>$_POST['remark'],
 					'zk'=>@ceil(10*$_POST['nprice']/$_POST['oprice']),
@@ -718,8 +718,8 @@ class admin extends spController{
 		foreach($items as $k=>$iv){
 			foreach($iv as $v){
 				//echo $v['iid'].'<br/>';
-				
 				$item = getItemDetail($v['iid']);
+//                                var_dump($item);
                                 if($item<0){
                                     echo $v['iid'].' 获取信息失败!<br/>';
                                 }else{

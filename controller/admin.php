@@ -473,7 +473,7 @@ class admin extends spController{
                                         'classification' =>(int)$_POST['classification'],
 					'rank'=>(int)$_POST['rank'],
 					'title'=>$_POST['title'],
-					'link'=>'http://item.taobao.com/item.htm?id='.$_POST['iid'],
+					'link'=>$_POST['link'],
 					'volume'=>(int)$_POST['volume'],
 					'remark'=>$_POST['remark'],
 					'zk'=>@ceil(10*$_POST['nprice']/$_POST['oprice']),

@@ -38,6 +38,8 @@ class main extends spController{
 		$id = $this->spArgs('id');
 		$pros = spClass("m_pro");
 		$pro = $pros->find(array('id'=>$id));
+                if(strpos($pro['link'],'item.taobao') != false)
+                        $this->nosingle = 1;
                 $this->pro = $pro;
 		$this->display("front/deal.html");
 	}

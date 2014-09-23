@@ -6,6 +6,15 @@
 <link rel="stylesheet" href="/assets/stylesheets/admin/head.css" />
 <link rel="stylesheet" href="/assets/stylesheets/admin/pro.css" />
 <link rel="stylesheet" href="/assets/stylesheets/admin/page.css" />
+<script type="text/javascript">
+    function delfun(){
+        if(confirm("请仔细核对无误，删除本数据后不能恢复。")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
 </head>
 <body>
         {include file="admin/head.html"}
@@ -60,10 +69,10 @@
 						<span class="short">{$v.volume}</span>
                                                 <span class="short">{$v.commission_rate}%</span>
 						<span>
-                                                    <a href="{spUrl c=admin a=delpro mode=$mode id=$v.id}" onclick='window.confirm("请仔细核对无误，删除本数据后不能恢复。")'>删除</a>
-							<a target="_blank" href="{spUrl c=admin mode=$mode a=modpro id=$v.id}">修改</a>
-							<a target="_blank" href="{spUrl c=admin mode=$mode a=checkpro id=$v.id}">审核</a>
-							<a target="_blank" href="{spUrl c=admin mode=$mode a=xuqi id=$v.id}">续期</a>
+                                                    <a target="_blank" href="{spUrl c=admin mode=$mode a=modpro id=$v.id}">修改</a>
+                                                    <a target="_blank" href="{spUrl c=admin mode=$mode a=checkpro id=$v.id}">审核</a>
+                                                    <a target="_blank" href="{spUrl c=admin mode=$mode a=xuqi id=$v.id}">续期</a>
+                                                    <a target="_blank" href="{spUrl c=admin a=delpro mode=$mode id=$v.id}" onclick="return delfun()">删除</a>
 						</span>
 						<span>
 							<a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid={$v.nick|escape:'url'}&siteid=cntaobao&status=1&charset=utf-8" >

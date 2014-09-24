@@ -506,6 +506,7 @@ class admin extends spController{
 			}
 			if($art){ // 修改成功后跳转
 				$submitTips = '修改成功';
+                                var_dump($item);
                                 if($GLOBALS['G_SP']['ajaxToUz']['modpro'])
                                     $this->postDataToUzPhp($item,'admin');
 //				if($this->mode!='try')
@@ -897,14 +898,13 @@ class admin extends spController{
                     $contents = "pic=$item[pic]&&cat=$item[cat]&&iid=$item[iid]&&oprice=$item[oprice]&&nprice=$item[nprice]&&st=$item[st]&&et=$item[et]&&act_from=$item[classification]&&rank=$item[rank]&&title=$item[title]&&link=$item[link]&&slink=$item[slink]&&volume=$item[volume]&&postdt=$item[postdt]&&xujf=$item[xujf]&&remark=$item[remark]&&type=$item[type]&&content=$item[content]&&zk=$item[zk]&&carriage=$item[carriage]&&commission_rate=$item[commission_rate]&&ischeck=$item[ischeck]&&last_modify=$item[last_modify]&&ww=$item[ww]&&shopshow=$item[shopshow]&&shopv=$item[shopv]";
 		else
                     $contents = "iid=$item[iid]&&del=$item[del]";
-                echo $contents;
                 $opts = array(
 			'http'=>array(
 					'method'=>"POST",
 					'content'=>$contents,
 					'timeout'=>900,
 			));
-//		echo $contents.'<br />';
+		echo $contents.'<br />';
 		$context = stream_context_create($opts);
 		
 		$html = @file_get_contents($url, false, $context);

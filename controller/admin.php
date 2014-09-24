@@ -72,7 +72,7 @@ class admin extends spController{
 		$item = getItemDetail($iid);
 //                echo $item;
                 if($item<0){
-                    echo $iid.' 获取信息失败!<br/>';;
+                    echo '{"iid":"-1"}';
                 }else{
                     // 递归取得淘宝二级节点
                     if($GLOBALS['G_SP']['autocat']){

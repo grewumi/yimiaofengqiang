@@ -506,7 +506,7 @@ class admin extends spController{
 			}
 			if($art){ // 修改成功后跳转
 				$submitTips = '修改成功';
-                                var_dump($item);
+//                                var_dump($item);
                                 if($GLOBALS['G_SP']['ajaxToUz']['modpro'])
                                     $this->postDataToUzPhp($item,'admin');
 //				if($this->mode!='try')
@@ -904,7 +904,7 @@ class admin extends spController{
 					'content'=>$contents,
 					'timeout'=>900,
 			));
-		echo $contents.'<br />';
+//		echo $contents.'<br />';
 		$context = stream_context_create($opts);
 		
 		$html = @file_get_contents($url, false, $context);

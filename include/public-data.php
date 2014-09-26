@@ -9,18 +9,18 @@ $website = array(
 	'juanpi'=>array('actType'=>11,'name'=>'¾íÆ¤ÕÛ¿Û','rank'=>17), // ¾íÆ¤ÕÛ¿Û
 	'mizheuz'=>array('actType'=>18,'name'=>'Ã×ÕÛUÕ¾','rank'=>16), // Ã×ÕÛUÕ¾
 	'ifengqiang'=>array('actType'=>26,'name'=>'°®·èÇÀ','rank'=>15), // °®·èÇÀ
-	//'shiyonglianmeng'=>array('actType'=>24,'name'=>'ÊÔÓÃÁªÃË','rank'=>12), // ÊÔÓÃÁªÃË
+//	'shiyonglianmeng'=>array('actType'=>24,'name'=>'ÊÔÓÃÁªÃË','rank'=>12), // ÊÔÓÃÁªÃË
 	'legou'=>array('actType'=>12,'name'=>'ÀÖ¹º','rank'=>14), // ÀÖ¹º
-	'taofen8'=>array('actType'=>8,'name'=>'ÌÔ·Û°É','rank'=>13), // ÍâÕ¾  ÌÔ·Û°É
+//	'taofen8'=>array('actType'=>8,'name'=>'ÌÔ·Û°É','rank'=>13), // ÍâÕ¾  ÌÔ·Û°É
 	'tejiayitian'=>array('actType'=>14,'name'=>'ÌØ¼ÛÒ»Ìì','rank'=>12), // ÌØ¼ÛÒ»Ìì
-	'yuansu'=>array('actType'=>21,'name'=>'±¬»®Ëã','rank'=>11), // ±¬»®Ëã
+//	'yuansu'=>array('actType'=>21,'name'=>'±¬»®Ëã','rank'=>11), // ±¬»®Ëã
 	'zhekouba'=>array('actType'=>28,'name'=>'ÕÛ¿Û°É','rank'=>11), //ÕÛ¿Û°É
-	'mmrizhi'=>array('actType'=>27,'name'=>'ÃÀÃÀ¹º','rank'=>10), // ÃÀÃÀ¹º
+//	'mmrizhi'=>array('actType'=>27,'name'=>'ÃÀÃÀ¹º','rank'=>10), // ÃÀÃÀ¹º
 	'mao'=>array('actType'=>17,'name'=>'ÌØ¼ÛÃ¨','rank'=>9), // ÌØ¼ÛÃ¨
 	'vipzxhd'=>array('actType'=>13,'name'=>'vip×¨Ïí»î¶¯','rank'=>8), // vip×¨Ïí»î¶¯
 	'zhuanbao'=>array('actType'=>15,'name'=>'¿ªÐÄ×¬±¦','rank'=>7), //¿ªÐÄ×¬±¦
 	'aitaoba'=>array('actType'=>29,'name'=>'°®ÌÔ°É','rank'=>6), //°®ÌÔ°É
-	'bujie'=>array('actType'=>30,'name'=>'²½½ÖÍø','rank'=>6), // ²½½ÖÍø
+//	'bujie'=>array('actType'=>30,'name'=>'²½½ÖÍø','rank'=>6), // ²½½ÖÍø
 	'yimiaofengqiang'=>array('actType'=>20,'name'=>'Ò»Ãë·èÇÀ','rank'=>5), // Ò»Ãë·èÇÀ
 	'mytehui'=>array('actType'=>6,'name'=>'VIPÌØ»Ý','rank'=>5), // VIPÌØ»Ý
 	'jiejie'=>array('actType'=>25,'name'=>'½ã¹ä½Ö','rank'=>4), // ½ã¹ä½Ö

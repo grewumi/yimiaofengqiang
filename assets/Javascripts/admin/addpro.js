@@ -6,10 +6,10 @@ function huoqu(){
 		},function(data){
                     var dataObj=eval("("+data+")"); //转换为json对象
 			//alert(data);
-                    if(parseInt(dataObj.iid)<0){
-                         alert('商品未开始或已下架！');
-                         return;
-                    }
+//                    if(parseInt(dataObj.iid)<0){
+//                         alert('商品未开始或已下架！');
+//                         return;
+//                    }
 		    $("input#title").val(dataObj.title);
 		    $("input#oprice").val(dataObj.oprice);
 		    $("input#link").val(dataObj.link);

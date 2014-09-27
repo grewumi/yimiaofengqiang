@@ -244,7 +244,8 @@ function getItemNew($num_iid,$mode='taoke'){
 		$resp = file_get_contents('http://tiangou.uz.taobao.com/top/2.php?id='.$num_iid);
                 $rule  = '/class="J_TScriptedModule taeapp(.+?)>(.+?)<\/div>/is';
                 preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
-        //	echo trim($result[0][2]);
+//                echo $resp;
+//        	echo trim($result[0][2]);
                 if(trim($result[0][2])!='null'){
                     $resp = json_decode(iconv('gbk','utf-8',trim($result[0][2])),1);
                     $resp = array_multi2single($resp);

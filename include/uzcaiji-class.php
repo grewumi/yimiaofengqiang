@@ -367,11 +367,11 @@ class UzCaiji{
 				$this->url = 'http://tealife.uz.taobao.com/';
 				$result = file_get_contents($this->url);
 				// ¾«Æ·ÍÆ¼ö
-				$teaptn = '/class="col-md-3(.+?)class="thumbnail(.+?)id="(.+?)"(.+?)class="good_desc"(.+?)class="pull-left(.+?)<\/i>(.+?)<\/div>(.+?)class="no_stock_icon"/is';
+				$teaptn = '/class="col-md-3(.+?)class="pull-left(.+?)class="front-spt"(.+?)<\/i>(.+?)<\/div>(.+?)class="btn-purchase(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)/is';
 				preg_match_all($teaptn,$result,$teaarr,PREG_SET_ORDER);
 //				print_r($teaarr);
 				foreach($teaarr as $k => $v){
-					$bk[] = array('iid'=>trim($v[3]),'nprice'=>trim($v[7]));//,'pic'=>$v[4]
+					$bk[] = array('iid'=>trim($v[8]),'nprice'=>trim($v[4]));//,'pic'=>$v[4]
 				}
 				$tealife['bk'] = $bk;
 //				var_dump($bk);

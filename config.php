@@ -137,8 +137,8 @@ $spConfig = array(
         ),
         'ajaxToWhich' => array(
             'youpinba'=>true,
-            'okbuy'=>false,
-            'mplife'=>false
+            'okbuy'=>true,
+            'mplife'=>true
         ),
         'autocat'=>true
 );

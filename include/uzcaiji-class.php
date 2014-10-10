@@ -756,7 +756,7 @@ class UzCaiji{
 				if($mode==2)
 					echo json_encode($this->items);
 			}elseif($website=='zhekouba'){
-				$this->url = 'http://www.432gou.com/?c=main&a=outzs';
+				$this->url = 'http://www.yotejia.com/?c=main&a=outzs';
 				$result = file_get_contents($this->url);
 				$zhekouba = json_decode($result,true);
 				//var_dump($zhekouba);

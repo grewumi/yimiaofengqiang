@@ -24,7 +24,6 @@ class main extends spController{
 		if($is_android){
 			 header("Location:http://m.yimiaofengqiang.com".$_SERVER[REQUEST_URI]);
 		}
-		
 	}
 	public function view(){
 		$this->display("front/index_bak.html");
@@ -38,8 +37,11 @@ class main extends spController{
 		$id = $this->spArgs('id');
 		$pros = spClass("m_pro");
 		$pro = $pros->find(array('id'=>$id));
+                $frompt = spClass("m_actfrom")->find(array('id'=>$pro['act_from']));
+                $ptname = $frompt['name'];
                 if(strpos($pro['link'],'item.taobao'))
                     $this->single = 1;
+                $pro['ptname'] = $ptname;
                 $this->pro = $pro;
 		$this->display("front/deal.html");
 	}

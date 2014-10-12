@@ -12,6 +12,6 @@ CREATE TABLE `fstk_classification`(
   `flag` varchar(8) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
-INSERT INTO `fstk_classification` (`id`, `name`, `type`, `last_update`,`rank`) VALUES ('1', '“ª√Î∑Ë«¿', '1', '2014-09-04','1')
-INSERT INTO `fstk_classification` (`id`, `name`, `type`, `last_update`,`rank`) VALUES ('2', '“ª√Î∑Ë«¿∂¿º“', '2', '2014-09-04','2');
+INSERT INTO `fstk_classification` (`id`, `name`,`ename`, `type`, `last_update`,`rank`) VALUES ('1', '“ª√Î∑Ë«¿', '“ª√Î∑Ë«¿', '1', '2014-09-04','1');
+INSERT INTO `fstk_classification` (`id`, `name`,`ename`, `type`, `last_update`,`rank`) VALUES ('2', '“ª√Î∑Ë«¿∂¿º“', '“ª√Î∑Ë«¿∂¿º“', '2', '2014-09-04','2');
 update fstk_pro set classification=1 where classification is null;

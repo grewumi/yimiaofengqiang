@@ -38,6 +38,7 @@ _
 <link rel="stylesheet" href="/assets/stylesheets/front/head.css" />
 <link rel="stylesheet" href="/assets/stylesheets/front/foot.css" />
 <script type="text/javascript"  src="/assets/Javascripts/jquery-2.0.3.min.js"></script>
+<script type="text/javascript"  src="/assets/Javascripts/jquery.lazyload.js"></script>
 <script type="text/javascript">
 $(document).ready(function(e) {
 	$(window).scroll(function() {
@@ -52,6 +53,11 @@ $(document).ready(function(e) {
 			$("#gotop").stop().fadeOut(400); //如果返回或者没有超过,就淡入.必须加上stop()停止之前动画,否则会出现闪动   
 		}
 	});
+        $("img.lazy").lazyload({
+            placeholder: "http://img03.taobaocdn.com/imgextra/i3/1602138689/T2__REXchOXXXXXXXX-1602138689.gif", 
+            effect: "fadeIn", 
+            failurelimit: 10
+        });
 })
 </script>
 </head>
@@ -73,7 +79,7 @@ $(document).ready(function(e) {
 					{/if}
 					<div class="item-pic" style="position:relative;">
 						<a target="_blank" href="{spUrl c=main a=deal id=$v.id}">
-							<img src="{$v.pic}" alt="{$v.title}" />
+							<img class="lazy" data-original="{$v.pic}" alt="{$v.title}" />
 						</a>
 					</div>
 					<div class="item-title position"><a target="_blank" href="{spUrl c=main a=deal id=$v.id}">{$v.title}</a></div>
@@ -103,7 +109,7 @@ $(document).ready(function(e) {
 					{/if}
 					<div class="item-pic" style="position:relative;">
 						<a target="_blank" href="{spUrl c=main a=deal id=$v.id}">
-							<img src="{$v.pic}" alt="{$v.title}" />
+							<img class="lazy" data-original="{$v.pic}" alt="{$v.title}" />
 						</a>
 					</div>
 					<div class="item-title position"><a target="_blank" href="{spUrl c=main a=deal id=$v.id}">{$v.title}</a></div>

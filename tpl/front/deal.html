@@ -8,6 +8,29 @@
 <link rel="stylesheet" href="/assets/stylesheets/front/head.css" />
 <link rel="stylesheet" href="/assets/stylesheets/front/foot.css" />
 <link rel="stylesheet" href="/assets/stylesheets/front/deal.css" />
+<script type="text/javascript"  src="/assets/Javascripts/jquery-2.0.3.min.js"></script>
+<script type="text/javascript"  src="/assets/Javascripts/jquery.lazyload.js"></script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+	$(window).scroll(function() {
+		if($(window).scrollTop() >  $(".head-around").height()+80){
+			$(".head-nav-around").addClass("scoll_nav")
+		}else{
+			$(".head-nav-around").removeClass( "scoll_nav")
+		}
+		if( $(window).scrollTop() >200 ){  //判断滚动后高度超过200px,就显示  
+			$("#gotop").fadeIn(400); //淡出     
+		}else{      
+			$("#gotop").stop().fadeOut(400); //如果返回或者没有超过,就淡入.必须加上stop()停止之前动画,否则会出现闪动   
+		}
+	});
+        $("img.lazy").lazyload({
+            placeholder: "http://img03.taobaocdn.com/imgextra/i3/1602138689/T2__REXchOXXXXXXXX-1602138689.gif", 
+            effect: "fadeIn", 
+            failurelimit: 10
+        });
+})
+</script>
 </head>
 <body>
 {include file="front/head.html"}
@@ -15,7 +38,7 @@
 	<div class="deal-left">
 		<div class="item-deal">
 			<div class="item-img" style="position:relative;">
-				<img src="{$pro.pic}" />
+				<img class="lazy" data-original="{$pro.pic}" />
 			</div>
 			<div class="item-tit" style="position:relative;">
 				{$pro.title}

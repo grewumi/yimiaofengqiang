@@ -4,20 +4,23 @@ define('COMISSIONRATESORT',0);
 define('SETAJAXTOUZ',0);
 define('SETFILETOUZ',1);
 $website = array(
-	'jiukuaiyou'=>array('actType'=>4,'name'=>'æ≈øÈ” ','rank'=>19), // æ≈øÈ” 
+
 	'zhe800'=>array('actType'=>5,'name'=>'’€800','rank'=>18), // ’€800
-	'juanpi'=>array('actType'=>11,'name'=>'æÌ∆§’€ø€','rank'=>17), // æÌ∆§’€ø€
+    	'vipgouyouhui'=>array('actType'=>9,'name'=>'VIPπ∫”≈ª›','rank'=>7), // VIPπ∫”≈ª›
+
 	'mizheuz'=>array('actType'=>18,'name'=>'√◊’€U’æ','rank'=>16), // √◊’€U’æ
 	'ifengqiang'=>array('actType'=>26,'name'=>'∞Æ∑Ë«¿','rank'=>15), // ∞Æ∑Ë«¿
 //	'shiyonglianmeng'=>array('actType'=>24,'name'=>' ‘”√¡™√À','rank'=>12), //  ‘”√¡™√À
-	'legou'=>array('actType'=>12,'name'=>'¿÷π∫','rank'=>14), // ¿÷π∫
+//	'legou'=>array('actType'=>12,'name'=>'¿÷π∫','rank'=>14), // ¿÷π∫
 //	'taofen8'=>array('actType'=>8,'name'=>'Ã‘∑€∞…','rank'=>13), // Õ‚’æ  Ã‘∑€∞…
 	'tejiayitian'=>array('actType'=>14,'name'=>'Ãÿº€“ªÃÏ','rank'=>12), // Ãÿº€“ªÃÏ
 //	'yuansu'=>array('actType'=>21,'name'=>'±¨ªÆÀ„','rank'=>11), // ±¨ªÆÀ„
 	'zhekouba'=>array('actType'=>28,'name'=>'’€ø€∞…','rank'=>11), //’€ø€∞…
 //	'mmrizhi'=>array('actType'=>27,'name'=>'√¿√¿π∫','rank'=>10), // √¿√¿π∫
+	'jiukuaiyou'=>array('actType'=>4,'name'=>'æ≈øÈ” ','rank'=>10), // æ≈øÈ” 
 	'mao'=>array('actType'=>17,'name'=>'Ãÿº€√®','rank'=>9), // Ãÿº€√®
 	'vipzxhd'=>array('actType'=>13,'name'=>'vip◊®œÌªÓ∂Ø','rank'=>8), // vip◊®œÌªÓ∂Ø
+    	'juanpi'=>array('actType'=>11,'name'=>'æÌ∆§’€ø€','rank'=>7), // æÌ∆§’€ø€
 	'zhuanbao'=>array('actType'=>15,'name'=>'ø™–ƒ◊¨±¶','rank'=>7), //ø™–ƒ◊¨±¶
 	'aitaoba'=>array('actType'=>29,'name'=>'∞ÆÃ‘∞…','rank'=>6), //∞ÆÃ‘∞…
 //	'bujie'=>array('actType'=>30,'name'=>'≤ΩΩ÷Õ¯','rank'=>6), // ≤ΩΩ÷Õ¯
@@ -27,7 +30,7 @@ $website = array(
 	'jiejie'=>array('actType'=>25,'name'=>'Ω„π‰Ω÷','rank'=>4), // Ω„π‰Ω÷
 	'tealife'=>array('actType'=>7,'name'=>'Ã‘≈£∆∑','rank'=>3), // Ã‘≈£∆∑
 	'huiyuangou'=>array('actType'=>2,'name'=>'ª·‘±π∫','rank'=>2), // ª·‘±π∫
-	'vipgouyouhui'=>array('actType'=>9,'name'=>'VIPπ∫”≈ª›','rank'=>1), // VIPπ∫”≈ª›
+
 	//
 	//'qiang'=>array('actType'=>3,'name'=>'«¿≈£∆∑','tcounts'=>count($pros->findAll('act_from=3 and '.$where))), // «¿≈£∆∑
 	//'10mst'=>array('actType'=>10,'name'=>'√Î…±Õ®'), // √Î…±Õ®

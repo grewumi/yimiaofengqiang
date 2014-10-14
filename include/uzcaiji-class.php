@@ -512,14 +512,33 @@ class UzCaiji{
 				if($mode==2)
 					echo json_encode($this->items);
 			}elseif($website=='mao'){
-				$this->url = 'http://ju.tejiamao.com/page/maou.html';
+				$this->url = 'http://ju.tejiamao.com/page/u/shouye-geilimao-9.9.xml';
 				$result = file_get_contents($this->url);
-				$maoptn = '/id="tejia">(\d+\.?\d+)<\/td>(.+?)id="iid">(\d+)<\/td>/is';
-				preg_match_all($maoptn,$result,$maoarr,PREG_SET_ORDER);
-				foreach($maoarr as $k => $v){
-					$mao[] = array('iid'=>$v[3],'nprice'=>$v[1]);
+                                $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
+                                $res = json_decode(json_encode($res),true);
+				foreach($res['tejiamao']['item'] as $k => $v){
+					$mao99[] = array('iid'=>$v['iid'],'nprice'=>$v['tejia'],'pic'=>$v['img']);
 				}
-				$tejiamao['mao'] = $mao;
+                                $tejiamao['mao99'] = $mao99;
+                                
+                                $this->url = 'http://ju.tejiamao.com/page/u/shouye-geilimao-19.9.xml';
+				$result = file_get_contents($this->url);
+                                $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
+                                $res = json_decode(json_encode($res),true);
+				foreach($res['tejiamao']['item'] as $k => $v){
+					$mao199[] = array('iid'=>$v['iid'],'nprice'=>$v['tejia'],'pic'=>$v['img']);
+				}
+                                $tejiamao['mao199'] = $mao199;
+                                
+                                $this->url = 'http://ju.tejiamao.com/page/u/shouye-geilimao-zhe.xml';
+				$result = file_get_contents($this->url);
+                                $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
+                                $res = json_decode(json_encode($res),true);
+				foreach($res['tejiamao']['item'] as $k => $v){
+					$maozhe[] = array('iid'=>$v['iid'],'nprice'=>$v['tejia'],'pic'=>$v['img']);
+				}
+                                $tejiamao['maozhe'] = $maozhe;
+                                
 				$this->items = $tejiamao;
 				if($mode==2)
 					echo json_encode($this->items);

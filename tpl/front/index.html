@@ -82,7 +82,7 @@ $(document).ready(function(e) {
 							<img class="lazy" data-original="{$v.pic}" alt="{$v.title}" />
 						</a>
 					</div>
-					<div class="item-title position"><a target="_blank" href="{spUrl c=main a=deal id=$v.id}">{$v.title}</a></div>
+					<div class="item-title position"><a target="_blank" href="{spUrl c=main a=deal id=$v.id}"><span style="color:#E32014;">{$v.zk}’€\</span>{$v.title}</a></div>
 					<div class="item-price position" style="position:relative;">
 						<span class="price">
 							<b>£§</b>{(int)$v.nprice}
@@ -90,7 +90,7 @@ $(document).ready(function(e) {
 						</span>
 						<span class="old-price">{$v.oprice}</span>
 						<a target="_blank" href="{spUrl c=main a=deal id=$v.id}">
-							<span class="buy"></span>
+							<span class="buy">»•{if $v.shopshow}Ã‘±¶{else}ÃÏ√®{/if}«¿π∫</span>
 						</a>
 					</div>
 				</div>
@@ -112,7 +112,7 @@ $(document).ready(function(e) {
 							<img class="lazy" data-original="{$v.pic}" alt="{$v.title}" />
 						</a>
 					</div>
-					<div class="item-title position"><a target="_blank" href="{spUrl c=main a=deal id=$v.id}">{$v.title}</a></div>
+					<div class="item-title position"><a target="_blank" href="{spUrl c=main a=deal id=$v.id}"><span style="color:#E32014;">{$v.zk}’€\</span>{$v.title}</a></div>
 					<div class="item-price position" style="position:relative;">
 						<span class="price">
 							<b>£§</b>{(int)$v.nprice}
@@ -120,7 +120,7 @@ $(document).ready(function(e) {
 						</span>
 						<span class="old-price">{$v.oprice}</span>
 						<a target="_blank" href="{spUrl c=main a=deal id=$v.id}">
-							<span class="buy"></span>
+							<span class="buy">»•{if $v.shopshow}Ã‘±¶{else}ÃÏ√®{/if}«¿π∫</span>
 						</a>
 					</div>
 				</div>

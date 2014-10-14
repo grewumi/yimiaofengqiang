@@ -125,6 +125,7 @@ class main extends spController{
 			$itemsC1[$i]['title'] = preg_replace('/【.+?】/i','',$itemsC1[$i]['title']);
 			$itemsC1[$i]['title'] = preg_replace('/开心赚宝/i','',$itemsC1[$i]['title']);
 			$itemsC1[$i]['oprice'] = number_format($itemsC1[$i]['oprice'],2);
+                        $itemsC1[$i]['zk'] = number_format($itemsC1[$i]['nprice']/$itemsC1[$i]['oprice']*10,1);
 			$temp_npriceTail = explode('.',strval(number_format($itemsC1[$i]['nprice'],2)));
 			$itemsC1[$i]['nprice_tail'] = $temp_npriceTail[1];
 		}
@@ -134,6 +135,7 @@ class main extends spController{
 			$itemsTemp[$i]['title'] = preg_replace('/【.+?】/i','',$itemsTemp[$i]['title']);
 			$itemsTemp[$i]['title'] = preg_replace('/开心赚宝/i','',$itemsTemp[$i]['title']);
 			$itemsTemp[$i]['oprice'] = number_format($itemsTemp[$i]['oprice'],2);
+                        $itemsTemp[$i]['zk'] = number_format($itemsTemp[$i]['nprice']/$itemsTemp[$i]['oprice']*10,1);
 			$temp_npriceTail = explode('.',strval(number_format($itemsTemp[$i]['nprice'],2)));
 			$itemsTemp[$i]['nprice_tail'] = $temp_npriceTail[1];
 		}	
@@ -223,7 +225,6 @@ class main extends spController{
 				);
                                 if($mode=='try')
                                     $item['gailv'] = 1000;
-                                
                                 if($_COOKIE['ymfq_dpww']==$item['ww']){
                                     if($this->isInThere($item['iid'])){//如果已存在数据库
                                             $iteminfo = $pros->find(array('iid'=>trim($item['iid'])));
@@ -231,6 +232,13 @@ class main extends spController{
                                             if($channel==1){
                                                     //如果是采集的，设置渠道号为报名渠道,并设置为未审核状态
                                                     $pros->update(array('iid'=>trim($item['iid'])),array('channel'=>2,'ischeck'=>0));
+                                                    // 通知审核
+                                                    $data = array(
+                                                        'smtpemailto'=>'350544519@qq.com',
+                                                        'mailsubject'=>'您有新的商品需要审核！',
+                                                        'mailbody'=>'您有新商品<a target="_blank" href="'.$item['link'].'">'.$item['title'].'</a>需要审核！<a target="_blank" href="http://'.$_SERVER['HTTP_HOST'].'/admin.html">去审核</a>'
+                                                    );
+//                                                    postData($data,'http://'.$_SERVER['HTTP_HOST'].'/?c=email&a=sendemail');
                                             }elseif($channel==2){
                                                     //如果已经是报名的，检查其审核状态
                                                     if($iteminfo['ischeck']==0){
@@ -245,7 +253,14 @@ class main extends spController{
                                             $art = $pros->create($item);
                                             if($art){	//修改成功后跳转
                                                     $submitTips = '已成功提交，请耐心等待审核！';
-//                                                    header("{spUrl c=main a=user}");
+                                                    // 通知审核
+                                                    $data = array(
+                                                        'smtpemailto'=>'350544519@qq.com',
+                                                        'mailsubject'=>'您有新的商品需要审核！',
+                                                        'mailbody'=>'您有新商品<a target="_blank" href="'.$item['link'].'">'.$item['title'].'</a>需要审核！<a target="_blank" href="http://'.$_SERVER['HTTP_HOST'].'/admin.html">去审核</a>'
+                                                    );
+                                                    postData($data,'http://'.$_SERVER['HTTP_HOST'].'/?c=email&a=sendemail');
+//                                                  header("{spUrl c=main a=user}");
                                             }else
                                                     $submitTips = '提交失败，请刷新页面重新提交！';
                                     }                                    

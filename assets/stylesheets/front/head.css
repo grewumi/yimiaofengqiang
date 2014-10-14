@@ -7,49 +7,52 @@
 	clear:both;
 }
 /* head-tips-bar*/
+.head-tips-bar-around{
+    background: #fff;
+}
 .head-tips-bar{
-	width:1080px;margin:0 auto;height:26px;position:relative;background:#F0EFF0;padding-top:5px;
+	width:1080px;margin:0 auto;height:26px;position:relative;background:#FFF;padding-top:5px;
 }
 .head-tips-bar .left{
-	float:left;
+	float:left;display:none;
 }
 .head-tips-bar .right{
 	float:right;
 }
 .head-tips-bar .right a{
-	display:inline-block;text-decoration:none;color:#000;background:#fff;border:solid 1px #ddd;padding:2px 6px;font-size:13px;
+	display:inline-block;text-decoration:none;color:#000;background:#fff;padding:2px 2px;font-size:13px;
 	font-family:"宋体";
 }
 /* end-head-tips-bar*/
 .head-around{
-	background:#BF0000;
+	background:#fff;
 }
 .head-index{
-	width:1080px;margin:0 auto;height:80px;padding-top:20px;position:relative;
+	width:1080px;margin:0 auto;height:66px;padding-top:20px;position:relative;
 }
 .head-index .logo{
-	width:180px;height:80px;background:#BF0000 url(/assets/images/front/index/logo.png);float:left;
+	width:180px;height:44px;background:url(/assets/images/front/index/logotm.png);float:left;
 }
 .head-index .searchitem{
-	width:500px;height:30px;float:left;margin:18px 0px 0px 90px;position:relative;
+	height:30px;float:left;margin:0px 0px 0px 66px;position:relative;
 }
 .head-index .searchitem .sbox{
-	width:305px;height:30px;border:#DDDDDD solid 2px;	
+	width:447px;height:40px;border:#C40000 solid 2px;	
 }
 .head-index .searchitem .spress{
-	height:34px;border:none;width:40px;margin-left:-10px;background:#ee2889;color:white;
+	height:44px;border:none;width:90px;margin-left:-10px;background:#C40000;color:white;letter-spacing: 4px;font-family:"宋体";
 }
 .head-nav-around{
-	background:#000;
+	background:#CF201C;
 }
 .head-nav-around .head-nav{
 	width:1080px;margin:0 auto;
 }
 .head-nav-around .head-nav a{
-	display:inline-block;padding:5px 18px;color:#fff;text-decoration:none;
+	display:inline-block;padding:8px 18px;color:#fff;text-decoration:none;
 }
 .head-nav-around .head-nav a.cur{
-	background:#BF0000;
+	background:#BF0000;font-weight:800;
 }
 /* 返回顶部 */
 
@@ -57,13 +60,13 @@
 
 /* 浮动价格导航 */
 .scoll_nav{
-	position:fixed;width:100%;top:0px;z-index: 99999;
+	position:fixed;width:100%;top:0px;z-index: 99999;background: #000;
 }
 /* END - 浮动价格导航 */
 
 /* 报名查询 */
 .head-index .bmcq{
-	float:right;width:211px;height:33px;background:url(/assets/images/front/index/bm.png);margin:18px auto;
+	float:right;width:244px;height:31px;background:url(/assets/images/front/index/toolbar_links4.png) no-repeat;margin-top:7px;
 }
 .head-index .bmcq a{
 	display:block;width:105.5px;height:100%;float:left;

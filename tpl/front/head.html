@@ -7,11 +7,12 @@
 		<div class="right">
 			{if !$supe_uid}
 			<a target="_blank" href="/?c=user&a=login">登录</a>
-			<a target="_blank" href="/?c=user&a=login&cmd=reg">注册</a>
+			<a target="_blank" href="/?c=user&a=login&cmd=reg">免费注册</a>
 			{else}
 			<a target="_blank" href="/?c=user&a=iinfo">{$smarty.cookies.ymfq_loginuser}</a>
 			<a target="_blank" href="/?c=user&a=login&cmd=out">退出</a>
 			{/if}
+                        <a target="_blank" href="{spUrl c=main a=baoming}">卖家中心</a>
 		</div>
 	</div>
 </div>
@@ -31,10 +32,7 @@
 			站外地址:http://www.yimiaofengqiang.com<br/>
 			U站地址：http://yinxiang.uz.taobao.com
 		</div>
-		<div class="bmcq">
-			<a class="bm" target="_blank" href="{spUrl c=main a=baoming}"></a>
-			<a class="cq" target="_blank" href="{spUrl c=main a=user mode=pro ac=cx}"></a>
-		</div>
+		<div class="bmcq"></div>
 	</div>
 </div>
 <div class="head-nav-around">

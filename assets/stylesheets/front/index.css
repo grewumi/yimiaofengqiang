@@ -24,7 +24,6 @@ body{
 	background:#fff;margin:10px 13px 12px 0px;position:relative;width:260px;padding-bottom:3px;float:left;
 }
 .item-list .item:hover{
-    background: none repeat scroll 0 0 #f9f0e1;
     box-shadow: 0 0 10px rgb(187, 187, 187);
 }
 
@@ -89,8 +88,8 @@ body{
 	letter-spacing: -1px;font-family: Tahoma,Helvetica,Arial,'ËÎÌו',sans-serif;margin-left:-10px;
 }
 .item-list .item .item-price .buy{
-	width:87px;height:56px;background:url(/assets/images/front/index/buy.jpg);
-	position: absolute;right: 0px;
+	font-size:15px;color:#fff;background:#d04845;line-height:100%;padding:8px 12px;
+	position: absolute;right: 0px;font-weight:500;text-align: center;margin-top: 15px;       
 }
 .xiai-page{
 	padding:35px 0px;

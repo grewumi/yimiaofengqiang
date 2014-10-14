@@ -175,4 +175,21 @@ function list_dir($dir){
 	}
 	return $result;
 }
+
+function postData($data,$url){
+    foreach($data as $k=>$v){
+        $contents = $contents.$k.'='.$v.'&&';
+    }
+    $contents = substr($contents,0,-2);
+    echo $contents;
+    $opts = array(
+            'http'=>array(
+                'method'=>"POST",
+                'content'=>$contents,
+                'timeout'=>900,
+            ));
+    $context = stream_context_create($opts);
+    $html = @file_get_contents($url, false, $context);
+    echo $html;
+}
 ?>

@@ -136,9 +136,9 @@ $spConfig = array(
             'delpro'=>true
         ),
         'ajaxToWhich' => array(
-            'youpinba'=>true,
+            'youpinba'=>false,
             'okbuy'=>true,
-            'mplife'=>true
+            'mplife'=>false
         ),
         'autocat'=>true
 );

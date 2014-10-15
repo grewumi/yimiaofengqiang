@@ -98,16 +98,18 @@ class main extends spController{
 		$page = $this->spArgs('page',1);
 		$type = $this->spArgs('type');
 		$price = $this->spArgs('price');
-				
+		$act_from = $this->spArgs('act_from');		
 		$pros = spClass("m_pro");
 			
-		if($procat || $type || $price){
+		if($procat || $type || $price || $act_from){
 			if($procat)
 				$where = $baseSql.' and cat='.$procat;
 			if($type)
 				$where = $baseSqlYu.' and type='.$type;
 			if($price)
 				$where = $baseSql.' and '.$sqlPrice[$price];
+                        if($act_from)
+                                $where = $baseSql.' and act_from='.$act_from;
 		}else{
 			$where = $baseSql;
 		}
@@ -148,8 +150,9 @@ class main extends spController{
 		//$smarty->cache_lifetime = 480; // Ò³Ãæ»º´æ8·ÖÖÓ
 		
 		//var_dump($itemList);
-		if(!$procat && !$type && !$price)
+		if(!$procat && !$type && !$price && !$act_from)
 			$smarty->assign("index",'index');//$this->index = "index";
+                $smarty->assign("act_from",$act_from);//$this->procat = $procat;
 		$smarty->assign("procat",$procat);//$this->procat = $procat;
 		$smarty->assign("type",$type);//$this->type = $type;
 		$smarty->assign("price",$price);//$this->price = $price;

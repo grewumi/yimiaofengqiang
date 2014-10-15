@@ -1,18 +1,14 @@
-var jq = document.createElement('script');
-jq.src = 'http://www.yimiaofengqiang.com/assets/Javascripts/jquery-2.0.3.min.js';
-var dom = (document.getElementsByTagName('head')[0] || document.body);
-dom.appendChild(jq);
+var s = document.createElement('script');
+s.src = 'http://tao.as/tools/jquery-1.9.1.min.js';
+var h = document.getElementsByTagName('head')[0];
+h.insertBefore(s, h.firstChild);
 
 setTimeout("run();", 50);
 function run(){
     if (typeof(jQuery) == 'undefined'){
         setTimeout("run();", 50);  
     }else{
-        var item_id,
-            price,
-            html;
-        
-        if(typeof g_config != 'undefined' &&  typeof g_config.itemId != 'undefined' || getUrlParam('item_id') || getUrlParam('id')){
+       if(typeof g_config != 'undefined' &&  typeof g_config.itemId != 'undefined' || getUrlParam('item_id') || getUrlParam('id')){
             
             if(typeof g_config != 'undefined' &&  typeof g_config.itemId != 'undefined'){
                 item_id = g_config.itemId;
@@ -21,17 +17,13 @@ function run(){
             }else if(getUrlParam('id')){
                 item_id = getUrlParam('id');
             }
-
-            $.get("http://d.qumai.org/tool/action.php?action=autologin&type=getall&iid=" + item_id,function(data,status){
-                var dataObj=eval("("+data+")"); //转换为json对象
-                if(dataObj.commissionRate)
-                    html = "<strong style='font-size:24px;color:red;'>commissionRate:" + dataObj.commissionRate + "%</strong>";
-                else
-                    html = "<strong style='font-size:24px;color:red;'>no commissionRate</strong>";
-                $('.tb-wrap').prepend(html);
-            });
-
             
+            if(document.getElementById('ymfqrate') == null){
+                html = "<iframe id='ymfqrate' width='430' height='50'  frameborder='0' scrolling='no' src='http://www.yimiaofengqiang.com/include/getcommission.php?item_id='" + item_id + "></iframe>";
+                $('.tb-wrap').prepend(html);
+            }else{
+                $("#ymfqrate").attr('src',"http://www.yimiaofengqiang.com/include/getcommission.php?item_id=" + item_id);
+            }
         }else{
             alert('is not pro detail page!');
         }

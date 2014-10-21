@@ -17,12 +17,11 @@ function run(){
             }else if(getUrlParam('id')){
                 item_id = getUrlParam('id');
             }
-            
             if(document.getElementById('ymfqrate') == null){
-                html = "<iframe id='ymfqrate' width='430' height='50'  frameborder='0' scrolling='no' src='http://www.yimiaofengqiang.com/include/getcommission.php?item_id='" + item_id + "></iframe>";
+                html = "<iframe src='http://ymfq.com/include/getcommission.php?item_id='" + item_id + " id='ymfqrate' width='430' height='50'  frameborder='0' scrolling='no'></iframe>";
                 $('.tb-wrap').prepend(html);
             }else{
-                $("#ymfqrate").attr('src',"http://www.yimiaofengqiang.com/include/getcommission.php?item_id=" + item_id);
+                $("#ymfqrate").attr('src',"http://ymfq.com/include/getcommission.php?item_id=" + item_id);
             }
         }else{
             alert('is not pro detail page!');

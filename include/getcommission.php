@@ -10,6 +10,6 @@
 	preg_match_all($ptn,$result,$arr);
         $commissionRate = $arr[2][0];
     ?>
-    Ó¶½ð£º<span class="commission" style="color:red;font-size:22px;width:30px;"><?php if($commissionRate){ echo $commissionRate; } ?></span> %<br/>
+    Ó¶½ð£º<small class="commission" style="color:red;font-size:22px;width:30px;"><?php if($commissionRate){ echo $commissionRate; } ?></small> %<br/>
 </body>
 </html>

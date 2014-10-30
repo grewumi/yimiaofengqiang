@@ -230,8 +230,8 @@ function getItemDetail($num_iid,$mode=1){
                         
                         $item['cat'] = 42;//默认其他分类
                         
-                        $item['commission_rate'] = getCommissionRate($item['iid']);
-                        
+//                      $item['commission_rate'] = getCommissionRate($item['iid']);
+                        $item['commission_rate'] = -1;
 //			var_dump($item);
 			return $item;
 		}

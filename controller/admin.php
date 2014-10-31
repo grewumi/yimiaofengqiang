@@ -427,6 +427,9 @@ class admin extends spController{
 	}
 	// ÉÌÆ·É¾³ý
 	public function delpro(){
+                if(!$_SESSION['admin'])
+			header("Location:/login.html");
+                
 		$id = $this->spArgs('id');
 		if($this->mode=='try'){
 			$pros = spClass("m_try_items");

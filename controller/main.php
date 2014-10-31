@@ -37,12 +37,16 @@ class main extends spController{
 		$id = $this->spArgs('id');
 		$pros = spClass("m_pro");
 		$pro = $pros->find(array('id'=>$id));
-                $frompt = spClass("m_actfrom")->find(array('id'=>$pro['act_from']));
-                $ptname = $frompt['name'];
-                if(strpos($pro['link'],'item.taobao'))
-                    $this->single = 1;
-                $pro['ptname'] = $ptname;
-                $this->pro = $pro;
+                if($pro){
+                    $frompt = spClass("m_actfrom")->find(array('id'=>$pro['act_from']));
+                    $ptname = $frompt['name'];
+                    if(strpos($pro['link'],'item.taobao'))
+                        $this->single = 1;
+                    $pro['ptname'] = $ptname;
+                    $this->pro = $pro;
+                }else{
+                    header("Location:/");
+                }
 		$this->display("front/deal.html");
 	}
 	

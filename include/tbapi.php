@@ -192,6 +192,7 @@ function getItemDetail($num_iid,$mode=1){
 	}else{
 //		$result = getItem($num_iid,'normal');
 		$result = getItemNew($num_iid,'normal');
+//                var_dump($result);
                 if($result<0){
                     return -1;
                 }else{
@@ -200,7 +201,7 @@ function getItemDetail($num_iid,$mode=1){
 				"iid"=>$num_iid,
 				"title"=>htmlspecialchars($result['title']),
 				"nick"=>htmlspecialchars($result['nick']),
-				"pic"=>'http://img01.taobaocdn.com/bao/uploaded/'.$result['pic_url'],
+				"pic"=>'http://img01.taobaocdn.com/bao/uploaded/'.$result['pic_url'],                                
 				"oprice"=>$result['price'],			
 				"st"=>date("Y-m-d"),//商品上架时间
 				"et"=>date("Y-m-d",86400*7+time()),//商品下架时间
@@ -233,6 +234,8 @@ function getItemDetail($num_iid,$mode=1){
 //                      $item['commission_rate'] = getCommissionRate($item['iid']);
                         $item['commission_rate'] = -1;
 //			var_dump($item);
+                        if($mode==3)//图片集
+                            $item['item_imgs'] = $result['item_imgs'];
 			return $item;
 		}
 		

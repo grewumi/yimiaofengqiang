@@ -33,7 +33,15 @@ function huoquadd(){
                     else
                             $(":radio[name='shopv'][value='0']").attr("checked","checked");
                     $("span#kyx").empty();    
-                    $("span#kyx").append("<a target='_blank' href='http://item.taobao.com/item.htm?id=" + iid + "'>看一下</a>");    
+                    $("span#kyx").append("<a target='_blank' href='http://item.taobao.com/item.htm?id=" + iid + "'>看一下</a>"); 
+                    
+                    var imgs = dataObj.item_imgs.split(",");
+                    var imghtml = "";
+                    for(var i = 0; i < imgs.length; i++){
+                        imghtml += "<img onclick='changepic(this)' class='sect' src='" + imgs[i] + "' />";
+                    }
+                    $(".pro-pic-list").empty();
+                    $(".pro-pic-list").append(imghtml);
 		});
         });
 }
@@ -72,8 +80,18 @@ function huoqu(){
                     else
                             $(":radio[name='shopv'][value='0']").attr("checked","checked");
                         
+                    var imgs = dataObj.item_imgs.split(",");
+                    var imghtml = "";
+                    for(var i = 0; i < imgs.length; i++){
+                        imghtml += "<img onclick='changepic(this)' class='sect' src='" + imgs[i] + "' />";
+                    }
+                    $(".pro-pic-list").empty();
+                    $(".pro-pic-list").append(imghtml);
 		});
         });
+}
+function changepic(it){
+    $("input#pic").val(it.src);
 }
 function setrank(){
 	 $(".set500").click(function(){

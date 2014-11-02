@@ -69,7 +69,8 @@ class admin extends spController{
 		$catmaps = spClass("m_catmap");
 		import('tbapi.php');
 		
-		$item = getItemDetail($iid);
+		$item = getItemDetail($iid,3);
+//                var_dump($item);
 //                echo $item;
                 if($item<0){
                     echo '{"iid":"-1"}';
@@ -104,7 +105,7 @@ class admin extends spController{
                     // end - ×Ö·û×ª»»
                     //$item['sid'] = getShop($item['nick']);
                     //var_dump($item);
-                    echo '{"iid":"'.$item['iid'].'","title":"'.$item['title'].'","nick":"'.$item['nick'].'","pic":"'.$item['pic'].'","oprice":"'.$item['oprice'].'","st":"'.$item['st'].'","et":"'.$item['et'].'","cid":"'.$item['cid'].'","link":"'.$item['link'].'","rank":'.$item['rank'].',"postdt":"'.$item['postdt'].'","ischeck":'.$item['ischeck'].',"volume":'.$item['volume'].',"carriage":'.$item['carriage'].',"shopshow":'.$item['shopshow'].',"shopv":'.$item['shopv'].',"cat":'.$item['cat'].',"commission_rate":'.$item['commission_rate'].'}';
+                    echo '{"iid":"'.$item['iid'].'","title":"'.$item['title'].'","nick":"'.$item['nick'].'","pic":"'.$item['pic'].'","oprice":"'.$item['oprice'].'","st":"'.$item['st'].'","et":"'.$item['et'].'","cid":"'.$item['cid'].'","link":"'.$item['link'].'","rank":'.$item['rank'].',"postdt":"'.$item['postdt'].'","ischeck":'.$item['ischeck'].',"volume":'.$item['volume'].',"carriage":'.$item['carriage'].',"shopshow":'.$item['shopshow'].',"shopv":'.$item['shopv'].',"cat":'.$item['cat'].',"item_imgs":"'.$item['item_imgs'].'","commission_rate":'.$item['commission_rate'].'}';
 
                 }
 	}

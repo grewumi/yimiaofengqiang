@@ -202,8 +202,8 @@ class admin extends spController{
 		elseif($sh=='ck2')
 			$where = 'ischeck=2';
 		
-		if($status)
-			$where = 'et<curdate()';
+		if($status=='ygq')
+			$where = 'ischeck=1 and et<curdate()';
 		
 		if($q)
 			$where = 'iid='.$q;

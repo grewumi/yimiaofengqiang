@@ -1,3 +1,42 @@
+function huoquadd(){
+	$("input#huoqu").click(function(){
+		var iid = $("#iid").val();
+		$.get("/iteminfo.html",{
+		    iid:iid
+		},function(data){
+                    var dataObj=eval("("+data+")"); //转换为json对象
+			//alert(data);
+                    if(parseInt(dataObj.iid)<0){
+                         alert('商品未开始或已下架！');
+                         return;
+                    }
+		    $("input#title").val(dataObj.title);
+		    $("input#oprice").val(dataObj.oprice);
+		    $("input#link").val(dataObj.link);
+		    $("input#pic").val(dataObj.pic);
+		    $("input#ww").val(dataObj.nick);
+                    $("input#commissionrate").val(dataObj.commission_rate);
+                    $("input#volume").val(dataObj.volume);
+		    if(dataObj.carriage){
+		    	$(":radio[name='carriage'][value='1']").attr("checked","checked");
+		    }else{
+		    	$(":radio[name='carriage'][value='0']").attr("checked","checked");
+		    }
+                    //alert(dataObj.shopshow);
+                    if(dataObj.shopshow)// 是否天猫
+                            $(":radio[name='shopshow'][value='1']").attr("checked","checked");
+                    else
+                            $(":radio[name='shopshow'][value='0']").attr("checked","checked");
+
+                    if(dataObj.shopv)// 是否VIP
+                            $(":radio[name='shopv'][value='1']").attr("checked","checked");
+                    else
+                            $(":radio[name='shopv'][value='0']").attr("checked","checked");
+                    $("span#kyx").empty();    
+                    $("span#kyx").append("<a target='_blank' href='http://item.taobao.com/item.htm?id=" + iid + "'>看一下</a>");    
+		});
+        });
+}
 function huoqu(){
 	$("input#huoqu").click(function(){
 		var iid = $("#iid").val();
@@ -36,7 +75,6 @@ function huoqu(){
 		});
         });
 }
-
 function setrank(){
 	 $(".set500").click(function(){
 		 $("#rank").val(500);

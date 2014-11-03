@@ -16,7 +16,7 @@
 				<li>
 					<span>{$v.rank}</span>
 					<span class="src"><img src="{$v.src}" /></span>
-					<span>{if $v.cat==0}轮播{elseif $v.cat==2}底部广告{else}{$v.cat}{/if}</span>
+					<span>{if $v.et>=$curdate}{if $v.cat==0}轮播{elseif $v.cat==2}底部广告{else}{$v.cat}{/if}{else}已过期{/if}</span>
 					<span>{if $v.remark}{$v.remark}{/if}</span>
 					<span class="ctrl"><a href="?cmd=mod&id={$v.id}">修改</a><a href="?cmd=del&id={$v.id}">删除</a></span>					
 				</li>

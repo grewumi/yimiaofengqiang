@@ -648,7 +648,7 @@ class admin extends spController{
                         break;
                 }
                 
-                $allads = $ads->findAll('st<=curdate() and et>=curdate() and cat=0','rank desc');
+                $allads = $ads->findAll('','rank desc');
                 $this->curdate = date("Y-m-d");
                 $this->curdate_et = date("Y-m-d",time()+24*60*60*30);
                 $this->allads = $allads;

@@ -104,6 +104,10 @@ class main extends spController{
 		$price = $this->spArgs('price');
 		$act_from = $this->spArgs('act_from');		
 		$pros = spClass("m_pro");
+                $ads = spClass("m_ad");
+                
+                $siderads = $ads->findAll('st<=curdate() and et>=curdate() and cat=0','rank desc');
+                
 			
 		if($procat || $type || $price || $act_from){
 			if($procat)
@@ -152,7 +156,7 @@ class main extends spController{
 		$smarty = $this->getView();
 		//$smarty->caching = true; // ¿ªÆô»º´æ
 		//$smarty->cache_lifetime = 480; // Ò³Ãæ»º´æ8·ÖÖÓ
-		
+		 $smarty->assign("siderads",$siderads);//$this->procat = $procat;
 		//var_dump($itemList);
 		if(!$procat && !$type && !$price && !$act_from)
 			$smarty->assign("index",'index');//$this->index = "index";

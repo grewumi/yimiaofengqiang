@@ -600,8 +600,58 @@ class admin extends spController{
 		
 		if(!$_SESSION['admin'])
 			header("Location:/login.html");
-		
-		//$pros = spClass("m_pro");
+                $ads = spClass("m_ad");
+                $cmd = $this->spArgs("cmd");
+                $id = $this->spArgs("id");
+                switch($cmd){
+                    case 'mod':
+                        $ad = $ads->find(array('id'=>$id));
+                        $this->ad = $ad;
+                        if($this->spArgs("modAd")){
+                            $res = array(
+                               "src"=>$this->spArgs("src"),
+                               "link"=>$this->spArgs("link"),
+                               "st"=>$this->spArgs("st"),
+                               "et"=>$this->spArgs("et"),
+                               "remark"=>$this->spArgs("remark"),
+                               "rank"=>$this->spArgs("rank"),
+                               "cat"=>$this->spArgs("cat")
+                            );
+                            if($ads->update(array('id'=>$id),$res))
+                                echo '修改成功';
+                            else
+                                echo '修改失败';
+                        }
+                        break;
+                    case 'del':
+                        if($ads->delete(array('id'=>$id)))
+                            echo '删除成功';
+                        else
+                            echo '删除失败';
+                        break;
+                    default:
+                        if($this->spArgs("modAd")){
+                            $res = array(
+                               "src"=>$this->spArgs("src"),
+                               "link"=>$this->spArgs("link"),
+                               "st"=>$this->spArgs("st"),
+                               "et"=>$this->spArgs("et"),
+                               "remark"=>$this->spArgs("remark"),
+                               "rank"=>$this->spArgs("rank"),
+                               "cat"=>$this->spArgs("cat")
+                            );
+                            if($ads->create($res))
+                                echo '添加成功';
+                            else
+                                echo '添加失败';
+                        }
+                        break;
+                }
+                
+                $allads = $ads->findAll('st<=curdate() and et>=curdate() and cat=0','rank desc');
+                $this->curdate = date("Y-m-d");
+                $this->curdate_et = date("Y-m-d",time()+24*60*60*30);
+                $this->allads = $allads;
                 $this->adCur =1;
 		$this->display("admin/ad.html");
 	}

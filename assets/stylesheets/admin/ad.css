@@ -1,0 +1,66 @@
+@CHARSET "gbk";
+/* 广告管理样式 */
+.admin-ad{
+	margin:0 auto;
+	width:1080px;
+}
+.admin-ad .ad-info{
+	width:650px;
+	margin:0 auto;
+	padding-top:20px;
+	float:left;
+}
+.admin-ad .ad-info li{
+	width:700px;
+	float:left;
+}
+.admin-ad .ad-info span{
+	display:block;
+	width:60px;
+	float:left;
+	text-align:center;
+	line-height:33px;
+}
+.admin-ad .ad-info span a{
+	text-decoration:none;
+	margin:0px 5px;
+}
+.admin-ad .ad-info span.src{
+	width:300px;
+}
+.admin-ad .ad-info span.ctrl{
+	width:100px;
+}
+.admin-ad .ad-info span img{
+	width:300px;
+}
+.admin-ad .ad-info span.link{
+	width:200px;
+}
+.admin-ad .ad-submit{
+	float:right;
+	margin:30px 30px auto auto;
+}
+.admin-ad .ad-submit .row{
+	width:300px;margin:5px auto;
+}
+.admin-ad .ad-submit .roweach{
+	width:150px;
+	float:left;
+}
+.admin-ad .ad-submit .row textarea{
+	width:100%;
+}
+.admin-ad .ad-submit label{
+	display:block;
+}
+.admin-ad .ad-submit .row .modAd{
+	margin-top:5px;
+}
+.admin-ad ul{
+    list-style-type: none;
+}
+.admin-ad li{
+    margin:5px auto;
+}
+/* end - 后台广告管理样式 */

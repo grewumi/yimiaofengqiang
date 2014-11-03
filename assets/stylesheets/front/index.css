@@ -117,3 +117,65 @@ body{
 .item-pic tkbox,.item-price tkbox{
 	position:absolute;top:0px;z-index:999;
 }
+
+
+// ÂÖ²¥
+
+#slides {
+    display: none;
+}
+#slides .slidesjs-control a img{
+    height:100%;width:100%;
+}
+.slidesjs-pagination {
+    position: absolute;
+    list-style: none;
+    z-index: 11;
+    right: 6px;
+    bottom: 6px;
+}
+
+.slidesjs-pagination li {
+    float: left;
+    margin: 0 3px;
+}
+
+.slidesjs-pagination li a {
+    display: block;
+    width: 13px;
+    height: 0;
+    padding-top: 13px;
+    background-color: #6F4F67;
+    cursor: pointer;
+    border-radius: 25px;
+    background-position: 0 0;
+    float: left;
+    overflow: hidden;
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+}
+
+.slidesjs-pagination li a.active,
+.slidesjs-pagination li a:hover.active {
+    background-position: 0 -13px
+}
+
+.slidesjs-pagination li a:hover {
+    background-position: 0 -26px
+}
+
+#slides a:link,
+#slides a:visited {
+    color: #333
+}
+
+#slides a:hover,
+#slides a:active {
+    color: #9e2020
+}
+
+.navbar {
+    overflow: hidden
+}

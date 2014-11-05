@@ -93,9 +93,9 @@ class main extends spController{
 				'200_9999'=>'nprice>=200',
                                 '40_9999'=>'nprice>40',    
 		);
-		// end - 构造Key和值对应的数组,方便取值 去除商品过期限制et>=curdate()
-		$baseSql = 'st<=curdate() and ischeck=1 and type!=87';
-		$baseSqlYu = 'st<=curdate() and ischeck=1';
+		// end - 构造Key和值对应的数组,方便取值 
+		$baseSql = 'st<=curdate() and et>=curdate() and ischeck=1 and type!=87';
+		$baseSqlYu = 'st<=curdate() and et>=curdate() and ischeck=1';
 		$order = 'rank asc,postdt desc';				
 		
 		$procat = $this->spArgs('procat');

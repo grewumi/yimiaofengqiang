@@ -192,4 +192,22 @@ function postData($data,$url){
     $html = @file_get_contents($url, false, $context);
     echo $html;
 }
+//推送图文广播流
+function graphicfeedpost($iids,$url){
+    foreach($iids as $k=>$v){
+        $content .= $v.',';
+    }
+    $content = substr($contents,0,-1);
+    $contents = "iids=".$content;
+//    echo $contents;
+    $opts = array(
+            'http'=>array(
+                'method'=>"POST",
+                'content'=>$contents,
+                'timeout'=>900,
+            ));
+    $context = stream_context_create($opts);
+    $html = @file_get_contents($url, false, $contents);
+    echo $html;
+}
 ?>

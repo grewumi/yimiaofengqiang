@@ -195,10 +195,10 @@ function postData($data,$url){
 //推送图文广播流
 function graphicfeedpost($iids,$url){
     foreach($iids as $k=>$v){
-        $content .= $v.',';
+        $res = $res.$v.',';
     }
-    $content = substr($contents,0,-1);
-    $contents = "iids=".$content;
+    $res = substr($res,0,-1);
+    $contents = "iids=".$res;
 //    echo $contents;
     $opts = array(
             'http'=>array(

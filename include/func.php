@@ -198,7 +198,7 @@ function graphicfeedpost($iids,$url){
         $res = $res.$v.',';
     }
     $res = substr($res,0,-1);
-    $contents = "iids=".$res;
+    $contents = "in=in(".$res.")";
 //    echo $contents;
     $opts = array(
             'http'=>array(

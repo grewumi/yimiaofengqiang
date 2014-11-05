@@ -207,7 +207,7 @@ function graphicfeedpost($iids,$url){
                 'timeout'=>900,
             ));
     $context = stream_context_create($opts);
-    $html = @file_get_contents($url, false, $contents);
+    $html = @file_get_contents($url, false, $content);
     echo $html;
 }
 ?>

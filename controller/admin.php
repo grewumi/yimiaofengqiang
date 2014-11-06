@@ -1029,7 +1029,7 @@ class admin extends spController{
 		echo '});';	
 		echo '</script>';
 	}
-	public function postDataToUz($mode='php'){
+	public function postDataToUz($mode='php'){//批量POST数据到优站
 		set_time_limit(0);
 		if(!$_SESSION['admin'])
 			if(!$_SESSION['iscaijiuser'])

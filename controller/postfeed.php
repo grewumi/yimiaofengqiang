@@ -10,7 +10,10 @@ class postfeed extends spController{
         foreach($items as $k=>$v){
             $iids[] = $v['iid'];
         }
+        graphicfeedpost($iids,'http://yinxiang.uz.taobao.com/d/getgraphicfeed');
         graphicfeedpost($iids,'http://youpinba.uz.taobao.com/d/getgraphicfeed');
+        graphicfeedpost($iids,'http://okbuy.uz.taobao.com/d/getgraphicfeed');
+        graphicfeedpost($iids,'http://mplife.uz.taobao.com/d/getgraphicfeed');
     }    
 }
 

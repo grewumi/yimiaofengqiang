@@ -16,8 +16,11 @@ class postfeed extends spController{
                 $iids[] = $v['iid'];
             }
             graphicfeedpost($iids,'http://yinxiang.uz.taobao.com/d/getgraphicfeed');
+            shuffle($iids);//Êý×éÂÒÐò
             graphicfeedpost($iids,'http://youpinba.uz.taobao.com/d/getgraphicfeed');
+            shuffle($iids);
             graphicfeedpost($iids,'http://okbuy.uz.taobao.com/d/getgraphicfeed');
+            shuffle($iids);
             graphicfeedpost($iids,'http://mplife.uz.taobao.com/d/getgraphicfeed');
             $control->update(array('type'=>2),array('isuse'=>1));
         }

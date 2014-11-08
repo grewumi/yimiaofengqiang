@@ -5,7 +5,7 @@ class postfeed extends spController{
     }
     function graphicfeedpost(){
         $control = spClass('m_control');
-        $feed_control = $control->find(array('type'=>2));
+        $feed_control = $control->find(array('type'=>3));
         if($feed_control['isuse']){
             exit();
         }else{

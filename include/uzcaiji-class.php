@@ -33,16 +33,30 @@ class UzCaiji{
 				$result = file_get_contents($this->url);
 //				echo $result;
 				
-				$hygptn = '/class="i_goodscond"(.+?)class="pagingdd/is';
+                                // 每日特惠
+				$hygptn = '/class="daily"(.+?)class="sale"/is';
 				preg_match_all($hygptn,$result,$hygarr,PREG_SET_ORDER);
 			
-				$hygptn = '/<li>(.+?)class="i_zdmsginfol"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)class="bt_price1"(.+?)<em>(\d+\.?\d+)<\/em>(.+?)<\/div>(.+?)<\/li>/is';
+				$hygptn = '/class="li1"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)class="li2"(.+?)<b>(.+?)<\/b>/is';
+				preg_match_all($hygptn,$hygarr[0][0],$hygarr1,PREG_SET_ORDER);
+////				print_r($hygarr1);
+				foreach($hygarr1 as $k => $v){
+					$mrth[] = array('iid'=>$v[3],'nprice'=>$v[7]);
+				}
+				$huiyuangou['mrth'] = $mrth;
+                                
+                                // 独家折扣
+                                $hygarr = null;
+                                $hygptn = '/class="sale"(.+?)class="paging"/is';
+				preg_match_all($hygptn,$result,$hygarr,PREG_SET_ORDER);
+                                $hygarr1 = null;
+				$hygptn = '/class="li1"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)class="li2"(.+?)<b>(.+?)<\/b>/is';
 				preg_match_all($hygptn,$hygarr[0][0],$hygarr1,PREG_SET_ORDER);
 //				print_r($hygarr1);
 				foreach($hygarr1 as $k => $v){
-					$hyg[] = array('iid'=>$v[4],'nprice'=>$v[8]);
+					$djzk[] = array('iid'=>$v[3],'nprice'=>$v[7]);
 				}
-				$huiyuangou['sy'] = $hyg;
+                                $huiyuangou['djzk'] = $djzk;
 //				var_dump($huiyuangou);
 				$this->items = $huiyuangou;
 				if($mode==2)

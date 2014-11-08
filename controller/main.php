@@ -126,8 +126,10 @@ class main extends spController{
 		if($q){
 			$where = $q.' and '.$baseSql;
 		}
-		
-                $itemsTemp = $pros->spPager($page,56)->findAll($where.' and classification=1',$order);
+		if($price || $procat)
+                    $itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
+                else
+                    $itemsTemp = $pros->spPager($page,56)->findAll($where.' and classification=1',$order);
                 $itemsC1 = $pros->findAll($where.' and classification=2',$order);//$pros->spPager($page,56)->findAll($where,$order);
 		
                 // 这里用foreach & 改变数组的值的时候最后一个数据带有 & 符号,导致最后一条数据重复

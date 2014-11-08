@@ -126,7 +126,7 @@ class main extends spController{
 		if($q){
 			$where = $q.' and '.$baseSql;
 		}
-		if($price || $procat)
+		if($price || $procat || $type )
                     $itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
                 else
                     $itemsTemp = $pros->spPager($page,56)->findAll($where.' and classification=1',$order);

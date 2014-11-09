@@ -22,7 +22,7 @@ class postfeed extends spController{
             graphicfeedpost($iids,'http://okbuy.uz.taobao.com/d/getgraphicfeed');
             shuffle($iids);
             graphicfeedpost($iids,'http://mplife.uz.taobao.com/d/getgraphicfeed');
-            $control->update(array('type'=>2),array('isuse'=>1));
+            $control->update(array('type'=>3),array('isuse'=>1));
         }
     }    
 }

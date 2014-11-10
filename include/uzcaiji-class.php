@@ -84,7 +84,7 @@ class UzCaiji{
 					}
 				}else{
                                         if($GLOBALS['G_SP']['autocat']) //自动分类
-                                            $catItemsUrl = 'http://jiukuaiyoucom.uz.taobao.com/?m=index&cat=all&ltype=1&page='.$page;
+                                            $catItemsUrl = 'http://api.juanpi.com/open/jiukuaiyou';
                                         
                                         if(is_array($catItemsUrl)){// 非自动分类
                                             
@@ -108,12 +108,13 @@ class UzCaiji{
                                             
                                             $result = file_get_contents($catItemsUrl);
                                             					
-                                            $content = getcaijicontent($result,$contentptn,$singleptn);
+                                            $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
+                                            $res = json_decode(json_encode($res),true);
 
-                                            foreach($content as $k => $v){
-                                                    $jiuarr2[] = array('iid'=>$v[7],'nprice'=>$v[3]);
+                                            foreach($res['goodslist']['deal'] as $k => $v){
+                                                    $jiuarr2[] = array('iid'=>preg_replace('/(.+?)id=/i','$3',$v['deal_taobao_link']),'nprice'=>preg_replace('/[^0-9][^0-9]/i','',$v['deal_price']),'pic'=>$v['deal_image']);
                                             }
-                                            $jiukuaiyou['page'.$page] = $jiuarr2;
+                                            $jiukuaiyou['all'] = $jiuarr2;
                                         }
 					
 //                                        var_dump($jiukuaiyou);
@@ -268,26 +269,17 @@ class UzCaiji{
 						return false;
 					}
 				}else{				
-					$this->url = 'http://juanpi.uz.taobao.com/?m=index&cat=all&ltype=1&page='.$page;
+					$this->url = 'http://api.juanpi.com/open/juanpi';
 					$result = file_get_contents($this->url);
-					//echo $result;
-					// 匹配商品内容
-					$ptn = '/class="zhe-main"(.+?)class="page"/is';
-					preg_match_all($ptn,$result,$jiuarr,PREG_SET_ORDER);
-					//print_r($jiuarr[0][0]);
-					
-					// 匹配单个商品内容
-					$ptn = '/<li(.+?)class="price-current"(.+?)<\/em>(\d+\.?\d+)<\/span>(.+?)class="btn(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<\/li>/is';
-					preg_match_all($ptn,$jiuarr[0][0],$jiuarr1,PREG_SET_ORDER);
-					//print_r($jiuarr1);
-					
-					foreach($jiuarr1 as $k => $v){
-						$jiuarr2[] = array('iid'=>$v[7],'nprice'=>$v[3]);
-					}
-					$jiukuaiyou['page'.$page] = $jiuarr2;	
-						
+					$res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
+                                        $res = json_decode(json_encode($res),true);
+
+                                        foreach($res['goodslist']['deal'] as $k => $v){
+                                                $jiuarr2[] = array('iid'=>preg_replace('/(.+?)id=/i','$3',$v['deal_taobao_link']),'nprice'=>preg_replace('/[^0-9][^0-9]/i','',$v['deal_price']),'pic'=>$v['deal_image']);
+                                        }
+                                        $jiukuaiyou['all'] = $jiuarr2;
+//					var_dump($jiukuaiyou);						
 					$this->items = $jiukuaiyou;
-					//var_dump($jiukuaiyou);
 					if($mode==2)
 						echo json_encode($this->items);
 				}

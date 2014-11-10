@@ -908,6 +908,17 @@ class admin extends spController{
 		/* $catmaps = spClass("m_catmap");
 		import('tbapi.php'); */
 		//echo $caiji.'<br/>';
+//                elseif($actType == 11 || $actType == 4){ // æÌ∆§  && æ≈øÈ”   
+//				//$pages = $xiaiCaiji->Caiji($type,'',3);
+//				//$pages = @ceil($pages/45);
+//				$pages = 2;
+//				for($page=1;$page<=$pages;$page++){
+//					$xiaiCaiji->Caiji($type,$page);
+//					$items = $xiaiCaiji->getitems();
+//					//var_dump($items);
+//					$this->getitems($items, $actType);
+//				}
+//			}
 		if($actType && $GLOBALS['G_SP']['autocat']){
 			if($actType == 15){ // ◊¨±¶
                                  
@@ -918,16 +929,6 @@ class admin extends spController{
                                $this->getitems($items, $actType);
                            }
                                 
-			}elseif($actType == 11 || $actType == 4){ // æÌ∆§  && æ≈øÈ”   
-				//$pages = $xiaiCaiji->Caiji($type,'',3);
-				//$pages = @ceil($pages/45);
-				$pages = 2;
-				for($page=1;$page<=$pages;$page++){
-					$xiaiCaiji->Caiji($type,$page);
-					$items = $xiaiCaiji->getitems();
-					//var_dump($items);
-					$this->getitems($items, $actType);
-				}
 			}elseif($actType == 10 || $actType == 16){ // √Î…±Õ®,Ãÿº€∑Ë«¿≤…ºØ5“≥
 				for($page=1;$page<=5;$page++){
 					$xiaiCaiji->Caiji($type,$page);

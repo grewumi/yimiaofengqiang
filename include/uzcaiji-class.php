@@ -373,11 +373,11 @@ class UzCaiji{
 				$this->url = 'http://tealife.uz.taobao.com/';
 				$result = file_get_contents($this->url);
 				// 精品推荐
-				$teaptn = '/class="col-md-3(.+?)class="pull-left(.+?)class="front-spt"(.+?)<\/i>(.+?)<\/div>(.+?)class="btn-purchase(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)/is';
+				$teaptn = '/class="promo_price">(\d+\.?\d+)<\/span>(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)class="clearfix"/is';
 				preg_match_all($teaptn,$result,$teaarr,PREG_SET_ORDER);
 //				print_r($teaarr);
 				foreach($teaarr as $k => $v){
-					$bk[] = array('iid'=>trim($v[8]),'nprice'=>trim($v[4]));//,'pic'=>$v[4]
+					$bk[] = array('iid'=>trim($v[4]),'nprice'=>trim($v[1]));//,'pic'=>$v[4]
 				}
 				$tealife['bk'] = $bk;
 //				var_dump($bk);
@@ -385,7 +385,6 @@ class UzCaiji{
 				
 //				var_dump($tealife);
 				$this->items = $tealife;
-				//var_dump($this->items);
 				if($mode==2)
 					echo json_encode($this->items);
 			}elseif($website=='taofen8'){ // 外站  淘粉吧

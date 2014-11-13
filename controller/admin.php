@@ -134,15 +134,16 @@ class admin extends spController{
                 $yqtout[$i][0] = $outs[$i]['pic'];
                 $yqtout[$i][1] = $outs[$i]['iid'];
                 $yqtout[$i][2] = "“ª√Î∑Ë«¿".$outs[$i]['title'];
-                $yqtout[$i][3] = $outs[$i]['nprice'];
-                $yqtout[$i][4] = $outs[$i]['oprice'];
-                $yqtout[$i][5] = $outs[$i]['volume'];
-                $yqtout[$i][6] = 'http://www.yimiaofengqiang.com/main/deal/id/'.$outs[$i]['id'].'.html';
-                $yqtout[$i][7] = $outs[$i]['commission_rate'];
+                $yqtout[$i][3] = "";
+                $yqtout[$i][4] = $outs[$i]['nprice'];
+                $yqtout[$i][5] = $outs[$i]['oprice'];
+                $yqtout[$i][6] = $outs[$i]['volume'];
+                $yqtout[$i][7] = 'http://www.yimiaofengqiang.com/main/deal/id/'.$outs[$i]['id'].'.html';
+                $yqtout[$i][8] = $outs[$i]['commission_rate'];
                 if($outs[$i]['shopshow'])
-                    $yqtout[$i][8] = 'false';
+                    $yqtout[$i][9] = 'false';
                 else
-                    $yqtout[$i][8] = 'true';
+                    $yqtout[$i][9] = 'true';
             }
       
             $fp=fopen("tmp/yqtdata/yqtout.txt",'a');

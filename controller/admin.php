@@ -109,6 +109,58 @@ class admin extends spController{
 
                 }
 	}
+        function yqtout(){
+            // 文件下载
+            header("Cache-Control: public"); 
+            header("Content-Description: File Transfer"); 
+            header('Content-disposition: attachment; filename='.basename('./tmp/yqtdata/yqtout.txt')); //文件名   
+            header("Content-Type: application/text"); //text格式的 
+            header("Content-Transfer-Encoding: binary"); //告诉浏览器，这是二进制文件    
+            header('Content-Length: '. filesize('./tmp/yqtdata/yqtout.txt')); //告诉浏览器，文件大小   
+            @readfile('./tmp/yqtdata/yqtout.txt');
+        }
+        public function yqtswitch(){
+            //清空文件夹
+            $datalist=list_dir('./tmp/yqtdata/');
+            foreach($datalist as $k=>$val){
+                    unlink($val);
+            }
+            $pros = spClass("m_pro");
+            $where = 'st<=curdate() and et>=curdate() and ischeck=1 and type!=87';
+            $order = 'rank asc,postdt desc';
+            $where .= ' and classification=2';
+            $outs = $pros->findAll($where,$order);
+            for($i=0;$i<count($outs);$i++){
+                $yqtout[$i][0] = $outs[$i]['pic'];
+                $yqtout[$i][1] = $outs[$i]['iid'];
+                $yqtout[$i][2] = "一秒疯抢".$outs[$i]['title'];
+                $yqtout[$i][3] = $outs[$i]['nprice'];
+                $yqtout[$i][4] = $outs[$i]['oprice'];
+                $yqtout[$i][5] = $outs[$i]['volume'];
+                $yqtout[$i][6] = 'http://www.yimiaofengqiang.com/main/deal/id/'.$outs[$i]['id'].'.html';
+                $yqtout[$i][7] = $outs[$i]['commission_rate'];
+                if($outs[$i]['shopshow'])
+                    $yqtout[$i][8] = 'false';
+                else
+                    $yqtout[$i][8] = 'true';
+            }
+      
+            $fp=fopen("tmp/yqtdata/yqtout.txt",'a');
+            if($fp){
+                echo 'tmp/yqtdata/yqtout.txt创建成功.<br />';
+                foreach($yqtout as $k=>$iv){
+                   $str = '';
+                   foreach($iv as $v){
+                       $str .= $v.'=====';
+                   }
+                   $contents = fwrite($fp,substr($str,0,-5)."\r\n"); 
+               }   
+            }else{
+                echo '创建失败！';
+            }
+            fclose($fp);
+            header("Location:/yqtout.html");
+        }
 	public function getCommissionRate($iid){
 		if(getCommissionRate('38510058624')=='-2'){//cookie模拟登录失败
 			if(loginTaobao('liushiyan8','liujun987'))//重新登录(验证码登录),更新cookie

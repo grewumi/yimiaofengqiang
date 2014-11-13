@@ -48,7 +48,8 @@ $spConfig = array(
 				'outitems'=>'main@outitems',
                                 'search' => 'main@search', // 将使得 http://www.example.com/search.html 转向控制器main/动作serach执行
 				'@' => 'main@no', // 1.在map中无法找到其他映射，2. 网址第一个参数并非控制器名称。
-                            
+                                'yqtout'=>'admin@yqtout',
+                                'yqtswitch'=>'admin@yqtswitch',
 				'iteminfo'=>'admin@getiteminfo',
 				'xuqi'=>'admin@xuqi',
 				'postDataToUz'=>'admin@postDataToUz',

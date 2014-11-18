@@ -477,7 +477,7 @@ class UzCaiji{
 				$tjytptn = '/class="hot_box"(.+?)<img(.+?)src="(.+?)"(.+?)<\/span>(.+?)(\d+\.?\d+)(.+?)class="go"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"/is';
 				preg_match_all($tjytptn,$bkR,$tjytarr,PREG_SET_ORDER);
 				foreach($tjytarr as $k=>$v){
-					$bk[] = array('iid'=>$v[10],'nprice'=>$v[6],'pic'=>$v[3]);
+					$bk[] = array('iid'=>$v[10],'nprice'=>$v[6]);//,'pic'=>$v[3]
 				}
 				$tjyt['bk'] = $bk;
 				
@@ -485,7 +485,7 @@ class UzCaiji{
 				$tjytptn = '/<li(.+?)class="img"(.+?)<img(.+?)src="(.+?)"(.+?)class="vip_price(.+?)>(.+?)(\d+\.?\d+)<\/span>(.+?)go_buy"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"/is';
 				preg_match_all($tjytptn,$f1R,$tjytarr,PREG_SET_ORDER);
 				foreach($tjytarr as $k=>$v){
-					$dx[] = array('iid'=>$v[12],'nprice'=>$v[8],'pic'=>$v[4]);
+					$dx[] = array('iid'=>$v[12],'nprice'=>$v[8]);//,'pic'=>$v[4]
 				}
 				$tjyt['dx'] = $dx;
 				
@@ -494,7 +494,7 @@ class UzCaiji{
 				preg_match_all($tjytptn,$f9R,$tjytarr,PREG_SET_ORDER);
 				//print_r($tjytarr);
 				foreach($tjytarr as $k=>$v){
-					$tj99[] = array('iid'=>$v[12],'nprice'=>$v[8],'pic'=>$v[4]);
+					$tj99[] = array('iid'=>$v[12],'nprice'=>$v[8]);//,'pic'=>$v[4]
 				}
 				$tjyt['tj99'] = $tj99;
 				//var_dump($tjyt);

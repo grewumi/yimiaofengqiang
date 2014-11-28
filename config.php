@@ -136,11 +136,11 @@ $spConfig = array(
             'modpro'=>true,
             'delpro'=>true
         ),
-//        'ajaxToWhich' => array(
-//            'youpinba'=>true,
-//            'okbuy'=>true,
-//            'mplife'=>true
-//        ),
+        'ajaxToWhich' => array(
+            'youpinba'=>true,
+            'okbuy'=>true,
+            'mplife'=>true
+        ),
         'autocat'=>true
 );
 

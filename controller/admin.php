@@ -34,7 +34,7 @@ class admin extends spController{
 		
 		// µÇÂ¼ÅÐ¶Ï
 		if($this->spArgs()){
-			if($this->spArgs('username')=='admin' && $this->spArgs('password')=='bingqiling1234'){
+			if($this->spArgs('username')=='admin' && $this->spArgs('password')=='bingqiling7788'){
 				$_SESSION['admin'] = 1;
 				header("Location:/admin.html");
 			}elseif($this->spArgs('username') && $this->spArgs('password')){

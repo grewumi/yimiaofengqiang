@@ -20,7 +20,8 @@ class user extends spController{
 			$questionid = $this->spArgs("questionid");
 			$answer = $this->spArgs("answer");
 			$uid = $this->ucenter->uc_user_register($username,$password,$email);
-			$vcode = spClass('spVerifyCode');
+                        
+                        $vcode = spClass('spVerifyCode');
 			if($vcode->verify($this->spArgs('verifycode'))) {
 				//通过验证
 				if($uid <= 0){
@@ -97,29 +98,31 @@ class user extends spController{
 				);
 				//var_dump($uinfo);
 				//echo $uinfo['password'];
-				$vcode = spClass('spVerifyCode');
-				if($vcode->verify($this->spArgs('verifycode'))) {
-					//通过验证
-					if($uinfo['uid'] > 0) {
-						$this->loginsuccess = 1;
-						$GLOBALS['G_SP']['supe_uid'] = $uinfo['uid'];
-						//设置cookie
-						ssetcookie('auth', authcode($uinfo['password'].'\t'.$uinfo['uid'], 'ENCODE'), 31536000);
-						ssetcookie('loginuser', $uinfo['username'], 31536000);                                         
-						// end - 设置cookie
-						$this->loginnote = '登录成功';
-					} elseif($uinfo['uid'] == -1) {
-						$this->loginnote = '用户不存在,或者被删除';
-					} elseif($uinfo['uid'] == -2) {
-						$this->loginnote = '密码错误';
-					} else {
-						$this->loginnote = '未定义';
-					}
-				}else{
-					//没有通过验证
-					$this->loginnote = '登录失败：验证码错误';
-					$this->loginnote .= '<a href="/?c=user&a=login&cmd=reg">重新登录</a>';
-				}
+                            
+                            
+                            $vcode = spClass('spVerifyCode');
+                            if($vcode->verify($this->spArgs('verifycode'))) {
+                                    //通过验证
+                                    if($uinfo['uid'] > 0) {
+                                            $this->loginsuccess = 1;
+                                            $GLOBALS['G_SP']['supe_uid'] = $uinfo['uid'];
+                                            //设置cookie
+                                            ssetcookie('auth', authcode($uinfo['password'].'\t'.$uinfo['uid'], 'ENCODE'), 31536000);
+                                            ssetcookie('loginuser', $uinfo['username'], 31536000);                                         
+                                            // end - 设置cookie
+                                            $this->loginnote = '登录成功';
+                                    } elseif($uinfo['uid'] == -1) {
+                                            $this->loginnote = '用户不存在,或者被删除';
+                                    } elseif($uinfo['uid'] == -2) {
+                                            $this->loginnote = '密码错误';
+                                    } else {
+                                            $this->loginnote = '未定义';
+                                    }
+                            }else{
+                                    //没有通过验证
+                                    $this->loginnote = '登录失败：验证码错误';
+                                    $this->loginnote .= '<a href="/?c=user&a=login&cmd=reg">重新登录</a>';
+                            }
 				
 			}
 		}

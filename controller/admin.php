@@ -1466,7 +1466,7 @@ class admin extends spController{
 							$v['type'] = 8;
 
 					}
-					if($_SESSION['iscaijiuser']=='ifengqiang' || $_SESSION['iscaijiuser']=='9kuaigou'){
+					if($_SESSION['iscaijiuser']=='ifengqiang' || $_SESSION['iscaijiuser']=='9kuaigou' || $_SESSION['iscaijiuser']=='chuang'){
 						if($v['nprice']<10)
 							$v['act_from'] = 2;
 						else

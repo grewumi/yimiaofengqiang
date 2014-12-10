@@ -245,12 +245,14 @@ function getItemDetail($num_iid,$mode=1){
 function getItemNew($num_iid,$mode='taoke'){
 	if($mode == 'normal'){
 		$resp = file_get_contents('http://tiangou.uz.taobao.com/top/2.php?id='.$num_iid);
-                $rule  = '/class="J_TScriptedModule taeapp(.+?)>(.+?)<\/div>/is';
-                preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
 //                echo $resp;
-//        	echo trim($result[0][2]);
-                if(trim($result[0][2])!='null'){
-                    $resp = json_decode(iconv('gbk','utf-8',trim($result[0][2])),1);
+                $rule  = '/class="J_TScriptedModule taeapp(.+?){(.+?)}(.+?)<\/div>/is';
+                preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
+//                var_dump($result);
+//        	echo $result[0][2];
+                $item = '{'.$result[0][2].'}';
+                if($result[0][2]!='null'){
+                    $resp = json_decode(iconv('gbk','utf-8',$item),1);
                     $resp = array_multi2single($resp);
                 }else{
                     $resp = null;
@@ -275,7 +277,7 @@ function getItemNew($num_iid,$mode='taoke'){
 		unset($resp['sub_code']);
 		unset($resp['sub_msg']);
 	}
-        
+//        var_dump($resp);
 	if($resp){
             return $resp;
 	}else{

@@ -108,15 +108,19 @@ function getPcid($cid){
 }
 
 function getPcidNew($cid){
-	$resp = file_get_contents('http://tiangou.uz.taobao.com//top/getpcid.php?id='.$cid);
-	$rule  = '/class="J_TScriptedModule taeapp(.+?)>(.+?)<\/div>/is';
-	preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
-//	echo trim($result[0][2]);
-	$resp = json_decode(iconv('gbk','utf-8',trim($result[0][2])),1);
-	$resp = array_multi2single($resp);
+	$resp = file_get_contents('http://tiangou.uz.taobao.com/top/getpcid.php?jsonp=1&id='.$cid);
+        $resp = json_decode(iconv('gbk','utf-8',trim($resp)),1);
+        if($resp){
+            $resp = array_multi2single($resp);
+        }else{
+            $resp = null;
+        }
+        
 	if($resp){
-		return $resp;
-	}
+            return $resp;
+        }else{
+            return -1;
+        }
 }
 /* if($_GET['mode']=='ajaxprocat'){
 	include 'dbconfig.php';
@@ -244,15 +248,9 @@ function getItemDetail($num_iid,$mode=1){
 
 function getItemNew($num_iid,$mode='taoke'){
 	if($mode == 'normal'){
-		$resp = file_get_contents('http://tiangou.uz.taobao.com/top/2.php?id='.$num_iid);
-//                echo $resp;
-                $rule  = '/class="J_TScriptedModule taeapp(.+?){(.+?)}(.+?)<\/div>/is';
-                preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
-//                var_dump($result);
-//        	echo $result[0][2];
-                $item = '{'.$result[0][2].'}';
-                if($result[0][2]!='null'){
-                    $resp = json_decode(iconv('gbk','utf-8',$item),1);
+		$resp = file_get_contents('http://tiangou.uz.taobao.com/top/1.php?id='.$num_iid);
+                $resp = json_decode(iconv('gbk','utf-8',trim($resp)),1);
+                if($resp){
                     $resp = array_multi2single($resp);
                 }else{
                     $resp = null;

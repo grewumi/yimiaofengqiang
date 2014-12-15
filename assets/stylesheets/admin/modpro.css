@@ -10,6 +10,7 @@
 	width:990px;
 	margin:0 auto;
 	padding-top:15px;
+        position: relative;
 }
 .admin-modpro .mod-pic{
 	float:left;
@@ -102,10 +103,23 @@
 	margin-top:125px;
 }
 .admin-modpro .modinfo-pic{
-	float:right;
-	margin-top:125px;
-	width:310px;
+	width:100px;
+        height:100px;
+        position:absolute;
+        left:-120px;
+        top:360px;
 }
 .admin-modpro .modinfo-pic img{
 	width:100%;
+}
+.admin-modpro .tb_item_iframe{
+    float:right;
+    width:480px;
+    height:600px;
+    margin-top:110px;
+}
+.admin-modpro .tb_item_iframe iframe{
+    width:100%;
+    height:100%;
+    border:none;
 }

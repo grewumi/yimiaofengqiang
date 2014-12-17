@@ -50,6 +50,11 @@ class main extends spController{
 		$this->display("front/deal.html");
 	}
 	
+        public function daren(){
+            $this->daren = 1;
+            $this->display("front/daren.html");
+        }
+        
 	public function outitems(){
 		$pros = spClass("m_pro");
 		$pro = $pros->findAll('act_from=20 or type=85 or type=86 or type=87');

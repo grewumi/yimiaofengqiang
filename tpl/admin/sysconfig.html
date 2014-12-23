@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<title>后台  - 系统管理</title>
+<link rel="stylesheet" href="/assets/stylesheets/admin/head.css" />
+<link rel="stylesheet" href="/assets/stylesheets/admin/ad.css" />
+</head>
+<body>
+	{include file="admin/head.html"}
+	<div class="admin-ad-around">
+            <div class="admin-ad">
+		<div class="ad-info">
+			<ul>
+                            <li>
+                                <span>排序</span>
+                                <span class="src">站点</span>
+                                <span class="ctrl">操作</span>					
+                            </li>
+			{foreach key=k item=v from=$caijiwebsite}
+                            {if $v}
+				<li>
+					<span>{$v.rank}</span>
+					<span class="src">{$v.name}</span>
+					<span>{$v.actType}</span>
+					<span class="ctrl"><a href="?cmd=mod&id={$v.id}">修改</a></span>					
+				</li>
+                            {/if}
+			{/foreach}
+			</ul>
+		<div class="clearfix"></div>
+		</div>
+		<div class="ad-submit">		
+			<form method="post" action="">
+				<div class="row">
+					<label>站点:</label>
+					<input name="name" value="{if $site}{$site.name}{/if}" readonly />
+				</div>
+				<div class="row">
+					<label>排序:</label>
+					<input name="rank" type="text" value="{if $site}{$site.rank}{/if}" />
+				</div>
+				<div class="row">
+					<input class="modAd" name="modAd" type=submit value="提交" />
+				</div>
+			</form>			
+		</div>
+	</div>
+	</div>
+</body>
+</html>

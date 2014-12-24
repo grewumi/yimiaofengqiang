@@ -5,6 +5,24 @@ class sysconfig extends spController{
         import('public-data.php');
         $this->sysCur = 1;
     }
+    // 一键采集顺序
+    public function setcaiji(){
+        //清空文件夹
+        $datalist=list_dir('./tmp/setcaiji/');
+        foreach($datalist as $k=>$val){   
+                unlink($val);
+        }
+        $websites = spClass("m_website")->findAll('','rank desc');
+        foreach($websites as $k=>$v){
+            $contents .= 'http://'.$_SERVER['HTTP_HOST'].'/uzcaiji/type/'.$v['ename'].'.html;';
+        }
+        $file = fopen('./tmp/setcaiji/setcaiji.txt',"w");
+        if(!$file)
+            echo '文件打开失败';
+        //echo $sqlout_sec.'<br />';
+        fwrite($file,iconv('gbk','utf-8',$contents));
+        fclose($file);
+    }
     // 系统管理
     public function index(){
 

@@ -34,10 +34,10 @@ class sysconfig extends spController{
         $websites = spClass("m_website");
         $cmd = $this->spArgs("cmd");
         $id = $this->spArgs("id");
-        $mode = $this->spArgs("mode");
-        if($mode)
+        $mode = $this->spArgs("mode")?$this->spArgs("mode"):1;
+        if($mode==1)
             $this->caijiwebsite = $websites->findAll(array('iscaiji'=>1),'rank desc');
-        else
+        elseif($mode==2)
             $this->caijiwebsite = $websites->findAll(array('iscaiji'=>0),'rank desc');
         switch($cmd){
             case 'mod':

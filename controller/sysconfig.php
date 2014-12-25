@@ -12,7 +12,7 @@ class sysconfig extends spController{
         foreach($datalist as $k=>$val){   
                 unlink($val);
         }
-        $websites = spClass("m_website")->findAll('','rank desc');
+        $websites = spClass("m_website")->findAll(array('iscaiji'=>1),'rank desc');
         
         foreach($websites as $k=>$v){
             $contents = "http://".$_SERVER['HTTP_HOST']."/uzcaiji/type/".$v['ename'].".html;\n";
@@ -34,7 +34,11 @@ class sysconfig extends spController{
         $websites = spClass("m_website");
         $cmd = $this->spArgs("cmd");
         $id = $this->spArgs("id");
-        $this->caijiwebsite = $websites->findAll('','rank desc');
+        $mode = $this->spArgs("mode");
+        if($mode)
+            $this->caijiwebsite = $websites->findAll(array('iscaiji'=>1),'rank desc');
+        else
+            $this->caijiwebsite = $websites->findAll(array('iscaiji'=>0),'rank desc');
         switch($cmd){
             case 'mod':
                 $site = $websites->find(array('id'=>$id));
@@ -43,6 +47,7 @@ class sysconfig extends spController{
                     $res = array(
                        "name"=>$this->spArgs("name"),
                        "actType"=>$this->spArgs("actType"),
+                       "iscaiji"=>$this->spArgs("iscaiji"),
                        "rank"=>$this->spArgs("rank")
                     );
                     if($websites->update(array('id'=>$id),$res))
@@ -62,6 +67,7 @@ class sysconfig extends spController{
                     $res = array(
                        "name"=>$this->spArgs("name"),
                        "actType"=>$this->spArgs("actType"),
+                       "iscaiji"=>$this->spArgs("iscaiji"),
                        "rank"=>$this->spArgs("rank")
                     );
                     if($websites->create($res))

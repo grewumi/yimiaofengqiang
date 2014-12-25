@@ -929,8 +929,13 @@ class admin extends spController{
 	
 	// 一键采集
 	public function yjuzcaiji(){
-//		exec("uzcaiji.sh",$output);
-//		var_dump($output);
+            $file = "/var/www/html/www-1.yimiaofengqiang.com/tmp/output"; 
+            $lastpos = 0;  
+            exec("rm -f ".$file);
+            exec("uzcaiji.sh >> ".$file." &",$output);
+            while (true) {  
+                echo tail($file,$lastpos);  
+            } 
 	}
 	
 	// 采集

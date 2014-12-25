@@ -9,12 +9,17 @@
 <body>
 	{include file="admin/head.html"}
 	<div class="admin-ad-around">
+            <div class="admin-ad" style="margin:25px auto">
+                <a href="{spUrl c=sysconfig a=index mode=1}">已加入采集</a>
+                <a href="{spUrl c=sysconfig a=index mode=0}">未加入采集</a>
+            </div>
             <div class="admin-ad">
 		<div class="ad-info">
 			<ul>
                             <li>
                                 <span>排序</span>
                                 <span class="src">站点</span>
+                                <span>状态</span>
                                 <span class="ctrl">操作</span>					
                             </li>
 			{foreach key=k item=v from=$caijiwebsite}
@@ -22,7 +27,7 @@
 				<li>
 					<span>{$v.rank}</span>
 					<span class="src">{$v.name}</span>
-					<span>{$v.actType}</span>
+					<span>{$v.iscaiji}</span>
 					<span class="ctrl"><a href="?cmd=mod&id={$v.id}">修改</a></span>					
 				</li>
                             {/if}
@@ -39,6 +44,13 @@
 				<div class="row">
 					<label>排序:</label>
 					<input name="rank" type="text" value="{if $site}{$site.rank}{/if}" />
+				</div>
+                                <div class="row">
+                                        <label>状态:</label>
+					<select name="iscaiji">
+						<option value="1" {if $site.iscaiji==1}selected="true"{/if}>加入采集</option>
+                                                <option value="0" {if $site.iscaiji==0}selected="true"{/if}>未加入采集</option>
+					</select>
 				</div>
 				<div class="row">
 					<input class="modAd" name="modAd" type=submit value="提交" />

@@ -937,8 +937,8 @@ class admin extends spController{
             // end - ²É¼¯¿ª´º¸ç
             $file = "/var/www/html/www-1.yimiaofengqiang.com/tmp/output"; 
             $lastpos = 0;  
-            system("rm -f ".$file);
-            system("uzcaiji.sh >> ".$file." &");
+            exec("rm -f ".$file);
+            exec("uzcaiji.sh >> ".$file." &");
             while (true) {  
                 echo tail($file,$lastpos);  
             } 

@@ -931,15 +931,16 @@ class admin extends spController{
 	public function yjuzcaiji(){
             set_time_limit(0);
             // 采集开春哥
-            ini_set('memory_limit', '64M'); // 内存超载
-            ini_set('pcre.backtrack_limit', 999999999); // 回溯超载
-            ini_set('pcre.recursion_limit', 99999); // 资源开大就行
+//            ini_set('memory_limit', '64M'); // 内存超载
+//            ini_set('pcre.backtrack_limit', 999999999); // 回溯超载
+//            ini_set('pcre.recursion_limit', 99999); // 资源开大就行
             // end - 采集开春哥
-            $file = "/var/www/html/www-1.yimiaofengqiang.com/tmp/output"; 
+//            $file = "/var/www/html/www-1.yimiaofengqiang.com/tmp/output"; 
+            $file = "/var/log/messages"; 
             $lastpos = 0;  
-            exec("rm -f ".$file);
-            exec("uzcaiji.sh >> ".$file." &");
-            while (true) {  
+//            exec("rm -f ".$file);
+//            exec("uzcaiji.sh >> ".$file." &");
+            while(true){  
                 echo tail($file,$lastpos);  
             } 
 	}

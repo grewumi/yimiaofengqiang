@@ -929,6 +929,12 @@ class admin extends spController{
 	
 	// 一键采集
 	public function yjuzcaiji(){
+            set_time_limit(0);
+            // 采集开春哥
+            ini_set('memory_limit', '64M'); // 内存超载
+            ini_set('pcre.backtrack_limit', 999999999); // 回溯超载
+            ini_set('pcre.recursion_limit', 99999); // 资源开大就行
+            // end - 采集开春哥
             $file = "/var/www/html/www-1.yimiaofengqiang.com/tmp/output"; 
             $lastpos = 0;  
             exec("rm -f ".$file);

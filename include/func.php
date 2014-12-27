@@ -245,4 +245,9 @@ function tail($file,&$pos) {
         }  
     }  
 }  
+$file = "test.txt";  
+$lastpos = 0;  
+while (true) {  
+    echo tail($file,$lastpos);  
+} 
 ?>

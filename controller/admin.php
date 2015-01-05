@@ -1489,13 +1489,14 @@ class admin extends spController{
 					if($_SESSION['iscaijiuser']=='cong'){
 						$v['act_from'] = 3;
 					}
-					$sqlout_sec = $sqlout_fir.' ("'.$v["title"].'","'.$v["oprice"].'","'.$v["nprice"].'","'.$v["pic"].'","'.$v["st"].'","'.$v["et"].'","'.$v["type"].'","'.$v["cat"].'","'.$v["ischeck"].'","http://item.taobao.com/item.htm?id='.$v["iid"].'","'.$v["rank"].'","'.$v["num"].'","'.$v["slink"].'","'.$v["ww"].'","'.$v["snum"].'","'.$v["xujf"].'","'.date("Y-m-d H:i:s").'","'.$v["zk"].'","'.$v["iid"].'","'.$v["volume"].'","'.$v["content"].'","'.$v["remark"].'","'.$v["nick"].'","'.$v["reason"].'","'.$v["carriage"].'","'.$v["commission_rate"].'","'.date("Y-m-d H:i:s").'","'.$v["click_num"].'","'.$v["phone"].'","'.$v["act_from"].'","'.$v["shopshow"].'","'.$v["shopv"].'")  ON DUPLICATE KEY UPDATE last_modify=now(),cat='.$v["cat"].',et="'.$v["et"].'",commission_rate="'.$v["commission_rate"].'";\n';
+					$sqlout_sec = $sqlout_fir.' ("'.$v["title"].'","'.$v["oprice"].'","'.$v["nprice"].'","'.$v["pic"].'","'.$v["st"].'","'.$v["et"].'","'.$v["type"].'","'.$v["cat"].'","'.$v["ischeck"].'","http://item.taobao.com/item.htm?id='.$v["iid"].'","'.$v["rank"].'","'.$v["num"].'","'.$v["slink"].'","'.$v["ww"].'","'.$v["snum"].'","'.$v["xujf"].'","'.date("Y-m-d H:i:s").'","'.$v["zk"].'","'.$v["iid"].'","'.$v["volume"].'","'.$v["content"].'","'.$v["remark"].'","'.$v["nick"].'","'.$v["reason"].'","'.$v["carriage"].'","'.$v["commission_rate"].'","'.date("Y-m-d H:i:s").'","'.$v["click_num"].'","'.$v["phone"].'","'.$v["act_from"].'","'.$v["shopshow"].'","'.$v["shopv"].'")  ON DUPLICATE KEY UPDATE last_modify=now(),cat='.$v["cat"].',et="'.$v["et"].'",commission_rate="'.$v["commission_rate"].'";';
 					//echo $sqlout_sec;
 					$file = fopen('./tmp/sqlout/'.$filename.'-part'.$i.'.sql',"a+");
 					if(!$file)
-						echo '文件打开失败';
+                                            echo '文件打开失败';
 					//echo $sqlout_sec.'<br />';
-					fwrite($file,iconv('gbk','utf-8',$sqlout_sec));
+					fwrite($file,iconv('gbk','utf-8',$sqlout_sec."\n"));
+//                                        fwrite($file,substr($sqlout_sec,0,-1));
 					$sqlout_sec = null;
 				}
 			}

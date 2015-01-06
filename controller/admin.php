@@ -427,6 +427,8 @@ class admin extends spController{
                                                          $this->postDataToUzPhp($item,'okbuy');
                                                     if($GLOBALS['G_SP']['ajaxToWhich']['mplife'])
                                                          $this->postDataToUzPhp($item,'mplife');
+                                                    if($GLOBALS['G_SP']['ajaxToWhich']['viphuiyuan'])
+                                                         $this->postDataToUzPhp($item,'viphuiyuan');
                                                 }
 //						header("Location:".$referUrl);
 					}else
@@ -502,7 +504,9 @@ class admin extends spController{
                         if($GLOBALS['G_SP']['ajaxToWhich']['okbuy'])
                              $this->postDataToUzPhp($item,'okbuy');
                         if($GLOBALS['G_SP']['ajaxToWhich']['mplife'])
-                             $this->postDataToUzPhp($item,'mplife');                       
+                             $this->postDataToUzPhp($item,'mplife'); 
+                        if($GLOBALS['G_SP']['ajaxToWhich']['viphuiyuan'])
+                            $this->postDataToUzPhp($item,'viphuiyuan');
                     }
 //                    header("Location:".$referUrl);
                 }
@@ -585,7 +589,9 @@ class admin extends spController{
                                     if($GLOBALS['G_SP']['ajaxToWhich']['okbuy'])
                                          $this->postDataToUzPhp($item,'okbuy');
                                     if($GLOBALS['G_SP']['ajaxToWhich']['mplife'])
-                                         $this->postDataToUzPhp($item,'mplife');                                    
+                                         $this->postDataToUzPhp($item,'mplife');
+                                    if($GLOBALS['G_SP']['ajaxToWhich']['viphuiyuan'])
+                                        $this->postDataToUzPhp($item,'viphuiyuan');
                                 }
 //				if($this->mode!='try')
 //					header("Location:".$referUrl);

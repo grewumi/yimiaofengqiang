@@ -72,6 +72,7 @@ class main extends spController{
 		echo "Mail Sent."; */
 		header("Access-Control-Allow-Origin:*");
 		$jsonp = $this->spArgs('jsonp');
+                $othersync = $this->spArgs('othersync');
 		// 搜索
 		$searchKey = $this->spArgs('searchKey');
 		$q = urldecode($this->spArgs('q'));
@@ -183,18 +184,30 @@ class main extends spController{
 		fclose($fp); */
 		//spClass('spHtml')->make(array('main','index'));
 		// END 输出静态页面
-		if($mode)
+		if($mode){
 			$smarty->display("front/mailindex.html");
-		else
-			if($jsonp){
-				foreach($itemList as $k=>&$iv){
-					foreach($iv as $k=>&$v){
-						$v['title'] = iconv('gbk','utf-8',$v['title']);
-					}
-				}
-				echo json_encode($itemList);
-			}else
-				$smarty->display("front/index.html");
+                }else{
+                    if($jsonp){ 
+                        if($othersync){
+                            foreach($itemsC1 as $k=>&$iv){
+                                    foreach($iv as $k=>&$v){
+                                            $v['title'] = iconv('gbk','utf-8',$v['title']);
+                                    }
+                            }
+                            echo json_encode($itemsC1);
+                        }else{
+                            foreach($itemList as $k=>&$iv){
+                                    foreach($iv as $k=>&$v){
+                                            $v['title'] = iconv('gbk','utf-8',$v['title']);
+                                    }
+                            }
+                            echo json_encode($itemList);
+//                            var_dump($itemList);
+                        }
+                    }else{
+                        $smarty->display("front/index.html");
+                    }
+                }
 	}
 	public function user($mode='pro'){//用户报名 && 搜索
                 $users = spClass("m_u");

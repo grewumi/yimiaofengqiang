@@ -47,6 +47,7 @@ class main extends spController{
                 }else{
                     header("Location:/");
                 }
+                $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
 		$this->display("front/deal.html");
 	}
 	

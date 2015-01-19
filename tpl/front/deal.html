@@ -54,6 +54,28 @@ $(document).ready(function(e) {
                         </span>
 			<div class="clearfix"></div>
 		</div>
+                <div class="hr"></div>
+		<div class="items-like">
+			<p>一秒疯抢相关推荐....</p>
+			<div class="items">
+				<ul>
+					{foreach key=k item=v from=$dujia}
+						<li>
+							<a target="_blank" href="http://www.yimiaofengqiang.com/main/deal/id/{$v.id}.html">
+								<img class="lazy" data-original="{$v.pic}"/>
+							</a>
+							<div class="price">
+								<del>￥{$v.oprice}</del>
+								<span>￥{$v.nprice}</span>
+								<a target="_blank" href="http://www.yimiaofengqiang.com/main/deal/id/{$v.id}.html">立即购买</a>
+							</div>
+							
+						</li>
+					{/foreach}
+					<div class="clearfix"></div>
+				</ul>
+			</div>
+		</div>
 		<div class="clearfix"></div>
 	</div>
 	<div class="deal-right">

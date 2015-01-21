@@ -229,7 +229,7 @@ function getItemDetail($num_iid,$mode=1){
 			$item['shopv']=1;
                         
                         $cid = getcid($num_iid,$result['tmall']);//获取商品CID
-                        
+//                        echo $cid;
                         if($cid)
                             $item['cid'] = $cid;
                         

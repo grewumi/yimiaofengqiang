@@ -79,6 +79,8 @@ class admin extends spController{
                     if($GLOBALS['G_SP']['autocat']){
                         $pcid = getPcidNew($item['cid']);
                         $pcid = $pcid['cid'];
+//                        echo 'cid:'.$item['cid'];
+//                        echo ',pcid:'.$pcid;
 
                         // 查询fstk_catmap对应类目
                         $catMap = $catmaps->find(array('cid'=>$pcid),'','type');
@@ -88,6 +90,7 @@ class admin extends spController{
                         }else{
                                 $item['cat'] = 42;
                         }
+//                        echo ',cat:'.$item['cat'];
                     }
                     // end - 递归取得淘宝二级节点
 

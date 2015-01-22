@@ -1646,17 +1646,28 @@ class admin extends spController{
 			header("Location:/login.html");
 		
 		set_time_limit(0);
+                ini_set("memory_limit","1024M");
 		import('tbapi.php');
-		//$reports = array();
-		while(1){
-			$i=1;
-			$report = gettkreport($i++);
-			if(!$report)
-				break;
-			else 
-				var_dump($report);		
-		}
-		//var_dump($reports);
+                import('PHPExcel.php');
+//                import("IOFactory.php");
+		$input_file = "./tmp/tkreport/data.xls"; 
+                $objPHPExcel = PHPExcel_IOFactory::load($input_file); 
+                $sheetData = $objPHPExcel->getSheet(0)->toArray(null, true, true, false); 
+                
+                for($i=0;$i<count($sheetData[0]);$i++){
+                    $sheetData[0][$i] = iconv('utf-8','gbk',unicode2utf8($sheetData[0][$i]));
+                }
+                
+                for($i=1;$i<count($sheetData);$i++){
+                    for($j=0;$j<count($sheetData[$i]);$j++){
+                        if($j==1 || $j==3 || $j==10 || $sheetData[$i][$j] != 'PC')
+                        $sheetData[$i][$j] = iconv('utf-8','gbk',unicode2utf8($sheetData[$i][$j]));
+//                          echo $sheetData[$i][$j];
+                    }
+                }
+//                var_dump($sheetData);
+                $this->sheetData = $sheetData;
+//		var_dump($sheetData);
                 $this->tkreportCur = 1;
 		$this->display("admin/tkreport.html");
 	}

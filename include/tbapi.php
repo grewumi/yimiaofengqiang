@@ -299,6 +299,10 @@ function getcid($iid,$tmall){
         $resp = file_get_contents('http://detail.tmall.com/item.htm?id='.$iid);
         $rule  = '/TShop.Setup(.+?)"categoryId":"(\d+)"/is';
         preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
+//        echo $resp;
+//        $rule  = '/TShop.Setup(.+?)"categoryId":"(\d+)"/i';
+//        preg_match($rule,$resp,$result);
+//        var_dump($result);
         $cid = (int)$result[0][2];
     }else{
         $resp = file_get_contents('http://item.taobao.com/item.htm?id='.$iid);

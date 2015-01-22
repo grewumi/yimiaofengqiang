@@ -245,4 +245,16 @@ function tail($file,&$pos) {
         }  
     }  
 }  
+
+function unicode2utf8($str){
+        if(!$str) return $str;
+        $decode = json_decode($str);
+        if($decode) return $decode;
+        $str = '["' . $str . '"]';
+        $decode = json_decode($str);
+        if(count($decode) == 1){
+                return $decode[0];
+        }
+        return $str;
+}
 ?>

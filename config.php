@@ -112,7 +112,7 @@ $spConfig = array(
 	'html' => array(  // HTML生成配置
 		'enabled' => TRUE, // 开启HTML生成功能
 	),
-//	'mode' => 'release',
+	'mode' => 'release',
 	'dispatcher_error' => "import(APP_PATH.'/404.html');exit();",
 	'supe_uid' => '',
 	'SC' => array(
@@ -147,6 +147,7 @@ $spConfig = array(
 
 if(LOCALDEVELOP){
     $spConfig['ajaxToUz'] = null;
+    unset($spConfig['mode']);
 }
 
 ?>

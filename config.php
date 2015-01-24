@@ -140,7 +140,8 @@ $spConfig = array(
             'youpinba'=>true,
             'okbuy'=>true,
             'mplife'=>true,
-            'viphuiyuan'=>true
+            'viphuiyuan'=>true,
+            'tiangou'=>true
         ),
         'autocat'=>true
 );

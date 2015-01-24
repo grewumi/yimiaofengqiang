@@ -432,6 +432,8 @@ class admin extends spController{
                                                          $this->postDataToUzPhp($item,'mplife');
                                                     if($GLOBALS['G_SP']['ajaxToWhich']['viphuiyuan'])
                                                          $this->postDataToUzPhp($item,'viphuiyuan');
+                                                    if($GLOBALS['G_SP']['ajaxToWhich']['tiangou'])
+                                                         $this->postDataToUzPhp($item,'tiangou');
                                                 }
 //						header("Location:".$referUrl);
 					}else
@@ -510,6 +512,8 @@ class admin extends spController{
                              $this->postDataToUzPhp($item,'mplife'); 
                         if($GLOBALS['G_SP']['ajaxToWhich']['viphuiyuan'])
                             $this->postDataToUzPhp($item,'viphuiyuan');
+                        if($GLOBALS['G_SP']['ajaxToWhich']['tiangou'])
+                            $this->postDataToUzPhp($item,'tiangou');
                     }
 //                    header("Location:".$referUrl);
                 }
@@ -595,6 +599,8 @@ class admin extends spController{
                                          $this->postDataToUzPhp($item,'mplife');
                                     if($GLOBALS['G_SP']['ajaxToWhich']['viphuiyuan'])
                                         $this->postDataToUzPhp($item,'viphuiyuan');
+                                    if($GLOBALS['G_SP']['ajaxToWhich']['tiangou'])
+                                        $this->postDataToUzPhp($item,'tiangou');
                                 }
 //				if($this->mode!='try')
 //					header("Location:".$referUrl);

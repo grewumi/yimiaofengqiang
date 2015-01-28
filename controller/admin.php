@@ -434,6 +434,8 @@ class admin extends spController{
                                                          $this->postDataToUzPhp($item,'viphuiyuan');
                                                     if($GLOBALS['G_SP']['ajaxToWhich']['tiangou'])
                                                          $this->postDataToUzPhp($item,'tiangou');
+                                                    if($GLOBALS['G_SP']['ajaxToWhich']['jumei'])
+                                                         $this->postDataToUzPhp($item,'jumei');
                                                 }
 //						header("Location:".$referUrl);
 					}else
@@ -514,6 +516,8 @@ class admin extends spController{
                             $this->postDataToUzPhp($item,'viphuiyuan');
                         if($GLOBALS['G_SP']['ajaxToWhich']['tiangou'])
                             $this->postDataToUzPhp($item,'tiangou');
+                        if($GLOBALS['G_SP']['ajaxToWhich']['jumei'])
+                            $this->postDataToUzPhp($item,'jumei');
                     }
 //                    header("Location:".$referUrl);
                 }
@@ -601,6 +605,8 @@ class admin extends spController{
                                         $this->postDataToUzPhp($item,'viphuiyuan');
                                     if($GLOBALS['G_SP']['ajaxToWhich']['tiangou'])
                                         $this->postDataToUzPhp($item,'tiangou');
+                                    if($GLOBALS['G_SP']['ajaxToWhich']['jumei'])
+                                        $this->postDataToUzPhp($item,'jumei');
                                 }
 //				if($this->mode!='try')
 //					header("Location:".$referUrl);
@@ -1660,10 +1666,13 @@ class admin extends spController{
                 $objPHPExcel = PHPExcel_IOFactory::load($input_file); 
                 $sheetData = $objPHPExcel->getSheet(0)->toArray(null, true, true, false); 
                 
+                // 表格标题
                 for($i=0;$i<count($sheetData[0]);$i++){
                     $sheetData[0][$i] = iconv('utf-8','gbk',unicode2utf8($sheetData[0][$i]));
                 }
+//                $this->sheetDataHead = $sheetData[0];
                 
+                //表格数据
                 for($i=1;$i<count($sheetData);$i++){
                     for($j=0;$j<count($sheetData[$i]);$j++){
                         if($j==1 || $j==3 || $j==10 || $sheetData[$i][$j] != 'PC')
@@ -1671,9 +1680,20 @@ class admin extends spController{
 //                          echo $sheetData[$i][$j];
                     }
                 }
-//                var_dump($sheetData);
+                $en_letters = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t');
+                $dataSheet = spClass("m_data_sheet"); 
+                $dataSheet->runSql('truncate table data_sheet');
+                
+                //表格数据下标
+                for($i=1;$i<count($sheetData);$i++){
+                    for($j=0;$j<count($sheetData[$i]);$j++){
+                       $sheetDataTemp[$en_letters[$j]] = $sheetData[$i][$j];
+                    }
+                    $dataSheet->create($sheetDataTemp);
+                }
+                $sheetData = $dataSheet->findSql('select b,e,f,g,j,p,count(p) as ij from data_sheet GROUP BY p order by g desc');
                 $this->sheetData = $sheetData;
-//		var_dump($sheetData);
+//                var_dump($sheetData);
                 $this->tkreportCur = 1;
 		$this->display("admin/tkreport.html");
 	}

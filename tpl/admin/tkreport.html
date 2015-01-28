@@ -3,6 +3,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=GBK">
 <link rel="stylesheet" href="/assets/stylesheets/admin/head.css" />
+<script type="text/javascript"  src="/assets/Javascripts/jquery-2.0.3.min.js"></script>
+<script type="text/javascript"  src="/assets/Javascripts/admin/tkcss.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    initcss();
+});
+</script>
 <title>后台  - 淘客报表</title>
 </head>
 <body>
@@ -10,9 +17,24 @@
 	<div class="admin-tk-around">
 		<div class="admin-tk">
 			<div class="tk-info">
-                            {foreach key=k item=v from=$sheetData}
-                            
-                            {/foreach}
+                            <table style="font-size:15px;text-align:center;">
+                                <tr style="height:20px;margin:5px auto;">
+                                    <th style="width:500px;">标题</th>
+                                    <th>佣金</th>
+                                    <th>付款金额</th>
+                                    <th>结算佣金</th>
+                                    <th>购买平台</th>
+                                    <th>商品ID</th>
+                                    <th>付款笔数</th>
+                                </tr>
+                                {foreach key=k item=v from=$sheetData}
+                                    <tr style="height:20px;margin:5px auto;">
+                                        {foreach key=k item=j from=$v}
+                                            <td>{$j}</td>
+                                        {/foreach}
+                                    </tr>
+                                {/foreach}
+                            </table>
 			</div>
 		</div>
 	</div>

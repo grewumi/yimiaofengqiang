@@ -14,9 +14,17 @@ $(document).ready(function(){
 </head>
 <body>
 	{include file="admin/head.html"}
+        
 	<div class="admin-tk-around">
 		<div class="admin-tk">
 			<div class="tk-info">
+                            <div>
+                                <form action="/tkreport.html" method="post" enctype="multipart/form-data">
+                                    <label for="file">上传报表:</label>
+                                    <input type="file" name="file" id="file" />
+                                    <input type="submit" name="submit" value="提交" />
+                                </form>
+                            </div>
                             <table style="font-size:15px;text-align:center;">
                                 <tr style="height:20px;margin:5px auto;">
                                     <th style="width:500px;">标题</th>

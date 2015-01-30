@@ -1661,6 +1661,32 @@ class admin extends spController{
                 ini_set("memory_limit","1024M");
 		import('tbapi.php');
                 import('PHPExcel.php');
+                
+                // 上传文件
+                if($this->spArgs("submit")){
+                    import("func.php");
+                    //清空文件夹
+                    $datalist=list_dir('./tmp/tkreport/');
+                    foreach($datalist as $k=>$val){
+                            unlink($val);
+                    }
+                    if ($_FILES["file"]["error"] > 0){
+                        echo "Error: " . $_FILES["file"]["error"] . "<br />";
+                    }else{
+                        echo "Upload: " . $_FILES["file"]["name"] . "<br />";
+                        echo "Type: " . $_FILES["file"]["type"] . "<br />";
+                        echo "Size: " . ($_FILES["file"]["size"] / 1024) . " Kb<br />";
+                        echo "Stored in: data.xls" . "<br />";
+                        if(file_exists("tmp/tkreport/data.xls")){
+                            echo "data.xls already exists. ";
+                        }else{
+                            move_uploaded_file($_FILES["file"]["tmp_name"],"tmp/tkreport/data.xls");
+                            echo "Stored in: " . "tmp/tkreport/data.xls<br/>";
+                            fclose($fp);
+                        }
+                    }
+                }
+                
 //                import("IOFactory.php");
 		$input_file = "./tmp/tkreport/data.xls"; 
                 $objPHPExcel = PHPExcel_IOFactory::load($input_file); 
@@ -1691,7 +1717,7 @@ class admin extends spController{
                     }
                     $dataSheet->create($sheetDataTemp);
                 }
-                $sheetData = $dataSheet->findSql('select b,e,f,g,j,p,count(p) as ij from data_sheet GROUP BY p order by g desc');
+                $sheetData = $dataSheet->findSql('select b,f,g,h,k,q,sum(c) from data_sheet group by q order by h desc');
                 $this->sheetData = $sheetData;
 //                var_dump($sheetData);
                 $this->tkreportCur = 1;

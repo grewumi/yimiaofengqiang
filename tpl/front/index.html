@@ -69,12 +69,11 @@ $(document).ready(function(e) {
 </script>
 <script type="text/javascript">
     function autoclick(){
-        lnk = document.getElementById("search_key");
-        lnk.click();
+        $("#search_key").trigger("click");
     }
 </script>
 </head>
-<body onload="autoclick()">
+<body>
 {include file="front/head.html" cache_liftetime=500}
 <div class="around-index">
 	<div class="main-index">

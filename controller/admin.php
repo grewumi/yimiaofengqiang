@@ -1652,7 +1652,7 @@ class admin extends spController{
 	}
 	
 	// 淘客报表
-	public function tkreport(){
+	public function tkreport(){ //上传和数据整合显示
 		
 		if(!$_SESSION['admin'])
 			header("Location:/login.html");
@@ -1723,6 +1723,30 @@ class admin extends spController{
                 $this->tkreportCur = 1;
 		$this->display("admin/tkreport.html");
 	}
+        
+        public function paixu(){
+            if(!$_SESSION['admin'])
+                header("Location:/login.html");
+            if($this->spArgs("paixu")){
+                $rule_1['bishu'] = $this->spArgs("rule_1_bishu");
+                $rule_1['rank'] = $this->spArgs("rule_1_rank");
+                $rule_1['paiqian'] = $this->spArgs("rule_1_paiqian");
+                $rules['rule_1'] = $rule_1;
+                
+                $rule_2['bishu'] = $this->spArgs("rule_2_bishu");
+                $rule_2['rank'] = $this->spArgs("rule_2_rank");
+                $rule_2['paiqian'] = $this->spArgs("rule_2_paiqian");
+                $rules['rule_2'] = $rule_2;
+                
+                $dataSheet = spClass("m_data_sheet"); 
+                $sheetData = $dataSheet->findSql('select b,f,g,h,k,q,sum(c),rank from data_sheet inner join fstk_pro on data_sheet.q=fstk_pro.iid group by q order by h desc');
+                var_dump($rules);
+                foreach($sheetData as $k=>$v){
+                    echo $v['q'].'-----'.$v['sum(c)'].'-----'.$v['rank'].'<br />';
+                }
+            }
+            $this->display("admin/paixu.html");
+        }
 		
 }
 ?>

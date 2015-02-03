@@ -70,6 +70,7 @@ $spConfig = array(
 				'link' => 'admin@link',
 				'ad' => 'admin@ad',
 				'tkreport' => 'admin@tkreport',
+                                'paixu' => 'admin@paixu',
 				'dbselect' => 'admin@dbselect',
 				'sqlout' => 'admin@sqlout',
 				'updateyj' => 'admin@updateyj',

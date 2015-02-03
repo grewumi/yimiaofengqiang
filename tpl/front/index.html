@@ -64,13 +64,17 @@ $(document).ready(function(e) {
             effect: "fadeIn", 
             failurelimit: 10
         });
-        $("#search_key").click(function(){
-            console.log($("#search_key").attr("href"));
-        });
+        
 })
 </script>
+<script type="text/javascript">
+    function autoclick(){
+        lnk = document.getElementById("search_key");
+        lnk.click();
+    }
+</script>
 </head>
-<body>
+<body onload="autoclick()">
 {include file="front/head.html" cache_liftetime=500}
 <div class="around-index">
 	<div class="main-index">

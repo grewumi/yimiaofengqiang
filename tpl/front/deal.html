@@ -46,12 +46,13 @@ $(document).ready(function(e) {
 			<span class="time">开始时间：{$pro.postdt}</span>
 			<del class="oprice">市场价:￥{$pro.oprice}元</del>
 			<span class="nprice">￥{$pro.nprice}</span><br/>
-			<span class="buy" style="position:relative;">立即购买
-				<a class="normal" href="{$pro.link}"></a>
-                                {if $single}
-                                <a isconvert=1 data-itemid="{$pro.iid}" target="_blank"></a>
-                                {/if}
-                        </span>
+                        {if $single}
+                            <a isconvert=1 data-itemid="{$pro.iid}" target="_blank">
+                        {else}
+                            <a href="{$pro.link}" target="_blank">
+                        {/if}
+                            <span class="buy" style="position:relative;">立即购买</span>
+                        </a>
 			<div class="clearfix"></div>
 		</div>
                 <div class="hr"></div>

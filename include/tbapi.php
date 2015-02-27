@@ -206,6 +206,7 @@ function getItemDetail($num_iid,$mode=1){
 				"postdt"=>date("Y-m-d"),
 				"ischeck"=>1,
 				"volume"=>$volume,
+                                "slink"=>$result['seller_id'],
 			);
 			$item['title'] = preg_replace('/¡¾.+?¡¿/i','',$item['title']);
 			//var_dump($item);

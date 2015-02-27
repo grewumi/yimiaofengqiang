@@ -37,6 +37,11 @@ class main extends spController{
 		$id = $this->spArgs('id');
 		$pros = spClass("m_pro");
 		$pro = $pros->find(array('id'=>$id));
+                // 获取seller_id
+                import("tbapi.php");
+                $seller_id = getItemDetail($pro['iid']);
+                $pro['sid'] = $seller_id['slink'];
+                // END 获取seller_id
                 if($pro){
                     $frompt = spClass("m_actfrom")->find(array('id'=>$pro['act_from']));
                     $ptname = $frompt['name'];

@@ -141,7 +141,8 @@ class admin extends spController{
                 $yqtout[$i][4] = $outs[$i]['nprice'];
                 $yqtout[$i][5] = $outs[$i]['oprice'];
                 $yqtout[$i][6] = $outs[$i]['volume'];
-                $yqtout[$i][7] = getshorturl('http://www.yimiaofengqiang.com/main/deal/id/'.$outs[$i]['id'].'.html');
+                $yqtout[$i][7] = 'http://www.yimiaofengqiang.com/main/deal/id/'.$outs[$i]['id'].'.html';
+                $yqtout[$i][7] = getshorturl($yqtout[$i][7]);
                 $yqtout[$i][8] = $outs[$i]['commission_rate'];
                 if($outs[$i]['shopshow'])
                     $yqtout[$i][9] = 'false';

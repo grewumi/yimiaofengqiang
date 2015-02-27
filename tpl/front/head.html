@@ -24,9 +24,18 @@
 		<div class="logo"></div>
 		<div class="searchitem">
 			<form action="{spUrl c=main a=index}" method=POST>
-				<input class="sbox" name="searchKey" />
+				<input class="sbox" name="searchKey" value="来搜一下吧" style="color:gray;"/>
 				<input class="spress" type="submit" value="搜索" />
 			</form>
+                        <script type="text/javascript">
+                            $(function(){
+                                $(".sbox").focus(function(){
+                                    console.log("获取焦点！");
+                                }).blur(function(){
+                                    console.log("失去焦点！");
+                                });
+                            });
+                     </script>
 		</div>
 		<div style="display:none;float:right;color:#fff;font-size:20px;margin:-40px 40px 0px 0px;">
 			站外地址:http://www.yimiaofengqiang.com<br/>

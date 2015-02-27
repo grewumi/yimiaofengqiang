@@ -22,7 +22,13 @@ function get_url_content($url) {
 		return $contents;
 	}
 }
-
+ function getshorturl($long_url){
+     $apiKey = '3780574640';
+     $apiUrl = 'http://api.t.sina.com.cn/short_url/shorten.json?source='.$apiKey.'&url_long='.$long_url;
+     $response = file_get_contents($apiUrl);
+     $json = object_to_array(json_decode($response));
+     return $json[0]['url_short'];
+}
 // N维数组去空值
 function array_no_empty($arr) {
     if (is_array($arr)) {

@@ -131,8 +131,8 @@ class admin extends spController{
             $pros = spClass("m_pro");
             $where = 'st<=curdate() and et>=curdate() and ischeck=1 and type!=87';
             $order = 'rank asc,postdt desc';
-            $where .= ' and classification=2';
-            $outs = $pros->findAll($where,$order);
+//            $where .= ' and classification=2';
+            $outs = $pros->findAll($where,$order,'','480');
             for($i=0;$i<count($outs);$i++){
                 $yqtout[$i][0] = $outs[$i]['pic'];
                 $yqtout[$i][1] = $outs[$i]['iid'];
@@ -141,7 +141,7 @@ class admin extends spController{
                 $yqtout[$i][4] = $outs[$i]['nprice'];
                 $yqtout[$i][5] = $outs[$i]['oprice'];
                 $yqtout[$i][6] = $outs[$i]['volume'];
-                $yqtout[$i][7] = 'http://www.yimiaofengqiang.com/main/deal/id/'.$outs[$i]['id'].'.html';
+                $yqtout[$i][7] = getshorturl('http://www.yimiaofengqiang.com/main/deal/id/'.$outs[$i]['id'].'.html');
                 $yqtout[$i][8] = $outs[$i]['commission_rate'];
                 if($outs[$i]['shopshow'])
                     $yqtout[$i][9] = 'false';

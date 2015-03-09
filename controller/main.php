@@ -53,7 +53,7 @@ class main extends spController{
                     header("Location:/");
                 }
                 $this->dujia = json_decode(file_get_contents("http://www-1.yimiaofengqiang.com/?jsonp=1&othersync=1&touz=1"),1);
-//                var_dump($this->dujia);
+                var_dump($this->dujia);
 		$this->display("front/deal.html");
 	}
 	
@@ -197,13 +197,21 @@ class main extends spController{
                 }else{
                     if($jsonp){ 
                         if($othersync){
-                            foreach($itemsC1 as $k=>&$iv){
-                                foreach($iv as $k=>&$v){
-                                    $v['title'] = iconv('gbk','utf-8',$v['title']);
+                            for($i=0;$i<count($itemsC1);$i++){
+                                for($j=0;$j<count($itemsC1[$i]);$j++){
+                                    $itemsC1[$i][$j]['title'] = iconv('gbk','utf-8',$itemsC1[$i][$j]['title']);
                                     if($touz)
-                                        $v['uzid'] = getidfromiidforuz($v['iid']);
-                                }   
+                                         $itemsC1[$i][$j]['uzid'] = getidfromiidforuz($itemsC1[$i][$j]['iid']);
+                                }
                             }
+//                            foreach($itemsC1 as $k=>&$iv){
+//                                foreach($iv as $k=>&$v){
+//                                    $v['title'] = iconv('gbk','utf-8',$v['title']);
+//                                    if($touz)
+//                                        $v['uzid'] = getidfromiidforuz($v['iid']);
+//                                }   
+//                            }
+                            var_dump($itemsC1);
                             echo json_encode($itemsC1);
                         }else{
                             foreach($itemList as $k=>&$iv){

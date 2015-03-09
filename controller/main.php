@@ -52,7 +52,8 @@ class main extends spController{
                 }else{
                     header("Location:/");
                 }
-                $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
+                $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1&touz=1"),1);
+//                var_dump($this->dujia);
 		$this->display("front/deal.html");
 	}
 	
@@ -79,6 +80,7 @@ class main extends spController{
 		header("Access-Control-Allow-Origin:*");
 		$jsonp = $this->spArgs('jsonp');
                 $othersync = $this->spArgs('othersync');
+                $touz = $this->spArgs('touz');
 		// ËÑË÷
 		$searchKey = $this->spArgs('searchKey');
 		$q = urldecode($this->spArgs('q'));
@@ -196,9 +198,11 @@ class main extends spController{
                     if($jsonp){ 
                         if($othersync){
                             foreach($itemsC1 as $k=>&$iv){
-                                    foreach($iv as $k=>&$v){
-                                            $v['title'] = iconv('gbk','utf-8',$v['title']);
-                                    }
+                                foreach($iv as $k=>&$v){
+                                    $v['title'] = iconv('gbk','utf-8',$v['title']);
+                                    if($touz)
+                                        $v['uzid'] = getidfromiidforuz($v['iid']);
+                                }   
                             }
                             echo json_encode($itemsC1);
                         }else{

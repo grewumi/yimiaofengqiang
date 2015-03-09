@@ -7,7 +7,15 @@ function getapiurl($website){
 	$apiIp = '121.199.33.15';
 	return 'http://'.$apiIp.'/uzcaiji/type/'.$website.'.html';
 }
-
+function getidfromiidforuz($iid){
+    $uziteminfo = file_get_contents('http://yinxiang.uz.taobao.com/d/getidfromiid?iid='.$iid);
+    $uziteminfo = object_to_array(json_decode($uziteminfo));
+    $uzid = $uziteminfo['id'];
+    if($uzid!='null')
+        return $uzid;
+    else
+        return null;
+}
 function get_url_content($url) {
 	$contents=file_get_contents($url);
 	if($contents){

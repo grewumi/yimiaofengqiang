@@ -52,7 +52,7 @@ class main extends spController{
                 }else{
                     header("Location:/");
                 }
-                $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1&touz=1"),1);
+                $this->dujia = json_decode(file_get_contents("http://www-1.yimiaofengqiang.com/?jsonp=1&othersync=1&touz=1"),1);
 //                var_dump($this->dujia);
 		$this->display("front/deal.html");
 	}

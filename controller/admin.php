@@ -501,6 +501,8 @@ class admin extends spController{
 		
 	}
         public function postDateToEachUz($item){
+            var_dump($item);
+            echo json_encode($item);
             foreach($GLOBALS['G_SP']['ajaxToWhich'] as $k=>$v){
                 if($v){
 //                    $this->postDataToUzPhp($item,$k);
@@ -512,7 +514,7 @@ class admin extends spController{
                                             'content'=>$contents,
                                             'timeout'=>900,
                             ));
-                    var_dump(json_decode($itemEncode,1));
+//                    var_dump(json_decode($itemEncode,1));
 //                    $context = stream_context_create($opts);
 //                    $url = "http://www.432gou.com/?c=admin&a=postDataToUzPhpForYmfq";
 //                    $html = @file_get_contents($url, false, $context);

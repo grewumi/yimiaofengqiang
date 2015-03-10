@@ -505,8 +505,8 @@ class admin extends spController{
                 if($v){
 //                    $this->postDataToUzPhp($item,$k);
                     $url = "http://www.432gou.com/?c=admin&a=postDataToUzPhpForYmfq&item=".urlencode(json_encode($item))."&uz=".$k;
-                    echo $url.'<br />';
-//                    echo file_get_contents($url);
+//                    echo $url.'<br />';
+                    echo file_get_contents($url);
                 }
             }
 //            $this->postDataToUzPhp($item,'admin');

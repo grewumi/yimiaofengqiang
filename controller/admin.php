@@ -501,6 +501,7 @@ class admin extends spController{
 		
 	}
         public function postDateToEachUz($item){
+            var_dump($item);
             foreach($GLOBALS['G_SP']['ajaxToWhich'] as $k=>$v){
                 if($v){
 //                    $this->postDataToUzPhp($item,$k);

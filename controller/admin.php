@@ -504,9 +504,9 @@ class admin extends spController{
             foreach($GLOBALS['G_SP']['ajaxToWhich'] as $k=>$v){
                 if($v){
 //                    $this->postDataToUzPhp($item,$k);
-                    $itemEncode = urlencode(iconv('gbk','utf-8',json_encode($item)));
+                    $itemEncode = rawurlencode(json_encode($item));
                     $url = "http://www.432gou.com/?c=admin&a=postDataToUzPhpForYmfq&item=".$itemEncode."&uz=".$k;
-                    var_dump(json_decode(iconv('utf-8','gbk',urldecode($itemEncode))),1);
+                    var_dump(json_decode(rawurldecode($itemEncode)),1);
 //                    echo $url.'<br />';
 //                    echo file_get_contents($url);
                 }

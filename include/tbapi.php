@@ -108,7 +108,8 @@ function getPcid($cid){
 }
 
 function getPcidNew($cid){
-	$resp = file_get_contents('http://tiangou.uz.taobao.com/top/getpcid.php?jsonp=1&id='.$cid);
+//	$resp = file_get_contents('http://tiangou.uz.taobao.com/top/getpcid.php?jsonp=1&id='.$cid);
+        $resp = file_get_contents('http://www.432gou.com/?c=admin&a=getpcid&cid='.$cid);
         $resp = json_decode(iconv('gbk','utf-8',trim($resp)),1);
         if($resp){
             $resp = array_multi2single($resp);
@@ -240,7 +241,8 @@ function getItemDetail($num_iid,$mode=1){
 
 function getItemNew($num_iid,$mode='taoke'){
 	if($mode == 'normal'){
-		$resp = file_get_contents('http://tiangou.uz.taobao.com/top/1.php?id='.$num_iid);
+//		$resp = file_get_contents('http://tiangou.uz.taobao.com/top/1.php?id='.$num_iid);
+                $resp = file_get_contents('http://www.432gou.com/?c=admin&a=getitem&iid='.$num_iid);
                 $resp = json_decode(iconv('gbk','utf-8',trim($resp)),1);
                 if($resp){
                     $resp = array_multi2single($resp);

@@ -501,11 +501,11 @@ class admin extends spController{
 		
 	}
         public function postDateToEachUz($item){
-            foreach($item as $k=>&$v){
-                $v['title'] = iconv('gbk','utf-8',$v['title']);
-                $v['nick'] = iconv('gbk','utf-8',$v['nick']);
-                $v['ww'] = iconv('gbk','utf-8',$v['ww']);
-            }
+            
+            $item['title'] = iconv('gbk','utf-8',$item['title']);
+            $item['nick'] = iconv('gbk','utf-8',$item['nick']);
+            $item['ww'] = iconv('gbk','utf-8',$item['ww']);
+            
             $itemEncode = urlencode(json_encode($item));
             foreach($GLOBALS['G_SP']['ajaxToWhich'] as $k=>$v){
                 if($v){

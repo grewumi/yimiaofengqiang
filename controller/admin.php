@@ -424,19 +424,7 @@ class admin extends spController{
 					if($art){	//修改成功后跳转
 						$submitTips = '添加成功';
                                                 if($GLOBALS['G_SP']['ajaxToUz']['addpro']){
-                                                    $this->postDataToUzPhp($item,'admin');
-                                                    if($GLOBALS['G_SP']['ajaxToWhich']['youpinba'])
-                                                         $this->postDataToUzPhp($item,'youpinba');
-                                                    if($GLOBALS['G_SP']['ajaxToWhich']['okbuy'])
-                                                         $this->postDataToUzPhp($item,'okbuy');
-                                                    if($GLOBALS['G_SP']['ajaxToWhich']['mplife'])
-                                                         $this->postDataToUzPhp($item,'mplife');
-                                                    if($GLOBALS['G_SP']['ajaxToWhich']['viphuiyuan'])
-                                                         $this->postDataToUzPhp($item,'viphuiyuan');
-                                                    if($GLOBALS['G_SP']['ajaxToWhich']['tiangou'])
-                                                         $this->postDataToUzPhp($item,'tiangou');
-                                                    if($GLOBALS['G_SP']['ajaxToWhich']['jumei'])
-                                                         $this->postDataToUzPhp($item,'jumei');
+                                                    $this->postDateToEachUz($item);
                                                 }
 //						header("Location:".$referUrl);
 					}else
@@ -506,24 +494,33 @@ class admin extends spController{
                 if($pros->delete(array('id'=>$id))){
                     $item = array('iid'=>$iteminfo['iid'],'del'=>1);
                     if($GLOBALS['G_SP']['ajaxToUz']['delpro']){
-                        $this->postDataToUzPhp($item,'admin');
-                        if($GLOBALS['G_SP']['ajaxToWhich']['youpinba'])
-                             $this->postDataToUzPhp($item,'youpinba');
-                        if($GLOBALS['G_SP']['ajaxToWhich']['okbuy'])
-                             $this->postDataToUzPhp($item,'okbuy');
-                        if($GLOBALS['G_SP']['ajaxToWhich']['mplife'])
-                             $this->postDataToUzPhp($item,'mplife'); 
-                        if($GLOBALS['G_SP']['ajaxToWhich']['viphuiyuan'])
-                            $this->postDataToUzPhp($item,'viphuiyuan');
-                        if($GLOBALS['G_SP']['ajaxToWhich']['tiangou'])
-                            $this->postDataToUzPhp($item,'tiangou');
-                        if($GLOBALS['G_SP']['ajaxToWhich']['jumei'])
-                            $this->postDataToUzPhp($item,'jumei');
+                        $this->postDateToEachUz($item);
                     }
 //                    header("Location:".$referUrl);
                 }
 		
 	}
+        public function postDateToEachUz($item){
+            foreach($GLOBALS['G_SP']['ajaxToWhich'] as $k=>$v){
+                if($v){
+//                    $this->postDataToUzPhp($item,$k);
+                    echo file_get_contents("http://www.432gou.com/?c=admin&a=postDataToUzPhpForYmfq&item=".json_encode($item)."&uz=".$k);
+                }
+            }
+//            $this->postDataToUzPhp($item,'admin');
+//            if($GLOBALS['G_SP']['ajaxToWhich']['youpinba'])
+//                 $this->postDataToUzPhp($item,'youpinba');
+//            if($GLOBALS['G_SP']['ajaxToWhich']['okbuy'])
+//                 $this->postDataToUzPhp($item,'okbuy');
+//            if($GLOBALS['G_SP']['ajaxToWhich']['mplife'])
+//                 $this->postDataToUzPhp($item,'mplife'); 
+//            if($GLOBALS['G_SP']['ajaxToWhich']['viphuiyuan'])
+//                $this->postDataToUzPhp($item,'viphuiyuan');
+//            if($GLOBALS['G_SP']['ajaxToWhich']['tiangou'])
+//                $this->postDataToUzPhp($item,'tiangou');
+//            if($GLOBALS['G_SP']['ajaxToWhich']['jumei'])
+//                $this->postDataToUzPhp($item,'jumei');
+        }
 	// 商品修改
 	public function modpro($mode='pro'){
 		
@@ -595,19 +592,7 @@ class admin extends spController{
 				$submitTips = '修改成功';
 //                                var_dump($item);
                                 if($GLOBALS['G_SP']['ajaxToUz']['modpro']){
-                                    $this->postDataToUzPhp($item,'admin');
-                                    if($GLOBALS['G_SP']['ajaxToWhich']['youpinba'])
-                                         $this->postDataToUzPhp($item,'youpinba');
-                                    if($GLOBALS['G_SP']['ajaxToWhich']['okbuy'])
-                                         $this->postDataToUzPhp($item,'okbuy');
-                                    if($GLOBALS['G_SP']['ajaxToWhich']['mplife'])
-                                         $this->postDataToUzPhp($item,'mplife');
-                                    if($GLOBALS['G_SP']['ajaxToWhich']['viphuiyuan'])
-                                        $this->postDataToUzPhp($item,'viphuiyuan');
-                                    if($GLOBALS['G_SP']['ajaxToWhich']['tiangou'])
-                                        $this->postDataToUzPhp($item,'tiangou');
-                                    if($GLOBALS['G_SP']['ajaxToWhich']['jumei'])
-                                        $this->postDataToUzPhp($item,'jumei');
+                                    $this->postDateToEachUz($item);
                                 }
 //				if($this->mode!='try')
 //					header("Location:".$referUrl);

@@ -507,20 +507,20 @@ class admin extends spController{
             $item['ww'] = iconv('gbk','utf-8',$item['ww']);
             
             $itemEncode = urlencode(json_encode($item));
-            echo "编码后输出<br />";
-            echo $itemEncode;
-            echo "解码后输出<br />";
-            $itemDecode = json_decode(urldecode($itemEncode),1); 
-            $itemDecode['title'] = iconv('utf-8','gbk',$itemDecode['title']);
-            $itemDecode['nick'] = iconv('utf-8','gbk',$itemDecode['nick']);
-            $itemDecode['ww'] = iconv('utf-8','gbk',$itemDecode['ww']);
-            var_dump($itemDecode);
+//            echo "编码后输出<br />";
+//            echo $itemEncode;
+//            echo "解码后输出<br />";
+//            $itemDecode = json_decode(urldecode($itemEncode),1); 
+//            $itemDecode['title'] = iconv('utf-8','gbk',$itemDecode['title']);
+//            $itemDecode['nick'] = iconv('utf-8','gbk',$itemDecode['nick']);
+//            $itemDecode['ww'] = iconv('utf-8','gbk',$itemDecode['ww']);
+//            var_dump($itemDecode);
             
             foreach($GLOBALS['G_SP']['ajaxToWhich'] as $k=>$v){
                 if($v){
 //                    $this->postDataToUzPhp($item,$k);
                     $url = "http://www.432gou.com/?c=admin&a=postDataToUzPhpForYmfq&item=".$itemEncode."&uz=".$k;
-                    echo $url;
+//                    echo $url;
                     echo file_get_contents($url);
                 }
             }

@@ -52,8 +52,7 @@ class main extends spController{
                 }else{
                     header("Location:/");
                 }
-                $this->dujia = json_decode(file_get_contents("http://www-1.yimiaofengqiang.com/?jsonp=1&othersync=1&touz=1"),1);
-                var_dump($this->dujia);
+                $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
 		$this->display("front/deal.html");
 	}
 	
@@ -197,21 +196,19 @@ class main extends spController{
                 }else{
                     if($jsonp){ 
                         if($othersync){
-                            for($i=0;$i<count($itemsC1);$i++){
-                                for($j=0;$j<count($itemsC1[$i]);$j++){
-                                    $itemsC1[$i][$j]['title'] = iconv('gbk','utf-8',$itemsC1[$i][$j]['title']);
-                                    if($touz)
-                                         $itemsC1[$i][$j]['uzid'] = getidfromiidforuz($itemsC1[$i][$j]['iid']);
-                                }
-                            }
-//                            foreach($itemsC1 as $k=>&$iv){
-//                                foreach($iv as $k=>&$v){
-//                                    $v['title'] = iconv('gbk','utf-8',$v['title']);
+//                            for($i=0;$i<count($itemsC1);$i++){
+//                                for($j=0;$j<count($itemsC1[$i]);$j++){
+//                                    echo $itemsC1[$i][$j]['title'];
+//                                    $itemsC1[$i][$j]['title'] = iconv('gbk','utf-8',$itemsC1[$i][$j]['title']);
 //                                    if($touz)
-//                                        $v['uzid'] = getidfromiidforuz($v['iid']);
-//                                }   
+//                                         $itemsC1[$i][$j]['uzid'] = getidfromiidforuz($itemsC1[$i][$j]['iid']);
+//                                }
 //                            }
-                            var_dump($itemsC1);
+                            foreach($itemsC1 as $k=>&$iv){
+                                foreach($iv as $k=>&$v){
+                                    $v['title'] = iconv('gbk','utf-8',$v['title']);
+                                }   
+                            }
                             echo json_encode($itemsC1);
                         }else{
                             foreach($itemList as $k=>&$iv){

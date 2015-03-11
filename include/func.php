@@ -37,6 +37,7 @@ function get_contents($url){
 //	}elseif(function_exists("curl_init")){
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
+                echo $GLOBALS['G_SP']['randip'];
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-FORWARDED-FOR:'.$GLOBALS['G_SP']['randip'], 'CLIENT-IP:'.$GLOBALS['G_SP']['randip']));//Œ±‘ÏIP
 		$contents = curl_exec($ch);
                 curl_close($ch);

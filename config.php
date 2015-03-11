@@ -148,7 +148,7 @@ $spConfig = array(
         ),
         'autocat'=>true
 );
-
+$spConfig['randip'] = '121.199.33.15';
 if(LOCALDEVELOP){
     $spConfig['ajaxToUz'] = null;
     unset($spConfig['mode']);

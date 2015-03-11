@@ -31,10 +31,10 @@ function get_url_content($url) {
 	}
 }
 function get_contents($url){
-	$contents=file_get_contents($url);
-	if($contents){
-		return $contents;
-	}elseif(function_exists("curl_init")){
+//	$contents=file_get_contents($url);
+//	if($contents){
+//		return $contents;
+//	}elseif(function_exists("curl_init")){
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-FORWARDED-FOR:'.$GLOBALS['G_SP']['randip'], 'CLIENT-IP:'.$GLOBALS['G_SP']['randip']));//Œ±‘ÏIP
@@ -46,7 +46,7 @@ function get_contents($url){
                     $GLOBALS['G_SP']['randip'] = getRandIp();
                     get_contents($url);
                 }
-	}
+//	}
 }
 function getRandIp(){
     $ip_long = array(

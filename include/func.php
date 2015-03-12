@@ -43,13 +43,13 @@ function get_contents($url){
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
 		$contents = curl_exec($ch);
                 curl_close($ch);
-                if(is_array(json_decode(iconv('gbk','utf-8',trim($contents)),1))){
-//                    var_dump(json_decode(iconv('gbk','utf-8',trim($contents)),1));
-                    return $contents;
-                }else{
-                    $GLOBALS['G_SP']['randip'] = getRandIp();
-                    get_contents($url);
-                }
+                return $contents;
+//                if(is_array(json_decode(iconv('gbk','utf-8',trim($contents)),1))){
+//                    return $contents;
+//                }else{
+//                    $GLOBALS['G_SP']['randip'] = getRandIp();
+//                    get_contents($url);
+//                }
 //	}
 }
 function getRandIp(){

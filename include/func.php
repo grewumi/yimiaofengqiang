@@ -35,12 +35,10 @@ function get_contents($url){
 //	if($contents){
 //		return $contents;
 //	}elseif(function_exists("curl_init")){
+                $proxy = 'http://120.198.243.54:80';
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
-                //curl_setopt($c, CURLOPT_HEADER, 1);//输出远程服务器的header信息
-                curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727;http://www.5lulu.com)');
-                $GLOBALS['G_SP']['randip'] = getRandIp();
-                curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-FORWARDED-FOR:'.$GLOBALS['G_SP']['randip'], 'CLIENT-IP:'.$GLOBALS['G_SP']['randip']));//伪造IP
+                curl_setopt ($ch, CURLOPT_PROXY, $proxy);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
 		$contents = curl_exec($ch);
                 curl_close($ch);

@@ -30,7 +30,7 @@ class UzCaiji{
 		if($website){
 			if($website=='huiyuangou'){ // 会员购
 				$this->url = 'http://huiyuangou.uz.taobao.com/';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 //				echo $result;
 				
                                 // 每日特惠
@@ -65,7 +65,7 @@ class UzCaiji{
 
 				if($mode==3){ // 返回要采集的页数,九块邮新品为45个一页
 					$this->url = 'http://jiukuaiyoucom.uz.taobao.com/';
-					$result = file_get_contents($this->url);
+					$result = get_contents($this->url);
 				                                      
 					$ptn = '/<div class="head"(.+?)class="main"/is';
 					preg_match_all($ptn,$result,$jiuarr,PREG_SET_ORDER);
@@ -90,7 +90,7 @@ class UzCaiji{
                                             
                                             foreach($catItemsUrl as $cat=>$url){
                                                 
-                                                $result = file_get_contents($url);
+                                                $result = get_contents($url);
                                                 
                                                 $content = getcaijicontent($result,$contentptn,$singleptn);
                                                   
@@ -106,7 +106,7 @@ class UzCaiji{
                                             }
                                         }else{
                                             
-                                            $result = file_get_contents($catItemsUrl);
+                                            $result = get_contents($catItemsUrl);
                                             					
                                             $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
                                             $res = json_decode(json_encode($res),true);
@@ -125,7 +125,7 @@ class UzCaiji{
 				}
 			}elseif($website=='mytehui'){ // VIP特惠
 				$this->url = 'http://mytehui.uz.taobao.com/';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				// 匹配爆款
 				$thptn = '/id="main"(.+?)class="tmcon"(.+?)class="ygtm"/is';
 				preg_match_all($thptn,$result,$bkarr,PREG_SET_ORDER);
@@ -183,7 +183,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='vipgouyouhui'){ // VIP购优惠
 				$this->url = 'http://vipgouyouhui.uz.taobao.com/';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$gyhptn = '/class="Container"(.+?)class="indexcontent"(.+?)class="banner"(.+?)class="banner_list"(.+?)<\/div>(.+?)VIP专享(.+?)>(\d+\.?\d+)<\/span>(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)style="clear:both;"/is';
 				preg_match_all($gyhptn,$result,$gyharr,PREG_SET_ORDER);
 				foreach($gyharr as $k => $v){
@@ -251,7 +251,7 @@ class UzCaiji{
 			}elseif($website=='juanpi'){ // 卷皮折扣
 				if($mode==3){ // 返回要采集的页数,九块邮新品为45个一页
 					$this->url = 'http://juanpi.uz.taobao.com/';
-					$result = file_get_contents($this->url);
+					$result = get_contents($this->url);
 						
 					$ptn = '/<div class="head"(.+?)class="main"/is';
 					preg_match_all($ptn,$result,$jiuarr,PREG_SET_ORDER);
@@ -270,7 +270,7 @@ class UzCaiji{
 					}
 				}else{				
 					$this->url = 'http://api.juanpi.com/open/juanpi';
-					$result = file_get_contents($this->url);
+					$result = get_contents($this->url);
 					$res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
                                         $res = json_decode(json_encode($res),true);
 
@@ -286,7 +286,7 @@ class UzCaiji{
 			}elseif($website=='zhe800'){ // 折800
 				// 采集9.9包邮 
 				$this->url = 'http://zhe800.uz.taobao.com/d/99?zone_id=1';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				// 卖光的替换成空
 				$result = preg_replace('/<div class="deal figure1 zt3">(.+?)<\/div>/is','',$result);
 				// 没开始的也替换成空
@@ -304,7 +304,7 @@ class UzCaiji{
 				
 				// 采集20封顶 
 				$this->url = 'http://zhe800.uz.taobao.com/d/20feng?zone_id=2';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$result = preg_replace('/<div class="deal figure1 zt3">(.+?)<\/div>/is','',$result);
 				$zhe20ptn = '/<div class="area">(.*)<\/div>/is';
 				preg_match_all($zhe20ptn,$result,$zhe20arr,PREG_SET_ORDER);
@@ -321,7 +321,7 @@ class UzCaiji{
 			}elseif($website=='zhuanbao'){ // 开心赚宝
 				//$this->url = 'http://zhuanbao.uz.taobao.com/zhuanbao.php?page='.$page;
 				$this->url = 'http://zhuanbao.uz.taobao.com';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				//echo $result;
 				$zbptn = '/class="zk_main"(.+?)class="zk_inner(.+?)class="zk_page"/is';
 				preg_match_all($zbptn,$result,$zbarr,PREG_SET_ORDER);
@@ -339,7 +339,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='10mst'){ // 秒杀通
 				$this->url = 'http://10mst.uz.taobao.com/d/seckill?cat=all&by=new&page='.$page;
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				//echo $result;
 				$mstptn = '/<div class="lx-item-list">(.+?)<div class="lx-page-area">/is';
 				preg_match_all($mstptn,$result,$mstarr,PREG_SET_ORDER);				
@@ -356,7 +356,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='qiang'){ // 抢牛品
 				$this->url = 'http://201314.uz.taobao.com/';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$qiangptn = '/<div class="homeBody">(.+?)<div class="home_links">/is';				
 				preg_match_all($qiangptn,$result,$qiangarr,PREG_SET_ORDER);
 				$qiangptn = '/<div class="goodsItem">(.+?)class="price"(.+?)<\/em>(.+?)<\/span>(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<\/h5>/is';
@@ -371,7 +371,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='tealife'){ // 淘牛品
 				$this->url = 'http://tealife.uz.taobao.com/';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				// 精品推荐
 				$teaptn = '/class="col-md-3(.+?)class="pull-left(.+?)class="front-spt"(.+?)<\/i>(.+?)<\/div>(.+?)class="btn-purchase(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)/is';
 				preg_match_all($teaptn,$result,$teaarr,PREG_SET_ORDER);
@@ -390,7 +390,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='taofen8'){ // 外站  淘粉吧
 				$this->url = 'http://www.taofen8.com/';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$tf8ptn = '/class="tf8_sp-1"(.+?)class="tf8_pagediv-1"/is';
 				preg_match_all($tf8ptn,$result,$tf8arr,PREG_SET_ORDER);
 				$tf8ptn = '/<li(.+?)class="tf8_spimg-1"(.+?)name="url_(\d+)"(.+?)class="tf8_shop"(.+?)class="tf8-index-d2"(.+?)class="tf8-d2-span2">(\d+\.?\d+)<\/span>(.+?)class="tf8-d2-span3"/is';
@@ -407,7 +407,7 @@ class UzCaiji{
 			}elseif($website=='legou'){ // 乐购
 				// 普通页面采集
 				$this->url = 'http://legou.uz.taobao.com/';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$lgptn = '/<div class="recpro_list">(.+?)class="oneminute"(.+?)<ul>(.+?)<\/ul>(.+?)class="go_more"/is';
 				preg_match_all($lgptn,$result,$lgarr,PREG_SET_ORDER);
 				$lgptn = '/<li>(.+?)class="pro_buy"(.+?)class="price"(.+?)<\/b>(\d+\.?\d+)<\/span>(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<\/li>/is';
@@ -417,7 +417,7 @@ class UzCaiji{
 				} 
 				// 接口采集
 				/* $this->url = 'http://legou.uz.taobao.com/view/front/legouout.php';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$lgptn = '/class="taeapp"(.+?)>(.+?)<\/div>(.+?)id="footer"/is';
 				preg_match_all($lgptn,$result,$lgarr,PREG_SET_ORDER);
 				$lgptn = '/<div class="item">(.+?)class="iid">(\d+)<\/span>(.+?)class="nprice">(\d+\.?\d+)<\/span>(.+?)class="volume">(\d+)<\/span>(.+?)<br\/>/is';
@@ -433,7 +433,7 @@ class UzCaiji{
 				//echo json_encode($this->items);
 			}elseif($website=='vipzxhd'){
 				$this->url = 'http://ttvip.uz.taobao.com';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$zxhdptn = '/class="piece_box"(.+?)class="page_div/is';
 				preg_match_all($zxhdptn,$result,$zxhdarr,PREG_SET_ORDER);
 				//print_r($zxhdarr);
@@ -458,7 +458,7 @@ class UzCaiji{
 				//echo json_encode($this->items);
 			}elseif($website=='tejiayitian'){
 				$this->url = 'http://tejiayitian.uz.taobao.com/';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$tjytptn = '/class="hot"(.+?)class="slide"/is';
 				preg_match_all($tjytptn,$result,$tjytarr,PREG_SET_ORDER);
 				$bkR = $tjytarr[0][0]; // 爆款
@@ -503,7 +503,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='tejiafengqiang'){
 				$this->url = 'http://jianshi.uz.taobao.com/d/index?page='.$page;
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$tjfqptn = '/class="container(.+?)class="recpro_list"(.+?)class="pagination"/is';
 				preg_match_all($tjfqptn,$result,$tjfqarr,PREG_SET_ORDER);
 				$tjfqptn = '/<li>(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)class="price_list_sale"(.+?)<em>(\d+\.?\d+)<\/em>(.+?)<\/li>/is';
@@ -519,7 +519,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='mao'){
 				$this->url = 'http://ju.tejiamao.com/page/u/shouye-geilimao-9.9.xml';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
                                 $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
                                 $res = json_decode(json_encode($res),true);
 				foreach($res['tejiamao']['item'] as $k => $v){
@@ -528,7 +528,7 @@ class UzCaiji{
                                 $tejiamao['mao99'] = $mao99;
                                 
                                 $this->url = 'http://ju.tejiamao.com/page/u/shouye-geilimao-19.9.xml';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
                                 $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
                                 $res = json_decode(json_encode($res),true);
 				foreach($res['tejiamao']['item'] as $k => $v){
@@ -537,7 +537,7 @@ class UzCaiji{
                                 $tejiamao['mao199'] = $mao199;
                                 
                                 $this->url = 'http://ju.tejiamao.com/page/u/shouye-geilimao-zhe.xml';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
                                 $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
                                 $res = json_decode(json_encode($res),true);
 				foreach($res['tejiamao']['item'] as $k => $v){
@@ -550,7 +550,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='mizheuz'){
 				$this->url = 'http://lanmama.uz.taobao.com';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				
 				// 米折九块九
 				$mizheuzptn = '/class="tuan-choice(.+?)span-19"(.+?)class="span-5/is';
@@ -594,7 +594,7 @@ class UzCaiji{
 				
 			}elseif($website=='ztbest'){
 				$this->url = 'http://ztbest.uz.taobao.com';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$ztbestptn = '/class="taeapp_aw2"(.+?)class="taeapp_aw"/is';
 				preg_match_all($ztbestptn,$result,$ztbestarr,PREG_SET_ORDER);
 				$jryxR =  $ztbestarr[0][1]; // 今日优选
@@ -637,7 +637,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='mmrizhi'){
 				$this->url = 'http://www.mmgou.org/item.php';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$mmrzptn = '/<tr>(.+?)<td(.+?)id="img">(.+?)<\/td>(.+?)<td(.+?)id="tejia">(.+?)<\/td>(.+?)<td(.+?)id="iid">(.+?)<\/td>(.+?)<\/tr>/is';
 				preg_match_all($mmrzptn,$result,$mmrzarr,PREG_SET_ORDER);
 				//print_r($mmrzarr);
@@ -652,7 +652,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='yuansu'){
 				$this->url = 'http://yuansu.uz.taobao.com/view/baohuasuan.php';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$yuansuptn = '/<table(.+?)class="img">(.+?)<\/td>(.+?)class="tejia">(.+?)<\/td>(.+?)class="iid">(.+?)<\/td>(.+?)<\/table>/is';
 				preg_match_all($yuansuptn,$result,$yuansuarr,PREG_SET_ORDER);
 				
@@ -671,7 +671,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='fengtao'){
 				/* $this->url = 'http://fengtao.uz.taobao.com';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$jrftptn = '/class="item_sy"(.+?)/is';
 				preg_match_all($jrftptn,$result,$jrftarr,PREG_SET_ORDER);
 				print_r($jrftarr);
@@ -680,7 +680,7 @@ class UzCaiji{
 					echo json_encode($this->items); */
 			}elseif($website=='youpinba'){
 				$this->url = 'http://youpinba.yimiaofengqiang.com/main/ju';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$qypptn = '/class="iid">(\d+)<\/td>(.+?)class="nprice">(\d+\.?\d+)<\/td>(.+?)class="pic">(.+?)<\/td>/is';
 				preg_match_all($qypptn,$result,$qyparr,PREG_SET_ORDER);
 				//print_r($qyparr);
@@ -693,7 +693,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='shiyonglianmeng'){
 				$this->url = 'http://shiyonglianmeng.uz.taobao.com/view/front/ju.php';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$sylmptn = '/class="iid">(\d+)<\/td>(.+?)class="nprice">(\d+\.?\d+)<\/td>(.+?)class="pic">(.+?)<\/td>/is';
 				preg_match_all($sylmptn,$result,$sylmarr,PREG_SET_ORDER);
 				//print_r($qyparr);
@@ -706,7 +706,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='jiejie'){
 				$this->url = 'http://jiejie.uz.taobao.com';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$zxhdptn = '/class="jiu_bd(.+?)style="width:1024px;/is';
 				preg_match_all($zxhdptn,$result,$zxhdarr,PREG_SET_ORDER);
 				$xlqg = $zxhdarr[0][0]; // 限量抢购
@@ -769,7 +769,7 @@ class UzCaiji{
 				//echo json_encode($this->items);
 			}elseif($website=='ifengqiang'){
 				$this->url = 'http://ifengqiang.uz.taobao.com/view/front/outzhaoshang.php';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$sylmptn = '/class="iid">(\d+)<\/td>(.+?)class="nprice">(\d+\.?\d+)<\/td>(.+?)class="pic">(.+?)<\/td>/is';
 				preg_match_all($sylmptn,$result,$sylmarr,PREG_SET_ORDER);
 				//print_r($qyparr);
@@ -782,7 +782,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='zhekouba'){
 				$this->url = 'http://www.432gou.com/?c=main&a=outzs';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$zhekouba = json_decode($result,true);
 				//var_dump($zhekouba);
 				$this->items = $zhekouba;
@@ -791,7 +791,7 @@ class UzCaiji{
 				
 			}elseif($website=='aitaoba'){
 				$this->url = 'http://aitaoba.uz.taobao.com';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$atbptn = '/class="show1"(.+?)class="good-title"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)class="price-current"(.+?)<\/em>(.+?)<\/span>(.+?)<\/li>/is';
 				preg_match_all($atbptn,$result,$atbarr,PREG_SET_ORDER);
 				foreach($atbarr as $k => $v){
@@ -803,7 +803,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='bujie'){
 				$this->url = 'http://www.bujie.com/api/bujie';
-				$result = file_get_contents($this->url);
+				$result = get_contents($this->url);
 				$ptn = '/<item><num_iid>(\d+)<\/num_iid>(.+?)<coupon_price>(\d+\.?\d+)<\/coupon_price>(.+?)<pic_url>(.+?)<\/pic_url>(.+?)<\/item>/is';
 				preg_match_all($ptn,$result,$arr,PREG_SET_ORDER);
 				foreach($arr as $k => $v){

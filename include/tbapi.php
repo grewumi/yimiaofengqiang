@@ -201,7 +201,7 @@ function getItemDetail($num_iid,$mode=1){
 				"oprice"=>$result['price'],			
 				"st"=>date("Y-m-d"),//商品上架时间
 				"et"=>date("Y-m-d",86400*7+time()),//商品下架时间
-				"cid"=>0,
+				"cid"=>$result['cid'],
 				"link"=>'http://item.taobao.com/item.htm?id='.$num_iid,
 				"rank"=>500,
 				"postdt"=>date("Y-m-d"),
@@ -220,8 +220,6 @@ function getItemDetail($num_iid,$mode=1){
 				$item['shopshow']=1;
 			// 是否vip打折商品
 			$item['shopv']=1;
-                        
-                        $cid = $result['cid'];
                         
                         $item['cat'] = 42;//默认其他分类
                         

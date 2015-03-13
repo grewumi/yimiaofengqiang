@@ -291,7 +291,7 @@ function array_multi2single($array){
 }
 function getcid($iid,$tmall){
     if($tmall){
-        $resp = file_get_contents('http://detail.tmall.com/item.htm?id='.$iid);
+        $resp = get_contents('http://detail.tmall.com/item.htm?id='.$iid);
         $rule  = '/TShop.Setup(.+?)"categoryId":"(\d+)"/is';
         preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
 //        echo $resp;
@@ -300,7 +300,7 @@ function getcid($iid,$tmall){
 //        var_dump($result);
         $cid = (int)$result[0][2];
     }else{
-        $resp = file_get_contents('http://item.taobao.com/item.htm?id='.$iid);
+        $resp = get_contents('http://item.taobao.com/item.htm?id='.$iid);
         $rule  = '/g_config.idata={(.+?)rcid(.+?),(.+?)\'(\d+)\',/is';
         preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
 //        var_dump($result);

@@ -73,6 +73,7 @@ function huoqu(){
 		    $("input#ww").val(dataObj.nick);
                     $("input#commissionrate").val(dataObj.commission_rate);
                     $("input#volume").val(dataObj.volume);
+                    $("#cat option[value='" + dataObj.cat + "']").attr("selected", true); 
 		    if(dataObj.carriage){
 		    	$(":radio[name='carriage'][value='1']").attr("checked","checked");
 		    }else{

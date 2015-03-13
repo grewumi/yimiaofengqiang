@@ -221,10 +221,7 @@ function getItemDetail($num_iid,$mode=1){
 			// 是否vip打折商品
 			$item['shopv']=1;
                         
-                        $cid = getcid($num_iid,$result['tmall']);//获取商品CID
-//                        echo $cid;
-                        if($cid)
-                            $item['cid'] = $cid;
+                        $cid = $result['cid'];
                         
                         $item['cat'] = 42;//默认其他分类
                         

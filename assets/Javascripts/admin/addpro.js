@@ -18,7 +18,9 @@ function huoquadd(){
                     $("input#commissionrate").val(dataObj.commission_rate);
                     $("input#volume").val(dataObj.volume);
                     
-		    if(dataObj.carriage){
+                    $("#cat option[value='" + dataObj.cat + "']").attr("selected", true); 
+		    
+                    if(dataObj.carriage){
 		    	$(":radio[name='carriage'][value='1']").attr("checked","checked");
 		    }else{
 		    	$(":radio[name='carriage'][value='0']").attr("checked","checked");

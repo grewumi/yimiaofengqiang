@@ -10,13 +10,13 @@
 function update_weibo_data(send_type){
     var ali_plug_flag = $('#ali_plug_flag').val();
     var ali_cookie = $('#ali_cookie').val();
-    var ali_site_id = $('#ali_site_id').val();
+//    var ali_site_id = $('#ali_site_id').val();
 
     //安装控件, 无cookie提示重新登陆
-    if(ali_plug_flag && !ali_site_id){
-       $.dialog.tips('重新登陆阿里妈妈, 登陆后刷新本页重试。',5,'hits.png');
-       return;
-    }
+//    if(ali_plug_flag && !ali_site_id){
+//       $.dialog.tips('重新登陆阿里妈妈, 登陆后刷新本页重试。',5,'hits.png');
+//       return;
+//    }
 
     var post_data = {
         "content" : "浏览链接>>>",

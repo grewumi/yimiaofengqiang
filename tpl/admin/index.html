@@ -5,6 +5,7 @@
 <title>后台  - 管理首页</title>
 <link rel="stylesheet" href="/assets/stylesheets/admin/head.css" />
 <link rel="stylesheet" href="/assets/stylesheets/admin/index.css" />
+<script type="text/javascript"  src="/assets/Javascripts/jquery-2.0.3.min.js"></script>
 <script type="text/javascript">
 function update_weibo_data(send_type){
     var ali_plug_flag = $('#ali_plug_flag').val();
@@ -44,8 +45,10 @@ function update_weibo_data(send_type){
 }
 </script>
 <script type="text/javascript">
-$("#send_now").click(function(){
-    update_weibo_data('now');
+$(document).ready(function(){
+    $("#send_now").click(function(){
+        update_weibo_data('now');
+    });
 });
 </script>
 </head>

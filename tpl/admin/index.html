@@ -6,9 +6,6 @@
 <link rel="stylesheet" href="/assets/stylesheets/admin/head.css" />
 <link rel="stylesheet" href="/assets/stylesheets/admin/index.css" />
 <script type="text/javascript">
-$("#send_now").click(function(){
-    update_weibo_data('now');
-});
 function update_weibo_data(send_type){
     var ali_plug_flag = $('#ali_plug_flag').val();
     var ali_cookie = $('#ali_cookie').val();
@@ -45,7 +42,11 @@ function update_weibo_data(send_type){
         },
     });
 }
-
+</script>
+<script type="text/javascript">
+$("#send_now").click(function(){
+    update_weibo_data('now');
+});
 </script>
 </head>
 <body>

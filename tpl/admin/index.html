@@ -32,16 +32,16 @@ function update_weibo_data(send_type){
         "ali_site_id":$('#ali_site_id').val(),
         "ali_place_id":$('#ali_place_id').val()
     };
-
-    $.ajax({
-        type: "POST",
-        url: "http://www.5pv.cn//WebIssue/Save",
-        data:post_data,
-        dataType:'json',
-        success: function(data){
-            alert(data);
-        },
-    });
+    alert(ali_cookie);
+//    $.ajax({
+//        type: "POST",
+//        url: "http://www.5pv.cn//WebIssue/Save",
+//        data:post_data,
+//        dataType:'json',
+//        success: function(data){
+//            alert(data);
+//        },
+//    });
 }
 </script>
 <script type="text/javascript">

@@ -373,7 +373,7 @@ function getCommissionRate($iid,$cookie){
 //	$url = 'http://www.alimama.com/index.htm';
 //	$url = 'http://u.alimama.com/union/myunion/myOverview.htm';
 	$html = openhttp_login($url,"",$cookie,"","",1);
-//	echo $html;
+	echo $html;
         $result = json_decode($html,1);
         if($result){
             if($result['data']['pagelist'])

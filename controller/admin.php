@@ -19,12 +19,6 @@ class admin extends spController{
 		
 		$this->website = $website; 
 	} 
-        public function getCommissionRate(){
-            $iid = $this->spArgs("iid");
-            $cookie = $this->spArgs("cookie");
-            $CommissionRate = getCommissionRate();
-            echo '{"CommissionRate":"'.$CommissionRate.'"}';
-        }
 	public function login(){		
 		$cmd = $this->spArgs('cmd');
 		if($cmd=='out'){
@@ -171,21 +165,21 @@ class admin extends spController{
             fclose($fp);
             header("Location:/yqtout.html");
         }
-//	public function getCommissionRate($iid){
-//		if(getCommissionRate('38510058624')=='-2'){//cookie模拟登录失败
-//			if(loginTaobao('liushiyan8','liujun987'))//重新登录(验证码登录),更新cookie
-//				$this->loginalimama = 1;
-//			else
-//				$this->loginalimama = 0;
-//			
-//			if($this->loginalimama)//登录成功
-//				return getCommissionRate($iid);
-//			else
-//				return -2;
-//		}else{//cookie模拟登陆
-//			return getCommissionRate($iid);
-//		}
-//	}
+	public function getCommissionRate($iid){
+		if(getCommissionRate('38510058624')=='-2'){//cookie模拟登录失败
+			if(loginTaobao('liushiyan8','liujun987'))//重新登录(验证码登录),更新cookie
+				$this->loginalimama = 1;
+			else
+				$this->loginalimama = 0;
+			
+			if($this->loginalimama)//登录成功
+				return getCommissionRate($iid);
+			else
+				return -2;
+		}else{//cookie模拟登陆
+			return getCommissionRate($iid);
+		}
+	}
 	// 后台首页
 	public function index(){
 		ini_set('memory_limit','256M');

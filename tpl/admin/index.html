@@ -5,34 +5,6 @@
 <title>后台  - 管理首页</title>
 <link rel="stylesheet" href="/assets/stylesheets/admin/head.css" />
 <link rel="stylesheet" href="/assets/stylesheets/admin/index.css" />
-<script type="text/javascript"  src="/assets/Javascripts/jquery-2.0.3.min.js"></script>
-<script type="text/javascript">
-function update_weibo_data(){
-    var ali_cookie = $('#ali_cookie').val();
-
-    var post_data = {
-        "iid" : "41048685033",
-        "ali_cookie":ali_cookie,
-    };
-    $.ajax({
-        type: "POST",
-        url: "/?c=admin&a=getCommissionRate",
-        data:post_data,
-        dataType:'json',
-        success: function(data){
-            var dataObj=eval("("+data+")"); //转换为json对象
-            alert(dataObj.CommissionRate);
-        },
-    });
-}
-</script>
-<script type="text/javascript">
-$(document).ready(function(){
-    $("#send_now").click(function(){
-        update_weibo_data();
-    });
-});
-</script>
 </head>
 <body>
 	{include file="admin/head.html"}

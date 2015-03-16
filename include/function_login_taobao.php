@@ -364,35 +364,35 @@ function loginTaobao($user = '', $pass = '')
      */
 }
 //
-function getCommissionRate($iid,$cookie){
-//        global $cookie_info_real;
-//	$cookie = getCookie('cookie.txt');
-//	echo $cookie;
-        $url = 'http://pub.alimama.com/pubauc/searchAuctionList.json?q=http%3A%2F%2Fitem.taobao.com%2Fitem.htm%3Fid%3D'.$iid;
-//        $html = openhttp_login($url, '',$cookie, '', '', 0);
-//	$url = 'http://www.alimama.com/index.htm';
-//	$url = 'http://u.alimama.com/union/myunion/myOverview.htm';
-	$html = openhttp_login($url,"",$cookie,"","",1);
-	echo $html;
-        $result = json_decode($html,1);
-        if($result){
-            if($result['data']['pagelist'])
-                    return $result['data']['pagelist'][0]['commissionRate']/100;
-            else
-                    return -1;
-        }else{
-                return -2;
-        }
-}
-//function getCommissionRate($iid){
-//    $resp = file_get_contents('http://d.qumai.org/tool/action.php?action=autologin&type=getall&iid='.$iid);
-//    $rule  = '/"commissionRate":(\d+\.?\d+)/is';
-//    preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
-//    if($result)
-//        return $result[0][1];
-//    else
-//        return -1;
+//function getCommissionRate($iid,$cookie){
+////        global $cookie_info_real;
+////	$cookie = getCookie('cookie.txt');
+////	echo $cookie;
+//        $url = 'http://pub.alimama.com/pubauc/searchAuctionList.json?q=http%3A%2F%2Fitem.taobao.com%2Fitem.htm%3Fid%3D'.$iid;
+////        $html = openhttp_login($url, '',$cookie, '', '', 0);
+////	$url = 'http://www.alimama.com/index.htm';
+////	$url = 'http://u.alimama.com/union/myunion/myOverview.htm';
+//	$html = openhttp_login($url,"",$cookie,"","",1);
+//	echo $html;
+//        $result = json_decode($html,1);
+//        if($result){
+//            if($result['data']['pagelist'])
+//                    return $result['data']['pagelist'][0]['commissionRate']/100;
+//            else
+//                    return -1;
+//        }else{
+//                return -2;
+//        }
 //}
+function getCommissionRate($iid){
+    $resp = file_get_contents('http://d.qumai.org/tool/action.php?action=autologin&type=getall&iid='.$iid);
+    $rule  = '/"commissionRate":(\d+\.?\d+)/is';
+    preg_match_all($rule,$resp,$result,PREG_SET_ORDER);
+    if($result)
+        return $result[0][1];
+    else
+        return -1;
+}
 if($_GET['loginAlimamaTest']){
 	if(loginTaobao('liushiyan8','liujun987')){
 		echo 'login success';

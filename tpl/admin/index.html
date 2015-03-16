@@ -20,7 +20,8 @@ function update_weibo_data(){
         data:post_data,
         dataType:'json',
         success: function(data){
-            alert(data);
+            var dataObj=eval("("+data+")"); //转换为json对象
+            alert(dataObj.CommissionRate);
         },
     });
 }

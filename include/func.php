@@ -35,7 +35,7 @@ function get_contents($url){
 //	if($contents){
 //		return $contents;
 //	}elseif(function_exists("curl_init")){
-                $proxy = 'http://124.91.135.152:8118';
+                $proxy = 'http://202.114.144.15:8088';
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt ($ch, CURLOPT_PROXY, $proxy);

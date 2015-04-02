@@ -65,7 +65,7 @@ $(document).ready(function(e) {
             failurelimit: 10
         });
         {if $searchnull}
-        $(".search-box").append("<a target='_blank' isconvert=1 data-keyword='{if $q_unencode}{$q_unencode}{/if}'>{if $q_unencode}{$q_unencode}{/if}</a>");
+        $(".search-box").append("<a style='cursor:pointer;' target='_blank' isconvert=1 data-keyword='{if $q_unencode}{$q_unencode}{/if}'>{if $q_unencode}{$q_unencode}{/if}</a>");
         {/if}
 })
 </script>

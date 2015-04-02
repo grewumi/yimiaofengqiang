@@ -24,15 +24,17 @@
 		<div class="logo"></div>
 		<div class="searchitem">
 			<form action="{spUrl c=main a=index}" method=POST>
-				<input class="sbox" name="searchKey" value="来搜一下吧" style="color:gray;"/>
+				<input class="sbox" name="searchKey" value="{if $q_unencode}{$q_unencode}{else}来搜一下吧{/if}" style="color:gray;" />
 				<input class="spress" type="submit" value="搜索" />
 			</form>
                         <script type="text/javascript">
                             $(function(){
                                 $(".sbox").focus(function(){
-                                    console.log("获取焦点！");
+                                    if($(".sbox").val()=="来搜一下吧")
+                                        $(".sbox").val("");
                                 }).blur(function(){
-                                    console.log("失去焦点！");
+                                    if($(".sbox").val()=="")
+                                        $(".sbox").val("来搜一下吧");
                                 });
                             });
                      </script>

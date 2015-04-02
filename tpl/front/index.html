@@ -64,6 +64,9 @@ $(document).ready(function(e) {
             effect: "fadeIn", 
             failurelimit: 10
         });
+        {if $searchnull}
+        $(".search-box").append("<a target='_blank' isconvert=1 data-keyword='{if $q_unencode}{$q_unencode}{/if}'>{if $q_unencode}{$q_unencode}{/if}</a>");
+        {/if}
 })
 </script>
 </head>
@@ -143,6 +146,11 @@ $(document).ready(function(e) {
 			</div>
 			<div class="clearfix"></div>
 		</div>
+                {if $searchnull}
+                <div class="search-box" style="padding-top:20px;">
+                <p>搜索君未能着找到您需要的商品，您可以点击下边传送们继续搜索</p>
+                </div>
+                {/if}
 		<div class="xiai-page">
 		    {if $pager}
 		    	<!--在当前页不是第一页的时候，显示前页和上一页-->

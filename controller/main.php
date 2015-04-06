@@ -369,4 +369,7 @@ class main extends spController{
 		}
 		return $count;
 	}
+        public function emptyhtml(){
+            ;
+        }
 }

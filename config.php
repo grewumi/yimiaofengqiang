@@ -45,6 +45,7 @@ $spConfig = array(
 			'map' => array(	// 网址映射
 				'view'=>'main@view',
 //				'user'=>'main@user',
+                                'taoke'=>'main@emptyhtml',
 				'outitems'=>'main@outitems',
                                 'search' => 'main@search', // 将使得 http://www.example.com/search.html 转向控制器main/动作serach执行
 				'@' => 'main@no', // 1.在map中无法找到其他映射，2. 网址第一个参数并非控制器名称。
@@ -153,5 +154,4 @@ if(LOCALDEVELOP){
     $spConfig['ajaxToUz'] = null;
     unset($spConfig['mode']);
 }
-
 ?>

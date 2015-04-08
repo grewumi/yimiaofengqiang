@@ -39,10 +39,10 @@ function get_clickurl($iid){
     $c->appkey = trim($Key);
     $c->secretKey = trim($Secret);
     $req = new TbkItemsDetailGetRequest;
-    $req->setFields("click_url");
+    $req->setFields("click_url,discount_price");
     $req->setNumIids($iid);
     $resp = object_to_array($c->execute($req));
-    var_dump($c->execute($req));
+    var_dump($resp);
 }
 function getShop($nick){
 	global $Key,$Secret;

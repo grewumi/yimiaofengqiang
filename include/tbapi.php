@@ -10,7 +10,7 @@ include_once 'tbtop/ShopGetRequest.php';
 header("Content-Type:text/html;charset=gbk");
 
 //$app=array('21463466'=>'91cd273f32da3a640d237595a1e827e0');
-$sellsapp = array('23021902'=>'6a18682d4ed4bf5d4c7c3b55cbe21fe1');
+$sellsapp = array('23122290'=>'8126f2cf1cca5c073cfeefd9740e86fc');
 $app = $sellsapp;
 foreach($app as $k=>$v){
 	global $Key,$Secret;
@@ -31,6 +31,17 @@ function gettkreport($page=1){
 	$resp = object_to_array($resp->taobaoke_report->taobaoke_report_members);
 	return $resp['taobaoke_report_member'];
 	
+}
+function get_clickurl($iid){
+    global $Key,$Secret;
+    $c = new TopClient;
+    $c->appkey = trim($Key);
+    $c->secretKey = trim($Secret);
+    $req = new TbkItemsDetailGetRequest;
+    $req->setFields("click_url");
+    $req->setNumIids($iid);
+    $resp = object_to_array($c->execute($req));
+    var_dump($resp);
 }
 function getShop($nick){
 	global $Key,$Secret;
@@ -307,4 +318,5 @@ function getcid($iid,$tmall){
     else
         return 0;
 }
+get_clickurl("44678732530");
 ?>

@@ -42,7 +42,7 @@ function get_clickurl($iid){
     $req->setFields("click_url");
     $req->setNumIids($iid);
     $resp = object_to_array($c->execute($req));
-    var_dump($resp);
+    var_dump($c->execute($req));
 }
 function getShop($nick){
 	global $Key,$Secret;

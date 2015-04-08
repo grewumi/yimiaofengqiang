@@ -7,6 +7,7 @@ include_once 'tbtop/TaobaokeItemsDetailGetRequest.php';
 include_once 'tbtop/TaobaokeReportGetRequest.php';
 include_once 'tbtop/ItemcatsGetRequest.php';
 include_once 'tbtop/ShopGetRequest.php';
+include_once 'tbtop/TbkItemsDetailGetRequest.php';
 header("Content-Type:text/html;charset=gbk");
 
 //$app=array('21463466'=>'91cd273f32da3a640d237595a1e827e0');

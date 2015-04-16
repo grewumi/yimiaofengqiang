@@ -319,5 +319,4 @@ function getcid($iid,$tmall){
     else
         return 0;
 }
-get_clickurl("44678732530");
 ?>

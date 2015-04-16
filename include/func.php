@@ -87,6 +87,13 @@ function getRandIp(){
      $json = object_to_array(json_decode($response));
      return $json[0]['url_short'];
 }
+ function getshorturlclicks($short_url){
+     $apiKey = '3780574640';
+     $apiUrl = 'http://api.t.sina.com.cn/short_url/clicks.json?source='.$apiKey.'&url_short='.$short_url;
+     $response = file_get_contents($apiUrl);
+     $json = object_to_array(json_decode($response));
+     return $json[0]['clicks'];
+}
 function object_to_array($obj)
 {
 		$_arr = is_object($obj) ? get_object_vars($obj) : $obj;

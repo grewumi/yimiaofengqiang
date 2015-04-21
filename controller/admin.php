@@ -426,7 +426,7 @@ class admin extends spController{
 					if($art){	//修改成功后跳转
 						$submitTips = '添加成功';
                                                 if($GLOBALS['G_SP']['ajaxToUz']['addpro']){
-                                                    $this->postDateToEachUz($item);
+                                                    $this->postDataToUzPhp($item);
                                                 }
 //						header("Location:".$referUrl);
 					}else
@@ -496,7 +496,7 @@ class admin extends spController{
                 if($pros->delete(array('id'=>$id))){
                     $item = array('iid'=>$iteminfo['iid'],'del'=>1);
                     if($GLOBALS['G_SP']['ajaxToUz']['delpro']){
-                        $this->postDateToEachUz($item);
+                        $this->postDataToUzPhp($item);
                     }
 //                    header("Location:".$referUrl);
                 }
@@ -610,7 +610,7 @@ class admin extends spController{
 				$submitTips = '修改成功';
 //                                var_dump($item);
                                 if($GLOBALS['G_SP']['ajaxToUz']['modpro']){
-                                    $this->postDateToEachUz($item);
+                                    $this->postDataToUzPhp($item);
                                 }
 //				if($this->mode!='try')
 //					header("Location:".$referUrl);

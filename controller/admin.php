@@ -504,11 +504,11 @@ class admin extends spController{
 	}
         public function postDateToEachUz($item){
             
-            $item['title'] = iconv('gbk','utf-8',$item['title']);
-            $item['nick'] = iconv('gbk','utf-8',$item['nick']);
-            $item['ww'] = iconv('gbk','utf-8',$item['ww']);
-            
-            $itemEncode = urlencode(json_encode($item));
+//            $item['title'] = iconv('gbk','utf-8',$item['title']);
+//            $item['nick'] = iconv('gbk','utf-8',$item['nick']);
+//            $item['ww'] = iconv('gbk','utf-8',$item['ww']);
+//            
+//            $itemEncode = urlencode(json_encode($item));
 //            echo "编码后输出<br />";
 //            echo $itemEncode;
 //            echo "解码后输出<br />";
@@ -522,7 +522,7 @@ class admin extends spController{
                 if($v){
                     $this->postDataToUzPhp($item,$k);
 //                    $url = "http://www.432gou.com/?c=admin&a=postDataToUzPhpForYmfq&item=".$itemEncode."&uz=".$k;
-                    echo file_get_contents($url);
+//                    echo file_get_contents($url);
                 }
             }
 //            $this->postDataToUzPhp($item,'admin');

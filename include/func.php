@@ -30,6 +30,24 @@ function get_url_content($url) {
 		return $contents;
 	}
 }
+function post_contents($url,$data){
+    // 创建一个新cURL资源
+    $proxy = 'http://202.114.144.15:8088';
+    $ch = curl_init();  
+    // 设置URL和相应的选项
+    if($url && $data){
+        curl_setopt($ch, CURLOPT_URL,$url);  
+        curl_setopt ($ch, CURLOPT_PROXY, $proxy);
+        curl_setopt($ch, CURLOPT_POST,1);  
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$data);  
+        // 抓取URL并把它传递给浏览器  
+        $contents = curl_exec($ch);  
+        curl_close($ch);
+        return $contents;
+    }
+    //关闭cURL资源，并且释放系统资源  
+    curl_close($ch);
+}
 function get_contents($url){
 //	$contents=file_get_contents($url);
 //	if($contents){

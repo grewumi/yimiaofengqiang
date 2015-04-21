@@ -1069,7 +1069,8 @@ class admin extends spController{
 					'method'=>"POST",
 					'content'=>$contents,
 					'timeout'=>900,
-                                        'proxy'=>'http://202.114.144.15:8088'
+                                        'proxy'=>'202.114.144.15:8088',
+                                        'request_fulluri' => true
 			));
 //		echo $contents.'<br />';
 		$context = stream_context_create($opts);

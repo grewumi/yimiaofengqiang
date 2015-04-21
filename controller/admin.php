@@ -426,7 +426,7 @@ class admin extends spController{
 					if($art){	//修改成功后跳转
 						$submitTips = '添加成功';
                                                 if($GLOBALS['G_SP']['ajaxToUz']['addpro']){
-                                                    $this->postDataToUzPhp($item);
+                                                    $this->postDateToEachUz($item);
                                                 }
 //						header("Location:".$referUrl);
 					}else
@@ -496,7 +496,7 @@ class admin extends spController{
                 if($pros->delete(array('id'=>$id))){
                     $item = array('iid'=>$iteminfo['iid'],'del'=>1);
                     if($GLOBALS['G_SP']['ajaxToUz']['delpro']){
-                        $this->postDataToUzPhp($item);
+                        $this->postDateToEachUz($item);
                     }
 //                    header("Location:".$referUrl);
                 }
@@ -520,8 +520,8 @@ class admin extends spController{
             
             foreach($GLOBALS['G_SP']['ajaxToWhich'] as $k=>$v){
                 if($v){
-//                    $this->postDataToUzPhp($item,$k);
-                    $url = "http://www.432gou.com/?c=admin&a=postDataToUzPhpForYmfq&item=".$itemEncode."&uz=".$k;
+                    $this->postDataToUzPhp($item,$k);
+//                    $url = "http://www.432gou.com/?c=admin&a=postDataToUzPhpForYmfq&item=".$itemEncode."&uz=".$k;
                     echo file_get_contents($url);
                 }
             }
@@ -610,7 +610,7 @@ class admin extends spController{
 				$submitTips = '修改成功';
 //                                var_dump($item);
                                 if($GLOBALS['G_SP']['ajaxToUz']['modpro']){
-                                    $this->postDataToUzPhp($item);
+                                    $this->postDateToEachUz($item);
                                 }
 //				if($this->mode!='try')
 //					header("Location:".$referUrl);

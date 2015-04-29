@@ -53,8 +53,8 @@ function get_contents($url){
 //	if($contents){
 //		return $contents;
 //	}elseif(function_exists("curl_init")){
-//                $proxy = 'http://202.114.144.15:8088';
-                $proxy = 'http://218.204.140.106:8118';
+                $proxy = 'http://202.114.144.15:8088';
+//                $proxy = 'http://218.204.140.106:8118';
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt ($ch, CURLOPT_PROXY, $proxy);

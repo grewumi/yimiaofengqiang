@@ -53,12 +53,14 @@ function get_contents($url){
 //	if($contents){
 //		return $contents;
 //	}elseif(function_exists("curl_init")){
-                $proxy = 'http://202.114.144.15:8088';
-//                $proxy = 'http://218.204.140.106:8118';
+                $loginpassw = 'qq576342340:576342340';
+//                $proxy = 'http://202.114.144.15:8088';
+                $proxy = 'http://107.150.60.66:62001';
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt ($ch, CURLOPT_PROXY, $proxy);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
+		curl_setopt($ch,CURLOPT_URL,$url);
+                curl_setopt($ch,CURLOPT_PROXY,$proxy);
+                curl_setopt($ch,CURLOPT_PROXYUSERPWD,$loginpassw);
+                curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 		$contents = curl_exec($ch);
                 curl_close($ch);
                 return $contents;

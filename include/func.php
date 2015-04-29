@@ -53,13 +53,18 @@ function get_contents($url){
 //	if($contents){
 //		return $contents;
 //	}elseif(function_exists("curl_init")){
-                $loginpassw = 'qq576342340:576342340';
-//                $proxy = 'http://202.114.144.15:8088';
-                $proxy = 'http://107.150.60.66:62001';
+//                $loginpassw = 'qq576342340:576342340';
+//                $proxy_ip = '107.150.60.66';
+//                $proxy_port = '62001';
+                $proxy = 'http://202.114.144.15:8088';
 		$ch = curl_init();
 		curl_setopt($ch,CURLOPT_URL,$url);
                 curl_setopt($ch,CURLOPT_PROXY,$proxy);
-                curl_setopt($ch,CURLOPT_PROXYUSERPWD,$loginpassw);
+//                curl_setopt($ch,CURLOPT_HEADER,0) ;
+//                curl_setopt($ch,CURLOPT_PROXYPORT,$proxy_port);
+//                curl_setopt($ch,CURLOPT_PROXYTYPE,'HTTP');
+//                curl_setopt($ch,CURLOPT_PROXY,$proxy_ip);
+//                curl_setopt($ch,CURLOPT_PROXYUSERPWD,$loginpassw);
                 curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 		$contents = curl_exec($ch);
                 curl_close($ch);

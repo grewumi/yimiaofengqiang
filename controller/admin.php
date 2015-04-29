@@ -124,6 +124,29 @@ class admin extends spController{
             header('Content-Length: '. filesize('./tmp/yqtdata/yqtout.txt')); //告诉浏览器，文件大小   
             @readfile('./tmp/yqtdata/yqtout.txt');
         }
+        public function adenter($outs,$guanggao,$step){
+            $outs_zu = array_chunk($outs,$step);
+            foreach($guanggao as $k=>$v){
+                if($k==0){//第一个广告位在尾部添加
+                    foreach($outs_zu as &$iv){//尾巴追加广告位
+                        array_push($iv,$v);
+                    }
+                }elseif($k<=4){//值替换
+                    foreach($outs_zu as &$iv){
+                        $iv[$k-1] = $v;
+                    }
+                }
+            }
+            // 数组重组 
+            $outs = array();
+            foreach($outs_zu as &$v){
+                if(empty($outs))
+                    $outs = $v;
+                else
+                    $outs = array_merge($outs,$v);
+            }
+            return $outs;
+        }
         public function yqtswitch(){
             //清空文件夹
             $datalist=list_dir('./tmp/yqtdata/');
@@ -134,7 +157,11 @@ class admin extends spController{
             $where = 'st<=curdate() and et>=curdate() and ischeck=1 and type!=87';
             $order = 'rank asc,postdt desc';
 //            $where .= ' and classification=2';
-            $outs = $pros->findAll($where,$order,'','480');
+            $outs = $pros->findAll($where,$order,'','200');
+            $guanggao = $pros->findAll($where.' and type=85',$order);
+            $outs = $this->adenter($outs, $guanggao, 5);
+//            var_dump($outs);
+//            var_dump($outs_zu);
             for($i=0;$i<count($outs);$i++){
                 $yqtout[$i][0] = $outs[$i]['pic'];
                 $yqtout[$i][1] = $outs[$i]['iid'];
@@ -151,7 +178,8 @@ class admin extends spController{
                 else
                     $yqtout[$i][9] = 'true';
             }
-      
+//            var_dump($yqtout);
+//      
             $fp=fopen("tmp/yqtdata/yqtout.txt",'a');
             if($fp){
                 echo 'tmp/yqtdata/yqtout.txt创建成功.<br />';

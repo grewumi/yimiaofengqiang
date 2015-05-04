@@ -198,6 +198,9 @@ class main extends spController{
 		if($mode){
 			$smarty->display("front/mailindex.html");
                 }else{
+                    if($procatsync){
+                        echo json_encode($this->procats);
+                    }
                     if($jsonp){ 
                         if($othersync){// 一区json数据
 //                            for($i=0;$i<count($itemsC1);$i++){
@@ -223,9 +226,7 @@ class main extends spController{
                             echo json_encode($itemList);
 //                            var_dump($itemList);
                         }
-                    }elseif($procatsync && $jsonp){
-                        echo json_encode($this->procats);
-                    }{
+                    }else{
                         $smarty->display("front/index.html");
                     }
                 }

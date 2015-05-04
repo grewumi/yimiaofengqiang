@@ -223,10 +223,9 @@ class main extends spController{
                             echo json_encode($itemList);
 //                            var_dump($itemList);
                         }
-                        if($procatsync){//procats json Êý¾Ý
-                            echo json_encode($this->procats);
-                        }
-                    }else{
+                    }elseif($procatsync && $jsonp){
+                        echo json_encode($this->procats);
+                    }{
                         $smarty->display("front/index.html");
                     }
                 }

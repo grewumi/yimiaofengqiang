@@ -182,6 +182,7 @@ class main extends spController{
 		$smarty->assign("type",$type);//$this->type = $type;
 		$smarty->assign("price",$price);//$this->price = $price;
 		$smarty->assign("pager",$pros->spPager()->getPager());//$this->pager = $pros->spPager()->getPager();
+                $pagersync = $this->spArgs('pagersync');
 		$smarty->assign("items",$itemList);//$this->items = $itemList;
                 $smarty->assign("itemsC1",$itemsC1);//$this->items = $itemList;
                 if(!$itemList && !$itemsC1 && $q )
@@ -227,6 +228,8 @@ class main extends spController{
                         echo json_encode($this->procats);
                     }elseif($sideradsync){
                         echo json_encode($siderads);
+                    }elseif($pagersync){
+                        echo json_encode($pros->spPager()->getPager());
                     }else{
                         $smarty->display("front/index.html");
                     }

@@ -8,6 +8,7 @@ class main extends spController{
                 
                 $this->procats = spClass("m_procat")->findAll('isshow=1','type asc');
                 
+              
 		$is_pc = strpos($agent,'windows nt') ? true : false;
 		$is_iphone = strpos($agent,'iphone') ? true : false;
 		$is_ipad = strpos($agent,'ipad') ? true : false;
@@ -79,6 +80,7 @@ class main extends spController{
 		header("Access-Control-Allow-Origin:*");
 		$jsonp = $this->spArgs('jsonp');
                 $othersync = $this->spArgs('othersync');
+                $procatsync = $this->spArgs('procatsync');
                 $touz = $this->spArgs('touz');
 		// 搜索
 		$searchKey = $this->spArgs('searchKey');
@@ -197,7 +199,7 @@ class main extends spController{
 			$smarty->display("front/mailindex.html");
                 }else{
                     if($jsonp){ 
-                        if($othersync){
+                        if($othersync){// 一区json数据
 //                            for($i=0;$i<count($itemsC1);$i++){
 //                                for($j=0;$j<count($itemsC1[$i]);$j++){
 //                                    echo $itemsC1[$i][$j]['title'];
@@ -212,7 +214,7 @@ class main extends spController{
                                 }   
                             }
                             echo json_encode($itemsC1);
-                        }else{
+                        }else{// 二区json数据
                             foreach($itemList as $k=>&$iv){
                                     foreach($iv as $k=>&$v){
                                             $v['title'] = iconv('gbk','utf-8',$v['title']);
@@ -220,6 +222,9 @@ class main extends spController{
                             }
                             echo json_encode($itemList);
 //                            var_dump($itemList);
+                        }
+                        if($procatsync){//procats json 数据
+                            echo json_encode($this->procats);
                         }
                     }else{
                         $smarty->display("front/index.html");

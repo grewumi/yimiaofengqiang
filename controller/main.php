@@ -122,7 +122,7 @@ class main extends spController{
                 $ads = spClass("m_ad");
                 
                 $siderads = $ads->findAll('st<=curdate() and et>=curdate() and cat=0','rank desc');
-                
+                $sideradsync = $this->spArgs('sideradsync');
 			
 		if($procat || $type || $price || $act_from){
 			if($procat)
@@ -225,6 +225,8 @@ class main extends spController{
                         }
                     }elseif($procatsync){
                         echo json_encode($this->procats);
+                    }elseif($sideradsync){
+                        echo json_encode($siderads);
                     }else{
                         $smarty->display("front/index.html");
                     }

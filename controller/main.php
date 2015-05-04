@@ -38,6 +38,7 @@ class main extends spController{
 		$id = $this->spArgs('id');
 		$pros = spClass("m_pro");
 		$pro = $pros->find(array('id'=>$id));
+                $dealsync = $this->spArgs('dealsync');
                 // »ñÈ¡seller_id
                 import("tbapi.php");
                 $seller_id = getItemDetail($pro['iid']);
@@ -54,7 +55,10 @@ class main extends spController{
                     header("Location:/");
                 }
                 $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
-		$this->display("front/deal.html");
+                if($dealsync)
+                    echo json_encode($pro);
+		else
+                    $this->display("front/deal.html");
 	}
 	
         public function daren(){

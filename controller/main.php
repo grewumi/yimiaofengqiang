@@ -225,7 +225,7 @@ class main extends spController{
                         }
                     }elseif($procatsync){
                         echo json_encode($this->procats);
-                    }{
+                    }else{
                         $smarty->display("front/index.html");
                     }
                 }

@@ -213,27 +213,27 @@ class main extends spController{
 //                                         $itemsC1[$i][$j]['uzid'] = getidfromiidforuz($itemsC1[$i][$j]['iid']);
 //                                }
 //                            }
-//                            foreach($itemsC1 as $k=>&$iv){
-//                                foreach($iv as $k=>&$v){
-//                                    $v['title'] = iconv('gbk','utf-8',$v['title']);
-//                                }   
-//                            }
-                            echo json_encode($itemsC1,JSON_UNESCAPED_UNICODE);
+                            foreach($itemsC1 as $k=>&$iv){
+                                foreach($iv as $k=>&$v){
+                                    $v['title'] = urlencode($v['title']);
+                                }   
+                            }
+                            echo json_encode($itemsC1);
                         }else{// 二区json数据
-//                            foreach($itemList as $k=>&$iv){
-//                                    foreach($iv as $k=>&$v){
-//                                            $v['title'] = iconv('gbk','utf-8',$v['title']);
-//                                    }
-//                            }
-                            echo json_encode($itemList,JSON_UNESCAPED_UNICODE);
+                            foreach($itemList as $k=>&$iv){
+                                    foreach($iv as $k=>&$v){
+                                        $v['title'] = urlencode($v['title']);
+                                    }
+                            }
+                            echo json_encode($itemList);
 //                            var_dump($itemList);
                         }
                     }elseif($procatsync){
-                        echo json_encode($this->procats,JSON_UNESCAPED_UNICODE);
+                        echo json_encode($this->procats);
                     }elseif($sideradsync){
-                        echo json_encode($siderads,JSON_UNESCAPED_UNICODE);
+                        echo json_encode($siderads);
                     }elseif($pagersync){
-                        echo json_encode($pros->spPager()->getPager(),JSON_UNESCAPED_UNICODE);
+                        echo json_encode($pros->spPager()->getPager());
                     }else{
                         $smarty->display("front/index.html");
                     }

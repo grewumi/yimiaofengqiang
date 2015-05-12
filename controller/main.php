@@ -207,7 +207,8 @@ class main extends spController{
                         if($othersync){// 一区json数据
                             foreach($itemsC1 as $k=>&$iv){
                                  foreach($iv as $k=>&$v){
-                                    echo $v['title'];
+                                    $v['title'] = urlencode(iconv('gbk','utf-8',$v['title']));
+                                    $v['nick'] = urlencode(iconv('gbk','utf-8',$v['nick']));
                                  }
                             }
 //                            for($i=0;$i<count($itemsC1);$i++){
@@ -220,7 +221,7 @@ class main extends spController{
 ////                                         $itemsC1[$i][$j]['uzid'] = getidfromiidforuz($itemsC1[$i][$j]['iid']);
 //                                }
 //                            }
-//                            echo json_encode($itemsC1);
+                            echo json_encode($itemsC1);
                         }else{// 二区json数据
 //                            foreach($itemList as $k=>&$iv){
 //                                    foreach($iv as $k=>&$v){

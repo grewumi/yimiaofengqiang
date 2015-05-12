@@ -208,12 +208,14 @@ class main extends spController{
                             for($i=0;$i<count($itemsC1);$i++){
                                 for($j=0;$j<count($itemsC1[$i]);$j++){
 //                                    echo $itemsC1[$i][$j]['title'];
-                                    $itemsC1[$i][$j]['title'] = urlencode(iconv('gbk','utf-8',$itemsC1[$i][$j]['title']));
+                                    $temp = urlencode(iconv('gbk','utf-8',$itemsC1[$i][$j]['title']));
+                                    echo $temp;
+                                    $itemsC1[$i][$j]['title'] = $temp;
 //                                    if($touz)
 //                                         $itemsC1[$i][$j]['uzid'] = getidfromiidforuz($itemsC1[$i][$j]['iid']);
                                 }
                             }
-                            echo json_encode($itemsC1);
+//                            echo json_encode($itemsC1);
                         }else{// 二区json数据
 //                            foreach($itemList as $k=>&$iv){
 //                                    foreach($iv as $k=>&$v){

@@ -213,13 +213,10 @@ class main extends spController{
                             }
                             echo json_encode($itemsC1);
                         }else{// 二区json数据
-//                            foreach($itemList as $k=>&$iv){
-//                                    foreach($iv as $k=>&$v){
-//                                        $v['title'] = urlencode($v['title']);
-//                                    }
-//                            }
+                            for($i=0;$i<count($itemList);$i++){
+                                $itemList[$i]['title'] = urlencode(iconv('gbk','utf-8',$itemList[$i]['title']));
+                            }
                             echo json_encode($itemList);
-//                            var_dump($itemList);
                         }
                     }elseif($procatsync){
                         echo json_encode($this->procats);

@@ -55,10 +55,12 @@ class main extends spController{
                     header("Location:/");
                 }
                 $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
-                if($dealsync)
+                if($dealsync){
+                    $pro[$i]['title'] = urlencode(iconv('gbk','utf-8',$pro['title']));
                     echo json_encode($pro);
-		else
+                }else{
                     $this->display("front/deal.html");
+                }
 	}
 	
         public function daren(){

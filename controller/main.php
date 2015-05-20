@@ -64,6 +64,7 @@ class main extends spController{
 	}
         public function shopdeal(){
             $this->sid = $this->spArgs('sid');
+            $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
             $this->display("front/shopdeal.html");
         }
         public function daren(){

@@ -63,7 +63,7 @@ class main extends spController{
                 }
 	}
         public function shopdeal(){
-            $sid = $this->spArgs('sid');
+            $this->sid = $this->spArgs('sid');
             $this->display("front/shopdeal.html");
         }
         public function daren(){

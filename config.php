@@ -139,7 +139,7 @@ $spConfig = array(
             'delpro'=>true
         ),
         'ajaxToWhich' => array(
-//            'admin'=>true,
+            'admin'=>true,
             'youpinba'=>true,
             'okbuy'=>true,
             'mplife'=>true,

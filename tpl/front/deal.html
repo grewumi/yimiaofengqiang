@@ -49,14 +49,14 @@ $(document).ready(function(e) {
                         {if $single}
                             <a isconvert=1 data-itemid="{$pro.iid}" target="_blank" style="cursor:pointer">
                         {else}
-                            <a href="{$pro.link}" target="_blank">
+                            <a href="{$pro.link}" target="_blank" style="text-decoration:none;">
                         {/if}
                             <span class="buy" style="position:relative;">立即购买</span>
                         </a>
                         <!--
                         <a isconvert=1 data-sellerid="{$pro.sid}" target="_blank" style="cursor:pointer;color:gray;text-decoration:none">去店铺看看</a>
                         -->
-                        <a target="_blank" href="{spUrl c=main a=shopdeal id={$pro.id}}" style="text-decoration:none;">去店铺看看</a>
+                        <a target="_blank" href="{spUrl c=main a=shopdeal id={$pro.id}}" style="text-decoration:none;display:inline-block;margin-left:18px;">去店铺看看</a>
 			<div class="clearfix"></div>
 		</div>
                 <div class="hr"></div>

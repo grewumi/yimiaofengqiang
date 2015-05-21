@@ -63,7 +63,15 @@ class main extends spController{
                 }
 	}
         public function shopdeal(){
-            $this->sid = $this->spArgs('sid');
+            $id = $this->spArgs('id');
+            $pros = spClass("m_pro");
+            $pro = $pros->find(array('id'=>$id));
+            // 获取seller_id
+            import("tbapi.php");
+            $seller_id = getItemDetail($pro['iid']);
+            $pro['sid'] = $seller_id['slink'];
+            // END 获取seller_id
+            $this->pro = $pro;
             $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
             $this->display("front/shopdeal.html");
         }

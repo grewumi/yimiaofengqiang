@@ -41,11 +41,11 @@ $(document).ready(function(e) {
 				<img class="lazy" data-original="{$pro.pic}" />
 			</div>
 			<div style="position:relative;">
-				<h1>立升旗舰店</h1><br/><br/>
-                                <p>立升旗舰店店铺简介：立升旗舰店商品怎么样？好不好？淘宝天猫旗舰店优惠券怎么领？</p>
+				<h1>{$pro.ww}</h1><br/><br/>
+                                <p>{$pro.ww}店铺简介：{$pro.ww}商品怎么样？好不好？淘宝天猫旗舰店优惠券怎么领？</p>
                         </div>
                         <br/><br/>
-                        <a isconvert=1 data-sellerid="{$sid}" target="_blank" style="text-decoration:none;">
+                        <a isconvert=1 data-sellerid="{$pro.sid}" target="_blank" style="text-decoration:none;cursor:pointer;">
                             <span class="buy" style="position:relative;">去店铺看看</span>
                         </a>
                         <a href="http://www.yimiaofengqiang.com" target="_blank" style="cursor:pointer;color:gray;text-decoration:none;display:inline-block;margin-left:18px;">看看热门的商品</a>

@@ -71,6 +71,7 @@ class main extends spController{
             $seller_id = getItemDetail($pro['iid']);
             $pro['sid'] = $seller_id['slink'];
             // END »ñÈ¡seller_id
+            $pro['shopname'] = getShopNew($pro['sid']);
             $this->pro = $pro;
             $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
             $this->display("front/shopdeal.html");

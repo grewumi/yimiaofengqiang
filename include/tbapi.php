@@ -58,6 +58,22 @@ function getShop($nick){
 	if($resp)
 		return $resp;
 }
+function getShopNew($sid){
+	$resp = get_contents('http://tiangou.uz.taobao.com/top/3.php?sid='.$sid);
+//        $resp = file_get_contents('http://www.432gou.com/?c=admin&a=getpcid&cid='.$cid);
+        $resp = json_decode(iconv('gbk','utf-8',trim($resp)),1);
+        if($resp){
+            $resp = array_multi2single($resp);
+        }else{
+            $resp = null;
+        }
+        
+	if($resp){
+            return $resp;
+        }else{
+            return -1;
+        }
+}
 function getItem($num_iid,$mode='taoke')
 {
 	global $Key,$Secret;

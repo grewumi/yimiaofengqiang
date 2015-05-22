@@ -44,7 +44,6 @@ class main extends spController{
                 $seller_id = getItemDetail($pro['iid']);
                 $pro['sid'] = $seller_id['slink'];
                 // END »ñÈ¡seller_id
-                $shipinfo = getShopNew($pro['sid']);
                 if($pro){
                     $frompt = spClass("m_actfrom")->find(array('id'=>$pro['act_from']));
                     $ptname = $frompt['name'];

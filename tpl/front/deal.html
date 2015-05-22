@@ -36,6 +36,10 @@ $(document).ready(function(e) {
 {include file="front/head.html"}
 <div class="deal-main">
 	<div class="deal-left">
+                <div>
+                    当前位置：汇集淘宝网精选商品<a href="http://www.yimiaofengqiang.com" target="_blank" style="text-decoration:none;">九块邮</a> >> {$pro.title}
+                </div>
+                <div class="hr"></div>
 		<div class="item-deal">
 			<div class="item-img" style="position:relative;">
 				<img class="lazy" data-original="{$pro.pic}" />
@@ -44,8 +48,8 @@ $(document).ready(function(e) {
 				{$pro.title}
 			</div>
 			<span class="time">开始时间：{$pro.postdt}</span>
-			<del class="oprice">市场价:￥{$pro.oprice}元</del>
-			<span class="nprice">￥{$pro.nprice}</span><br/>
+                        <del class="oprice">市场价:￥{$pro.oprice}元</del>
+                        <span class="nprice">￥{$pro.nprice}</span><br />
                         {if $single}
                             <a isconvert=1 data-itemid="{$pro.iid}" target="_blank" style="cursor:pointer">
                         {else}
@@ -61,7 +65,7 @@ $(document).ready(function(e) {
 		</div>
                 <div class="hr"></div>
 		<div class="items-like">
-			<p>一秒疯抢相关推荐....</p>
+			<p><a href="http://www.yimiaofengqiang.com" target="_blank" style="text-decoration:none;">九块邮<a>>>{$pro.title}相关推荐....</p>
 			<div class="items">
 				<ul>
 					{foreach key=k item=v from=$dujia}
@@ -81,6 +85,10 @@ $(document).ready(function(e) {
 				</ul>
 			</div>
 		</div>
+                <div class="hr"></div>
+                <div style="margin:8px auto;">
+                    <h5 style="text-align:center;color:gray;font-weight:500;">一秒疯抢_{$pro.title}_{$pro.ptname}_{$pro.ptname}优站_{$pro.ptname}官网,精选{$pro.ptname}u站优质商品</h5>
+                </div>
 		<div class="clearfix"></div>
 	</div>
 	<div class="deal-right">

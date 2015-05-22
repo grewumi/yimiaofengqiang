@@ -1099,7 +1099,7 @@ class admin extends spController{
 					'method'=>"POST",
 					'content'=>$contents,
 					'timeout'=>900,
-                                        'proxy'=>'tcp://111.40.196.86:80',
+                                        'proxy'=>'tcp://111.161.65.79:80',
                                         'request_fulluri' => true
 			));
 //		echo $contents.'<br />';

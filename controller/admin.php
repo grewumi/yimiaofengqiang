@@ -1089,6 +1089,7 @@ class admin extends spController{
 		}else{
 			$url = 'http://'.$uz.'.uz.taobao.com/d/getdata';
 		}
+                $item['link'] = 'http://item.taobao.com/item.htm?id='.$item['iid'];
                 if(!$item[del])
                     $contents = "pic=$item[pic]&&cat=$item[cat]&&iid=$item[iid]&&oprice=$item[oprice]&&nprice=$item[nprice]&&st=$item[st]&&et=$item[et]&&act_from=$item[classification]&&rank=$item[rank]&&title=$item[title]&&link=$item[link]&&slink=$item[slink]&&volume=$item[volume]&&postdt=$item[postdt]&&xujf=$item[xujf]&&remark=$item[remark]&&type=$item[type]&&content=$item[content]&&zk=$item[zk]&&carriage=$item[carriage]&&commission_rate=$item[commission_rate]&&ischeck=$item[ischeck]&&last_modify=$item[last_modify]&&ww=$item[ww]&&shopshow=$item[shopshow]&&shopv=$item[shopv]";
 		else

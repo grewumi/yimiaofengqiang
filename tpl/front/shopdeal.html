@@ -8,6 +8,11 @@
 <link rel="stylesheet" href="/assets/stylesheets/front/head.css" />
 <link rel="stylesheet" href="/assets/stylesheets/front/foot.css" />
 <link rel="stylesheet" href="/assets/stylesheets/front/deal.css" />
+<style type="text/css">
+    .xin .xin2{
+        display: inline-block;
+    }
+</style>
 <script type="text/javascript"  src="/assets/Javascripts/jquery-2.0.3.min.js"></script>
 <script type="text/javascript"  src="/assets/Javascripts/jquery.lazyload.js"></script>
 <script type="text/javascript">
@@ -76,7 +81,7 @@ $(document).ready(function(e) {
 					<div class="clearfix"></div>
 				</ul>
 			</div>
-		</div>
+		</div>              
                 <div class="hr"></div>
                 <div style="margin:8px auto;">
                     <h5 style="text-align:center;color:gray;font-weight:500;">{$pro.shopname}_{$pro.shopname}淘宝店{$pro.shopname}天猫旗舰店{$pro.shopname}专营店{$pro.shopname}专卖店 {$pro.shopname}优惠券怎么领</h5>
@@ -88,6 +93,7 @@ $(document).ready(function(e) {
 	</div>
 	<div class="clearfix"></div>
 </div>
+{include file="front/jingxuanshop.html"}
 {include file="front/foot.html"}
 </body>
 </html>

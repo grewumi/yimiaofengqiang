@@ -36,9 +36,13 @@ $(document).ready(function(e) {
 {include file="front/head.html"}
 <div class="deal-main">
 	<div class="deal-left">
+                <div>
+                    当前位置：汇集淘宝网精选商品<a href="http://www.yimiaofengqiang.com" target="_blank" style="text-decoration:none;">九块邮</a> >> 淘宝网流苏の小店
+                </div>
+                <div class="hr"></div>
 		<div class="item-deal">
 			<div class="item-img" style="position:relative;">
-				<img class="lazy" data-original="{$pro.pic}" />
+				<img class="lazy" data-original="{if $pro.shopshow}http://img02.taobaocdn.com/imgextra/i2/410996667/TB2uzz3cFXXXXbJXpXXXXXXXXXX-410996667.png{else}http://img02.taobaocdn.com/imgextra/i2/410996667/TB25DUlcFXXXXXnXXXXXXXXXXXX-410996667.png{/if}" />
 			</div>
 			<div style="position:relative;">
 				<h1>{$pro.shopname}</h1><br/><br/>
@@ -53,7 +57,7 @@ $(document).ready(function(e) {
 		</div>
                 <div class="hr"></div>
 		<div class="items-like">
-			<p>一秒疯抢相关推荐....</p>
+                    <p><a href="http://www.yimiaofengqiang.com" target="_blank" style="text-decoration:none;">九块邮<a>>>{$pro.shopname}相关推荐....</p>
 			<div class="items">
 				<ul>
 					{foreach key=k item=v from=$dujia}
@@ -73,6 +77,10 @@ $(document).ready(function(e) {
 				</ul>
 			</div>
 		</div>
+                <div class="hr"></div>
+                <div style="margin:8px auto;">
+                    <h5 style="text-align:center;color:gray;font-weight:500;">{$pro.shopname}_{$pro.shopname}淘宝店{$pro.shopname}天猫旗舰店{$pro.shopname}专营店{$pro.shopname}专卖店 {$pro.shopname}优惠券怎么领</h5>
+                </div>
 		<div class="clearfix"></div>
 	</div>
 	<div class="deal-right">

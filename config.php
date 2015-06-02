@@ -140,7 +140,7 @@ $spConfig = array(
         ),
         'ajaxToWhich' => array(
             'admin'=>true,
-            'youpinba'=>true,
+//            'youpinba'=>true,
 //            'okbuy'=>true,
 //            'mplife'=>true,
 //            'viphuiyuan'=>true,

@@ -259,7 +259,7 @@ class admin extends spController{
 		$sh = $this->spArgs('sh');
 		$q = $this->spArgs('q');
 		$status = $this->spArgs('status');
-                $classification = $this->spArgs('classification')?$this->spArgs('classification'):1;
+                $classification = $this->spArgs('classification');
 		
 		if($this->mode=='try'){
 			$pros = spClass("m_try_items");

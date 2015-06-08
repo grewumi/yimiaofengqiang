@@ -514,7 +514,7 @@ class UzCaiji{
 				if($mode==2)
 					echo json_encode($this->items);
 			}elseif($website=='mao'){
-				$this->url = 'http://ju.tejiamao.com/page/u/shouye-geilimao-9.9.xml';
+				$this->url = 'http://www.tejiamao.com/page/xml/shouye-geilimao-9.9.xml';
 				$result = get_contents($this->url);
                                 $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
                                 $res = json_decode(json_encode($res),true);
@@ -523,7 +523,7 @@ class UzCaiji{
 				}
                                 $tejiamao['mao99'] = $mao99;
                                 
-                                $this->url = 'http://ju.tejiamao.com/page/u/shouye-geilimao-19.9.xml';
+                                $this->url = 'http://www.tejiamao.com/page/xml/shouye-geilimao-19.9.xml';
 				$result = get_contents($this->url);
                                 $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
                                 $res = json_decode(json_encode($res),true);
@@ -532,7 +532,7 @@ class UzCaiji{
 				}
                                 $tejiamao['mao199'] = $mao199;
                                 
-                                $this->url = 'http://ju.tejiamao.com/page/u/shouye-geilimao-zhe.xml';
+                                $this->url = 'http://www.tejiamao.com/page/xml/shouye-geilimao-zhe.xml';
 				$result = get_contents($this->url);
                                 $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
                                 $res = json_decode(json_encode($res),true);

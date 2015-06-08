@@ -960,6 +960,7 @@ class admin extends spController{
                                             unset($item['rank']);
                                             unset($item['cat']);
                                             unset($item['pic']);
+                                            unset($item['link']);
                                             //$item['et'] = date("Y-m-d",86400*7+time());
                                             //$itemPostdt = $pros->find(array('iid'=>$v['iid']));
                                             //$item['postdt'] = $itemPostdt['postdt'];

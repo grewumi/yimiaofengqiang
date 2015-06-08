@@ -432,24 +432,20 @@ class UzCaiji{
 					echo json_encode($this->items); 
 				//echo json_encode($this->items);
 			}elseif($website=='vipzxhd'){
-				$this->url = 'http://ttvip.uz.taobao.com';
+				$this->url = 'http://ttvip.uz.taobao.com/d/index?cid=62&mid=76';
 				$result = get_contents($this->url);
-				$zxhdptn = '/class="piece_box"(.+?)class="page_div/is';
-				preg_match_all($zxhdptn,$result,$zxhdarr,PREG_SET_ORDER);
-				//print_r($zxhdarr);
-				$vipbkrm = $zxhdarr[0][0]; 
 				
 				$zxhdarr = null;
-				// vip爆款热卖
+				// 实惠推荐
 				$zxhdptn = '/class="goods_item"(.+?)class="goods_img"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)src="(.+?)"(.+?)class="promo_price(.+?)class="integer">(\d+\.?\d+)<\/em>/is';
-				preg_match_all($zxhdptn,$vipbkrm,$zxhdarr,PREG_SET_ORDER);
+				preg_match_all($zxhdptn,$result,$zxhdarr,PREG_SET_ORDER);
 				//print_r($zxhdarr);
 				foreach($zxhdarr as $k => $v){
-					$vipbkrmarr[] = array('iid'=>$v[4],'nprice'=>$v[10],'pic'=>$v[7]);
+					$vipbkrmarr[] = array('iid'=>$v[4],'nprice'=>$v[10],'pic'=>preg_replace('/_230x230.jpg/i','',$v[7]));
 				}  
 				$vipzxhd['vipbkrm'] = $vipbkrmarr; 
-				//var_dump($vipbkrmarr); 
-				// end - vip爆款热卖
+//				var_dump($vipbkrmarr); 
+				// end - 实惠推荐
 				
 				//var_dump($vipzxhd);
 				$this->items = $vipzxhd;

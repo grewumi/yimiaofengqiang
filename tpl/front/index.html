@@ -106,6 +106,37 @@ $(document).ready(function(e) {
             </div>
 		<div class="item-list">
                         {if $index && $pager.current_page==1}
+                        <img src="http://img02.taobaocdn.com/imgextra/i2/410996667/TB2rKG4dXXXXXb8XXXXXXXXXXXX-410996667.jpg" />
+                        <div class="item-row">
+				{foreach key=k item=v from=$itemsC2}
+				<div class="item" style="display:block;">
+					{if $admin}
+					<div class="admin-edit">
+                                                <a>{if $v.link|strpos:'item.taobao.com'}淘点金{elseif $v.link|strpos:'detail.tmall.com'}淘点金{else}sclick{/if}</a>
+						<a target="_blank" href="{spUrl c=admin a=delpro mode=pro id=$v.id}">删除</a>
+						<a target="_blank" href="{spUrl c=admin a=modpro mode=pro id=$v.id}">修改</a>
+					</div>
+					{/if}
+					<div class="item-pic" style="position:relative;">
+						<a target="_blank" href="{spUrl c=main a=deal id=$v.id}">
+							<img class="lazy" data-original="{$v.pic}" alt="{$v.title}" />
+						</a>
+					</div>
+					<div class="item-title position"><a target="_blank" href="{spUrl c=main a=deal id=$v.id}"><span style="color:#E32014;">{$v.zk}折\</span>{$v.title}</a></div>
+					<div class="item-price position" style="position:relative;">
+						<span class="price">
+							<b>￥</b>{(int)$v.nprice}
+							<span>.{$v.nprice_tail}</span>
+						</span>
+						<span class="old-price">{$v.oprice}</span>
+						<a target="_blank" href="{spUrl c=main a=deal id=$v.id}">
+							<span class="buy">去{if $v.shopshow}淘宝{else}天猫{/if}抢购</span>
+						</a>
+					</div>
+				</div>
+				{/foreach}
+                                <div class="clearfix"></div>
+			</div>
                         <img src="http://img04.taobaocdn.com/imgextra/i4/1602138689/T28ha5XPpXXXXXXXXX-1602138689.png" />
                         <div class="item-row">
 				{foreach key=k item=v from=$itemsC1}

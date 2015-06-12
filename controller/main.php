@@ -179,9 +179,19 @@ class main extends spController{
                 else
                     $itemsTemp = $pros->spPager($page,56)->findAll($where.' and classification=1',$order);
                 $itemsC1 = $pros->findAll($where.' and classification=2',$order);//$pros->spPager($page,56)->findAll($where,$order);
+                $itemsC2 = $pros->findAll($where.' and classification=3',$order);//$pros->spPager($page,56)->findAll($where,$order);
 		
                 // 这里用foreach & 改变数组的值的时候最后一个数据带有 & 符号,导致最后一条数据重复
 		for($i=0;$i<count($itemsC1);$i++){
+			$itemsC1[$i]['title'] = preg_replace('/【.+?】/i','',$itemsC1[$i]['title']);
+			$itemsC1[$i]['title'] = preg_replace('/开心赚宝/i','',$itemsC1[$i]['title']);
+			$itemsC1[$i]['oprice'] = number_format($itemsC1[$i]['oprice'],2);
+                        $itemsC1[$i]['zk'] = number_format($itemsC1[$i]['nprice']/$itemsC1[$i]['oprice']*10,1);
+			$temp_npriceTail = explode('.',strval(number_format($itemsC1[$i]['nprice'],2)));
+			$itemsC1[$i]['nprice_tail'] = $temp_npriceTail[1];
+		}
+                
+                for($i=0;$i<count($itemsC2);$i++){
 			$itemsC1[$i]['title'] = preg_replace('/【.+?】/i','',$itemsC1[$i]['title']);
 			$itemsC1[$i]['title'] = preg_replace('/开心赚宝/i','',$itemsC1[$i]['title']);
 			$itemsC1[$i]['oprice'] = number_format($itemsC1[$i]['oprice'],2);

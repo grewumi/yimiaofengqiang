@@ -228,6 +228,7 @@ class main extends spController{
                 $pagersync = $this->spArgs('pagersync');
 		$smarty->assign("items",$itemList);//$this->items = $itemList;
                 $smarty->assign("itemsC1",$itemsC1);//$this->items = $itemList;
+                $smarty->assign("itemsC2",$itemsC2);//$this->items = $itemList;
                 if(!$itemList && !$itemsC1 && $q )
                     $this->searchnull = 1;
 		$smarty->assign("admin",$_SESSION['admin'],true);//$this->admin = $_SESSION['admin'];

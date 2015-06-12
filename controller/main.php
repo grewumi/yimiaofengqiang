@@ -192,12 +192,12 @@ class main extends spController{
 		}
                 
                 for($i=0;$i<count($itemsC2);$i++){
-			$itemsC1[$i]['title'] = preg_replace('/【.+?】/i','',$itemsC1[$i]['title']);
-			$itemsC1[$i]['title'] = preg_replace('/开心赚宝/i','',$itemsC1[$i]['title']);
-			$itemsC1[$i]['oprice'] = number_format($itemsC1[$i]['oprice'],2);
-                        $itemsC1[$i]['zk'] = number_format($itemsC1[$i]['nprice']/$itemsC1[$i]['oprice']*10,1);
-			$temp_npriceTail = explode('.',strval(number_format($itemsC1[$i]['nprice'],2)));
-			$itemsC1[$i]['nprice_tail'] = $temp_npriceTail[1];
+			$itemsC2[$i]['title'] = preg_replace('/【.+?】/i','',$itemsC2[$i]['title']);
+			$itemsC2[$i]['title'] = preg_replace('/开心赚宝/i','',$itemsC2[$i]['title']);
+			$itemsC2[$i]['oprice'] = number_format($itemsC2[$i]['oprice'],2);
+                        $itemsC2[$i]['zk'] = number_format($itemsC2[$i]['nprice']/$itemsC2[$i]['oprice']*10,1);
+			$temp_npriceTail = explode('.',strval(number_format($itemsC2[$i]['nprice'],2)));
+			$itemsC2[$i]['nprice_tail'] = $temp_npriceTail[1];
 		}
                 
 		// 这里用foreach & 改变数组的值的时候最后一个数据带有 & 符号,导致最后一条数据重复

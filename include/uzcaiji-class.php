@@ -106,13 +106,11 @@ class UzCaiji{
                                             }
                                         }else{
                                             
-                                            $result = get_contents($catItemsUrl);
-                                            					
+                                            $result = file_get_contents($catItemsUrl);	
                                             $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
                                             $res = json_decode(json_encode($res),true);
-
                                             foreach($res['goodslist']['deal'] as $k => $v){
-                                                    $jiuarr2[] = array('iid'=>preg_replace('/(.+?)id=/i','$3',$v['deal_taobao_link']),'nprice'=>preg_replace('/[^0-9][^0-9]/i','',$v['deal_price']),'pic'=>$v['deal_image']);
+                                               $jiuarr2[] = array('iid'=>preg_replace('/(.+?)id=/i','$3',$v['deal_taobao_link']),'nprice'=>preg_replace('/[^0-9][^0-9]/i','',$v['deal_price']),'pic'=>$v['deal_image']);
                                             }
                                             $jiukuaiyou['all'] = $jiuarr2;
                                         }
@@ -270,7 +268,7 @@ class UzCaiji{
 					}
 				}else{				
 					$this->url = 'http://api.juanpi.com/open/juanpi';
-					$result = get_contents($this->url);
+					$result = file_get_contents($this->url);
 					$res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
                                         $res = json_decode(json_encode($res),true);
 
@@ -515,7 +513,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 			}elseif($website=='mao'){
 				$this->url = 'http://www.tejiamao.com/page/xml/shouye-geilimao-9.9.xml';
-				$result = get_contents($this->url);
+				$result = file_get_contents($this->url);
                                 $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
                                 $res = json_decode(json_encode($res),true);
 				foreach($res['tejiamao']['item'] as $k => $v){
@@ -524,7 +522,7 @@ class UzCaiji{
                                 $tejiamao['mao99'] = $mao99;
                                 
                                 $this->url = 'http://www.tejiamao.com/page/xml/shouye-geilimao-19.9.xml';
-				$result = get_contents($this->url);
+				$result = file_get_contents($this->url);
                                 $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
                                 $res = json_decode(json_encode($res),true);
 				foreach($res['tejiamao']['item'] as $k => $v){
@@ -533,7 +531,7 @@ class UzCaiji{
                                 $tejiamao['mao199'] = $mao199;
                                 
                                 $this->url = 'http://www.tejiamao.com/page/xml/shouye-geilimao-zhe.xml';
-				$result = get_contents($this->url);
+				$result = file_get_contents($this->url);
                                 $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
                                 $res = json_decode(json_encode($res),true);
 				foreach($res['tejiamao']['item'] as $k => $v){

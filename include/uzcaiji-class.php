@@ -445,7 +445,7 @@ class UzCaiji{
 //				var_dump($vipbkrmarr); 
 				// end - Êµ»İÍÆ¼ö
 				
-				//var_dump($vipzxhd);
+//				var_dump($vipzxhd);
 				$this->items = $vipzxhd;
 				if($mode==2)
 					echo json_encode($this->items);

@@ -70,6 +70,7 @@ class main extends spController{
                 $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
                 if($dealsync){
                     $pro['title'] = urlencode(iconv('gbk','utf-8',$pro['title']));
+                    $pro['ptname'] = urlencode(iconv('gbk','utf-8',$pro['ptname']));
                     echo json_encode($pro);
                 }else{
                     $this->display("front/deal.html");

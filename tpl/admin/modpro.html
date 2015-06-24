@@ -121,6 +121,10 @@ $(document).ready(function(){
 						<input type="radio" name="shopshow" class="shopshow-t" value="0" {if $pro.shopshow!=1}checked="true"{/if}/><label>天猫:</label>
 						<div class="clearfix"></div>
 					</div>
+                                        <div class="row slink">
+						<label>店铺ID:</label><input class="short" id="slink" name="slink" type="text" value="{$pro.slink}" />
+						<div class="clearfix"></div>
+					</div>
 					<div class="row shopv">
 						<label>是否VIP价格:</label>
 						<input type="radio" name="shopv" class="shopv" value="1"  {if $pro.shopv==1}checked="true"{/if} /><label>VIP:</label>

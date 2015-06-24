@@ -81,9 +81,13 @@ class main extends spController{
             $pros = spClass("m_pro");
             $pro = $pros->find(array('id'=>$id));
             // 获取seller_id
-            import("tbapi.php");
-            $seller_id = getItemDetail($pro['iid']);
-            $pro['sid'] = $seller_id['slink'];
+            if($pro['slink'])
+                $pro['sid'] = $pro['slink'];
+            else{
+                import("tbapi.php");
+                $seller_id = getItemDetail($pro['iid']);
+                $pro['sid'] = $seller_id['slink'];
+            }
             // END 获取seller_id
             $shipinfo = getShopNew($pro['sid']);
             $pro['shopname'] = iconv('utf-8','gbk',$shipinfo['shop_title']);

@@ -53,9 +53,9 @@ class main extends spController{
 		$pro = $pros->find(array('id'=>$id));
                 $dealsync = $this->spArgs('dealsync');
                 // 获取seller_id
-                import("tbapi.php");
-                $seller_id = getItemDetail($pro['iid']);
-                $pro['sid'] = $seller_id['slink'];
+//                import("tbapi.php");
+//                $seller_id = getItemDetail($pro['iid']);
+//                $pro['sid'] = $seller_id['slink'];
                 // END 获取seller_id
                 if($pro){
                     $frompt = spClass("m_actfrom")->find(array('id'=>$pro['act_from']));

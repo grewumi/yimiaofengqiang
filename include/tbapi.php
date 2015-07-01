@@ -8,6 +8,7 @@ include_once 'tbtop/TaobaokeReportGetRequest.php';
 include_once 'tbtop/ItemcatsGetRequest.php';
 include_once 'tbtop/ShopGetRequest.php';
 include_once 'tbtop/TbkItemsDetailGetRequest.php';
+include_once 'tbtop/TbkItemGetRequest.php';
 header("Content-Type:text/html;charset=gbk");
 
 //$app=array('21463466'=>'91cd273f32da3a640d237595a1e827e0');
@@ -38,12 +39,13 @@ function get_clickurl($iid){
     $c = new TopClient;
     $c->appkey = trim($Key);
     $c->secretKey = trim($Secret);
-    $req = new TbkItemsDetailGetRequest;
+    $req = new TbkItemGetRequest;
     $req->setFields("click_url,discount_price");
-    $req->setNumIids($iid);
+    $req->setFields("num_iid,title,pict_url,small_images,reserve_price,zk_final_price,user_type,provcity,item_url");
     $resp = object_to_array($c->execute($req));
     var_dump($resp);
 }
+get_clickurl($iid);
 function getShop($nick){
 	global $Key,$Secret;
 	$c = new TopClient;

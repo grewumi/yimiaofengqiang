@@ -40,7 +40,6 @@ function get_TbkItem(){
     $c->appkey = trim($Key);
     $c->secretKey = trim($Secret);
     $req = new TbkItemGetRequest;
-    $req->setFields("click_url,discount_price");
     $req->setFields("num_iid,title,pict_url,small_images,reserve_price,zk_final_price,user_type,provcity,item_url");
     $resp = object_to_array($c->execute($req));
     return $resp;

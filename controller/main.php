@@ -29,8 +29,12 @@ class main extends spController{
 	public function view(){
 		$this->display("front/index_bak.html");
 	}
-	
-	public function mailindex($mailindex=1){
+        public function test(){
+            var_dump(get_TbkItem());
+        }
+
+
+        public function mailindex($mailindex=1){
 		$this->index($mailindex);
 	}
         public function desktop(){

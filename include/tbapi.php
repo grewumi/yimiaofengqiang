@@ -34,7 +34,7 @@ function gettkreport($page=1){
 	return $resp['taobaoke_report_member'];
 	
 }
-function get_clickurl($iid){
+function get_TbkItem(){
     global $Key,$Secret;
     $c = new TopClient;
     $c->appkey = trim($Key);
@@ -43,7 +43,7 @@ function get_clickurl($iid){
     $req->setFields("click_url,discount_price");
     $req->setFields("num_iid,title,pict_url,small_images,reserve_price,zk_final_price,user_type,provcity,item_url");
     $resp = object_to_array($c->execute($req));
-    var_dump($resp);
+    return $resp;
 }
 get_clickurl($iid);
 function getShop($nick){

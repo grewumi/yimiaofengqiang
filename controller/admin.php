@@ -1109,8 +1109,13 @@ class admin extends spController{
 		$context = stream_context_create($opts);
 		
 		$html = @file_get_contents($url, false, $context);
+                echo $html;
+                if($uz=='admin'){
+                    $url = 'http://yinxiang.ai.taobao.com/d/getdata';
+                    $html = @file_get_contents($url, false, $context);
+                    echo $html;
+                }
 		
-		echo $html;
 	}
 	
 	public function postDataToUzScripts($q,$uz){

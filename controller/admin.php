@@ -70,7 +70,6 @@ class admin extends spController{
 		
 		$catmaps = spClass("m_catmap");
 		import('tbapi.php');
-		
 		$item = getItemDetail($iid,3);
 //                var_dump($item);
 //                echo $item;

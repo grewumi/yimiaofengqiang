@@ -44,7 +44,7 @@ function get_TbkItem(){
     $resp = object_to_array($c->execute($req));
     return $resp;
 }
-get_clickurl($iid);
+
 function getShop($nick){
 	global $Key,$Secret;
 	$c = new TopClient;

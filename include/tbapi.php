@@ -41,8 +41,9 @@ function get_TbkItem(){
     $c->secretKey = trim($Secret);
     $req = new TbkItemGetRequest;
     $req->setFields("num_iid,title,pict_url,small_images,reserve_price,zk_final_price,user_type,provcity,item_url");
-    $resp = object_to_array($c->execute($req));
-    return $resp;
+    var_dump($c->execute($req));
+    //$resp = object_to_array($c->execute($req));
+    //return $resp;
 }
 
 function getShop($nick){

@@ -30,7 +30,8 @@ class main extends spController{
 		$this->display("front/index_bak.html");
 	}
         public function test(){
-            var_dump(get_TbkItem());
+           import("tbapi.php");
+           get_TbkItem();
         }
 
 

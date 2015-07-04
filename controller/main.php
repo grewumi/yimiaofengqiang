@@ -31,7 +31,7 @@ class main extends spController{
 	}
         public function test(){
            import("tbapi.php");
-           get_TbkItem();
+           var_dump(get_TbkItem());
         }
 
 

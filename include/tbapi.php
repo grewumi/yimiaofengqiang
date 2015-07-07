@@ -90,9 +90,9 @@ function getItem($num_iid,$mode='taoke')
                 $req->setFields("num_iid,title,pict_url,small_images,reserve_price,zk_final_price,user_type,provcity,item_url");
                 $req->setNumIids($num_iid);
                 $resp = $c->execute($req);
-		var_dump($resp);
-//		$resp = object_to_array($resp->n_tbk_item);
 //		var_dump($resp);
+		$resp = object_to_array($resp->n_tbk_item);
+		var_dump($resp);
 	}
 	elseif($mode == 'taoke'){
 		$req = new TaobaokeItemsDetailGetRequest;

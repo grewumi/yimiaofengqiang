@@ -106,6 +106,8 @@ class admin extends spController{
 //                    $item['volume'] = getvolume($iid,$item['shopshow']);
                     if(!$item['volume'])
                             $item['volume'] = -1;
+                    
+                    var_dump($item['item_imgs']);
                     for($i=0;$i<count($item['item_imgs']);$i++){
                         $itemTemp = $item['item_imgs'][$i].',';
                     }

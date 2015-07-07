@@ -92,14 +92,14 @@ function getItem($num_iid,$mode='taoke')
                 $resp = $c->execute($req);
 //		var_dump($resp);
 		$resp = object_to_array($resp->results->n_tbk_item);
-		var_dump($resp);
+//		var_dump($resp);
 	}
 	elseif($mode == 'taoke'){
-		$req = new TaobaokeItemsDetailGetRequest;
-		$req->setFields("iid,title,detail_url,nick,cid,price,pic_url,seller_credit_score,click_url,shop_click_url");
-		$req->setNumIids($num_iid);
-		$resp = $c->execute($req);
-		$resp = object_to_array($resp->taobaoke_item_details->taobaoke_item_detail);
+		$req = new TbkItemsDetailGetRequest;
+                $req->setFields("num_iid,seller_id,nick,title,price,volume,pic_url,item_url,shop_url");
+                $req->setNumIids($num_iid);
+                $resp = $c->execute($req);
+		$resp = object_to_array($resp->tbk_items->tbk_item);
 		//var_dump($resp);
 	}elseif($mode == 'approve_status'){
 		$req = new ItemGetRequest;
@@ -218,6 +218,7 @@ function getItemDetail($num_iid,$mode=1){
 		$result = getItem($num_iid,'approve_status');
 	}else{
 		$result = getItem($num_iid,'normal');
+                $tkresult = getItem($num_iid,'taoke');
 //		$result = getItemNew($num_iid,'normal');
 //                var_dump($result);
                 if($result<0){
@@ -227,25 +228,26 @@ function getItemDetail($num_iid,$mode=1){
 			$item = array(
 				"iid"=>$num_iid,
 				"title"=>htmlspecialchars($result['title']),
-				"nick"=>htmlspecialchars($result['nick']),
-				"pic"=>'http://img01.taobaocdn.com/bao/uploaded/'.$result['pic_url'],                                
-				"oprice"=>$result['price'],			
+				"nick"=>htmlspecialchars($tkresult['nick']),
+				"pic"=>$result['pict_url'],//'http://img01.taobaocdn.com/bao/uploaded/'                                
+				"oprice"=>$result['reserve_price'],
+                                "nprice"=>$result['zk_final_price'],
 				"st"=>date("Y-m-d"),//商品上架时间
 				"et"=>date("Y-m-d",86400*7+time()),//商品下架时间
-				"cid"=>$result['cid'],
+				"cid"=>0,
 				"link"=>'http://item.taobao.com/item.htm?id='.$num_iid,
 				"rank"=>500,
 				"postdt"=>date("Y-m-d"),
 				"ischeck"=>1,
-				"volume"=>$volume,
-                                "slink"=>$result['seller_id'],
+				"volume"=>$tkresult['volume'],
+                                "slink"=>$tkresult['seller_id'],
 			);
 			$item['title'] = preg_replace('/【.+?】/i','',$item['title']);
 			//var_dump($item);
 			// 运费
 			$item['carriage']=1;
 			// 淘宝或天猫商品(天猫有抽佣)
-			if($result['tmall'])
+			if($result['user_type'])
 				$item['shopshow']=0; //天猫
 			else 
 				$item['shopshow']=1;
@@ -258,7 +260,7 @@ function getItemDetail($num_iid,$mode=1){
                         $item['commission_rate'] = -1;
 //			var_dump($item);
                         if($mode==3)//图片集
-                            $item['item_imgs'] = $result['item_imgs'];
+                            $item['item_imgs'] = $result['small_images'];
 			return $item;
 		}
 		

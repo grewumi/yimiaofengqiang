@@ -103,7 +103,7 @@ class admin extends spController{
                     $item['title'] = iconv('utf-8','gb2312',$item['title']);
                     $item['title'] = preg_replace('/°æ.+?°ø/i','',$item['title']);
                     $item['nick'] = iconv('utf-8','gb2312',$item['nick']);
-                    $item['volume'] = getvolume($iid,$item['shopshow']);
+//                    $item['volume'] = getvolume($iid,$item['shopshow']);
                     if(!$item['volume'])
                             $item['volume'] = -1;
                     // end - ◊÷∑˚◊™ªª
@@ -943,8 +943,8 @@ class admin extends spController{
                                     else
                                             $item['act_from'] = 1;
                                     $item['last_modify'] = date("Y-m-d H:i:s");
-                                    $item['volume'] = getvolume($v['iid'],$item['shopshow']);
-
+//                                    $item['volume'] = getvolume($v['iid'],$item['shopshow']);
+                                  
                                     //var_dump($item);
                                     if(!$pros->find(array('iid'=>$v['iid']))){ //√ª’“µΩ
                                             $item['postdt'] = date("Y-m-d H:i:s");

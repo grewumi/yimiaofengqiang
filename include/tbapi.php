@@ -91,7 +91,7 @@ function getItem($num_iid,$mode='taoke')
                 $req->setNumIids($num_iid);
                 $resp = $c->execute($req);
 //		var_dump($resp);
-		$resp = object_to_array($resp->n_tbk_item);
+		$resp = object_to_array($resp);
 		var_dump($resp);
 	}
 	elseif($mode == 'taoke'){

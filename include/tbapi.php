@@ -220,7 +220,7 @@ function getItemDetail($num_iid,$mode=1){
 		$result = getItem($num_iid,'normal');
                 $tkresult = getItem($num_iid,'taoke');
 //		$result = getItemNew($num_iid,'normal');
-//                var_dump($result);
+                var_dump($result);
                 if($result<0){
                     return -1;
                 }else{
@@ -261,7 +261,7 @@ function getItemDetail($num_iid,$mode=1){
 //			var_dump($item);
                         if($mode==3){//Í¼Æ¬¼¯
                             $item['item_imgs'] = $result['small_images'];
-                            echo $item['item_imgs'];
+//                            echo $item['item_imgs'];
                         }
 			return $item;
 		}

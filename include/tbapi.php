@@ -90,10 +90,8 @@ function getItem($num_iid,$mode='taoke')
                 $req->setFields("num_iid,title,pict_url,reserve_price,zk_final_price,user_type,provcity,item_url,small_images");
                 $req->setNumIids($num_iid);
                 $resp = $c->execute($req);
-                var_dump($resp->results->n_tbk_item);
-		var_dump($resp->results->n_tbk_item->small_images);
 		$resp = object_to_array($resp->results->n_tbk_item);
-//		var_dump($resp);
+		var_dump($resp);
 	}
 	elseif($mode == 'taoke'){
 		$req = new TbkItemsDetailGetRequest;
@@ -101,7 +99,7 @@ function getItem($num_iid,$mode='taoke')
                 $req->setNumIids($num_iid);
                 $resp = $c->execute($req);
 		$resp = object_to_array($resp->tbk_items->tbk_item);
-		//var_dump($resp);
+		var_dump($resp);
 	}elseif($mode == 'approve_status'){
 		$req = new ItemGetRequest;
 		$req->setFields("approve_status");

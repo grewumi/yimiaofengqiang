@@ -87,7 +87,7 @@ function getItem($num_iid,$mode='taoke')
 	//$c->secretKey = trim($Secret);
 	if($mode == 'normal'){
 		$req = new TbkItemInfoGetRequest;
-                $req->setFields("num_iid,title,pict_url,small_images,reserve_price,zk_final_price,user_type,provcity,item_url");
+                $req->setFields("num_iid,title,pict_url,reserve_price,zk_final_price,user_type,provcity,item_url,small_images");
                 $req->setNumIids($num_iid);
                 $resp = $c->execute($req);
 		var_dump($resp);

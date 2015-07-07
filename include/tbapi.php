@@ -90,7 +90,7 @@ function getItem($num_iid,$mode='taoke')
                 $req->setFields("num_iid,title,pict_url,small_images,reserve_price,zk_final_price,user_type,provcity,item_url");
                 $req->setNumIids($num_iid);
                 $resp = $c->execute($req);
-//		var_dump($resp);
+		var_dump($resp);
 		$resp = object_to_array($resp->results->n_tbk_item);
 //		var_dump($resp);
 	}
@@ -220,7 +220,7 @@ function getItemDetail($num_iid,$mode=1){
 		$result = getItem($num_iid,'normal');
                 $tkresult = getItem($num_iid,'taoke');
 //		$result = getItemNew($num_iid,'normal');
-                var_dump($result);
+//                var_dump($result);
                 if($result<0){
                     return -1;
                 }else{

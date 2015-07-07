@@ -217,8 +217,8 @@ function getItemDetail($num_iid,$mode=1){
  	if($mode==2){
 		$result = getItem($num_iid,'approve_status');
 	}else{
-//		$result = getItem($num_iid,'normal');
-		$result = getItemNew($num_iid,'normal');
+		$result = getItem($num_iid,'normal');
+//		$result = getItemNew($num_iid,'normal');
                 var_dump($result);
                 if($result<0){
                     return -1;

@@ -9,6 +9,7 @@ include_once 'tbtop/ItemcatsGetRequest.php';
 include_once 'tbtop/ShopGetRequest.php';
 include_once 'tbtop/TbkItemsDetailGetRequest.php';
 include_once 'tbtop/TbkItemGetRequest.php';
+include_once 'tbtop/TbkItemInfoGetRequest.php';
 header("Content-Type:text/html;charset=gbk");
 
 //$app=array('21463466'=>'91cd273f32da3a640d237595a1e827e0');
@@ -85,12 +86,12 @@ function getItem($num_iid,$mode='taoke')
 	//$c->appkey = trim($Key);
 	//$c->secretKey = trim($Secret);
 	if($mode == 'normal'){
-		$req = new ItemGetRequest;
-		$req->setFields("title,num_iid,nick,pic_url,cid,list_time,detail_url,approve_status,delist_time,price,nick,freight_payer,post_fee,express_fee,ems_fee,auction_point,has_discount");
-		$req->setNumIid($num_iid);
+		$req = new TbkItemInfoGetRequest;
+                $req->setFields("num_iid,title,pict_url,small_images,reserve_price,zk_final_price,user_type,provcity,item_url");
+                $req->setNumIids($num_iid);
 		$resp = $c->execute($req);
 //		var_dump($resp);
-		$resp = object_to_array($resp->item);
+		$resp = object_to_array($resp->n_tbk_item);
 		//var_dump($resp);
 	}
 	elseif($mode == 'taoke'){
@@ -218,7 +219,7 @@ function getItemDetail($num_iid,$mode=1){
 	}else{
 //		$result = getItem($num_iid,'normal');
 		$result = getItemNew($num_iid,'normal');
-//                var_dump($result);
+                var_dump($result);
                 if($result<0){
                     return -1;
                 }else{

@@ -92,7 +92,7 @@ function getItem($num_iid,$mode='taoke')
 		$resp = $c->execute($req);
 //		var_dump($resp);
 		$resp = object_to_array($resp->n_tbk_item);
-		//var_dump($resp);
+		var_dump($resp);
 	}
 	elseif($mode == 'taoke'){
 		$req = new TaobaokeItemsDetailGetRequest;
@@ -219,7 +219,7 @@ function getItemDetail($num_iid,$mode=1){
 	}else{
 		$result = getItem($num_iid,'normal');
 //		$result = getItemNew($num_iid,'normal');
-                var_dump($result);
+//                var_dump($result);
                 if($result<0){
                     return -1;
                 }else{

@@ -91,7 +91,7 @@ function getItem($num_iid,$mode='taoke')
                 $req->setNumIids($num_iid);
                 $resp = $c->execute($req);
 		$resp = object_to_array($resp->results->n_tbk_item);
-		var_dump($resp);
+//		var_dump($resp);
 	}
 	elseif($mode == 'taoke'){
 		$req = new TbkItemsDetailGetRequest;
@@ -99,7 +99,7 @@ function getItem($num_iid,$mode='taoke')
                 $req->setNumIids($num_iid);
                 $resp = $c->execute($req);
 		$resp = object_to_array($resp->tbk_items->tbk_item);
-		var_dump($resp);
+//		var_dump($resp);
 	}elseif($mode == 'approve_status'){
 		$req = new ItemGetRequest;
 		$req->setFields("approve_status");
@@ -219,7 +219,8 @@ function getItemDetail($num_iid,$mode=1){
 		$result = getItem($num_iid,'normal');
                 $tkresult = getItem($num_iid,'taoke');
 //		$result = getItemNew($num_iid,'normal');
-//                var_dump($result);
+                var_dump($result);
+                var_dump($tkresult);
                 if($result<0){
                     return -1;
                 }else{

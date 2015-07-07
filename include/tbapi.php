@@ -261,7 +261,7 @@ function getItemDetail($num_iid,$mode=1){
 //			var_dump($item);
                         if($mode==3){//Í¼Æ¬¼¯
                             $item['item_imgs'] = $result['small_images'];
-                            var_dump($item['item_imgs']);
+                            echo $item['item_imgs'];
                         }
 			return $item;
 		}

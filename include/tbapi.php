@@ -277,14 +277,8 @@ function getItemDetail($num_iid,$mode=1){
                             foreach($result['small_images']['string'] as $v){
                                 $imgsTemp .= $v.',';
                             }
-                            if(count($result['small_images']['string'])>1){
-                               $item['item_imgs'] = substr($imgsTemp,0,strlen($imgsTemp)-1);
-                            }else{
-                               $item['item_imgs'] = $imgsTemp;
-                            }
-                            
-                            
-//                            echo $item['item_imgs'];
+                            $item['item_imgs'] = substr($imgsTemp,0,strlen($imgsTemp)-1);
+                            //echo $item['item_imgs'];
                         }
 			return $item;
 		}

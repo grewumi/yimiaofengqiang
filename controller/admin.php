@@ -110,7 +110,7 @@ class admin extends spController{
                     // end - ×Ö·û×ª»»
                     //$item['sid'] = getShop($item['nick']);
                     //var_dump($item);
-                    echo '{"iid":"'.$item['iid'].'","title":"'.$item['title'].'","slink":"'.$item['slink'].'","nick":"'.$item['nick'].'","pic":"'.$item['pic'].'","oprice":"'.$item['oprice'].'","st":"'.$item['st'].'","et":"'.$item['et'].'","cid":"'.$item['cid'].'","link":"'.$item['link'].'","rank":'.$item['rank'].',"postdt":"'.$item['postdt'].'","ischeck":'.$item['ischeck'].',"volume":'.$item['volume'].',"carriage":'.$item['carriage'].',"shopshow":'.$item['shopshow'].',"shopv":'.$item['shopv'].',"cat":'.$item['cat'].',"item_imgs":"'.$item['item_imgs'].'","commission_rate":'.$item['commission_rate'].'}';
+                    echo '{"iid":"'.$item['iid'].'","title":"'.$item['title'].'","slink":"'.$item['slink'].'","nick":"'.$item['nick'].'","pic":"'.$item['pic'].'","oprice":"'.$item['oprice'].'","nprice":"'.$item['nprice'].'","st":"'.$item['st'].'","et":"'.$item['et'].'","cid":"'.$item['cid'].'","link":"'.$item['link'].'","rank":'.$item['rank'].',"postdt":"'.$item['postdt'].'","ischeck":'.$item['ischeck'].',"volume":'.$item['volume'].',"carriage":'.$item['carriage'].',"shopshow":'.$item['shopshow'].',"shopv":'.$item['shopv'].',"cat":'.$item['cat'].',"item_imgs":"'.$item['item_imgs'].'","commission_rate":'.$item['commission_rate'].'}';
 
                 }
 	}

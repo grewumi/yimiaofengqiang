@@ -273,12 +273,15 @@ function getItemDetail($num_iid,$mode=1){
                         $item['shopname'] = htmlspecialchars($shopinfo['shop_title']);
 //			var_dump($shopinfo);
                         if($mode==3){//Í¼Æ¬¼¯
-                            var_dump($result['small_images']);
-                            var_dump($result['small_images']['string']);
-                            foreach($result['small_images']['string'] as $v){
-                                $imgsTemp .= $v.',';
+                            if(empty($result['small_images'])){
+                                $item['item_imgs'] = $item['pic'];
+                            }else{
+                                foreach($result['small_images']['string'] as $v){
+                                    $imgsTemp .= $v.',';
+                                }
+                                $item['item_imgs'] = substr($imgsTemp,0,strlen($imgsTemp)-1);
                             }
-                            $item['item_imgs'] = substr($imgsTemp,0,strlen($imgsTemp)-1);
+                            
                             //echo $item['item_imgs'];
                         }
 			return $item;

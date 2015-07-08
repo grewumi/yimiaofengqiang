@@ -231,7 +231,7 @@ function getItemDetail($num_iid,$mode=1){
 //		$result = getItemNew($num_iid,'normal');
 //                var_dump($result);
 //                var_dump($tkresult);
-                if($result<0){
+                if(!$result){
                     return -1;
                 }else{
 			$volume = 200;

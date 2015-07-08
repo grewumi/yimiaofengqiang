@@ -275,7 +275,7 @@ function getItemDetail($num_iid,$mode=1){
                         if($mode==3){//Í¼Æ¬¼¯
                             var_dump($result['small_images']);
                             var_dump($result['small_images']['string']);
-                            if(empty($result['small_images'])){
+                            if(!$result['small_images']){
                                 $item['item_imgs'] = $item['pic'];
                             }else{
                                 foreach($result['small_images']['string'] as $v){

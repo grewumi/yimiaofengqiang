@@ -260,11 +260,11 @@ function getItemDetail($num_iid,$mode=1){
                         $item['commission_rate'] = -1;
 //			var_dump($item);
                         if($mode==3){//Í¼Æ¬¼¯
-                            var_dump($result['small_images']);
-                            foreach($result['small_images'] as $k=>$v){
-                                echo $v.'<br />';
+                            var_dump($result['small_images']['string']);
+                            foreach($result['small_images']['string'] as $v){
+                                $imgsTemp = $v.',';
                             };
-//                            $item['item_imgs'] = $imgsTemp;
+                            $item['item_imgs'] = $imgsTemp;
 //                            echo $item['item_imgs'];
                         }
 			return $item;

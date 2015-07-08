@@ -262,7 +262,7 @@ function getItemDetail($num_iid,$mode=1){
                         if($mode==3){//Í¼Æ¬¼¯
                             var_dump($result['small_images']['string']);
                             foreach($result['small_images']['string'] as $v){
-                                $imgsTemp += $v.',';
+                                $imgsTemp .= $v.',';
                             };
                             $item['item_imgs'] = $imgsTemp;
 //                            echo $item['item_imgs'];

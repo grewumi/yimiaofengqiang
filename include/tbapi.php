@@ -219,8 +219,8 @@ function getItemDetail($num_iid,$mode=1){
 		$result = getItem($num_iid,'normal');
                 $tkresult = getItem($num_iid,'taoke');
 //		$result = getItemNew($num_iid,'normal');
-//                var_dump($result);
-//                var_dump($tkresult);
+                var_dump($result);
+                var_dump($tkresult);
                 if($result<0){
                     return -1;
                 }else{

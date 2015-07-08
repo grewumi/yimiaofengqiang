@@ -273,7 +273,7 @@ function getItemDetail($num_iid,$mode=1){
                         $item['shopname'] = htmlspecialchars($shopinfo['shop_title']);
 //			var_dump($shopinfo);
                         if($mode==3){//Í¼Æ¬¼¯
-//                            var_dump($result['small_images']['string']);
+                            var_dump($result['small_images']['string']);
                             foreach($result['small_images']['string'] as $v){
                                 $imgsTemp .= $v.',';
                             }

@@ -274,7 +274,7 @@ function getItemDetail($num_iid,$mode=1){
 //			var_dump($shopinfo);
                         if($mode==3){//Í¼Æ¬¼¯
                             var_dump($result['small_images']);
-                            var_dump($result['small_images']['string']);
+                            echo $result['small_images']['string'];
                             if(!$result['small_images']['string']){
                                 $item['item_imgs'] = $item['pic'];
                             }else{

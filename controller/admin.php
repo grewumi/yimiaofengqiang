@@ -103,6 +103,7 @@ class admin extends spController{
                     $item['title'] = iconv('utf-8','gb2312',$item['title']);
                     $item['title'] = preg_replace('/¡¾.+?¡¿/i','',$item['title']);
                     $item['nick'] = iconv('utf-8','gb2312',$item['nick']);
+                    $item['shopname'] = iconv('utf-8','gb2312',$item['shopname']);
 //                    $item['volume'] = getvolume($iid,$item['shopshow']);
                     if(!$item['volume'])
                             $item['volume'] = -1;
@@ -939,6 +940,7 @@ class admin extends spController{
                                     $item['title'] = iconv('utf-8','gb2312',$item['title']);
                                     $item['title'] = preg_replace('/¡¾.+?¡¿/i','',$item['title']);
                                     $item['nick'] = iconv('utf-8','gb2312',$item['nick']);
+                                    $item['shopname'] = iconv('utf-8','gb2312',$item['shopname']);
                                     // end - ×Ö·û×ª»»
 
                                     if($actType)

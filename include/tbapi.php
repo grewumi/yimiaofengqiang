@@ -261,7 +261,7 @@ function getItemDetail($num_iid,$mode=1){
 //			var_dump($item);
                         if($mode==3){//Í¼Æ¬¼¯
                             for($i=0;$i<count($result['small_images']);$i++){
-                                $imgsTemp = $result['small_images'][$i].',';
+                                echo $result['small_images'][$i].'<br />';
                             };
                             echo '<br />';
                             echo $imgsTemp;

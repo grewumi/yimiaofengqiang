@@ -146,13 +146,19 @@ function userhuoqu(){
 		$.get("/iteminfo.html",{
 		    iid:iid
 		},function(data){
-			var dataObj=eval("("+data+")"); //转换为json对象
+                    var dataObj=eval("("+data+")"); //转换为json对象
+                    if(parseInt(dataObj.iid)<0){
+                         alert('商品未开始或已下架或者没有开通淘客！');
+                         return;
+                    }
 			//alert(data);
 		    $("input#title").val(dataObj.title);
 		    $("input#oprice").val(dataObj.oprice);
 		    $("input#link").val(dataObj.link);
+                    $("input#slink").val(dataObj.slink);
 		    $("input#pic").val(dataObj.pic);
 		    $("input#ww").val(dataObj.nick);
+                    $("input#shopname").val(dataObj.shopname);
 			$("input#volume").val(dataObj.volume);
 			$("input#commissionrate").val(dataObj.commission_rate);
 		    if(dataObj.carriage){

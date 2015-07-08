@@ -48,7 +48,7 @@ function huoquadd(){
                     $(".pro-pic-list").empty();
                     $(".pro-pic-list").append(imghtml);
                     
-                    
+                    $("#addform").empty();
                     var iframehtml = "<div class='tb_item_iframe'><iframe src='http://item.taobao.com/item.htm?id=" + iid + "' onload='scroll(100,100)'></iframe></div>"
                     $("#addform").append(iframehtml);
                             

@@ -270,7 +270,7 @@ function getItemDetail($num_iid,$mode=1){
                         $item['commission_rate'] = -1;
                         
                         $shopinfo = getShopDetail($item['nick']);
-                        $item['shopname'] = $shopinfo['shop_title'];
+                        $item['shopname'] = htmlspecialchars($shopinfo['shop_title']);
 //			var_dump($item);
                         if($mode==3){//Í¼Æ¬¼¯
 //                            var_dump($result['small_images']['string']);

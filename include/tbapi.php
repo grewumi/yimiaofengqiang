@@ -260,6 +260,7 @@ function getItemDetail($num_iid,$mode=1){
                         $item['commission_rate'] = -1;
 //			var_dump($item);
                         if($mode==3){//Í¼Æ¬¼¯
+                            var_dump($result['small_images']);
                             $item['item_imgs'] = $result['small_images'];
 //                            echo $item['item_imgs'];
                         }

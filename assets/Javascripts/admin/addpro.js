@@ -7,7 +7,7 @@ function huoquadd(){
                     var dataObj=eval("("+data+")"); //转换为json对象
 			//alert(data);
                     if(parseInt(dataObj.iid)<0){
-                         alert('商品未开始或已下架！');
+                         alert('商品未开始或已下架或者没有开通淘客！');
                          return;
                     }
 		    $("input#title").val(dataObj.title);
@@ -67,7 +67,7 @@ function huoqu(){
                     var dataObj=eval("("+data+")"); //转换为json对象
 			//alert(data);
                     if(parseInt(dataObj.iid)<0){
-                         alert('商品未开始或已下架！');
+                         alert('商品未开始或已下架或者没有开通淘客！');
                          return;
                     }
 		    $("input#title").val(dataObj.title);

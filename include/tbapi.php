@@ -281,11 +281,12 @@ function getItemDetail($num_iid,$mode=1){
                                         $imgsTemp .= $v.',';
                                     }
                                     $imgsTemp = $item['pic'].','.$imgsTemp;
-                                    
+                                    $item['item_imgs'] = substr($imgsTemp,0,strlen($imgsTemp)-1);
                                 }else{
                                     $imgsTemp = $item['pic'].','.$result['small_images']['string'];
+                                    $item['item_imgs'] = $imgsTemp;
                                 }
-                                $item['item_imgs'] = substr($imgsTemp,0,strlen($imgsTemp)-1);
+                                
                                 
                             }
                             

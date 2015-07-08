@@ -12,6 +12,7 @@ function huoquadd(){
                     }
 		    $("input#title").val(dataObj.title);
 		    $("input#oprice").val(dataObj.oprice);
+                    $("input#nprice").val(dataObj.nprice);
 		    $("input#link").val(dataObj.link);
 		    $("input#pic").val(dataObj.pic);
 		    $("input#ww").val(dataObj.nick);
@@ -69,6 +70,7 @@ function huoqu(){
                     }
 		    $("input#title").val(dataObj.title);
 		    $("input#oprice").val(dataObj.oprice);
+                    $("input#nprice").val(dataObj.nprice);
 		    $("input#link").val(dataObj.link);
 		    $("input#pic").val(dataObj.pic);
 		    $("input#ww").val(dataObj.nick);

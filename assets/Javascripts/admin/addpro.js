@@ -16,6 +16,7 @@ function huoquadd(){
 		    $("input#link").val(dataObj.link);
 		    $("input#pic").val(dataObj.pic);
 		    $("input#ww").val(dataObj.nick);
+                    $("input#shopname").val(dataObj.shopname);
                     $("input#commissionrate").val(dataObj.commission_rate);
                     $("input#volume").val(dataObj.volume);
                     $("input#slink").val(dataObj.slink);
@@ -75,6 +76,7 @@ function huoqu(){
 		    $("input#link").val(dataObj.link);
 		    $("input#pic").val(dataObj.pic);
 		    $("input#ww").val(dataObj.nick);
+                    $("input#shopname").val(dataObj.shopname);
                     $("input#commissionrate").val(dataObj.commission_rate);
                     $("input#volume").val(dataObj.volume);
                     $("input#slink").val(dataObj.slink);

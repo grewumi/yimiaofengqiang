@@ -10,6 +10,7 @@ include_once 'tbtop/ShopGetRequest.php';
 include_once 'tbtop/TbkItemsDetailGetRequest.php';
 include_once 'tbtop/TbkItemGetRequest.php';
 include_once 'tbtop/TbkItemInfoGetRequest.php';
+include_once 'tbtop/TbkShopsDetailGetRequest.php';
 header("Content-Type:text/html;charset=gbk");
 
 //$app=array('21463466'=>'91cd273f32da3a640d237595a1e827e0');
@@ -210,7 +211,16 @@ function creatCids(){
 //foreach($)
 
 function getShopDetail($nick){
-	
+        global $Key,$Secret;
+	$c = new TopClient;
+	$c->appkey = trim($Key);
+	$c->secretKey = trim($Secret);
+	$req = new TbkShopsDetailGetRequest;
+        $req->setFields("user_id,seller_nick,shop_title,pic_url,shop_url");
+        $req->setSellerNicks($nick);
+        $resp = $c->execute($req);
+        $resp = object_to_array($resp->tbk_shops->tbk_shop);
+        return $resp;
 }
 function getItemDetail($num_iid,$mode=1){
  	if($mode==2){
@@ -258,6 +268,9 @@ function getItemDetail($num_iid,$mode=1){
                         
 //                      $item['commission_rate'] = getCommissionRate($item['iid']);
                         $item['commission_rate'] = -1;
+                        
+                        $shopinfo = getShopDetail($item['nick']);
+                        $item['shopname'] = $shopinfo['shop_title'];
 //			var_dump($item);
                         if($mode==3){//Í¼Æ¬¼¯
 //                            var_dump($result['small_images']['string']);

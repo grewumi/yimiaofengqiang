@@ -322,7 +322,9 @@ class main extends spController{
 					'volume'=>$_POST['volume'],
 					'channel'=>2,//此项为用户报名渠道，采集的渠道为1(默认也是采集的渠道号)
 					//以下类别暂时用未定
-					'cat'=>$_POST['cat']
+					'cat'=>$_POST['cat'],
+                                        'slink'=>$_POST['slink'],
+                                        'shopname'=>$_POST['shopname']
 				);
                                 if($mode=='try')
                                     $item['gailv'] = 1000;

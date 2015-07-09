@@ -76,11 +76,11 @@
                                                     <a target="_blank" href="{spUrl c=admin mode=$mode a=xuqi id=$v.id}">ÐøÆÚ</a>
                                                     <a target="_blank" href="{spUrl c=admin a=delpro mode=$mode id=$v.id}" onclick="return delfun()">É¾³ý</a>
 						</span>
-						<span class="short">
-							<a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid={$v.nick|escape:'url'}&siteid=cntaobao&status=1&charset=utf-8" >
-								{$v.nick}
-							</a>
-						</span>
+						
+                                                <a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid={$v.nick|escape:'url'}&siteid=cntaobao&status=1&charset=utf-8" >
+                                                    <span class="title">{$v.nick}</span>
+                                                </a>
+						
                                                 
 					</li>
 					{if $v.ischeck == 2}<div class="reason">{$v.reason}</div>{/if}

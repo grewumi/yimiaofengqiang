@@ -36,6 +36,7 @@ class sysconfig extends spController{
         $id = $this->spArgs("id");
         $mode = $this->spArgs("mode")?$this->spArgs("mode"):1;
         $set = $this->spArgs("set");
+        $this->set = $set;
         switch($set){
             case 'caiji':
                 if($mode==1)

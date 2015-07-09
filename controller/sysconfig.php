@@ -35,48 +35,56 @@ class sysconfig extends spController{
         $cmd = $this->spArgs("cmd");
         $id = $this->spArgs("id");
         $mode = $this->spArgs("mode")?$this->spArgs("mode"):1;
-        if($mode==1)
-            $this->caijiwebsite = $websites->findAll(array('iscaiji'=>1),'rank desc');
-        elseif($mode==2)
-            $this->caijiwebsite = $websites->findAll(array('iscaiji'=>0),'rank desc');
-        switch($cmd){
-            case 'mod':
-                $site = $websites->find(array('id'=>$id));
-                $this->site = $site;
-                if($this->spArgs("modAd")){
-                    $res = array(
-                       "name"=>$this->spArgs("name"),
-                       "actType"=>$this->spArgs("actType"),
-                       "iscaiji"=>$this->spArgs("iscaiji"),
-                       "rank"=>$this->spArgs("rank")
-                    );
-                    if($websites->update(array('id'=>$id),$res))
-                        echo '修改成功';
-                    else
-                        echo '修改失败';
-                }
-                break;
-//            case 'del':
-//                if($websites->delete(array('id'=>$id)))
-//                    echo '删除成功';
-//                else
-//                    echo '删除失败';
-//                break;
+        $set = $this->spArgs("set");
+        switch($set){
+            case 'caiji':
+                if($mode==1)
+                     $this->caijiwebsite = $websites->findAll(array('iscaiji'=>1),'rank desc');
+                elseif($mode==2)
+                    $this->caijiwebsite = $websites->findAll(array('iscaiji'=>0),'rank desc');
+                 switch($cmd){
+                     case 'mod':
+                         $site = $websites->find(array('id'=>$id));
+                         $this->site = $site;
+                         if($this->spArgs("modAd")){
+                             $res = array(
+                                "name"=>$this->spArgs("name"),
+                                "actType"=>$this->spArgs("actType"),
+                                "iscaiji"=>$this->spArgs("iscaiji"),
+                                "rank"=>$this->spArgs("rank")
+                             );
+                             if($websites->update(array('id'=>$id),$res))
+                                 echo '修改成功';
+                             else
+                                 echo '修改失败';
+                         }
+                         break;
+         //            case 'del':
+         //                if($websites->delete(array('id'=>$id)))
+         //                    echo '删除成功';
+         //                else
+         //                    echo '删除失败';
+         //                break;
+                     default:
+                         if($this->spArgs("modAd")){
+                             $res = array(
+                                "name"=>$this->spArgs("name"),
+                                "actType"=>$this->spArgs("actType"),
+                                "iscaiji"=>$this->spArgs("iscaiji"),
+                                "rank"=>$this->spArgs("rank")
+                             );
+                             if($websites->create($res))
+                                 echo '添加成功';
+                             else
+                                 echo '添加失败';
+                         }
+                         break;
+            }
+            // end caiji set
             default:
-                if($this->spArgs("modAd")){
-                    $res = array(
-                       "name"=>$this->spArgs("name"),
-                       "actType"=>$this->spArgs("actType"),
-                       "iscaiji"=>$this->spArgs("iscaiji"),
-                       "rank"=>$this->spArgs("rank")
-                    );
-                    if($websites->create($res))
-                        echo '添加成功';
-                    else
-                        echo '添加失败';
-                }
-                break;
+                ;
         }
+        
 
         $this->display("admin/sysconfig.html");
     }

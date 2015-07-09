@@ -2,38 +2,77 @@
 <html xmlns:wb="http://open.weibo.com/wb">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=gbk">
-<meta name="keywords" content="一秒疯抢,免费试用,九块邮,9块邮,9.9包邮,九块邮官网,9块9,9.9包邮网,9.9包邮,九块九包邮,9.9元全国包邮,九块邮独享,9块9包邮官网 ">
-<meta name="Description" content="一秒疯抢-九块邮(9块9包邮)官网,精选九块邮独家独享9.9包邮,9.9元天天特价商品,9.9元全国包邮每天更新!找最全九块九包邮商品,就上9.9包邮官网.九块邮小幸福,超低价格,超值特价秒杀惊喜不断!">
-<title>
-一秒疯抢_ 
 {if $price || $procat || $type}
 {if $price}
-	{if $price=='1_10'}9.9专区	
-	{elseif $price=='10_20'}19.9专区
-	{elseif $price=='20_30'}29.9专区
-	{elseif $price=='30_40'}39.9专区
+        <meta name="keywords" content="一秒疯抢,淘宝折扣,9.9包邮,唯品会,团促,特卖,1折网" />
+        <meta name="description" content="一秒疯抢一秒疯抢(喵小姐秒杀),全网独家商品抄底特价低至9.9包邮,汇集女装、男装、童装、女鞋、男鞋、女包、男包、特产、零食、护肤、彩妆、母婴等爆款商品特卖信息！" />
+	{if $price=='1_10'}
+        <title>一秒疯抢_9.9专区_一秒疯抢,淘宝折扣,9.9包邮,唯品会,团促,特卖,1折网,一秒疯抢独家优惠九块九天天有！</title>
+	{elseif $price=='10_20'}
+        <title>一秒疯抢_19.9专区_一秒疯抢,淘宝折扣,9.9包邮,唯品会,团促,特卖,1折网,一秒疯抢独家优惠九块九天天有！</title>
+	{elseif $price=='20_30'}
+        <title>一秒疯抢_29.9专区_一秒疯抢,淘宝折扣,9.9包邮,唯品会,团促,特卖,1折网,一秒疯抢独家优惠九块九天天有！</title>
+	{elseif $price=='30_40'}
+        <title>一秒疯抢_39.9专区_一秒疯抢,淘宝折扣,9.9包邮,唯品会,团促,特卖,1折网,一秒疯抢独家优惠九块九天天有！</title>
+        {elseif $price=='40_9999'}
+        <title>一秒疯抢_精品专区_一秒疯抢,淘宝折扣,9.9包邮,唯品会,团促,特卖,1折网,一秒疯抢独家优惠九块九天天有！</title>
 	{/if}
 {/if}
 {if $procat}
-	{if $procat==20}时尚女装
-	{elseif $procat==21}精品男装
-	{elseif $procat==22}母婴儿童
-	{elseif $procat==23}男鞋女鞋
-	{elseif $procat==24}家居百货
-	{elseif $procat==25}美食特产
-	{elseif $procat==26}包包配饰
-	{elseif $procat==27}数码电器
-	{elseif $procat==28}美容护肤
-	{elseif $procat==42}其他宝贝
+	{if $procat==20}
+        <meta name="keywords" content="女装,女士精品,购物女装,特价女士精品" />
+        <meta name="description" content="一秒疯抢精选超值女装,超值女士精品,超值购物女装,超值特价女士精品, 致力于为您打造一个有正品保证且更加实惠的网络购物平台" />
+        <title>女装_女士精品_购物女装_特价女士精品 - 一秒疯抢</title>
+	{elseif $procat==21}
+        <meta name="keywords" content="男装,购物男装,特价男装,新款男装" />
+        <meta name="description" content="一秒疯抢精选超值男装,超值购物男装,超值特价男装,超值新款男装, 致力于为您打造一个有正品保证且更加实惠的网络购物平台" />
+        <title>男装_购物男装_特价男装_新款男装 - 一秒疯抢</title>
+	{elseif $procat==22}
+        <meta name="keywords" content="奶粉,辅食,营养品,零食,购物奶粉,特价辅食,特价营养品,特价零食" />
+        <meta name="description" content="一秒疯抢精选超值奶粉,超值辅食,超值营养品,超值零食,超值购物奶粉,超值特价辅食,超值特价营养品,超值特价零食, 致力于为您打造一个有正品保证且更加实惠的网络购物平台" />
+        <title>奶粉_辅食_营养品_零食_购物奶粉_特价辅食_特价营养品_特价零食 - 一秒疯抢</title>
+	{elseif $procat==23}
+        <meta name="keywords" content="女鞋,购物女鞋,特价女鞋,新款女鞋" />
+        <meta name="description" content="一秒疯抢精选超值女鞋,超值购物女鞋,超值特价女鞋,超值新款女鞋, 致力于为您打造一个有正品保证且更加实惠的网络购物平台" />
+        <title>女鞋_购物女鞋_特价女鞋_新款女鞋 - 一秒疯抢</title>
+	{elseif $procat==24}
+        <meta name="keywords" content="居家日用,购物居家日用,特价居家日用,新款居家日用" />
+        <meta name="description" content="一秒疯抢精选超值居家日用,超值购物居家日用,超值特价居家日用,超值新款居家日用, 致力于为您打造一个有正品保证且更加实惠的网络购物平台" />
+        <title>居家日用_购物居家日用_特价居家日用_新款居家日用 - 一秒疯抢</title>
+	{elseif $procat==25}
+        <meta name="keywords" content="零食,坚果,特产,购物零食,特价坚果,特价特产" />
+        <meta name="description" content="一秒疯抢精选超值零食,超值坚果,超值特产,超值购物零食,超值特价坚果,超值特价特产, 致力于为您打造一个有正品保证且更加实惠的网络购物平台" />
+        <title>零食_坚果_特产_购物零食_特价坚果_特价特产 - 一秒疯抢</title>
+	{elseif $procat==26}
+        <meta name="keywords" content="箱包皮具,热销女包,男包,购物箱包皮具,特价热销女包,特价男包" />
+        <meta name="description" content="一秒疯抢精选超值箱包皮具,超值热销女包,超值男包,超值购物箱包皮具,超值特价热销女包,超值特价男包, 致力于为您打造一个有正品保证且更加实惠的网络购物平台" />
+        <title>箱包皮具_热销女包_男包_购物箱包皮具_特价热销女包_特价男包 - 一秒疯抢</title>
+	{elseif $procat==27}
+        <meta name="keywords" content="数码,购物数码,特价数码,新款数码" />
+        <meta name="description" content="一秒疯抢精选超值数码,超值购物数码,超值特价数码,超值新款数码, 致力于为您打造一个有正品保证且更加实惠的网络购物平台" />
+        <title>数码_购物数码_特价数码_新款数码 - 一秒疯抢</title>
+	{elseif $procat==28}
+        <meta name="keywords" content="彩妆,香水,美妆工具,购物彩妆,特价香水,特价美妆工具" />
+        <meta name="description" content="一秒疯抢精选超值彩妆,超值香水,超值美妆工具,超值购物彩妆,超值特价香水,超值特价美妆工具, 致力于为您打造一个有正品保证且更加实惠的网络购物平台" />
+        <title>彩妆_香水_美妆工具_购物彩妆_特价香水_特价美妆工具 - 一秒疯抢</title>
+	{elseif $procat==42}
+        <meta name="keywords" content="其它,购物其它,特价其它,新款其它" />
+        <meta name="description" content="一秒疯抢精选超值其它,超值购物其它,超值特价其它,超值新款其它, 致力于为您打造一个有正品保证且更加实惠的网络购物平台" />
+        <title>其它_购物其它_特价其它_新款其它 - 一秒疯抢</title>
 	{/if}
 {/if}	
 {if $type}
-	{if $type==87}明日预告{/if}
+	{if $type==87}
+        <meta name="keywords" content="一秒疯抢,淘宝折扣,9.9包邮,唯品会,团促,特卖,1折网" />
+        <meta name="description" content="一秒疯抢一秒疯抢(喵小姐秒杀),全网独家商品抄底特价低至9.9包邮,汇集女装、男装、童装、女鞋、男鞋、女包、男包、特产、零食、护肤、彩妆、母婴等爆款商品特卖信息！" />
+        <title>一秒疯抢_明日预告_一秒疯抢,淘宝折扣,9.9包邮,唯品会,团促,特卖,1折网,一秒疯抢独家优惠九块九天天有！</title>
+        {/if}
 {/if}
-_
+{else}
+<meta name="keywords" content="一秒疯抢,淘宝折扣,9.9包邮,唯品会,团促,特卖,1折网" />
+<meta name="description" content="一秒疯抢_一秒疯抢(喵小姐秒杀),全网独家商品抄底特价低至9.9包邮,汇集女装、男装、童装、女鞋、男鞋、女包、男包、特产、零食、护肤、彩妆、母婴等爆款商品特卖信息！" />
+<title>一秒疯抢_一秒疯抢,淘宝折扣,9.9包邮,唯品会,团促,特卖,1折网,一秒疯抢独家优惠九块九天天有！</title>
 {/if}
-一秒疯抢免费试用_一秒疯抢独家优惠九块九天天有！
-</title>
 <link rel="stylesheet" href="/assets/stylesheets/front/index.css" />
 <link rel="stylesheet" href="/assets/stylesheets/front/head.css" />
 <link rel="stylesheet" href="/assets/stylesheets/front/foot.css" />

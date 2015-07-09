@@ -51,8 +51,8 @@
 						<span class="short">数量</span>
 						{/if}
                                                 <span class="short">佣金</span>
-						<span>操作</span>
-                                                <span>旺旺</span>
+						<span class="title">操作</span>
+                                                <span class="short">旺旺</span>
 					</li>	
 				{foreach key=k item=v from=$items}
 					<li>
@@ -70,13 +70,13 @@
 						
 						<span class="short">{$v.volume}</span>
                                                 <span class="short">{$v.commission_rate}%</span>
-						<span>
+						<span class="title">
                                                     <a target="_blank" href="{spUrl c=admin mode=$mode a=modpro id=$v.id}">修改</a>
                                                     <a target="_blank" href="{spUrl c=admin mode=$mode a=checkpro id=$v.id}">审核</a>
                                                     <a target="_blank" href="{spUrl c=admin mode=$mode a=xuqi id=$v.id}">续期</a>
                                                     <a target="_blank" href="{spUrl c=admin a=delpro mode=$mode id=$v.id}" onclick="return delfun()">删除</a>
 						</span>
-						<span>
+						<span class="short">
 							<a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid={$v.nick|escape:'url'}&siteid=cntaobao&status=1&charset=utf-8" >
 								{$v.nick}
 							</a>

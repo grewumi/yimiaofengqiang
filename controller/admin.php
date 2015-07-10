@@ -1018,12 +1018,12 @@ class admin extends spController{
             // end - ²É¼¯¿ª´º¸ç
             import("tbapi.php");
 //            var_dump(get_TbkItems($this->spArgs("page")));
-            foreach(get_TbkItems($this->spArgs("page")) as $k=>$v){
-//                $tkitem[] = array('iid'=>$v['num_iid']);
-            var_dump($v);
+            $items = get_TbkItems($this->spArgs("page"));
+            foreach($items['n_tbk_item'] as $v){
+                $tkitem[] = array('iid'=>$v['num_iid']);
             }
-//            $tkitems['all'] = $tkitem;
-//            var_dump($tkitems);
+            $tkitems['all'] = $tkitem;
+            var_dump($tkitems);
 //            $this->getitems($tkitems,'');      
         }
         

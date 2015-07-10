@@ -44,7 +44,7 @@ function get_TbkItems($page=1){
     $req = new TbkItemGetRequest;
     $req->setFields("num_iid");
     $req->setPageNo($page);
-    $req->setPageSize(100);
+    $req->setPageSize(5);
     $resp = $c->execute($req);
     return object_to_array($resp->results);
 }

@@ -36,14 +36,14 @@ function gettkreport($page=1){
 	return $resp['taobaoke_report_member'];
 	
 }
-function get_TbkItems(){
+function get_TbkItems($page=1){
     global $Key,$Secret;
     $c = new TopClient;
     $c->appkey = trim($Key);
     $c->secretKey = trim($Secret);
     $req = new TbkItemGetRequest;
     $req->setFields("num_iid");
-    $req->setPageNo(1000);
+    $req->setPageNo($page);
     $req->setPageSize(100);
     $resp = $c->execute($req);
     return object_to_array($resp->results);

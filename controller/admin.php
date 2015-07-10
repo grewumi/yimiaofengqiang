@@ -1019,7 +1019,7 @@ class admin extends spController{
             import("tbapi.php");
 //            var_dump($this->spArgs("page"));
             foreach(get_TbkItems($this->spArgs("page")) as $k => $v){
-                $tkitem[] = array('iid'=>$v[3]);
+                $tkitem[] = array('iid'=>$v);
             }
             $tkitems['all'] = $tkitem;
             var_dump($tkitems);

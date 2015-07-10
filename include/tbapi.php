@@ -42,7 +42,7 @@ function get_TbkItems(){
     $c->appkey = trim($Key);
     $c->secretKey = trim($Secret);
     $req = new TbkItemGetRequest;
-    $req->setFields("num_iid,title,pict_url,small_images,reserve_price,zk_final_price,user_type,provcity,item_url");
+    $req->setFields("num_iid");
     $req->setStartTkRate(500);
     $req->setPageNo(1);
     $req->setPageSize(100);

@@ -1019,11 +1019,11 @@ class admin extends spController{
             import("tbapi.php");
 //            var_dump($this->spArgs("page"));
             foreach(get_TbkItems($this->spArgs("page")) as $k => $v){
-                $tkitem[] = array('iid'=>$v);
+                $tkitem[] = array('iid'=>$v['num_iid']);
             }
             $tkitems['all'] = $tkitem;
             var_dump($tkitems);
-            $this->getitems($tkitems,'');      
+//            $this->getitems($tkitems,'');      
         }
         
 	// uz²É¼¯

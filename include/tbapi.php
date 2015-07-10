@@ -47,7 +47,7 @@ function get_TbkItems(){
     $req->setPageNo(1);
     $req->setPageSize(100);
     $resp = $c->execute($req);
-    return object_to_array($resp->results->n_tbk_item);
+    return object_to_array($resp->results);
 }
 
 function getShop($nick){

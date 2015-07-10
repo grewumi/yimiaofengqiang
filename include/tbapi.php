@@ -43,7 +43,6 @@ function get_TbkItems(){
     $c->secretKey = trim($Secret);
     $req = new TbkItemGetRequest;
     $req->setFields("num_iid");
-    $req->setStartTkRate(500);
     $req->setPageNo(1000);
     $req->setPageSize(100);
     $resp = $c->execute($req);

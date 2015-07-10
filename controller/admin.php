@@ -1006,8 +1006,22 @@ class admin extends spController{
                 echo tail($file,$lastpos);  
             } 
 	}
-	
-	// 采集
+        
+        //淘客商品采集
+        public function tkitemscaiji(){
+            set_time_limit(0);
+              
+            // 采集开春哥
+            ini_set('memory_limit', '64M'); // 内存超载
+            ini_set('pcre.backtrack_limit', 999999999); // 回溯超载
+            ini_set('pcre.recursion_limit', 99999); // 资源开大就行
+            // end - 采集开春哥
+            
+            $tkitems['all'] = get_TbkItems($this->spArgs("page"));
+            var_dump($tkitems);
+        }
+        
+	// uz采集
 	public function uzcaiji($type=null){
 		
 //		if(!$_SESSION['admin'])

@@ -912,9 +912,10 @@ class admin extends spController{
                                 }else{
 //                                    echo $v['iid'].' 获取信息CG!<br/>';
                                     // 现价  && 图片
-                                    $item['nprice'] = $v['nprice'];
+                                    if($v['nprice'])
+                                        $item['nprice'] = $v['nprice'];
                                     if($v['pic'])
-                                            $item['pic'] = $v['pic'];
+                                        $item['pic'] = $v['pic'];
                                     // end - 现价  && 图片
 
                                     // 递归取得淘宝二级节点
@@ -934,12 +935,14 @@ class admin extends spController{
                                     }
                                     // end - 递归取得淘宝二级节点
 
-
+                                    if($v['cat'])
+                                        $item['cat'] = $v['cat'];
 
                                     // 字符转换
                                     $item['title'] = iconv('utf-8','gb2312',$item['title']);
                                     $item['title'] = preg_replace('/【.+?】/i','',$item['title']);
                                     $item['nick'] = iconv('utf-8','gb2312',$item['nick']);
+                                    $item['ww'] = iconv('utf-8','gb2312',$item['ww']);
                                     $item['shopname'] = iconv('utf-8','gb2312',$item['shopname']);
                                     // end - 字符转换
 
@@ -1018,12 +1021,12 @@ class admin extends spController{
             // end - 采集开春哥
             import("tbapi.php");
 //            var_dump(get_TbkItems($this->spArgs("page")));
-            $items = get_TbkItems($this->spArgs("page"));
+            $items = get_TbkItems($this->spArgs("page"),$this->spArgs("caijicat"));
             foreach($items['n_tbk_item'] as $v){
-                $tkitem[] = array('iid'=>$v['num_iid']);
+                $tkitem[] = array('iid'=>$v['num_iid'],'cat'=>$this->spArgs("cat"));
             }
             $tkitems['all'] = $tkitem;
-            var_dump($tkitems);
+//            var_dump($tkitems);
             $this->getitems($tkitems,'');      
         }
         

@@ -36,15 +36,16 @@ function gettkreport($page=1){
 	return $resp['taobaoke_report_member'];
 	
 }
-function get_TbkItems($page=1){
+function get_TbkItems($page=1,$cat){
     global $Key,$Secret;
     $c = new TopClient;
     $c->appkey = trim($Key);
     $c->secretKey = trim($Secret);
     $req = new TbkItemGetRequest;
     $req->setFields("num_iid");
+    $req->setCat($cat);
     $req->setPageNo($page);
-    $req->setPageSize(5);
+    $req->setPageSize(100);
     $resp = $c->execute($req);
     return object_to_array($resp->results);
 }
@@ -240,6 +241,7 @@ function getItemDetail($num_iid,$mode=1){
 				"iid"=>$num_iid,
 				"title"=>htmlspecialchars($result['title']),
 				"nick"=>htmlspecialchars($tkresult['nick']),
+                                "ww"=>htmlspecialchars($tkresult['nick']),
 				"pic"=>$result['pict_url'],//'http://img01.taobaocdn.com/bao/uploaded/'                                
 				"oprice"=>$result['reserve_price'],
                                 "nprice"=>$result['zk_final_price'],

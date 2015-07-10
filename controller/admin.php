@@ -1022,8 +1022,8 @@ class admin extends spController{
                 $tkitem[] = array('iid'=>$v);
             }
             $tkitems['all'] = $tkitem;
-            $this->getitems($tkitems,'');
-//            var_dump($tkitems);
+            var_dump($tkitems);
+            $this->getitems($tkitems,'');      
         }
         
 	// uz²É¼¯

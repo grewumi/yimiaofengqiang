@@ -1017,6 +1017,7 @@ class admin extends spController{
             ini_set('pcre.recursion_limit', 99999); // 资源开大就行
             // end - 采集开春哥
             import("tbapi.php");
+            var_dump($this->spArgs("page"));
             foreach($this->spArgs("page") as $k => $v){
                 $tkitem[] = array('iid'=>$v[3]);
             }

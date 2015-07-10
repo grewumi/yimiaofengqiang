@@ -1016,7 +1016,7 @@ class admin extends spController{
             ini_set('pcre.backtrack_limit', 999999999); // 回溯超载
             ini_set('pcre.recursion_limit', 99999); // 资源开大就行
             // end - 采集开春哥
-            
+            import("tbapi.php");
             $tkitems['all'] = get_TbkItems($this->spArgs("page"));
             var_dump($tkitems);
         }

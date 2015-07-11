@@ -86,16 +86,19 @@ class main extends spController{
             $pros = spClass("m_pro");
             $pro = $pros->find(array('id'=>$id));
             // 获取seller_id
-            if($pro['slink'])
+            if($pro['slink']){
                 $pro['sid'] = $pro['slink'];
-            else{
+            }else{
                 import("tbapi.php");
                 $seller_id = getItemDetail($pro['iid']);
                 $pro['sid'] = $seller_id['slink'];
             }
             // END 获取seller_id
-            $shipinfo = getShopNew($pro['sid']);
-            $pro['shopname'] = iconv('utf-8','gbk',$shipinfo['shop_title']);
+            if(!$pro['shopname']){
+                $shipinfo = getShopNew($pro['sid']);
+                $pro['shopname'] = iconv('utf-8','gbk',$shipinfo['shop_title']); 
+            }
+            
             $this->pro = $pro;
             $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
             $this->display("front/shopdeal.html");

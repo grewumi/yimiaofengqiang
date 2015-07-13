@@ -1,3 +1,27 @@
+<div class="tags_and_shop_around">
+    <div class="tags_and_shop">
+        {if $items}
+        <div class="tags">
+            <a target="_blank" href="/">“ª√Î∑Ë«¿</a>
+            {foreach key=k item=v from=$items}
+            {if $v.shopname}
+            <a target="_blank" href="{spUrl c=main a=shopdeal id=$v.id}">{$v.shopname}</a>
+            {/if}
+            {/foreach}
+        </div>
+        {/if}
+        {if $dujia}
+        <div class="tags">
+            <a target="_blank" href="/">“ª√Î∑Ë«¿</a>
+            {foreach key=k item=v from=$dujia}
+            {if $v.shopname}
+            <a target="_blank" href="{spUrl c=main a=shopdeal id=$v.id}">{$v.shopname}</a>
+            {/if}
+            {/foreach}
+        </div>
+        {/if}
+    </div>
+</div>
 <div class="xiai-foot-around">
 	<script type="text/javascript">
     (function(win,doc){

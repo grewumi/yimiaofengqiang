@@ -99,3 +99,12 @@
 .right-sider a.sider-top{
 	height:50px;
 }
+.tags_and_shop{
+    width:1080px;margin:10px auto;
+}
+.tags_and_shop .tags{
+    background:#fff;margin:10px auto;
+}
+.tags_and_shop .tags a{
+    display:inline-block;padding:5px;margin-right:8px;text-decoration:none;color:gray;
+}

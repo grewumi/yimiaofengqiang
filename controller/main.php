@@ -76,6 +76,9 @@ class main extends spController{
                 if($dealsync){
                     $pro['title'] = urlencode(iconv('gbk','utf-8',$pro['title']));
                     $pro['ptname'] = urlencode(iconv('gbk','utf-8',$pro['ptname']));
+                    $pro['nick'] = urlencode(iconv('gbk','utf-8',$pro['nick']));
+                    $pro['shopname'] = urlencode(iconv('gbk','utf-8',$pro['shopname']));
+                    $pro['ww'] = urlencode(iconv('gbk','utf-8',$pro['ww']));
                     echo json_encode($pro);
                 }else{
                     $this->display("front/deal.html");
@@ -260,6 +263,9 @@ class main extends spController{
                         if($othersync){// 一区json数据
                             for($i=0;$i<count($itemsC1);$i++){
                                 $itemsC1[$i]['title'] = urlencode(iconv('gbk','utf-8',$itemsC1[$i]['title']));
+                                $itemsC1[$i]['nick'] = urlencode(iconv('gbk','utf-8',$itemsC1[$i]['nick']));
+                                $itemsC1[$i]['ww'] = urlencode(iconv('gbk','utf-8',$itemsC1[$i]['ww']));
+                                $itemsC1[$i]['shopname'] = urlencode(iconv('gbk','utf-8',$itemsC1[$i]['shopname']));
 //                                if($touz)
 //                                     $itemsC1[$i][$j]['uzid'] = getidfromiidforuz($itemsC1[$i][$j]['iid']);
                                 
@@ -268,6 +274,9 @@ class main extends spController{
                         }else{// 二区json数据
                             for($i=0;$i<count($itemList);$i++){
                                 $itemList[$i]['title'] = urlencode(iconv('gbk','utf-8',$itemList[$i]['title']));
+                                $itemList[$i]['nick'] = urlencode(iconv('gbk','utf-8',$itemList[$i]['nick']));
+                                $itemList[$i]['ww'] = urlencode(iconv('gbk','utf-8',$itemList[$i]['ww']));
+                                $itemList[$i]['shopname'] = urlencode(iconv('gbk','utf-8',$itemList[$i]['shopname']));
                             }
                             echo json_encode($itemList);
                         }

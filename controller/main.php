@@ -69,6 +69,13 @@ class main extends spController{
                         $this->single = 1;
                     $pro['ptname'] = $ptname;
                     $this->pro = $pro;
+                    if(!$pro['ww']){
+                        import("tbapi.php");
+                        $iteminfo = getItemDetail($pro['iid']);
+                        $pro['ww'] = $iteminfo['nick'];
+                        $pros->update(array('iid'=>$pro['iid']),array('ww'=>$iteminfo['nick']));
+                    }
+                        
                 }else{
                     header("Location:/");
                 }

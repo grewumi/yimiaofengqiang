@@ -108,7 +108,12 @@ class main extends spController{
             }
             
             $this->pro = $pro;
-            $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
+            $dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
+            for($i=0;$i<count($dujia);$i++){
+                $dujia[$i]['title'] = iconv('utf-8','gbk',urldecode($dujia[$i]['title']));
+                $dujia[$i]['shopname'] = iconv('utf-8','gbk',urldecode($dujia[$i]['shopname']));
+            }
+            $this->dujia = $dujia;
             $this->display("front/shopdeal.html");
         }
         public function daren(){

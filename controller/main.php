@@ -69,7 +69,7 @@ class main extends spController{
                         $this->single = 1;
                     $pro['ptname'] = $ptname;
                     $this->pro = $pro;
-                    if(!$pro['ww']){
+                    if(!$pro['ww'] && !$pro['nick']){
                         import("tbapi.php");
                         $iteminfo = getItemDetail($pro['iid']);
                         $pro['ww'] = iconv('utf-8','gbk',$iteminfo['nick']); 

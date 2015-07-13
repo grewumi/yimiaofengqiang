@@ -72,7 +72,12 @@ class main extends spController{
                 }else{
                     header("Location:/");
                 }
-                $this->dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
+                $dujia = json_decode(file_get_contents("http://www.yimiaofengqiang.com/?jsonp=1&othersync=1"),1);
+                for($i=0;$i<count($dujia);$i++){
+                    $dujia[$i]['title'] = iconv('utf-8','gbk',urldecode($dujia[$i]['title']));
+                    $dujia[$i]['shopname'] = iconv('utf-8','gbk',urldecode($dujia[$i]['shopname']));
+                }
+                $this->dujia = $dujia;
                 if($dealsync){
                     $pro['title'] = urlencode(iconv('gbk','utf-8',$pro['title']));
                     $pro['ptname'] = urlencode(iconv('gbk','utf-8',$pro['ptname']));

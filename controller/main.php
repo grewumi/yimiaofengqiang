@@ -103,7 +103,8 @@ class main extends spController{
             }
             // END ªÒ»°seller_id
             if(!$pro['shopname']){
-                $shipinfo = getShopNew($pro['sid']);
+                import("tbapi.php");
+                $shipinfo = getShopDetail($pro['sid']);
                 $pro['shopname'] = iconv('utf-8','gbk',$shipinfo['shop_title']); 
             }
             

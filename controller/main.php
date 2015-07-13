@@ -73,7 +73,7 @@ class main extends spController{
                         import("tbapi.php");
                         $iteminfo = getItemDetail($pro['iid']);
                         $pro['ww'] = iconv('utf-8','gbk',$iteminfo['nick']); 
-                        $pros->update(array('iid'=>$pro['iid']),array('ww'=>$pro['ww']));
+                        $pros->update(array('iid'=>$pro['iid']),array('ww'=>$pro['ww'],'nick'=>$pro['ww']));
                     }
                         
                 }else{

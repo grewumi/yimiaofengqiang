@@ -692,7 +692,7 @@ class admin extends spController{
 				$this->superadmin = 1;
 		}
 		//$pros = spClass("m_pro");
-                $this->pager = $pros->spPager()->getPager();
+                $this->pager = $users->spPager()->getPager();
                 $this->yonghuCur =1;
 		$this->display("admin/yonghu.html");
 	}

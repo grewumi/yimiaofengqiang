@@ -65,7 +65,7 @@ class main extends spController{
                 if($pro){
                     $frompt = spClass("m_actfrom")->find(array('id'=>$pro['act_from']));
                     $ptname = $frompt['name'];
-                    if(strpos($pro['link'],'item.taobao'))
+                    if(strpos($pro['link'],'item.taobao.com')||strpos($pro['link'],'detail.tmall.com'))
                         $this->single = 1;
                     $pro['ptname'] = $ptname;
                     $this->pro = $pro;

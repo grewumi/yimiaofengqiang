@@ -104,8 +104,8 @@ class main extends spController{
             // END »ñÈ¡seller_id
             if(!$pro['shopname']){
                 import("tbapi.php");
-                $shipinfo = getShopDetail($pro['sid']);
-                $pro['shopname'] = iconv('utf-8','gbk',$shipinfo['shop_title']); 
+                $shipinfo = getItemDetail($pro['iid']);
+                $pro['shopname'] = iconv('utf-8','gbk',$shipinfo['shopname']); 
             }
             
             $this->pro = $pro;

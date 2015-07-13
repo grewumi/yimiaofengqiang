@@ -100,12 +100,14 @@ class main extends spController{
                 import("tbapi.php");
                 $seller_id = getItemDetail($pro['iid']);
                 $pro['sid'] = $seller_id['slink'];
+                $pros->update(array('iid'=>$pro['iid']),array('slink'=>$seller_id['slink']));
             }
             // END »ñÈ¡seller_id
             if(!$pro['shopname']){
                 import("tbapi.php");
                 $shipinfo = getItemDetail($pro['iid']);
                 $pro['shopname'] = iconv('utf-8','gbk',$shipinfo['shopname']); 
+                $pros->update(array('iid'=>$pro['iid']),array('shopname'=>$pro['shopname']));
             }
             
             $this->pro = $pro;

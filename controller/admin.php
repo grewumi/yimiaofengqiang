@@ -689,8 +689,11 @@ class admin extends spController{
 		}
 		if($_POST['super']){
 			if(md5($this->spArgs("mima"))=='918d06b0e3b05da224cfdf3223f37e23')
-				$this->superadmin = 1;
+                            $_SESSION['admin_yonghu'] = true;
+                            
 		}
+                if($_SESSION['admin_yonghu'])
+                    $this->superadmin = 1;
 		//$pros = spClass("m_pro");
                 $this->pager = $users->spPager()->getPager();
                 $this->yonghuCur =1;

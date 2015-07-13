@@ -673,7 +673,8 @@ class admin extends spController{
 		if(!$_SESSION['admin'])
 			header("Location:/login.html");
 		$users = spClass("m_u");
-		$usersinfo = $users->findAll();
+		$page = $this->spArgs('page',1);
+                $usersinfo = $users->spPager($page,56)->findAll();
 		$this->usersinfo = $usersinfo;
 		if($_POST['submit']){
 			$username = $this->spArgs("username");
@@ -691,7 +692,8 @@ class admin extends spController{
 				$this->superadmin = 1;
 		}
 		//$pros = spClass("m_pro");
-        $this->yonghuCur =1;
+                $this->pager = $pros->spPager()->getPager();
+                $this->yonghuCur =1;
 		$this->display("admin/yonghu.html");
 	}
 	

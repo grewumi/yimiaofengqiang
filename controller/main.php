@@ -75,6 +75,11 @@ class main extends spController{
                         $pro['ww'] = iconv('utf-8','gbk',$iteminfo['nick']); 
                         $pros->update(array('iid'=>$pro['iid']),array('ww'=>$pro['ww'],'nick'=>$pro['ww']));
                     }
+                    if(!$$pro['volume']){
+                        import("tbapi.php");
+                        $iteminfo = getItemDetail($pro['iid']);
+                        $pros->update(array('iid'=>$pro['iid']),array('volume'=>$iteminfo['volume']));
+                    }
                         
                 }else{
                     header("Location:/");

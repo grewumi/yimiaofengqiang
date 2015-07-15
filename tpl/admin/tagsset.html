@@ -1,0 +1,20 @@
+<div class="admin-ad-around">
+            <div class="admin-ad">
+		<div class="ad-submit">		
+                    <form method="post" action="">
+                            <div class="row">
+                                    <label>±Í«©:</label>
+                                    <input name="tag" value="{if $tag}{$tag.tag}{/if}" />
+                            </div>
+                            <div class="row">
+                                    <input class="modAd" name="modAd" type=submit value="Ã·Ωª" />
+                            </div>
+                    </form>			
+		</div>
+            </div>
+            <div class="ad-info" style="width:1080px;margin:0 auto;">
+                {foreach key=k item=v from=$tags}
+                    <span>{$v.tag}</span>			
+                {/foreach}
+            </div>
+    </div>

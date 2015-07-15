@@ -188,7 +188,7 @@ class user extends spController{
                             }
                         }
 				
-			if($iid){
+			if($iid){//¶Ò»»ÍøÕ¾ÍÆ¹ã
 				if($this->hyjf>=900){
 					$this->ggw->create(array('username'=>$this->uname,'iid'=>$iid,'dh'=>1));
 					$this->users->update(array('username'=>$this->uname),array('hyjf'=>$this->hyjf-900));

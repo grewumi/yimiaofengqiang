@@ -32,12 +32,48 @@ class sysconfig extends spController{
         if(!$_SESSION['admin'])
             header("Location:/login.html");
         $websites = spClass("m_website");
+        $m_tags = spClass("m_tags");
         $cmd = $this->spArgs("cmd");
         $id = $this->spArgs("id");
         $mode = $this->spArgs("mode")?$this->spArgs("mode"):1;
         $set = $this->spArgs("set");
         $this->set = $set;
         switch($set){
+            case 'tags':
+                $this->tags = $m_tags->findAll();
+                switch($cmd){
+                 case 'mod':
+                     $site = $m_tags->find(array('id'=>$id));
+                     $this->site = $site;
+                     if($this->spArgs("modAd")){
+                         $res = array(
+                            "tag"=>$this->spArgs("tag")
+                         );
+                         if($m_tags->update(array('id'=>$id),$res))
+                             echo 'ĞŞ¸Ä³É¹¦';
+                         else
+                             echo 'ĞŞ¸ÄÊ§°Ü';
+                     }
+                     break;
+     //            case 'del':
+     //                if($websites->delete(array('id'=>$id)))
+     //                    echo 'É¾³ı³É¹¦';
+     //                else
+     //                    echo 'É¾³ıÊ§°Ü';
+     //                break;
+                 default:
+                     if($this->spArgs("modAd")){
+                         $res = array(
+                            "tag"=>$this->spArgs("tag")
+                         );
+                         if($m_tags->create($res))
+                             echo 'Ìí¼Ó³É¹¦';
+                         else
+                             echo 'Ìí¼ÓÊ§°Ü';
+                     }
+                     break;
+                }
+                break;
             case 'caiji':
                 if($mode==1)
                      $this->caijiwebsite = $websites->findAll(array('iscaiji'=>1),'rank desc');

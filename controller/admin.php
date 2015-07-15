@@ -219,16 +219,18 @@ class admin extends spController{
 			header("Location:/login.html");
 		
 		$pros = spClass("m_pro");
+               
+                
 		// 所有没有下架的商品统计
-		if($result = $pros->findAll('st<=curdate() and et>=curdate()')){
+		if($result = $pros->spCache(3600)->findAll('st<=curdate() and et>=curdate()')){
 			$this->allPros = count($result);
 		}
 		// 当天提交的没有下架的商品统计
-		if($result = $pros->findAll('st<=curdate() and et>=curdate() and postdt>=curdate()')){
+		if($result = $pros->spCache(3600)->findAll('st<=curdate() and et>=curdate() and postdt>=curdate()')){
 			$this->todayPros = count($result);
 		}
 		// 过期商品
-		$guoqis = $pros->findAll('et<curdate()');
+		$guoqis = $pros->spCache(3600)->findAll('et<curdate()');
 		$this->guoqis = count($guoqis);
 		
 		

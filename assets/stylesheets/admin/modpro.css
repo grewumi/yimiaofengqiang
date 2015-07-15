@@ -42,7 +42,7 @@
 .admin-modpro .modpro-info .row .gengduotupian{
 	color:gray;
 }
-.admin-modpro .modpro-info .row .jiabt{
+.admin-modpro .modpro-info .row .jiabt,.jiatag{
 	margin-left:5px;
 	cursor:pointer;
 	color:blue;

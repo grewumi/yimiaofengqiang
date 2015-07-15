@@ -8,9 +8,15 @@
 </head>
 <body>
 	{include file="admin/head.html"}
-        <a href="{spUrl c=sysconfig a=index set=caiji}">采集设置</a>
+        <div style="width:1080px;margin:10px auto;">
+            <a href="{spUrl c=sysconfig a=index set=caiji}">采集设置</a>
+            <a href="{spUrl c=sysconfig a=index set=tags}">tag设置</a>
+        </div>
         {if $set=='caiji'}
         {include file="admin/caijiset.html"}
+        {/if}
+        {if $set=='tags'}
+        {include file="admin/tagsset.html"}
         {/if}
 	
 </body>

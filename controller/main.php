@@ -216,9 +216,9 @@ class main extends spController{
 			$where = $q.' and '.$baseSql;
 		}
 		if($price || $procat || $type )
-                    $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);//$itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
+                    $itemsTemp = $pros->spPager($page,56)->findAll($where,$order);//$itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);
                 else
-                    $itemsTemp = $pros->spCache(480)->getmypage($where.' and classification=1',$order,$page,56);//$itemsTemp = $pros->spPager($page,56)->findAll($where.' and classification=1',$order);
+                    $itemsTemp = $pros->spPager($page,56)->findAll($where.' and classification=1',$order);//$itemsTemp = $pros->spCache(480)->getmypage($where.' and classification=1',$order,$page,56);
                 $itemsC1 = $pros->spCache(480)->findAll($where.' and classification=2',$order);//$pros->spPager($page,56)->findAll($where,$order);
                 $itemsC2 = $pros->spCache(480)->findAll($where.' and classification=3',$order);//$pros->spPager($page,56)->findAll($where,$order);
 		

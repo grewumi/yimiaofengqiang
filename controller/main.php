@@ -195,7 +195,7 @@ class main extends spController{
 		$pros = spClass("m_pro");
                 $ads = spClass("m_ad");
                 
-                $siderads = $ads->findAll('st<=curdate() and et>=curdate() and cat=0','rank desc');
+                $siderads = $ads->spCache(3600)->findAll('st<=curdate() and et>=curdate() and cat=0','rank desc');
                 $sideradsync = $this->spArgs('sideradsync');
 			
 		if($procat || $type || $price || $act_from){
@@ -216,11 +216,11 @@ class main extends spController{
 			$where = $q.' and '.$baseSql;
 		}
 		if($price || $procat || $type )
-                    $itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
+                    $itemsTemp = $pros->spPager($page,56)->spCache(480)->findAll($where,$order);
                 else
-                    $itemsTemp = $pros->spPager($page,56)->findAll($where.' and classification=1',$order);
-                $itemsC1 = $pros->findAll($where.' and classification=2',$order);//$pros->spPager($page,56)->findAll($where,$order);
-                $itemsC2 = $pros->findAll($where.' and classification=3',$order);//$pros->spPager($page,56)->findAll($where,$order);
+                    $itemsTemp = $pros->spPager($page,56)->spCache(480)->findAll($where.' and classification=1',$order);
+                $itemsC1 = $pros->spCache(480)->findAll($where.' and classification=2',$order);//$pros->spPager($page,56)->findAll($where,$order);
+                $itemsC2 = $pros->spCache(480)->findAll($where.' and classification=3',$order);//$pros->spPager($page,56)->findAll($where,$order);
 		
                 // 这里用foreach & 改变数组的值的时候最后一个数据带有 & 符号,导致最后一条数据重复
 		for($i=0;$i<count($itemsC1);$i++){

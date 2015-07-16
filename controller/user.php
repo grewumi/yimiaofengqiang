@@ -177,7 +177,9 @@ class user extends spController{
 		$this->lastlogin = $uinfo['lastlogin'];
 		$this->ww = $uinfo['ww'];
 		$this->hyjf = $uinfo['hyjf'];
-		$this->ggws = $this->ggw->findAll(array('username'=>$this->uname));
+                $this->ggws = $this->ggw->findAll(array('username'=>$this->uname));
+                
+		
 		//var_dump($this->ggws);
 		if($this->spArgs("submit")){
 			$ww = $this->spArgs("ww");

@@ -505,8 +505,11 @@ class admin extends spController{
 	//		$info = getItemDetail($v['iid']);
 	//		$pros->update(array('iid'=>$v['iid']),array('et'=>$info['et']));
 	//	}
-		if($pros->delete('et<curdate()'))
-			header("Location:/admin.html");
+                if($pros->delete('et<curdate()')){
+                    $this->guoqis = $pros->spCache(-1)->findCount('et<curdate()');
+                    header("Location:/admin.html");
+                }
+			
 	}
 	// ÉÌÆ·É¾³ý
 	public function delpro(){

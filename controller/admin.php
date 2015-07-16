@@ -222,13 +222,13 @@ class admin extends spController{
                
                 
 		// 所有没有下架的商品统计
-		$this->allPros = $pros->spCache(3600)->findCount('st<=curdate() and et>=curdate()');
+		$this->allPros = $pros->spCache(480)->findCount('st<=curdate() and et>=curdate()');
 		
 		// 当天提交的没有下架的商品统计
-		$this->todayPros = $pros->spCache(3600)->findCount('st<=curdate() and et>=curdate() and postdt>=curdate()');
+		$this->todayPros = $pros->spCache(480)->findCount('st<=curdate() and et>=curdate() and postdt>=curdate()');
 		
 		// 过期商品
-		$this->guoqis = $pros->spCache(3600)->findCount('et<curdate()');
+		$this->guoqis = $pros->spCache(480)->findCount('et<curdate()');
 		
 		$this->indexCur = 1;
 		$this->display("admin/index.html");
@@ -1113,7 +1113,7 @@ class admin extends spController{
                     }else
 			echo '没有选择采集站点!';
 		}
-	
+                $this->todayPros = $pros->spCache(-1)->findCount('st<=curdate() and et>=curdate() and postdt>=curdate()');
 		//$this->website = $website;
 		$this->display("admin/uzcaiji.html");
 	}

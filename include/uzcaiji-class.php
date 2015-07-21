@@ -22,10 +22,10 @@ class UzCaiji{
                     global $contentptn,$singleptn;    
                 }
                 
-                if(!$GLOBALS['G_SP']['autocat']){
-                    require 'eachcatsurl/'.$website.'.php';
-                    global $catItemsUrl;
-                }
+//                if(!$GLOBALS['G_SP']['autocat']){
+//                    require 'eachcatsurl/'.$website.'.php';
+//                    global $catItemsUrl;
+//                }
                 
 		if($website){
 			if($website=='huiyuangou'){ // 会员购
@@ -83,7 +83,7 @@ class UzCaiji{
 						return false;
 					}
 				}else{
-                                        if($GLOBALS['G_SP']['autocat']) //自动分类
+                                        if(true) //自动分类
                                             $catItemsUrl = 'http://api.juanpi.com/open/jiukuaiyou';
                                         
                                         if(is_array($catItemsUrl)){// 非自动分类

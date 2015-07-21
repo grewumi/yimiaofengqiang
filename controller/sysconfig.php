@@ -40,6 +40,15 @@ class sysconfig extends spController{
         $this->set = $set;
         switch($set){
             case 'tags':
+                import('pscws23/pscws3.class.php');
+                $cws = spClass("PSCWS3",array('dictfile'=>'dict/dict.xdb'));
+                $cws->set_ignore_mark(true);//忽略标点符号
+                $cws->set_autodis(true);//人名识别
+                $mydata = trim('陈凯歌并不是《无极》的唯一著作权人，一部电影的整体版权归电影制片厂所有。');
+                // 执行切分, 分词结果数组执行 words_cb()
+                $cws->segment($mydata,'words_cb');
+                var_dump($cws->segment($mydata));
+                
                 $this->tags = $m_tags->findAll();
                 switch($cmd){
                  case 'mod':

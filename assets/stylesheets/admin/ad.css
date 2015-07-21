@@ -40,6 +40,8 @@
 .admin-ad .ad-submit{
 	float:right;
 	margin:30px 30px auto auto;
+        border: 1px gray solid;
+        padding: 5px;   
 }
 .admin-ad .ad-submit .row{
 	width:300px;margin:5px auto;
@@ -62,5 +64,8 @@
 }
 .admin-ad li{
     margin:5px auto;
+}
+.fenci{
+    float:right;
 }
 /* end - 后台广告管理样式 */

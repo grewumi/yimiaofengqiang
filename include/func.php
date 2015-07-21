@@ -16,6 +16,20 @@ function getidfromiidforuz($iid){
     else
         return null;
 }
+// 分词结果之回调函数 (param: 分好的词组成的数组)
+function words_cb($ar)
+{
+	foreach ($ar as $tmp)
+	{
+		if ($tmp == "\n")
+		{
+			echo $tmp;
+			continue;
+		}
+		echo $tmp . ' ';
+	}
+	flush();
+}
 function get_url_content($url) {
 	$contents=file_get_contents($url);
 	if($contents){

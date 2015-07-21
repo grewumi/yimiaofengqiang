@@ -60,7 +60,7 @@ class user extends spController{
 	 */
 	public function login(){
 		/* ÉèÖÃÇ©Ãû */
-//		$app_key = '23122290';
+//		$app_key = '21726073';
 //		$secret='c23972d5f868ce97b17e66298a228136';
 //		$timestamp=time()."000";
 //		$message = $secret.'app_key'.$app_key.'timestamp'.$timestamp.$secret;

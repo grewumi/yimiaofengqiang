@@ -31,7 +31,7 @@ class UzCaiji{
 			if($website=='huiyuangou'){ // 会员购
 				$this->url = 'http://huiyuangou.uz.taobao.com/';
 				$result = get_contents($this->url);
-				echo $result;
+//				echo $result;
 				
                                 // 每日特惠
 				$hygptn = '/class="daily"(.+?)class="sale"/is';
@@ -539,6 +539,7 @@ class UzCaiji{
 				}
                                 $tejiamao['maozhe'] = $maozhe;
                                 
+//                                var_dump($tejiamao);
 				$this->items = $tejiamao;
 				if($mode==2)
 					echo json_encode($this->items);

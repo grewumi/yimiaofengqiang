@@ -440,6 +440,7 @@ class admin extends spController{
 					'nick'=>$_POST['ww'],
                                         'slink'=>$_POST['slink'],
                                         'shopname'=>$_POST['shopname'],
+                                        'quan'=>$_POST['quan'],
 			);
 			if($_POST['commissionrate'])
 				$item['commission_rate'] = $_POST['commissionrate'];
@@ -621,6 +622,7 @@ class admin extends spController{
 					'nick'=>$_POST['ww'],
                                         'slink'=>$_POST['slink'],
                                         'shopname'=>$_POST['shopname'],
+                                        'quan'=>$_POST['quan'],
 			);
 			if($_POST['commissionrate'])
 				$item['commission_rate'] = $_POST['commissionrate'];

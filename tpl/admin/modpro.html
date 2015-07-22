@@ -100,6 +100,10 @@ $(document).ready(function(){
 						<div class="clearfix"></div>
 					</div>
 					{/if}
+                                        <div class="row">
+						<label>优惠券:</label><input class="long" id="quan" type="text" name="quan" value="{$pro.quan}" />
+						<div class="clearfix"></div>
+					</div>
 					<div class="row">
 						<label>商品链接:</label><input class="long" id="link" name="link" type="text" value="{$pro.link}" />
 						<span>{if $pro.iid}<a target="_blank" href="{$pro.link}">看一下</a>{/if}</span>

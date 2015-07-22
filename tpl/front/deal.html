@@ -59,6 +59,9 @@ $(document).ready(function(e) {
                         <a isconvert=1 data-sellerid="{$pro.sid}" target="_blank" style="cursor:pointer;color:gray;text-decoration:none">去店铺看看</a>
                         -->
                         <a target="_blank" href="{spUrl c=main a=shopdeal id={$pro.id}}" style="text-decoration:none;display:inline-block;margin-left:18px;">去店铺看看</a>
+                        {if $pro.quan}
+                        <a target="_blank" href="{$pro.quan}" style="text-decoration:none;display:inline-block;margin-left:18px;">领券</a>
+                        {/if}
 			<div class="clearfix"></div>
 		</div>
                 <div class="hr"></div>

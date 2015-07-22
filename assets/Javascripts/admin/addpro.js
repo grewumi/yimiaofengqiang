@@ -51,7 +51,7 @@ function huoquadd(){
                     
                     $(".tb_item_iframe").empty();
                     $(".tb_item_iframe").remove();
-                    var iframehtml = "<div class='tb_item_iframe'><iframe src='http://item.taobao.com/item.htm?id=" + iid + "' onload='scroll(100,100)'></iframe></div>"
+                    var iframehtml = "<div class='tb_item_iframe'><iframe src='http://item.taobao.com/item.htm?id=" + iid + "'></iframe></div>"
                     $("#addform").append(iframehtml);
                             
 				

@@ -61,3 +61,30 @@
 		<a target="_blank" href="http://bbs.yimiaofengqiang.com">每日免单</a>
 	</div>
 </div>
+<div class="user-ctrl-around">
+        <div class="user-ctrl">
+                <div class="user-pic"></div>
+                <div class="user-info">用户<span class="name">{if $supe_uid}{$smarty.cookies.ymfq_loginuser}{else}<a target="_blank" href="/?c=user&a=login">登录</a>{/if}</span>，欢迎光临！积分:<strong class="num">{if $supe_uid}{$smarty.cookies.ymfq_jf}{/if}</strong><a target="_blank" href="http://bbs.yimiaofengqiang.com/?p=361"><span class="get-help">(如何获得积分)</span></a></div>
+                <!-- <div class="love-site"><div class="dg-like-btn dg-like-site-btn J_DG_Like_Btn" data-type="site">喜欢小站</div></div> -->
+                <div class="user-checkin">
+                        <!-- <div class="sns-widget award_day  sns-sharebtn sns-widget-ui sns-sharebtn-custom" id="qd"data-sharebtn="{
+                                'skinType':'3',
+                                'type':'webpage',
+                                'key':'http://yinxiang.uz.taobao.com',
+                                'comment':'我{$now}在#时尚印象U站#签到获得1个积分，每天可以免费抢红包哦,你也快来参加吧 http://yinxiang.uz.taobao.com',
+                                'pic':'http://img07.taobaocdn.com/imgextra/i2/18689034010180164/T2MWvXXo0aXXXXXXXX_!!1602138689-2-dgshop.png',
+                                'title':'时尚印象U站签到',
+                                'client_id':'68',
+                                'isShowFriend':false
+                                }"
+                        > -->
+                                <div class="checkin-btn"></div>
+                        <!-- </div> -->
+                </div>
+                <div class="fav"><span>(CTRL+D收藏了，每日进来签到拿积分哦~)</span><span class="user-dh"><a target="_blank" href="http://bbs.yimiaofengqiang.com/?p=1034">兑换礼品</a></span></div>
+        </div>
+
+</div>
+<div class="user_info" style="display:none;">
+    <input id="ymfq_user" value="{if $supe_uid}{$smarty.cookies.ymfq_loginuser}{/if}" />
+</div>

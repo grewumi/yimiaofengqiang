@@ -72,3 +72,78 @@
 	display:block;width:105.5px;height:100%;float:left;
 }
 /* END - 报名查询 */
+
+/* 首页用户信息及签到 */
+.user-ctrl-around{
+	height:42px;
+	background:#fff;
+	margin:15px auto 0px auto;
+        width:1080px;
+}
+.user-ctrl-around .user-ctrl{
+	padding:7px;
+}
+.user-ctrl-around .user-ctrl .user-pic{
+	float:left;
+	height:30px;
+	width:30px;
+	background:url(/assets/images/front/avatar.png);
+	background-size:30px 30px;
+}
+.user-ctrl-around .user-ctrl .user-info{
+	float:left;
+	/*width:300px;*/
+	line-height:30px;
+	margin:auto 5px auto 15px ;
+	color:#767676;
+}
+.user-ctrl-around .user-ctrl .user-info .name{
+	color:#F72F85;
+	margin:auto 5px;
+}
+.user-ctrl-around .user-ctrl .user-info .num{
+	margin:auto 5px;
+}
+.user-ctrl-around .user-ctrl .user-info a{
+	text-decoration: none;
+}
+.user-ctrl-around .user-ctrl .user-info .get-help{
+	color:#F72F85;
+}
+.user-ctrl-around .user-ctrl .love-site{
+	float:left;
+	display:inline-block;
+	margin:auto 8px;
+}
+.user-ctrl-around .user-ctrl .love-site .simple-like{
+	padding:3px;
+}
+.user-ctrl-around .user-ctrl .user-checkin{
+	float:left;
+}
+.user-ctrl-around .user-ctrl .user-checkin .checkin-btn{
+	margin:3px;
+	width:132px;
+	height:22px;
+	background:url(/assets/images/front/btn-qd.png);
+	cursor:pointer;
+}
+.user-ctrl-around .user-ctrl .fav{
+	float:right;
+	color:#767676;
+	line-height:30px;
+	margin:auto 10px auto 15px;
+}
+.user-ctrl-around .user-ctrl .fav span.user-dh{
+	background:url(/assets/images/front/ico-dh.png) no-repeat;
+	color:#424242;
+	text-decoration: none;
+	font-weight:550;
+	padding-left:18px;
+	margin-left:15px;
+	cursor:pointer;
+}
+.user-ctrl-around .user-ctrl .fav span.user-dh:hover{
+	color:#D10303;
+}
+/* end - 首页用户信息及签到 */

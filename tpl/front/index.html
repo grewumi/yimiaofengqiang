@@ -77,6 +77,7 @@
 <link rel="stylesheet" href="/min/?b=assets/stylesheets/front&f=head.css,foot.css,index.css" />
 <script type="text/javascript"  src="/assets/Javascripts/jquery-2.0.3.min.js"></script>
 <script type="text/javascript"  src="/assets/Javascripts/jquery.lazyload.js"></script>
+<script type="text/javascript"  src="/assets/Javascripts/user.js"></script>
 <script type="text/javascript" src="http://z.cnzz.net/o.php?sid=1253621543"></script>
 <script type="text/javascript">
 
@@ -115,6 +116,8 @@ $(document).ready(function(e) {
 			$("#gotop").stop().fadeOut(400); //如果返回或者没有超过,就淡入.必须加上stop()停止之前动画,否则会出现闪动   
 		}
 	});
+        ajaxqd();
+        qiandao();
         $("img.lazy").lazyload({
             placeholder: "http://img03.taobaocdn.com/imgextra/i3/1602138689/T2__REXchOXXXXXXXX-1602138689.gif", 
             effect: "fadeIn", 
@@ -128,6 +131,7 @@ $(document).ready(function(e) {
         {if $searchnull}
         $(".search-box").append("<a style='cursor:pointer;' target='_blank' isconvert=1 data-keyword='{if $q_unencode}{$q_unencode}{/if}'>{if $q_unencode}{$q_unencode}{/if}</a>");
         {/if}
+        
 })
 </script>
 </head>

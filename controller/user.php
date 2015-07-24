@@ -146,7 +146,10 @@ class user extends spController{
 			}else{
 				$this->users->update(array('uid'=>$GLOBALS['G_SP']['supe_uid']),array('lastlogin'=>date("Y-m-d H:i:s")));
 			}
-			
+			// 用户积分
+                        $jf = $this->users->find(array('username'=>$uinfo['username']),'','jf');
+                        ssetcookie('jf',$jf['jf'], 31536000);
+                        
 			// 用户类别
 			$groups = $this->users->find(array('uid'=>$GLOBALS['G_SP']['supe_uid']));
 			$group = $groups['group'];
@@ -265,5 +268,62 @@ class user extends spController{
 		$vcode = spClass('spVerifyCode');
 		$vcode->display();
 	}
+        public function ajaxqd(){ //签到前判断
+                header("Content-type: text/html; charset=gbk"); 
+		if ($GLOBALS['G_SP']['supe_uid']){
+                    $uinfos = $this->member->find(array('uid'=>$GLOBALS['G_SP']['supe_uid']),'','username');
+                    $qddate = $this->users->find(array('username'=>$uinfos['username']),'','qddate,lxqd,jf,qd');
+                    //判断今天是否签到
+                    if($qddate['qddate']>=date("Y-m-d")){//今天已签到
+                        if(!$qddate['qd'])
+                            $this->users->update(array('username'=>$uinfos['username']),array('qd'=>1));
+                    }else{
+                        if($qddate['qd'])
+                            $this->users->update(array('username'=>$uinfos['username']),array('qd'=>0));
+                        // 判断昨天是否签到
+                        if(!($qddate['qddate']<date("Y-m-d") && $qddate['qddate']>=date("Y-m-d",strtotime("-1 day")))){//未签到
+                            $this->users->update(array('username'=>$uinfos['username']),array('lxqd'=>0));
+                        }
+                    }
+                    $qddate = $this->users->find(array('username'=>$uinfos['username']),'','qddate,lxqd,jf,qd');
+                    if($qddate['qd'])
+                            $todayQdJf = $qddate['lxqd']*5;
+                    else
+                            $todayQdJf = $qddate['lxqd']*5+5;
+
+                    $tomorrowQdJf = $todayQdJf+5;
+                    if($todayQdJf>30){
+                            $todayQdJf = 30;
+                    }
+                    if($tomorrowQdJf>30){
+                            $tomorrowQdJf = 30;
+                    }
+
+                    echo '{"isqd":"'.$qddate['qd'].'","lxqd":"'.((int)$qddate['lxqd']).'","jtkl":"'.$todayQdJf.'","mtkl":"'.$tomorrowQdJf.'"}';
+		}
+	}
+        public function qiandao(){//签到
+            header("Content-type: text/html; charset=gbk"); 
+            if($GLOBALS['G_SP']['supe_uid']){
+                $uinfos = $this->member->find(array('uid'=>$GLOBALS['G_SP']['supe_uid']),'','username');
+                $qddate = $this->users->find(array('username'=>$uinfos['username']),'','qddate,lxqd,jf,qd');
+                if ($qddate['qd']){//今天已签到
+                    ssetcookie('jf',$qddate['jf'], 31536000);
+                    echo '{"stat":"您已签到","jf":"'.$qddate['jf'].'","avatar":""}';
+                }else{//今天未签到
+                    $todayQdJf = $qddate['lxqd']*5+5;
+                    if($todayQdJf>30){
+                            $todayQdJf = 30;
+                    }
+                    $alljf = $todayQdJf +  $qddate['jf'];
+                    $qiandao = array('qddate'=>date('Y-m-d'),'jf'=>$alljf,'lxqd'=>$jf[0][lxqd]+1);
+                    $this->users->update(array('username'=>$uinfos['username']),$qiandao);
+                    ssetcookie('jf',$qddate['jf'], 31536000);
+                    echo '{"stat":"恭喜您获得'.$todayQdJf.'积分","jf":"'.$qddate['jf'].'","lxqd":"'.$qddate['lxqd'].'","avatar":""}';
+                }
+            }else{
+                    echo '{"stat":"请先登陆","jf":"0","avatar":""}';
+            }
+        }
 	
 }

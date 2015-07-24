@@ -27,7 +27,10 @@
 		{if $act=='info' || !$act}
 		<div class="right">
 			<div><label>用户名:</label><span>{$smarty.cookies.ymfq_loginuser}</span></div>
-			<div><label>积分:</label><span>{$hyjf}</span></div>
+			<div><label>用户积分:</label><span>{$smarty.cookies.ymfq_jf}</span></div>
+                        {if $hyjf}
+                        <div><label>商家积分:</label><span>{$hyjf}</span></div>
+                        {/if}
 			<div><label>上次登录:</label><span>{$lastlogin}</span></div>
 			<div><label>注册时间:</label><span></span></div>
 			<div><label>邮箱:</label><span>{$uemail}</span></div>

@@ -10,7 +10,7 @@
 			<a target="_blank" href="/?c=user&a=login">登录</a>
 			<a target="_blank" href="/?c=user&a=login&cmd=reg">免费注册</a>
 			{else}
-			<a target="_blank" href="/?c=user&a=iinfo">{$smarty.cookies.ymfq_loginuser}</a>
+			<a target="_blank" href="/?c=user&a=iinfo" style="color:red;">{$smarty.cookies.ymfq_loginuser}</a>
 			<a target="_blank" href="/?c=user&a=login&cmd=out">退出</a>
 			{/if}
                         <a target="_blank" href="{spUrl c=main a=baoming}">卖家中心</a>

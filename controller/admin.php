@@ -214,7 +214,7 @@ class admin extends spController{
 	}
 	// ºóÌ¨Ê×Ò³
 	public function index(){
-		ini_set('memory_limit','256M');
+		ini_set('memory_limit','128M');
 		if(!$_SESSION['admin'])
 			header("Location:/login.html");
 		

@@ -33,6 +33,7 @@ class sysconfig extends spController{
             header("Location:/login.html");
         $websites = spClass("m_website");
         $m_tags = spClass("m_tags");
+        $m_pros = spClass("m_pro");
         $cmd = $this->spArgs("cmd");
         $id = $this->spArgs("id");
         $mode = $this->spArgs("mode")?$this->spArgs("mode"):1;
@@ -40,14 +41,20 @@ class sysconfig extends spController{
         $this->set = $set;
         switch($set){
             case 'tags':
+                set_time_limit(0);
+		ini_set('memory_limit','128M'); // 内存超载
                 import('pscws23/pscws3.class.php');
-                $cws = spClass("PSCWS3",array('dictfile'=>'dict/dict.xdb'));
+                $cws = spClass("PSCWS3");
+                $cws->set_dict('./include/pscws23/dict/dict.xdb');
                 $cws->set_ignore_mark(true);//忽略标点符号
                 $cws->set_autodis(true);//人名识别
-                $mydata = trim('陈凯歌并不是《无极》的唯一著作权人，一部电影的整体版权归电影制片厂所有。');
-                // 执行切分, 分词结果数组执行 words_cb()
-                $cws->segment($mydata,'words_cb');
-                var_dump($cws->segment($mydata));
+                $titles = $m_pros->findAll('','','title');
+                foreach($titles as $k=>$v){
+                    $mydata = trim(stripslashes($v['title']));
+                    foreach($cws->segment($mydata) as $v){
+                        echo $v.'<br />';
+                    }
+                }
                 
                 $this->tags = $m_tags->findAll();
                 switch($cmd){

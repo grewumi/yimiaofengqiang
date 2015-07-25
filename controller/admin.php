@@ -20,7 +20,7 @@ class admin extends spController{
 		$this->website = $website; 
 	} 
         public function updateRank(){
-            spClass('m_pro')->runSql('update fstk_pro set rank=500 where iid in (select t.iid from (select iid from fstk_pro where st<=curdate() and et>=curdate() and ischeck=1 and type!=87 and classification=1 order by rank asc,postdt desc limit 560,18446744073709551615)as t)');
+            spClass('m_pro')->runSql('update fstk_pro set rank=500 where iid in (select t.iid from (select iid from fstk_pro where st<=curdate() and et>=curdate() and ischeck=1 and type!=87 and classification=1 order by rank asc,postdt desc limit 168,18446744073709551615)as t)');
         }
         public function login(){		
 		$cmd = $this->spArgs('cmd');

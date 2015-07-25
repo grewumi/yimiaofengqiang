@@ -677,14 +677,18 @@ class admin extends spController{
 			header("Location:/login.html");
 		$users = spClass("m_u");
 		$page = $this->spArgs('page',1);
-                $usersinfo = $users->spPager($page,56)->findAll('','hyjf desc');
+                $usersinfo = $users->spPager($page,56)->findAll('','jf desc,hyjf desc');
 		$this->usersinfo = $usersinfo;
 		if($_POST['submit']){
 			$username = $this->spArgs("username");
-			$hyjf = $this->spArgs("hyjf");
-			$Shyjf = $users->find(array('username'=>$username));
-			$Nhyjf = $Shyjf['hyjf'] + $hyjf;
-			$art = $users->update(array('username'=>$username),array('hyjf'=>$Nhyjf));
+                        $SAlljf = $users->find(array('username'=>$username));
+                        $Njf = $this->spArgs("jf")?$this->spArgs("jf"):0;
+                        $Nhyjf = $this->spArgs("hyjf")?$this->spArgs("hyjf"):0;
+                        $NAlljf = array(
+                            'jf'=>$SAlljf['jf'] + $Njf,
+                            'hyjf'=>$SAlljf['hyjf'] + $Nhyjf,
+                        );
+			$art = $users->update(array('username'=>$username),$NAlljf);
 			if($art)
 				$this->tips = "充值成功！,请刷新页面查看";
 			else

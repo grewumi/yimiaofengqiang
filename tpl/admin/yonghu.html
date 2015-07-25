@@ -26,11 +26,13 @@
 				<table class="info">
 					<tr>
 						<td>用户名</td>
-						<td>会员积分</td>
+                                                <td>用户积分</td>
+						<td>商家积分</td>
 					</tr>
 					{foreach key=k item=v from=$usersinfo}
 					<tr>
 						<td>{$v.username}</td>
+                                                <td>{$v.jf}</td>
 						<td>{$v.hyjf}</td>
 					</tr>
 					{/foreach}

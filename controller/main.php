@@ -215,14 +215,17 @@ class main extends spController{
 		if($q){
 			$where = $q.' and '.$baseSql;
 		}
-		if($price || $procat || $type || $act_from || $q)
-                    $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);//$itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
-                else
-                    $itemsTemp = $pros->spCache(480)->getmypage($where.' and classification=1',$order,$page,56);//$itemsTemp = $pros->spPager($page,56)->findAll($where.' and classification=1',$order);
+                
                 if(!$procat && !$type && !$price && !$act_from && !$q){
                     $itemsC1 = $pros->findAll($where.' and classification=2',$order);//$pros->spCache(480)->findAll($where.' and classification=2',$order);
                     $itemsC2 = $pros->findAll($where.' and classification=3',$order);//$pros->spPager($page,56)->findAll($where,$order);
                 }
+                
+		if($price || $procat || $type || $act_from || $q)
+                    $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);//$itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
+                else
+                    $itemsTemp = $pros->spCache(480)->getmypage($where.' and classification=1',$order,$page,56);//$itemsTemp = $pros->spPager($page,56)->findAll($where.' and classification=1',$order);
+                
                 
 		
                 // 这里用foreach & 改变数组的值的时候最后一个数据带有 & 符号,导致最后一条数据重复

@@ -682,17 +682,21 @@ class admin extends spController{
 		if($_POST['submit']){
 			$username = $this->spArgs("username");
                         $SAlljf = $users->find(array('username'=>$username));
-                        $Njf = $this->spArgs("jf")?$this->spArgs("jf"):0;
-                        $Nhyjf = $this->spArgs("hyjf")?$this->spArgs("hyjf"):0;
-                        $NAlljf = array(
-                            'jf'=>$SAlljf['jf'] + $Njf,
-                            'hyjf'=>$SAlljf['hyjf'] + $Nhyjf,
-                        );
-			$art = $users->update(array('username'=>$username),$NAlljf);
-			if($art)
-				$this->tips = "充值成功！,请刷新页面查看";
-			else
-				$this->tips = "充值失败！";
+                        if($SAlljf){
+                            $Njf = $this->spArgs("jf")?$this->spArgs("jf"):0;
+                            $Nhyjf = $this->spArgs("hyjf")?$this->spArgs("hyjf"):0;
+                            $NAlljf = array(
+                                'jf'=>$SAlljf['jf'] + $Njf,
+                                'hyjf'=>$SAlljf['hyjf'] + $Nhyjf,
+                            );
+                            $art = $users->update(array('username'=>$username),$NAlljf);
+                            if($art)
+                                    $this->tips = "充值成功！,请刷新页面查看";
+                            else
+                                    $this->tips = "充值失败！";
+                        }else{
+                            $this->tips = "查不到该用户！";
+                        }
 		}
 		if($_POST['super']){
 			if(md5($this->spArgs("mima"))=='918d06b0e3b05da224cfdf3223f37e23')

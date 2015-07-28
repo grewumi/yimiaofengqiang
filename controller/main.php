@@ -8,7 +8,6 @@ class main extends spController{
                 
                 $this->procats = spClass("m_procat")->findAll('isshow=1','type asc');
                 
-              
 		$is_pc = strpos($agent,'windows nt') ? true : false;
 		$is_iphone = strpos($agent,'iphone') ? true : false;
 		$is_ipad = strpos($agent,'ipad') ? true : false;
@@ -223,59 +222,23 @@ class main extends spController{
                     $itemsC1 = $pros->findAll($where.' and classification=2',$order);//$pros->spCache(480)->findAll($where.' and classification=2',$order);
                     $itemsC2 = $pros->findAll($where.' and classification=3',$order);//$pros->spPager($page,56)->findAll($where,$order);
                 }
-                
-		
-                // 这里用foreach & 改变数组的值的时候最后一个数据带有 & 符号,导致最后一条数据重复
-		for($i=0;$i<count($itemsC1);$i++){
-			$itemsC1[$i]['title'] = preg_replace('/【.+?】/i','',$itemsC1[$i]['title']);
-			$itemsC1[$i]['title'] = preg_replace('/开心赚宝/i','',$itemsC1[$i]['title']);
-			$itemsC1[$i]['oprice'] = number_format($itemsC1[$i]['oprice'],2);
-                        $itemsC1[$i]['zk'] = number_format($itemsC1[$i]['nprice']/$itemsC1[$i]['oprice']*10,1);
-			$temp_npriceTail = explode('.',strval(number_format($itemsC1[$i]['nprice'],2)));
-			$itemsC1[$i]['nprice_tail'] = $temp_npriceTail[1];
-		}
-                
-                for($i=0;$i<count($itemsC2);$i++){
-			$itemsC2[$i]['title'] = preg_replace('/【.+?】/i','',$itemsC2[$i]['title']);
-			$itemsC2[$i]['title'] = preg_replace('/开心赚宝/i','',$itemsC2[$i]['title']);
-			$itemsC2[$i]['oprice'] = number_format($itemsC2[$i]['oprice'],2);
-                        $itemsC2[$i]['zk'] = number_format($itemsC2[$i]['nprice']/$itemsC2[$i]['oprice']*10,1);
-			$temp_npriceTail = explode('.',strval(number_format($itemsC2[$i]['nprice'],2)));
-			$itemsC2[$i]['nprice_tail'] = $temp_npriceTail[1];
-		}
-                
-		// 这里用foreach & 改变数组的值的时候最后一个数据带有 & 符号,导致最后一条数据重复
-		for($i=0;$i<count($itemsTemp);$i++){
-			$itemsTemp[$i]['title'] = preg_replace('/【.+?】/i','',$itemsTemp[$i]['title']);
-			$itemsTemp[$i]['title'] = preg_replace('/开心赚宝/i','',$itemsTemp[$i]['title']);
-			$itemsTemp[$i]['oprice'] = number_format($itemsTemp[$i]['oprice'],2);
-                        $itemsTemp[$i]['zk'] = number_format($itemsTemp[$i]['nprice']/$itemsTemp[$i]['oprice']*10,1);
-			$temp_npriceTail = explode('.',strval(number_format($itemsTemp[$i]['nprice'],2)));
-			$itemsTemp[$i]['nprice_tail'] = $temp_npriceTail[1];
-		}	
-		
-		//var_dump($itemsTemp);
-		$itemList = $itemsTemp;
-		
-		$smarty = $this->getView();
-		//$smarty->caching = true; // 开启缓存
-		//$smarty->cache_lifetime = 480; // 页面缓存8分钟
-		 $smarty->assign("siderads",$siderads);//$this->procat = $procat;
+		$this->siderads = $siderads;
 		//var_dump($itemList);
 		if(!$procat && !$type && !$price && !$act_from && !$q)
-			$smarty->assign("index",'index');//$this->index = "index";
-                $smarty->assign("act_from",$act_from);//$this->procat = $procat;
-		$smarty->assign("procat",$procat);//$this->procat = $procat;
-		$smarty->assign("type",$type);//$this->type = $type;
-		$smarty->assign("price",$price);//$this->price = $price;
-		$smarty->assign("pager",$pros->spPager()->getPager());//$this->pager = $pros->spPager()->getPager();
+                    $this->index = "index";
+                $this->act_from = $act_from;
+		$this->procat = $procat;
+		$this->type = $type;
+		$this->price = $price;
+		$this->pager = $pros->spPager()->getPager();
+                var_dump($pros->spPager()->getPager());
                 $pagersync = $this->spArgs('pagersync');
-		$smarty->assign("items",$itemList);//$this->items = $itemList;
-                $smarty->assign("itemsC1",$itemsC1);//$this->items = $itemList;
-                $smarty->assign("itemsC2",$itemsC2);//$this->items = $itemList;
+		$this->items = $this->dataswitch($itemsTemp);
+                $this->itemsC1 = $this->dataswitch($itemsC1);
+                $this->itemsC2 = $this->dataswitch($itemsC2);
                 if(!$itemList && !$itemsC1 && $q )
                     $this->searchnull = 1;
-		$smarty->assign("admin",$_SESSION['admin'],true);//$this->admin = $_SESSION['admin'];
+		$this->admin = $_SESSION['admin'];
 		
 		// 输出静态页面
 		/* $content = $this->getView()->fetch("front/index.html");
@@ -285,28 +248,13 @@ class main extends spController{
 		//spClass('spHtml')->make(array('main','index'));
 		// END 输出静态页面
 		if($mode){
-			$smarty->display("front/mailindex.html");
+			$this->display("front/mailindex.html");
                 }else{
                     if($jsonp){ 
-                        if($othersync){// 一区json数据
-                            for($i=0;$i<count($itemsC1);$i++){
-                                $itemsC1[$i]['title'] = urlencode(iconv('gbk','utf-8',$itemsC1[$i]['title']));
-                                $itemsC1[$i]['nick'] = urlencode(iconv('gbk','utf-8',$itemsC1[$i]['nick']));
-                                $itemsC1[$i]['ww'] = urlencode(iconv('gbk','utf-8',$itemsC1[$i]['ww']));
-                                $itemsC1[$i]['shopname'] = urlencode(iconv('gbk','utf-8',$itemsC1[$i]['shopname']));
-//                                if($touz)
-//                                     $itemsC1[$i][$j]['uzid'] = getidfromiidforuz($itemsC1[$i][$j]['iid']);
-                                
-                            }
-                            echo json_encode($itemsC1);
-                        }else{// 二区json数据
-                            for($i=0;$i<count($itemList);$i++){
-                                $itemList[$i]['title'] = urlencode(iconv('gbk','utf-8',$itemList[$i]['title']));
-                                $itemList[$i]['nick'] = urlencode(iconv('gbk','utf-8',$itemList[$i]['nick']));
-                                $itemList[$i]['ww'] = urlencode(iconv('gbk','utf-8',$itemList[$i]['ww']));
-                                $itemList[$i]['shopname'] = urlencode(iconv('gbk','utf-8',$itemList[$i]['shopname']));
-                            }
-                            echo json_encode($itemList);
+                        if($othersync){// 二区json数据
+                            echo json_encode($this->gbk_jsonSwitch($itemsC1));
+                        }else{// 三区json数据
+                            echo json_encode($this->gbk_jsonSwitch($itemsTemp));
                         }
                     }elseif($procatsync){
                         echo json_encode($this->procats);
@@ -315,10 +263,31 @@ class main extends spController{
                     }elseif($pagersync){
                         echo json_encode($pros->spPager()->getPager());
                     }else{
-                        $smarty->display("front/index.html");
+                        $this->display("front/index.html");
                     }
                 }
 	}
+        public function dataswitch($itemsTemp){//前台数据输出格式
+            for($i=0;$i<count($itemsTemp);$i++){
+                $itemsTemp[$i]['title'] = preg_replace('/【.+?】/i','',$itemsTemp[$i]['title']);
+                $itemsTemp[$i]['title'] = preg_replace('/开心赚宝/i','',$itemsTemp[$i]['title']);
+                $itemsTemp[$i]['oprice'] = number_format($itemsTemp[$i]['oprice'],2);
+                $itemsTemp[$i]['zk'] = number_format($itemsTemp[$i]['nprice']/$itemsTemp[$i]['oprice']*10,1);
+                $temp_npriceTail = explode('.',strval(number_format($itemsTemp[$i]['nprice'],2)));
+                $itemsTemp[$i]['nprice_tail'] = $temp_npriceTail[1];
+            }
+            return $itemsTemp;
+        }
+        public function gbk_jsonSwitch($itemList){//输出json数据前数据转换
+            for($i=0;$i<count($itemList);$i++){
+                $itemList[$i]['title'] = urlencode(iconv('gbk','utf-8',$itemList[$i]['title']));
+                $itemList[$i]['nick'] = urlencode(iconv('gbk','utf-8',$itemList[$i]['nick']));
+                $itemList[$i]['ww'] = urlencode(iconv('gbk','utf-8',$itemList[$i]['ww']));
+                $itemList[$i]['shopname'] = urlencode(iconv('gbk','utf-8',$itemList[$i]['shopname']));
+            }
+            return $itemList;
+        }
+        
 	public function user($mode='pro'){//用户报名 && 搜索
                 $users = spClass("m_u");
 		if(!$this->supe_uid)

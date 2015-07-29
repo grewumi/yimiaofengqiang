@@ -5,6 +5,7 @@
 <title>后台  - 用户管理</title>
 <link rel="stylesheet" href="/assets/stylesheets/admin/head.css" />
 <link rel="stylesheet" href="/assets/stylesheets/admin/yonghu.css" />
+<link rel="stylesheet" href="/assets/stylesheets/admin/page.css" />
 </head>
 <body>
 	{include file="admin/head.html"}
@@ -17,6 +18,14 @@
 		</div>
 		{else}
 		<div class="admin-yonghu">
+                        <div class="ymfq-admin-search">
+                            <div>搜索用户昵称：</div>
+                            <form action="" method="post">
+                                    <input name="q" />
+                                    <input type="submit" value="搜索"/>
+                            </form>
+                            <div class="clearfix"></div>
+                        </div>
 			{if $tips}
 			<div class="tips">
 				<p>{$tips}</p>
@@ -43,34 +52,37 @@
                                         <div><label>商家积分：</label><input name="hyjf" /></div>
 					<div><label></label><input name="submit" type="submit" value="充值" /></div>
 				</form>
+                                <div class="clearfix"></div>
 			</div>
+                        <div class="admin-page">
+                            {if $pager}
+                                    共有商品{$pager.total_count}个，共有{$pager.total_page}页（每页{$pager.page_size}个商品）：
+                                    <!--在当前页不是第一页的时候，显示前页和上一页-->
+                                    {if $pager.current_page != $pager.first_page}
+                                            <a href="{spUrl c=admin a=yonghu page=$pager.first_page}">第一页</a> |
+                                            <a href="{spUrl c=admin a=yonghu page=$pager.prev_page}">上一页</a> |
+                                    {/if}
+                                    <!--开始循环页码，同时如果循环到当前页则不显示链接-->
+                                    {foreach from=$pager.all_pages item=thepage}
+                                            {if $thepage != $pager.current_page}
+                                                {if $thepage<=$pager.current_page+8 && $thepage>=$pager.current_page-2}
+                                                        <a href="{spUrl c=admin a=yonghu page=$thepage}">{$thepage}</a>
+                                                {/if}									
+                                            {else}
+                                                <b>{$thepage}</b>
+                                            {/if}
+                                    {/foreach}
+                                    <!--在当前页不是最后一页的时候，显示下一页和后页-->
+                                    {if $pager.current_page != $pager.last_page}
+                                        |
+                                            <a href="{spUrl c=admin a=yonghu page=$pager.next_page}">下一页</a> |
+                                            <a href="{spUrl c=admin a=yonghu page=$pager.last_page}">尾页</a>
+                                    {/if}
+                                {/if}
+                        </div>
+                        <div class="clearfix"></div>
 		</div>
-                <div class="admin-page">
-		    {if $pager}
-			    共有商品{$pager.total_count}个，共有{$pager.total_page}页（每页{$pager.page_size}个商品）：
-			    <!--在当前页不是第一页的时候，显示前页和上一页-->
-			    {if $pager.current_page != $pager.first_page}
-				    <a href="{spUrl c=admin a=yonghu page=$pager.first_page}">第一页</a> |
-				    <a href="{spUrl c=admin a=yonghu page=$pager.prev_page}">上一页</a> |
-			    {/if}
-			    <!--开始循环页码，同时如果循环到当前页则不显示链接-->
-			    {foreach from=$pager.all_pages item=thepage}
-			            {if $thepage != $pager.current_page}
-			            	{if $thepage<=$pager.current_page+8 && $thepage>=$pager.current_page-2}
-			                	<a href="{spUrl c=admin a=yonghu page=$thepage}">{$thepage}</a>
-			            	{/if}									
-			            {else}
-			            	<b>{$thepage}</b>
-			            {/if}
-			    {/foreach}
-			    <!--在当前页不是最后一页的时候，显示下一页和后页-->
-			    {if $pager.current_page != $pager.last_page}
-			    	|
-				    <a href="{spUrl c=admin a=yonghu page=$pager.next_page}">下一页</a> |
-				    <a href="{spUrl c=admin a=yonghu page=$pager.last_page}">尾页</a>
-			    {/if}
-			{/if}
-		</div>
+                
 		{/if}
 		<div class="clearfix"></div>
 	</div>

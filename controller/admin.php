@@ -677,7 +677,12 @@ class admin extends spController{
 			header("Location:/login.html");
 		$users = spClass("m_u");
 		$page = $this->spArgs('page',1);
-                $usersinfo = $users->spPager($page,56)->findAll('','hyjf desc,jf desc');
+                $q = $this->spArgs('q');
+                if($q)
+                    $where = 'username="'.$q.'"';
+                else
+                    $where = '';
+                $usersinfo = $users->spPager($page,56)->findAll($where,'hyjf desc,jf desc');
 		$this->usersinfo = $usersinfo;
 		if($_POST['submit']){
 			$username = $this->spArgs("username");

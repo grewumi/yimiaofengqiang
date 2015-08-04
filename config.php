@@ -136,14 +136,14 @@ $spConfig = array(
 		'fontfile' => 'font.ttf', //字体文件
 		'format' => 'gif', //验证码输出图片格式
 	),
-        'ajaxToUz' => array(
-            'addpro'=>true,
-            'modpro'=>true,
-            'delpro'=>true
+        'ajaxToUz' => array(//废弃
+            'addpro'=>false,
+            'modpro'=>false,
+            'delpro'=>false
         ),
-        'ajaxToWhich' => array(
-            'admin'=>true,
-            'youpinba'=>true,
+        'ajaxToWhich' => array(//废弃
+            'admin'=>false,
+            'youpinba'=>false,
 //            'okbuy'=>true,
 //            'mplife'=>true,
 //            'viphuiyuan'=>true,

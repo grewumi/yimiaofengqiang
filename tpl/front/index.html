@@ -147,7 +147,8 @@ $(document).ready(function(e) {
                 {/foreach}
             </div>
 		<div class="item-list">
-                        {if $index && $pager.current_page==1}
+                    {if $index && $page==1}
+                        {if $itemsC2}
                         <img src="http://img02.taobaocdn.com/imgextra/i2/410996667/TB2rKG4dXXXXXb8XXXXXXXXXXXX-410996667.jpg" />
                         <div class="item-row">
 				{foreach key=k item=v from=$itemsC2}
@@ -179,6 +180,8 @@ $(document).ready(function(e) {
 				{/foreach}
                                 <div class="clearfix"></div>
 			</div>
+                        {/if}
+                        {if $itemsC1}
                         <img src="http://img04.taobaocdn.com/imgextra/i4/1602138689/T28ha5XPpXXXXXXXXX-1602138689.png" />
                         <div class="item-row">
 				{foreach key=k item=v from=$itemsC1}
@@ -211,6 +214,7 @@ $(document).ready(function(e) {
                                 <div class="clearfix"></div>
 			</div>
                         {/if}
+                    {/if}
                         <img src="http://img02.taobaocdn.com/imgextra/i2/1602138689/T2H0C5XHVaXXXXXXXX-1602138689.png" />
 			<div class="item-row">
 				{foreach key=k item=v from=$items}

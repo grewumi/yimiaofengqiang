@@ -214,13 +214,19 @@ class main extends spController{
 		if($q){
 			$where = $q.' and '.$baseSql;
 		}
-		if($price || $procat || $type || $act_from || $q)
-                    $itemsTemp = $pros->spPager($page,56)->findAll($where,$order);//$itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);
-                else
-                    $itemsTemp = $pros->spPager($page,56)->findAll($where.' and classification=1',$order);//$itemsTemp = $pros->spCache(480)->getmypage($where.' and classification=1',$order,$page,56);
+		if($price || $procat || $type || $act_from || $q){
+                    $cachename = 'price'.$price.'procat'.$procat.'type'.$type.'act_from'.$act_from.'q'.urlencode($q).'page'.$page;
+                    $itemsTemp = $this->useCache($where,$order,$cachename,480,$page,56);//$pros->spPager($page,56)->findAll($where,$order);
+                }else{
+                    $cachename = 'indexPage'.$page;
+                    $itemsTemp = $this->useCache($where.' and classification=1',$order,$cachename,480,$page,56);//$pros->spPager($page,56)->findAll($where.' and classification=1',$order);
+                }
                 if(!$procat && !$type && !$price && !$act_from && !$q){
-                    $itemsC1 = $pros->spCache(480)->findAll($where.' and classification=2',$order);//$pros->spCache(480)->findAll($where.' and classification=2',$order);
-                    $itemsC2 = $pros->spCache(480)->findAll($where.' and classification=3',$order);//$pros->spPager($page,56)->findAll($where,$order);
+                    $cachename = 'indexC1';
+                    $itemsC1 = $this->useCache($where.' and classification=2',$order,$cachename,480);
+                    $cachename = 'indexC2';
+                    $itemsC2 = $this->useCache($where.' and classification=3',$order,$cachename,480);
+                    
                 }
 		$this->siderads = $siderads;
 		//var_dump($itemList);
@@ -239,7 +245,7 @@ class main extends spController{
                 if(!$itemList && !$itemsC1 && $q )
                     $this->searchnull = 1;
 		$this->admin = $_SESSION['admin'];
-		
+		$this->page = $page;
 		// 输出静态页面
 		/* $content = $this->getView()->fetch("front/index.html");
 		$fp = fopen("front/day/update.html","w");
@@ -267,6 +273,19 @@ class main extends spController{
                     }
                 }
 	}
+        public function useCache($where,$order,$cachename,$cachetime,$page,$pagesize){
+            if(spAccess('r', $cachename)){
+                $data = json_decode(spAccess('r', $cachename),1);
+            }else{
+                if($page){
+                    $data = spClass("m_pro")->spPager($page,$pagesize)->findAll($where,$order);
+                }else{
+                    $data = spClass("m_pro")->findAll($where,$order);
+                }
+                spAccess('w', $cachename,json_encode($data),$cachetime);
+            }
+            return $data;
+        }
         public function dataswitch($itemsTemp){//前台数据输出格式
             for($i=0;$i<count($itemsTemp);$i++){
                 $itemsTemp[$i]['title'] = preg_replace('/【.+?】/i','',$itemsTemp[$i]['title']);

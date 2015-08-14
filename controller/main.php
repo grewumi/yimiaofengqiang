@@ -215,18 +215,12 @@ class main extends spController{
 			$where = $q.' and '.$baseSql;
 		}
 		if($price || $procat || $type || $act_from || $q){
-                    $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);//$this->useCache($where,$order,$cachename,480,$page,56);//$pros->spPager($page,56)->findAll($where,$order);
-                    
-                    $pagercachename = 'price'.$price.'procat'.$procat.'type'.$type.'act_from'.$act_from.'q'.urlencode($q).'pager';
-                    $this->getPagerCache($where,$order,$pagercachename,480,$page,56);
+                    $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);
                 }else{
-                    $itemsTemp = $pros->spCache(480)->getmypage($where.' and classification=1',$order,$page,56);//$this->useCache($where.' and classification=1',$order,$cachename,480,$page,56);//$pros->spPager($page,56)->findAll($where.' and classification=1',$order);
-                    
-                    $pagercachename = 'indexPager';
-                    $this->getPagerCache($where,$order,$pagercachename,480,$page,56);
+                    $itemsTemp = $pros->spCache(480)->getmypage($where.' and classification=1',$order,$page,56);
                 }
                 if(!$procat && !$type && !$price && !$act_from && !$q){
-                    $itemsC1 = $pros->spCache(480)->findAll($where.' and classification=2',$order);//$this->useCache($where.' and classification=2',$order,$cachename,480);
+                    $itemsC1 = $pros->spCache(480)->findAll($where.' and classification=2',$order);
                     $itemsC2 = $pros->spCache(480)->findAll($where.' and classification=3',$order);
                     
                 }
@@ -238,13 +232,13 @@ class main extends spController{
 		$this->procat = $procat;
 		$this->type = $type;
 		$this->price = $price;
-//		$this->pager = $pros->spPager()->getPager();
+		$this->pager = $pros->spPager()->getPager();
 //                var_dump($pros->spPager()->getPager());
                 $pagersync = $this->spArgs('pagersync');
 		$this->items = $this->dataswitch($itemsTemp);
                 $this->itemsC1 = $this->dataswitch($itemsC1);
                 $this->itemsC2 = $this->dataswitch($itemsC2);
-                if(!$itemList && !$itemsC1 && !$itemsC2 && $q )
+                if(!$itemList && !$itemsC1 && $q )
                     $this->searchnull = 1;
 		$this->admin = $_SESSION['admin'];
 		$this->page = $page;
@@ -275,17 +269,6 @@ class main extends spController{
                     }
                 }
 	}
-        public function getPagerCache($where,$order,$cachename,$cachetime,$page,$pagesize){
-            if(spAccess('r', $cachename)){
-                $this->pager = json_decode(spAccess('r', $cachename),1);
-            }else{
-                $pros = spClass("m_pro");
-                $data = $pros->spPager($page,$pagesize)->findAll($where,$order);
-                spAccess('w', $cachename,json_encode($pros->spPager()->getPager()),$cachetime);
-                $this->pager = $pros->spPager()->getPager();
-            }
-        }
-       
         public function dataswitch($itemsTemp){//前台数据输出格式
             for($i=0;$i<count($itemsTemp);$i++){
                 $itemsTemp[$i]['title'] = preg_replace('/【.+?】/i','',$itemsTemp[$i]['title']);

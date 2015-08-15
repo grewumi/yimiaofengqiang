@@ -215,13 +215,13 @@ class main extends spController{
 			$where = $q.' and '.$baseSql;
 		}
 		if($price || $procat || $type || $act_from || $q){
-                    $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);
+                    $itemsTemp = spClass("m_pro")->spCache(480)->getmypage($where,$order,$page,56);
                 }else{
-                    $itemsTemp = $pros->spCache(480)->getmypage($where.' and classification=1',$order,$page,56);
+                    $itemsTemp = spClass("m_pro")->spCache(480)->getmypage($where.' and classification=1',$order,$page,56);
                 }
                 if(!$procat && !$type && !$price && !$act_from && !$q){
-                    $itemsC1 = $pros->spCache(480)->findAll($where.' and classification=2',$order);
-                    $itemsC2 = $pros->spCache(480)->findAll($where.' and classification=3',$order);
+                    $itemsC1 = spClass("m_pro")->spCache(480)->findAll($where.' and classification=2',$order);
+                    $itemsC2 = spClass("m_pro")->spCache(480)->findAll($where.' and classification=3',$order);
                     
                 }
 		$this->siderads = $siderads;
@@ -232,7 +232,7 @@ class main extends spController{
 		$this->procat = $procat;
 		$this->type = $type;
 		$this->price = $price;
-		$this->pager = $pros->spPager()->getPager();
+		$this->pager = spClass("m_pro")->spPager()->getPager();
 //                var_dump($pros->spPager()->getPager());
                 $pagersync = $this->spArgs('pagersync');
 		$this->items = $this->dataswitch($itemsTemp);
@@ -263,7 +263,7 @@ class main extends spController{
                     }elseif($sideradsync){
                         echo json_encode($siderads);
                     }elseif($pagersync){
-                        echo json_encode($pros->spPager()->getPager());
+                        echo json_encode(spClass("m_pro")->spPager()->getPager());
                     }else{
                         $this->display("front/index.html");
                     }

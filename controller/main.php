@@ -233,10 +233,10 @@ class main extends spController{
 		$this->procat = $procat;
 		$this->type = $type;
 		$this->price = $price;
-		$this->pager = $pros->spPager()->getPager();
+		$this->pager = $itemsTemp['pager'];
 //                var_dump($pros->spPager()->getPager());
                 $pagersync = $this->spArgs('pagersync');
-		$this->items = $this->dataswitch($itemsTemp);
+		$this->items = $this->dataswitch($itemsTemp['data']);
                 $this->itemsC1 = $this->dataswitch($itemsC1);
                 $this->itemsC2 = $this->dataswitch($itemsC2);
                 if(!$itemList && !$itemsC1 && $q )

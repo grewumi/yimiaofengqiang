@@ -3,7 +3,9 @@ class m_pro extends spModel{
 	var $pk = "id";
 	var $table = "fstk_pro";
         function getmypage($conditions,$order, $page, $pageSize){
-           return $this->spPager($page,$pageSize)->findAll($conditions,$order);
+           $result['data'] = $this->spPager($page,$pageSize)->findAll($conditions,$order);
+           $result['pager'] = $this->spPager()->getPager();
+           return  $result;
         }
         function getC1data($conditions,$order){
             return $this->findAll($conditions,$order);

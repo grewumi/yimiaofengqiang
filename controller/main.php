@@ -218,8 +218,7 @@ class main extends spController{
 		if($price || $procat || $type || $act_from || $q){
                     if($q)
                         $itemsTemp = $pros->spCache(-1)->getmypage($where,$order,$page,56);
-                    else
-                        $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);
+                    $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);
                 }else{
                     $itemsTemp = $pros->spCache(480)->getmypage($where.' and classification=1',$order,$page,56);
                 }

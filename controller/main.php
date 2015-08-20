@@ -216,7 +216,10 @@ class main extends spController{
 		}
                 
 		if($price || $procat || $type || $act_from || $q){
-                    $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);
+                    if($q)
+                        $itemsTemp = $pros->spCache(-1)->getmypage($where,$order,$page,56);
+                    else
+                        $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);
                 }else{
                     $itemsTemp = $pros->spCache(480)->getmypage($where.' and classification=1',$order,$page,56);
                 }
@@ -226,7 +229,7 @@ class main extends spController{
                     
                 }
 		$this->siderads = $siderads;
-		//var_dump($itemList);
+//		var_dump($itemsTemp);
 		if(!$procat && !$type && !$price && !$act_from && !$q)
                     $this->index = "index";
                 $this->act_from = $act_from;
@@ -365,7 +368,7 @@ class main extends spController{
                                                         'mailsubject'=>'您有新的商品需要审核！',
                                                         'mailbody'=>'您有新商品<a target="_blank" href="'.$item['link'].'">'.$item['title'].'</a>需要审核！<a target="_blank" href="http://'.$_SERVER['HTTP_HOST'].'/admin.html">去审核</a>'
                                                     );
-//                                                    postData($data,'http://'.$_SERVER['HTTP_HOST'].'/?c=email&a=sendemail');
+                                                    postData($data,'http://'.$_SERVER['HTTP_HOST'].'/?c=email&a=sendemail');
                                             }elseif($channel==2){
                                                     //如果已经是报名的，检查其审核状态
                                                     if($iteminfo['ischeck']==0){

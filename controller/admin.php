@@ -677,11 +677,11 @@ class admin extends spController{
 			header("Location:/login.html");
 		$users = spClass("m_u");
 		$page = $this->spArgs('page',1);
-                $q = $this->spArgs('q');
+                $q = trim($this->spArgs('q'));
                 if($q){
-                    $usersinfo = $users->find(array('username'=>$q));
+                    $usersinfo = $users->findAll(array('username'=>$q));
                     if(empty($usersinfo))
-                        $usersinfo = $users->find(array('ww'=>$q));
+                        $usersinfo = $users->findAll(array('ww'=>$q));
                 }
                 else{
                     $usersinfo = $users->spPager($page,56)->findAll($where,'hyjf desc,jf desc');

@@ -79,6 +79,7 @@
 	background:#fff;
 	margin:15px auto 0px auto;
         width:1080px;
+        position:relative;
 }
 .user-ctrl-around .user-ctrl{
 	padding:7px;

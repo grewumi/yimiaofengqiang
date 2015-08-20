@@ -12,9 +12,6 @@ body{
 	padding:10px 0px;
 }
 /* 用户报名页样式 */
-.user-info{
-	width:1080px;margin:0 auto;padding-top:20px
-}
 .user-info ul{
 	color:red;
 	margin:15px 0px;

@@ -354,7 +354,7 @@ class main extends spController{
 				);
                                 if($mode=='try')
                                     $item['gailv'] = 1000;
-                                if($_COOKIE['ymfq_dpww']==$item['ww']){
+                                if(trim($_COOKIE['ymfq_dpww'])==trim($item['ww'])){
                                     if($this->isInThere($item['iid'])){//如果已存在数据库
                                             $iteminfo = $pros->find(array('iid'=>trim($item['iid'])));
                                             $channel = $iteminfo['channel'];

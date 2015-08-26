@@ -181,7 +181,7 @@ class user extends spController{
 		$this->ww = $uinfo['ww'];
 		$this->hyjf = $uinfo['hyjf'];
                 $this->deposit = $uinfo['deposit'];
-                $ggws = $this->ggw->findAll(array('username'=>$this->uname));
+                $this->ggws = $this->ggw->findAll(array('username'=>$this->uname));
                 $this->bmbb = spClass("m_pro")->findAll('ww="'.$this->ww.'" and channel=2');
 		
 		//var_dump($this->ggws);

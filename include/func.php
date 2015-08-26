@@ -302,7 +302,7 @@ function postData($data,$url){
         $contents = $contents.$k.'='.$v.'&&';
     }
     $contents = substr($contents,0,-2);
-    echo $contents;
+//    echo $contents;
     $opts = array(
             'http'=>array(
                 'method'=>"POST",
@@ -311,7 +311,7 @@ function postData($data,$url){
             ));
     $context = stream_context_create($opts);
     $html = @file_get_contents($url, false, $context);
-    echo $html;
+//    echo $html;
 }
 //推送图文广播流
 function graphicfeedpost($iids,$url){

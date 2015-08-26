@@ -21,7 +21,7 @@
                                 <li><a href="/?c=user&a=iinfo&act=shdz">收货地址</a></li>
 				<li><a href="/?c=user&a=iinfo&act=hyjf">我的积分</a></li>
 				<li><a href="/?c=user&a=iinfo&act=hyjf">我的钱包</a><span><a href="/?c=user&a=iinfo&act=cz">充值</a></span></li>
-				<li><a href="/?c=user&a=iinfo&act=ggw">我的广告位</a><span><a href="/?c=user&a=iinfo&act=ggwdh">兑换</a></span></li>
+				<li><a href="/?c=user&a=iinfo&act=ggw">我的推广</a><span><a href="/?c=user&a=iinfo&act=ggwdh">兑换</a></span></li>
 			</ul>
 		</div>
 		{if $act=='info' || !$act}
@@ -31,6 +31,7 @@
                         {if $hyjf}
                         <div><label>商家积分:</label><span>{$hyjf}</span></div>
                         {/if}
+                        <div><label>商家保证金:</label><span>{if $deposit}{$deposit}{else}0{/if}</span>（免单推广必须交保证金）</div>
 			<div><label>上次登录:</label><span>{$lastlogin}</span></div>
 			<div><label>注册时间:</label><span></span></div>
 			<div><label>邮箱:</label><span>{$uemail}</span></div>
@@ -57,15 +58,16 @@
                 <div class="right">
 			<div>
                             <span><a href="{spUrl c=user a=iinfo act=bmbb mode=pro}">促销宝贝</a></span>
-                            <span><a href="{spUrl c=user a=iinfo act=bmbb mode=try}">试用宝贝</a></span>
+                            <!--<span><a href="{spUrl c=user a=iinfo act=bmbb mode=try}">试用宝贝</a></span>-->
                         </div>
                         <div>
                             {if $bmbb}
                             {foreach key=k item=v from=$bmbb}
                             商品IID：{$v.iid}
-                            状态：{if $v.ischeck==0}已报名->待审核{else if $v.ischeck==1}已报名->审核通过{else if $v.ischeck==2}已报名->审核不通过（{$v.reason}）{/if}
+                            状态：{if $v.ischeck==0}已报名->待审核{else if $v.ischeck==1}已报名->审核通过{else if $v.ischeck==2}已报名->审核不通过（{$v.reason}）{/if} |<a style="display:inline-block;margin-left:5px;" href="/?c=user&a=iinfo&act=ggwdh">选择推广类型</a>
                             <hr />
                             {/foreach}
+                            <a href="{spUrl c=main a=baoming}">继续报名</a>
                             {else}
                             还没有宝贝，<a href="{spUrl c=main a=baoming}">去报名</a>
                             {/if}
@@ -84,7 +86,7 @@
 			<div><span>咨询QQ:</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=850177915&site=qq&menu=yes"><img border="0" src="/assets/images/front/counseling_style_52.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></div>
 			<div style="margin-top:80px;">
 				<form name=alipayment action="http://pay.jianqu.org/alipayapi.php" method=post target="_blank">
-					<label>充值金额：</label>
+					<label>充值：</label><input type="radio" name="cztype" value="0" checked />商家积分<input type="radio" name="cztype" value="1" />保证金
 					<input name="WIDtotal_fee" />
 					<input size="30" name="nick" style="display:none;" value="{$smarty.cookies.ymfq_loginuser}" />
 					<input name="submit" value="充值" type="submit"/>
@@ -94,32 +96,55 @@
 		{elseif $act=='ggw'}
 		<div class="right">
 			{if !$ggws}
-			<div><span style="color:gray;">您没有任何广告位</span></div>
+			<div><span style="color:gray;">您没有参加任何推广</span></div>
 			{else}
-			<h4 style="color:gray;">您有以下已兑换的广告位</h4>
-			{foreach key=k item=v from=$ggws}
-			<div><label>商品IID：</label><span>{$v.iid}</span></div>
-			<div><label>状态：</label><span>{if $v.dh==1}已兑换->待排期{else if $v.dh==2}已兑换->已排期->待上线{else if $v.dh==3}已兑换->已排期->已上线{/if}</span></div>
-			<div><label>消耗：</label><span>900积分</span></div>
-			<hr />
-			{/foreach}
+			<h4 style="color:gray;">您有以下已参加的推广</h4>
+			
+                        <table border="1">
+                            <tr>
+                                <th>类型</th>
+                                <th>商品IID</th>
+                                <th>状态</th>
+                                <th>消耗</th>
+                            </tr>
+                            {foreach key=k item=v from=$ggws}
+                            <tr>
+                                <td>{if $v.type==1}网站推广{elseif $v.type==2}群推广{elseif $v.type==3}免单推广{/if}</td>
+                                <td>{$v.iid}</td>
+                                <td>{if $bmbb}{if $v.dh==1}已兑换->待排期{else if $v.dh==2}已兑换->已排期->待上线{else if $v.dh==3}已兑换->已排期->已上线{/if}{else}已下线{/if}</td>
+                                <td>{if $v.type==1}900商家积分{elseif $v.type==2}100商家积分{elseif $v.type==3}{/if}</td>
+                            </tr>
+                            {/foreach}
+                        </table>
 			{/if}
 		</div>
 		{elseif $act=='ggwdh'}
 		<div class="right">
 			<div>
 				<div><label>咨询QQ：</label><span>850177915</span></div>
-				<div><label>类型：</label><span>会员积分（900积分）{if $hyjf<900}<span style="color:red;">你的积分不足,请充值</span>{/if}</span></div>
-				<form action="/?c=user&a=iinfo&act=ggwdh" method="post">
+                                <form action="/?c=user&a=iinfo&act=ggwdh" method="post">
+                                        <div>
+                                            <label>当前商家积分：（{if $hyjf}{$hyjf}{/if}）</label><br />
+                                            <label>推广类型：</label><br />
+                                            <input type="radio" name="leixing" value="1" checked />网站推广 => 消耗：<span>商家积分（900积分）{if $hyjf<900}<span style="color:red;">你的商家积分不足,请<a href="/?c=user&a=iinfo&act=cz">充值</a></span>{/if}</span><br />
+                                            <input type="radio" name="leixing" value="2" />群推广 => 消耗：<span>商家积分（100积分）{if $hyjf<100}<span style="color:red;">你的商家积分不足,请<a href="/?c=user&a=iinfo&act=cz">充值</a></span>{/if}</span><br />
+                                            <input type="radio" name="leixing" value="3" />免单推广 => 需交保证金才能推广 （保证金=买家最后付款价格*单数/2）(出单价格=单数*每单价格，每单价格随单数变化)<br /> 
+                                            单数：<input name="danshu" />
+                                        </div>
 					<div>
-						<label>商品IID：</label><input name="iid"/>
-						{if $hyjf>=900}
-						<input type="submit" name="submit" value="提交">
-						{else}
-						<a>请充值</a>
-						{/if}
+						<label>商品IID：</label>
+                                                <select name="iid">
+                                                    {if $bmbb}
+                                                        {foreach key=k item=v from=$bmbb}
+                                                            <option value="{$v.iid}">（商品IID：{$v.iid}）（商品原价：{$v.oprice}）（商品促销价：{$v.nprice}）</option>
+                                                        {/foreach}
+                                                    {/if}
+                                                </select>
+                                                <label></label>
+						<input type="submit" name="submit" value="兑换">
 					</div>
 				</form>
+                                {if $tips}{$tips}{/if}
 			</div>
 		</div>
 		{/if}

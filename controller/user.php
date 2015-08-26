@@ -180,8 +180,9 @@ class user extends spController{
 		$this->lastlogin = $uinfo['lastlogin'];
 		$this->ww = $uinfo['ww'];
 		$this->hyjf = $uinfo['hyjf'];
-                $this->ggws = $this->ggw->findAll(array('username'=>$this->uname));
-                
+                $this->deposit = $uinfo['deposit'];
+                $ggws = $this->ggw->findAll(array('username'=>$this->uname));
+                $this->bmbb = spClass("m_pro")->findAll('ww="'.$this->ww.'" and channel=2');
 		
 		//var_dump($this->ggws);
 		if($this->spArgs("submit")){
@@ -192,16 +193,45 @@ class user extends spController{
                                 ssetcookie('dpww',$ww, 31536000); 
                             }
                         }
-				
-			if($iid){//兑换网站推广
-				if($this->hyjf>=900){
-					$this->ggw->create(array('username'=>$this->uname,'iid'=>$iid,'dh'=>1));
-					$this->users->update(array('username'=>$this->uname),array('hyjf'=>$this->hyjf-900));
-				}
-			}
+                        $proinfo = spClass("m_pro")->find(array('iid'=>$iid));
+                        if($proinfo){//兑换推广
+                            if($this->spArgs("leixing")==1)
+                                $xuyaojifen = 900;
+                            if($this->spArgs("leixing")==2)
+                                $xuyaojifen = 100;
+                            if($this->spArgs("leixing")==3){
+                                $danshu = $this->spArgs("danshu");
+                                if($danshu){
+                                    if($danshu>1 and $danshu<500)
+                                        $xuyaojifen = $danshu*2;
+                                    elseif($danshu>=500 and $danshu<800)
+                                        $xuyaojifen = $danshu*1.5;
+                                    elseif($danshu>=800 and $danshu<1000)
+                                        $xuyaojifen = $danshu*1;
+                                    elseif($danshu>=1000 and $danshu<2000)
+                                        $xuyaojifen = $danshu*0.8;
+                                    elseif($danshu>=2000)
+                                        $xuyaojifen = $danshu*0.6;
+                                }else{
+                                    $this->tips = "<p style='color:red;'>请填写单数！</p>";
+                                }
+                            }
+                        }
+                        if($xuyaojifen){
+                            if($this->hyjf>=$xuyaojifen){
+                                $this->ggw->create(array('username'=>$this->uname,'iid'=>$iid,'type'=>$this->spArgs("leixing"),'xhjf'=>$xuyaojifen,'dh'=>1));//录入广告位
+                                $this->users->update(array('username'=>$this->uname),array('hyjf'=>$this->hyjf-$xuyaojifen));//扣除商家积分
+                                $this->tips = "<p style='color:red;'>兑换成功！<a href='/?c=user&a=iinfo&act=ggw'>查看我的推广</a></p>";
+                            }else{
+                                $userinfo = $this->users->find(array('username'=>$this->uname));
+                                $haichajifen = (int)$xuyaojifen - (int)$userinfo['hyjf'];
+                                $this->tips = "<p style='color:red;'>积分不足请充值，还差(<span style='color:#000;'>".$haichajifen."</span> )积分！</p>";
+                            }
+                        }
+			
 		}
 		
-		if($act=='cz'){
+		if($act=='cz'){//充值
 			if($this->spArgs("submit")){
 				$total = intval($_POST['money']);
 				if(!$total) {
@@ -255,9 +285,7 @@ class user extends spController{
                     }else{
                             $pros = spClass("m_pro");
                     }
-                    $bmbb = $pros->findAll('ww="'.$this->ww.'" and channel=2');
-//                  echo $pros->dumpSql();
-                    $this->bmbb = $bmbb;
+                    $this->bmbb = $pros->findAll('ww="'.$this->ww.'" and channel=2');
                 }
 		$uinfo = $this->ucenter->uc_get_user($this->uname);
 		$this->uemail = $uinfo[2];//var_dump($uinfo);

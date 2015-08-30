@@ -678,13 +678,14 @@ class admin extends spController{
 		$users = spClass("m_u");
 		$page = $this->spArgs('page',1);
                 $q = trim($this->spArgs('q'));
+                $this->paixu = trim($this->spArgs('paixu'))?trim($this->spArgs('paixu')):'jf';
                 if($q){
                     $usersinfo = $users->findAll(array('username'=>$q));
                     if(empty($usersinfo))
                         $usersinfo = $users->findAll(array('ww'=>$q));
                 }
                 else{
-                    $usersinfo = $users->spPager($page,56)->findAll($where,'hyjf desc,jf desc');
+                    $usersinfo = $users->spPager($page,56)->findAll($where,$this->paixu.' desc');
                 }
 		$this->usersinfo = $usersinfo;
 		if($_POST['submit']){

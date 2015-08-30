@@ -683,8 +683,7 @@ class admin extends spController{
                     $usersinfo = $users->findAll(array('username'=>$q));
                     if(empty($usersinfo))
                         $usersinfo = $users->findAll(array('ww'=>$q));
-                }
-                else{
+                }else{
                     $usersinfo = $users->spPager($page,56)->findAll($where,$this->paixu.' desc');
                 }
 		$this->usersinfo = $usersinfo;

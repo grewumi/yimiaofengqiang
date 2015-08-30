@@ -1,0 +1,56 @@
+<div class="admin-ad-around">
+            <div class="admin-ad">
+		<div class="ad-info">
+			<ul>
+			{foreach key=k item=v from=$allads}
+				<li>
+					<span>{$v.rank}</span>
+					<span class="src"><img src="{$v.src}" /></span>
+					<span>{if $v.et>=$curdate}{if $v.cat==0}轮播{elseif $v.cat==2}底部广告{else}{$v.cat}{/if}{else}已过期{/if}</span>
+					<span>{if $v.remark}{$v.remark}{/if}</span>
+					<span class="ctrl"><a href="?cmd=mod&id={$v.id}">修改</a><a href="?cmd=del&id={$v.id}">删除</a></span>					
+				</li>
+			{/foreach}
+			</ul>
+		<div class="clearfix"></div>
+		</div>
+		<div class="ad-submit">		
+			<form method="post" action="">
+				<div class="row">
+					<label>链接图片:</label>
+					<textarea name="src">{if $ad.src}{$ad.src}{/if}</textarea>
+				</div>
+				<div class="row">
+					<label>链接地址:</label>
+					<textarea name="link">{if $ad.link}{$ad.link}{/if}</textarea>
+				</div>
+				<div class="row roweach">
+					<label>开始时间:</label>
+					<input name="st" value="{if $ad.st}{$ad.st}{else}{$curdate}{/if}"></input>
+				</div>
+				<div class="row roweach">
+					<label>结束时间:</label>
+					<input name="et" value="{if $ad.et}{$ad.et}{else}{$curdate_et}{/if}"></input>
+				</div>
+				<div class="row">
+					<label>备注:</label>
+					<textarea name="remark">{if $ad.remark}{$ad.remark}{/if}</textarea>
+				</div>
+				<div class="row roweach">
+					<label>排序:</label>
+					<input name="rank" type="text" value="{if $ad}{$ad.rank}{/if}" />
+				</div>		
+				<div class="row roweach">
+					<label>位置:</label>
+					<select name="cat">
+						<option value="0" {if $ad.cat==0}selected="true"{/if}>轮播</option>
+						<option value="2" {if $ad.cat==2}selected="true"{/if}>底部广告</option>
+					</select>
+				</div>	
+				<div class="row">
+					<input class="modAd" name="modAd" type=submit value="提交" />
+				</div>
+			</form>			
+		</div>
+	</div>
+	</div>

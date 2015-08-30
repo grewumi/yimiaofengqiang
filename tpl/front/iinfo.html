@@ -111,7 +111,7 @@
                             <tr>
                                 <td>{if $v.type==1}网站推广{elseif $v.type==2}群推广{elseif $v.type==3}免单推广{/if}</td>
                                 <td>{$v.iid}</td>
-                                <td>{if $bmbb}{if $v.dh==1}已兑换->待排期{else if $v.dh==2}已兑换->已排期->待上线{else if $v.dh==3}已兑换->已排期->已上线{/if}{else}已下线{/if}</td>
+                                <td>{if $bmbb}{if $v.dh==1}已兑换->待排期{else if $v.dh==2}已兑换->已排期->待上线{else if $v.dh==3}已兑换->已排期->已上线{else if $v.dh==4}已下线{/if}{else}已下线{/if}</td>
                                 <td>{if $v.type==1}900商家积分{elseif $v.type==2}100商家积分{elseif $v.type==3}{/if}</td>
                             </tr>
                             {/foreach}

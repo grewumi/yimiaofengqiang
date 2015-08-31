@@ -693,9 +693,11 @@ class admin extends spController{
                         if($SAlljf){
                             $Njf = $this->spArgs("jf")?$this->spArgs("jf"):0;
                             $Nhyjf = $this->spArgs("hyjf")?$this->spArgs("hyjf"):0;
+                            $Ndeposit = $this->spArgs("deposit")?$this->spArgs("deposit"):0;
                             $NAlljf = array(
                                 'jf'=>$SAlljf['jf'] + $Njf,
                                 'hyjf'=>$SAlljf['hyjf'] + $Nhyjf,
+                                'deposit'=>$SAlljf['deposit'] + $Ndeposit
                             );
                             $art = $users->update(array('username'=>$username),$NAlljf);
                             if($art)

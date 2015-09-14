@@ -164,32 +164,49 @@ class admin extends spController{
 //            var_dump($outs);
 //            var_dump($outs_zu);
             for($i=0;$i<count($outs);$i++){
-                $yqtout[$i][0] = $outs[$i]['pic'];
-                $yqtout[$i][1] = $outs[$i]['iid'];
-                $yqtout[$i][2] = "一秒疯抢".$outs[$i]['title'];
-                $yqtout[$i][3] = "";
-                $yqtout[$i][4] = $outs[$i]['nprice'];
-                $yqtout[$i][5] = $outs[$i]['oprice'];
-                $yqtout[$i][6] = $outs[$i]['volume'];
-                $yqtout[$i][7] = 'http://www.yimiaofengqiang.com/main/deal/id/'.$outs[$i]['id'].'.html';
-                $yqtout[$i][7] = getshorturl($yqtout[$i][7]);
-                $yqtout[$i][8] = $outs[$i]['commission_rate'];
+                $yqtout['imglnk'] = $outs[$i]['pic'];
+                $yqtout['goodid'] = $outs[$i]['iid'];
+                $yqtout['title'] = $outs[$i]['title'];
+                $yqtout['address'] = "";
+                $yqtout['rebate'] = $outs[$i]['nprice'];
+                $yqtout['price'] = $outs[$i]['oprice'];
+                $yqtout['count'] = $outs[$i]['volume'];
+                $yqtout['forward'] = "";
+                $yqtout['buylnk'] = 'http://www.yimiaofengqiang.com/main/deal/id/'.$outs[$i]['id'].'.html';
+                $yqtout['buylnk'] = getshorturl($yqtout[$i][7]);
+                $yqtout['shortlnk'] = "";
+                $yqtout['zktype'] = "";
+                $yqtout['commission'] = "";
+                $yqtout['commissionRete'] = $outs[$i]['commission_rate'];
                 if($outs[$i]['shopshow'])
-                    $yqtout[$i][9] = 'false';
+                    $yqtout['isTmall'] = 'false';
                 else
-                    $yqtout[$i][9] = 'true';
+                    $yqtout['isTmall'] = 'true';
+                $yqtout['isJu'] = 'false';
+                $yqtout['userNumberId'] = "";
+                $yqtout['nickname'] = "";
+                $yqtout['sign'] = 1;
+                $yqtout['eventid'] = "";
+                $yqtout['leftdays'] = "0";
+                $yqtout['shareRate'] = "";
+                $yqtout['eventStatusStr'] = "";
+                $yqtout['eventTitle'] = "";
+                $yqtout['eventlnkPromo'] = "";
+                $yqtout['remarkWord'] = "";
             }
-//            var_dump($yqtout);
-//      
+            
             $fp=fopen("tmp/yqtdata/yqtout.txt",'a');
             if($fp){
                 echo 'tmp/yqtdata/yqtout.txt创建成功.<br />';
                 foreach($yqtout as $k=>$iv){
                    $str = '';
-                   foreach($iv as $v){
-                       $str .= $v.'=====';
-                   }
-                   $contents = fwrite($fp,substr($str,0,-5)."\r\n"); 
+                   $str = '{"imglnk":"'.$iv['imglnk'].'","goodid":"'.$iv['goodid'].'","title":"'.$iv['title'].'","address":"'.$iv['address'].'","rebate":"'.$iv['rebate'].'",'
+                           . '"price":"'.$iv['price'].'","count":"'.$iv['count'].'","forward":"'.$iv['forward'].'","buylnk":"'.$iv['buylnk'].'","shortlnk":"'.$iv['shortlnk'].'",'
+                           . '"zktype":"'.$iv['zktype'].'","commission":"'.$iv['commission'].'","commissionRete":"'.$iv['commissionRete'].'","isTmall":"'.$iv['isTmall'].'",'
+                           . '"isJu":"'.$iv['isJu'].'","userNumberId":"'.$iv['userNumberId'].'","nickname":"'.$iv['nickname'].'","sign":"'.$iv['sign'].'","eventid":"'.$iv['eventid'].'",'
+                           . '"leftdays":"'.$iv['leftdays'].'","shareRate":"'.$iv['shareRate'].'","eventStatusStr":"'.$iv['eventStatusStr'].'","eventTitle":"'.$iv['eventTitle'].'",'
+                           . '"eventlnkPromo":"'.$iv['eventlnkPromo'].'","remarkWord":"'.$iv['remarkWord'].'",}';
+                   $contents = fwrite($fp,$str."\r\n"); 
                }   
             }else{
                 echo '创建失败！';
@@ -259,7 +276,7 @@ class admin extends spController{
 		$q = $this->spArgs('q');
 		$status = $this->spArgs('status');
                 $classification = $this->spArgs('classification');
-		
+		$this->procats = spClass("m_procat")->findAll('isshow=1','type asc');
 		if($this->mode=='try'){
 			$pros = spClass("m_try_items");
 			$this->tryItemCur = 1;
@@ -292,11 +309,19 @@ class admin extends spController{
 		if($status=='ygq')
 			$where = 'ischeck=1 and et<curdate()';
 		
-		if($q)
-			$where = 'iid='.$q;
+		if($q){
+                    if(is_integer($q)){
+                        $where = 'iid='.$q;
+                    }else{
+                        $q = urldecode($this->spArgs('q'));
+                        $where = "title like '%".urldecode($q)."%'";
+                    }
+                    $itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
+                    
+                }else{
 //                echo $where;
-		$itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
-		
+                    $itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
+                }
 		$this->items = $itemsTemp;
 		$this->pager = $pros->spPager()->getPager();
                 $this->type = $type;

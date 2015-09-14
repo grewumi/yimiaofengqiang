@@ -29,7 +29,7 @@
 		<a href="{spUrl c=admin a=pro mode=$mode sh=ck2}">未通过</a>
 		<a target="_blank" href="{spUrl c=admin a=addpro mode=$mode}">添加商品</a>
 		<form action="" method="post">
-			<input name="q" onpaste="value=value.replace(/[^\d]/gi,'');" onKeyUp="value=value.replace(/[^\d]/gi,'');" />
+			<input name="q" /><!--onpaste="value=value.replace(/[^\d]/gi,'');" onKeyUp="value=value.replace(/[^\d]/gi,'');"-->
 			<input type="submit" value="搜索"/>
 		</form>
 	</div>
@@ -38,8 +38,10 @@
 			<div class="pro-info">
 				<ul>
 					<li class="hd">
+                                                <span class="short"><input type="checkbox" /></span>
 						<span class="short">排序</span>
 						<span class="pic">图片</span>
+                                                <span class="title" style="width:80px;">分类</span>
 						<span class="title">标题</span>
 						{if $mode=='pro'}
 						<span class="short">原价</span>
@@ -58,8 +60,10 @@
 					</li>	
 				{foreach key=k item=v from=$items}
 					<li>
+                                                <span class="short"><input type="checkbox" /></span>
 						<span class="short">{$v.rank}</span>
 						<span class="pic"><img src="{$v.pic}" /></span>
+                                                <span class="title" style="width:80px;">{foreach key=k item=iv from=$procats}{if $v.cat==$iv.type}{$iv.name}{/if}{/foreach}</span>
 						<a title="{$v.title}" target="_blank" href="{spUrl c=main a=deal id=$v.id}">
 							<span class="title">{$v.title}</span>
 						</a>
@@ -84,6 +88,7 @@
                                                 </a>
                                                 <span class="title" style="width:80px;">普通推广</span>
                                                 <span class="title" style="width:80px;">{if $v.channel==1}网站添加{elseif $v.channel==2}商家报名{/if}</span>
+                                                
 						
                                                 
 					</li>

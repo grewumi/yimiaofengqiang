@@ -70,7 +70,7 @@ function get_contents($url){
 //                $loginpassw = 'qq576342340:576342340';
 //                $proxy_ip = '107.150.60.66';
 //                $proxy_port = '62001';
-                $proxy = 'http://180.143.200.139:80';
+                $proxy = 'http://101.226.249.237:80';
 		$ch = curl_init();
 		curl_setopt($ch,CURLOPT_URL,$url);
                 curl_setopt($ch,CURLOPT_PROXY,$proxy);

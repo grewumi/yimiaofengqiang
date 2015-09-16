@@ -310,7 +310,7 @@ class admin extends spController{
 			$where = 'ischeck=1 and et<curdate()';
 		
 		if($q){
-                    if(is_integer($q)){
+                    if(is_numberic($q)){
                         $where = 'iid='.$q;
                     }else{
                         $q = urldecode($this->spArgs('q'));

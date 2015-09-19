@@ -164,48 +164,48 @@ class admin extends spController{
 //            var_dump($outs);
 //            var_dump($outs_zu);
             for($i=0;$i<count($outs);$i++){
-                $yqtout['imglnk'] = $outs[$i]['pic'];
-                $yqtout['goodid'] = $outs[$i]['iid'];
-                $yqtout['title'] = $outs[$i]['title'];
-                $yqtout['address'] = "";
-                $yqtout['rebate'] = $outs[$i]['nprice'];
-                $yqtout['price'] = $outs[$i]['oprice'];
-                $yqtout['count'] = $outs[$i]['volume'];
-                $yqtout['forward'] = "";
-                $yqtout['buylnk'] = 'http://www.yimiaofengqiang.com/main/deal/id/'.$outs[$i]['id'].'.html';
-                $yqtout['buylnk'] = getshorturl($yqtout[$i][7]);
-                $yqtout['shortlnk'] = "";
-                $yqtout['zktype'] = "";
-                $yqtout['commission'] = "";
-                $yqtout['commissionRete'] = $outs[$i]['commission_rate'];
+                $yqtout[$i]['imglnk'] = $outs[$i]['pic'];
+                $yqtout[$i]['goodid'] = $outs[$i]['iid'];
+                $yqtout[$i]['title'] = $outs[$i]['title'];
+                $yqtout[$i]['address'] = "";
+                $yqtout[$i]['rebate'] = $outs[$i]['nprice'];
+                $yqtout[$i]['price'] = $outs[$i]['oprice'];
+                $yqtout[$i]['count'] = $outs[$i]['volume'];
+                $yqtout[$i]['forward'] = "";
+                $yqtout[$i]['buylnk'] = 'http://www.yimiaofengqiang.com/main/deal/id/'.$outs[$i]['id'].'.html';
+//                $yqtout[$i]['buylnk'] = getshorturl($yqtout[$i][7]);
+                $yqtout[$i]['shortlnk'] = "";
+                $yqtout[$i]['zktype'] = "";
+                $yqtout[$i]['commission'] = "";
+                $yqtout[$i]['commissionRete'] = $outs[$i]['commission_rate'];
                 if($outs[$i]['shopshow'])
-                    $yqtout['isTmall'] = 'false';
+                    $yqtout[$i]['isTmall'] = 'False';
                 else
-                    $yqtout['isTmall'] = 'true';
-                $yqtout['isJu'] = 'false';
-                $yqtout['userNumberId'] = "";
-                $yqtout['nickname'] = "";
-                $yqtout['sign'] = 1;
-                $yqtout['eventid'] = "";
-                $yqtout['leftdays'] = "0";
-                $yqtout['shareRate'] = "";
-                $yqtout['eventStatusStr'] = "";
-                $yqtout['eventTitle'] = "";
-                $yqtout['eventlnkPromo'] = "";
-                $yqtout['remarkWord'] = "";
+                    $yqtout[$i]['isTmall'] = 'True';
+                $yqtout[$i]['isJu'] = 'False';
+                $yqtout[$i]['userNumberId'] = "";
+                $yqtout[$i]['nickname'] = "";
+                $yqtout[$i]['sign'] = '0';
+                $yqtout[$i]['eventid'] = "";
+                $yqtout[$i]['leftdays'] = "0";
+                $yqtout[$i]['shareRate'] = "";
+                $yqtout[$i]['eventStatusStr'] = "";
+                $yqtout[$i]['eventTitle'] = "";
+                $yqtout[$i]['eventlnkPromo'] = "";
+                $yqtout[$i]['remarkWord'] = "";
             }
-            
+//            var_dump($yqtout);
             $fp=fopen("tmp/yqtdata/yqtout.txt",'a');
             if($fp){
                 echo 'tmp/yqtdata/yqtout.txt创建成功.<br />';
                 foreach($yqtout as $k=>$iv){
                    $str = '';
-                   $str = '{"imglnk":"'.$iv['imglnk'].'","goodid":"'.$iv['goodid'].'","title":"'.$iv['title'].'","address":"'.$iv['address'].'","rebate":"'.$iv['rebate'].'",'
-                           . '"price":"'.$iv['price'].'","count":"'.$iv['count'].'","forward":"'.$iv['forward'].'","buylnk":"'.$iv['buylnk'].'","shortlnk":"'.$iv['shortlnk'].'",'
-                           . '"zktype":"'.$iv['zktype'].'","commission":"'.$iv['commission'].'","commissionRete":"'.$iv['commissionRete'].'","isTmall":"'.$iv['isTmall'].'",'
-                           . '"isJu":"'.$iv['isJu'].'","userNumberId":"'.$iv['userNumberId'].'","nickname":"'.$iv['nickname'].'","sign":"'.$iv['sign'].'","eventid":"'.$iv['eventid'].'",'
-                           . '"leftdays":"'.$iv['leftdays'].'","shareRate":"'.$iv['shareRate'].'","eventStatusStr":"'.$iv['eventStatusStr'].'","eventTitle":"'.$iv['eventTitle'].'",'
-                           . '"eventlnkPromo":"'.$iv['eventlnkPromo'].'","remarkWord":"'.$iv['remarkWord'].'",}';
+                   $str = "{'imglnk':'".$iv['imglnk']."','goodid':'".$iv['goodid']."','title':'".$iv['title']."','address':'".$iv['address']."','rebate':'".$iv['rebate']."',"
+                           . "'price':'".$iv['price']."','count':'".$iv['count']."','forward':'".$iv['forward']."','buylnk':'".$iv['buylnk']."','shortlnk':'".$iv['shortlnk']."',"
+                           . "'zktype':'".$iv['zktype']."','commission':'".$iv['commission']."','commissionRete':'".$iv['commissionRete']."','isTmall':'".$iv['isTmall']."',"
+                           . "'isJu':'".$iv['isJu']."','userNumberId':'".$iv['userNumberId']."','nickname':'".$iv['nickname']."','sign':'".$iv['sign']."','eventid':'".$iv['eventid']."',"
+                           . "'leftdays':'".$iv['leftdays']."','shareRate':'".$iv['shareRate']."','eventStatusStr':'".$iv['eventStatusStr']."','eventTitle':'".$iv['eventTitle']."',"
+                           . "'eventlnkPromo':'".$iv['eventlnkPromo']."','remarkWord':'".$iv['remarkWord']."'}";
                    $contents = fwrite($fp,$str."\r\n"); 
                }   
             }else{
@@ -310,7 +310,7 @@ class admin extends spController{
 			$where = 'ischeck=1 and et<curdate()';
 		
 		if($q){
-                    if(is_numberic($q)){
+                    if(eregi('^[0-9]*$',$q)){
                         $where = 'iid='.$q;
                     }else{
                         $q = urldecode($this->spArgs('q'));

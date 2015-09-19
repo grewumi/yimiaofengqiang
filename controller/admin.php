@@ -158,7 +158,7 @@ class admin extends spController{
             $where = 'st<=curdate() and et>=curdate() and ischeck=1 and type!=87';
             $order = 'rank asc,postdt desc';
 //            $where .= ' and classification=2';
-            $outs = $pros->findAll($where,$order,'','200');
+            $outs = $pros->findAll($where,$order,'','480');
             $guanggao = $pros->findAll($where.' and type=85',$order);
             $outs = $this->adenter($outs, $guanggao, 5);
 //            var_dump($outs);

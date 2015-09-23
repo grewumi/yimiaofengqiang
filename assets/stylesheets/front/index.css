@@ -31,6 +31,27 @@ body{
 .item-list .item .position{
 	width:250px;margin:1px auto;padding:3px 0px 1px 0px;
 }
+
+/* 商品标记 */
+.item-list .item .sign-bk{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100px;
+	height:100px;
+	background:url(/assets/images/front/bk.png);
+        z-index:10;
+}
+.item-list .item .sign-jx{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100px;
+	height:100px;
+	background:url(/assets/images/front/jx.png);
+        z-index:10;
+}
+/* end - 商品标记 */
 /* 每个商品单元内的内容定位 */
 .item-list .item a{
 	text-decoration:none;

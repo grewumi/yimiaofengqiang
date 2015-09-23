@@ -153,6 +153,11 @@ $(document).ready(function(e) {
                         <div class="item-row">
 				{foreach key=k item=v from=$itemsC2}
 				<div class="item" style="display:block;">
+                                        {if $v.type==88}
+                                        <div class="sign-bk"></div>
+                                        {elseif $v.type==89}
+                                        <div class="sign-jx"></div>
+                                        {/if}
 					{if $admin}
 					<div class="admin-edit">
                                                 <a>{if $v.link|strpos:'item.taobao.com'}淘点金{elseif $v.link|strpos:'detail.tmall.com'}淘点金{else}sclick{/if}</a>
@@ -186,6 +191,11 @@ $(document).ready(function(e) {
                         <div class="item-row">
 				{foreach key=k item=v from=$itemsC1}
 				<div class="item" style="display:block;">
+                                        {if $v.type==88}
+                                        <div class="sign-bk"></div>
+                                        {elseif $v.type==89}
+                                        <div class="sign-jx"></div>
+                                        {/if}
 					{if $admin}
 					<div class="admin-edit">
                                                 <a>{if $v.link|strpos:'item.taobao.com'}淘点金{elseif $v.link|strpos:'detail.tmall.com'}淘点金{else}sclick{/if}</a>
@@ -219,6 +229,11 @@ $(document).ready(function(e) {
 			<div class="item-row">
 				{foreach key=k item=v from=$items}
 				<div class="item" style="display:block;">
+                                        {if $v.type==88}
+                                        <div class="sign-bk"></div>
+                                        {elseif $v.type==89}
+                                        <div class="sign-jx"></div>
+                                        {/if}
 					{if $admin}
 					<div class="admin-edit">
                                                 <a>{if $v.link|strpos:'item.taobao.com'}淘点金{elseif $v.link|strpos:'detail.tmall.com'}淘点金{else}sclick{/if}</a>

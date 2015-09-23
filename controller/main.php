@@ -214,7 +214,7 @@ class main extends spController{
 		if($q){
 			$where = $q.' and '.$baseSql;
 		}
-                
+                $jingxuan = $pros->spCache(3600)->findAll($where.' and type=89',$order);
 		if($price || $procat || $type || $act_from || $q){
                     if($q)
                         $itemsTemp = $pros->spCache(-1)->getmypage($where,$order,$page,56);
@@ -257,7 +257,7 @@ class main extends spController{
                 }else{
                     if($jsonp){ 
                         if($othersync){// 二区json数据
-                            echo json_encode($this->gbk_jsonSwitch($itemsC1));
+                            echo json_encode($this->gbk_jsonSwitch($jingxuan));
                         }else{// 三区json数据
                             echo json_encode($this->gbk_jsonSwitch($itemsTemp));
                         }

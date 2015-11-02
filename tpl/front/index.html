@@ -160,6 +160,7 @@ $(document).ready(function(e) {
                                         {/if}
 					{if $admin}
 					<div class="admin-edit">
+                                                <a>佣金{$v.commission_rate}%</a>
                                                 <a>{if $v.link|strpos:'item.taobao.com'}淘点金{elseif $v.link|strpos:'detail.tmall.com'}淘点金{else}sclick{/if}</a>
 						<a target="_blank" href="{spUrl c=admin a=delpro mode=pro id=$v.id}">删除</a>
 						<a target="_blank" href="{spUrl c=admin a=modpro mode=pro id=$v.id}">修改</a>

@@ -12,7 +12,7 @@ class admin extends spController{
 		$pros = spClass('m_pro');
 		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and postdt>=curdate()';
 		
-		foreach($website as $k=>&$v){
+                foreach($website as $k=>&$v){
 			if($k!='none')
 				$v['tcounts'] = count($pros->findAll('act_from='.$v['actType'].' and '.$where));
 		}
@@ -316,14 +316,16 @@ class admin extends spController{
                         $q = urldecode($this->spArgs('q'));
                         $where = "title like '%".urldecode($q)."%'";
                     }
-                    $itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
+//                    $itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
+                    $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);
                     
                 }else{
 //                echo $where;
-                    $itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
+//                    $itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
+                    $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);
                 }
-		$this->items = $itemsTemp;
-		$this->pager = $pros->spPager()->getPager();
+		$this->items = $itemsTemp['data'];
+		$this->pager = $itemsTemp['pager'];
                 $this->type = $type;
 		$this->sh = $sh;
                 $this->classification = $classification;

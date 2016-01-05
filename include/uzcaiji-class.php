@@ -270,7 +270,7 @@ class UzCaiji{
 					$this->url = 'http://api.juanpi.com/open/juanpi';
 					$result = file_get_contents($this->url);
                                         $res = json_decode($result,true);
-//                                        var_dump($res);
+                                        var_dump($res);
                                         foreach($res['goodslist'] as $k => $v){
                                                 $jiuarr2[] = array('iid'=>preg_replace('/(.+?)id=/i','$3',$v['deal_taobao_link']),'nprice'=>preg_replace('/[^0-9][^0-9]/i','',$v['deal_price']),'pic'=>$v['deal_image']);
                                         }

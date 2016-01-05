@@ -107,9 +107,11 @@ class UzCaiji{
                                         }else{
                                             
                                             $result = file_get_contents($catItemsUrl);	
-                                            $res = @simplexml_load_string($result,NULL,LIBXML_NOCDATA);
-                                            $res = json_decode(json_encode($res),true);
-                                            foreach($res['goodslist']['deal'] as $k => $v){
+                                            $res = preg_replace('/jsonpReturn/i','',$result);
+                                            $res = ltrim($res,'(');
+                                            $res = rtrim($res,');');
+                                            $res = json_decode($res,TRUE);
+                                            foreach($res['goodslist'] as $k => $v){
                                                $jiuarr2[] = array('iid'=>preg_replace('/(.+?)id=/i','$3',$v['deal_taobao_link']),'nprice'=>preg_replace('/[^0-9][^0-9]/i','',$v['deal_price']),'pic'=>$v['deal_image']);
                                             }
                                             $jiukuaiyou['all'] = $jiuarr2;
@@ -269,8 +271,11 @@ class UzCaiji{
 				}else{				
 					$this->url = 'http://api.juanpi.com/open/juanpi';
 					$result = file_get_contents($this->url);
-                                        $res = json_decode($result,true);
-                                        var_dump($res);
+                                        $res = preg_replace('/jsonpReturn/i','',$result);
+                                        $res = ltrim($res,'(');
+                                        $res = rtrim($res,');');
+                                        $res = json_decode($res,TRUE);
+//                                        var_dump($res);
                                         foreach($res['goodslist'] as $k => $v){
                                                 $jiuarr2[] = array('iid'=>preg_replace('/(.+?)id=/i','$3',$v['deal_taobao_link']),'nprice'=>preg_replace('/[^0-9][^0-9]/i','',$v['deal_price']),'pic'=>$v['deal_image']);
                                         }

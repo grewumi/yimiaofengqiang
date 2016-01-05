@@ -363,19 +363,29 @@ class UzCaiji{
 				if($mode==2)
 					echo json_encode($this->items);
 			}elseif($website=='tealife'){ // 淘牛品
-				$this->url = 'http://tealife.uz.taobao.com/';
-				$result = get_contents($this->url);
-				// 精品推荐
-				$teaptn = '/class="col-md-3(.+?)class="pull-left(.+?)class="front-spt"(.+?)<\/i>(.+?)<\/div>(.+?)class="btn-purchase(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)/is';
-				preg_match_all($teaptn,$result,$teaarr,PREG_SET_ORDER);
-//				print_r($teaarr);
-				foreach($teaarr as $k => $v){
-					$bk[] = array('iid'=>trim($v[8]),'nprice'=>trim($v[4]));//,'pic'=>$v[4]
-				}
-				$tealife['bk'] = $bk;
-//				var_dump($bk);
-				// end - 精品推荐
-				
+				$this->url = 'http://appapi2.1zw.com/index/index.html';
+                                for($i=1;$i<=10;$i++){
+                                    $contents = "page=".$i."&&platform=Android&&version=34";
+//                                    echo $contents;
+                                    $opts = array(
+                                        'http'=>array(
+                                            'method'=>"POST",
+                                            'content'=>$contents,
+                                            'timeout'=>900,
+//                                                'proxy'=>'tcp://222.88.236.235:80',
+//                                                'request_fulluri' => true
+                                    ));
+                                    $context = stream_context_create($opts);
+                                    $result = @file_get_contents($this->url, false, $context);
+                                    $res = json_decode($result,TRUE);
+                                    foreach($res['detail'] as $k => $v){
+                                        $tea[] = array('iid'=>$v['product_id'],'nprice'=>$v['promo_price'],'pic'=>$v['img']);
+                                    }
+                                    $tealife[$i] = $tea;
+                                    $tea = null;
+                                    $contents = "";
+                                }
+                                
 //				var_dump($tealife);
 				$this->items = $tealife;
 				//var_dump($this->items);
@@ -539,46 +549,18 @@ class UzCaiji{
 				if($mode==2)
 					echo json_encode($this->items);
 			}elseif($website=='mizheuz'){
-				$this->url = 'http://lanmama.uz.taobao.com';
-				$result = get_contents($this->url);
-				
-				// 米折九块九
-				$mizheuzptn = '/class="tuan-choice(.+?)span-19"(.+?)class="span-5/is';
-				preg_match_all($mizheuzptn,$result,$mizheuzarr,PREG_SET_ORDER);
-				
-				$mizhe99 = $mizheuzarr[0][0];
-				$mizheuzarr = null;
-				
-				$mizheuzptn = '/<li>(.+?)class="chioce-detail(.+?)class="buy-info"(.+?)class="big">(.+?)<\/span>(.+?)class="go-btn(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<\/li>/is';
-				preg_match_all($mizheuzptn,$mizhe99,$mizheuzarr,PREG_SET_ORDER);
-				
-				//print_r($mizheuzarr);
-				
-				foreach($mizheuzarr as $k => $v){
-					$v[4] = preg_replace('/<\/em>/i','',$v[4]);
-					$v[4] = preg_replace('/<em>/i','',$v[4]); 
-					$mizhe9[] = array('iid'=>$v[8],'nprice'=>$v[4]);
-				}
-				$mizhe['mizhe9'] = $mizhe9;
-				// END - 米折九块九
-				
-				// 米折OTHER
-				$mizheuzptn = '/class="tuan-list"(.+?)class="pagination/is';
-				preg_match_all($mizheuzptn,$result,$mizheuzarr,PREG_SET_ORDER);
-				
-				$mizheother = $mizheuzarr[0][0];
-				$mizheuzarr = null;
-				//echo $mizheother;
-				$mizheuzptn = '/<li(.+?)status-ongoing(.+?)class="big">(\d+)<\/em>(.+?)(\.?\d+)<\/em>(.+?)<\/span>(.+?)class="go-btn(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)class="tags"(.+?)<\/li>/is';
-				preg_match_all($mizheuzptn,$mizheother,$mizheuzarr,PREG_SET_ORDER);
-				foreach($mizheuzarr as $k => $v){
-					$mizheo[] = array('iid'=>$v[10],'nprice'=>$v[3].$v[5]);
-				}
-				$mizhe['mizheo'] = $mizheo;
-				//print_r($mizheuzarr);
-				// END - 米折OTHER
-				
-				$this->items = $mizhe;
+//				$this->url = 'http://m.mizhe.com/temai/all---1-20---1.html?callback=MizheTemaiGet1';
+//				$result = get_contents($this->url);
+//				$res = preg_replace('/MizheTemaiGet1/i','',$result);
+//                                $res = ltrim($res,'(');
+//                                $res = rtrim($res,')');
+//                                $mizheuzarr = json_decode($res,TRUE);
+//				foreach($mizheuzarr['tuan_items'] as $k => $v){
+//					$mizhe9[] = array('iid'=>$v[8],'nprice'=>$v['price']/100);
+//				}
+//				$mizhe['mizhe9'] = $mizhe9;
+//				
+//				$this->items = $mizhe;
 				if($mode==2)
 					echo json_encode($this->items);
 				

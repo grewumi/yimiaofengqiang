@@ -7,6 +7,18 @@ function getapiurl($website){
 	$apiIp = '121.199.33.15';
 	return 'http://'.$apiIp.'/uzcaiji/type/'.$website.'.html';
 }
+function get_redirect_url($url){
+   $header = get_headers($url, 1);
+   if (strpos($header[0], '301') !== false || strpos($header[0], '302') !== false) {
+     if(is_array($header['Location'])) {
+       return $header['Location'][count($header['Location'])-1];
+     }else{
+       return $header['Location'];
+        }
+   }else {
+     return $url;
+   }
+ }
 function getidfromiidforuz($iid){
     $uziteminfo = file_get_contents('http://yinxiang.uz.taobao.com/d/getidfromiid?iid='.$iid);
     $uziteminfo = object_to_array(json_decode($uziteminfo));

@@ -286,37 +286,28 @@ class UzCaiji{
 						echo json_encode($this->items);
 				}
 			}elseif($website=='zhe800'){ // 折800
-				// 采集9.9包邮 
-				$this->url = 'http://zhe800.uz.taobao.com/d/99?zone_id=1';
+				// 采集今日更新淘宝商品前100个per_page=100&shop_type=0
+				$this->url = 'http://m.zhe800.com/m/api/deals/today?per_page=100&image_type=small&image_model=jpg&page=1&user_type=1&user_role=1&tag_url=all&parent_url_name=&shop_type=0&path_url=all';
 				$result = get_contents($this->url);
-				// 卖光的替换成空
-				$result = preg_replace('/<div class="deal figure1 zt3">(.+?)<\/div>/is','',$result);
-				// 没开始的也替换成空
-				$result = preg_replace('/<div class="deal figure1 zt2">(.+?)<\/div>/is','',$result);
-				$zhe8ptn = '/<div class="area">(.*)<\/div>/is';
-				preg_match_all($zhe8ptn,$result,$zhe8arr,PREG_SET_ORDER);
-				$zhe8ptn = '/<h4>(.+?)((\d+\.?\d+)|(\d+\.?))(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<\/h4>/is';
-				preg_match_all($zhe8ptn,$zhe8arr[0][0],$zhe8arr1,PREG_SET_ORDER);
-				//print_r($zhe8arr1);
-				foreach($zhe8arr1 as $k => $v){
-					$zhe9by[] = array('iid'=>$v[7],'nprice'=>$v[2]);
+				$zhe8arr1 = json_decode($result,TRUE);
+                                foreach($zhe8arr1['objects'] as $k => $v){
+                                    preg_match('/(.+?)id=(\d+)(.*?)/i',get_redirect_url($v['wap_url']),$matches);
+                                    $zhec[] = array('iid'=>$matches[2],'nprice'=>$v['price']/100);
+                                    $matches = null;
 				}
-				$zhe800arr['9by'] = $zhe9by;
-				// 采集9.9包邮结束
-				
-				// 采集20封顶 
-				$this->url = 'http://zhe800.uz.taobao.com/d/20feng?zone_id=2';
+				$zhe800arr['c'] = $zhec;
+				// 采集今日更新淘宝商品前100个结束
+				$this->url = 'http://m.zhe800.com/m/api/deals/today?per_page=100&image_type=small&image_model=jpg&page=1&user_type=1&user_role=1&tag_url=all&parent_url_name=&shop_type=1&path_url=all';
 				$result = get_contents($this->url);
-				$result = preg_replace('/<div class="deal figure1 zt3">(.+?)<\/div>/is','',$result);
-				$zhe20ptn = '/<div class="area">(.*)<\/div>/is';
-				preg_match_all($zhe20ptn,$result,$zhe20arr,PREG_SET_ORDER);
-				$zhe20ptn = '/<h4>(.+?)((\d+\.?\d+)|(\d+\.?))(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)<\/h4>/is';
-				preg_match_all($zhe20ptn,$zhe20arr[0][0],$zhe20arr1,PREG_SET_ORDER);
-				foreach($zhe20arr1 as $k => $v){
-					$zhe20by[] = array('iid'=>$v[7],'nprice'=>$v[2]);
+				$zhe8arr1 = json_decode($result,TRUE);
+                                foreach($zhe8arr1['objects'] as $k => $v){
+                                    preg_match('/(.+?)id=(\d+)(.*?)/i',get_redirect_url($v['wap_url']),$matches);
+                                    $zhet[] = array('iid'=>$matches[2],'nprice'=>$v['price']/100);
+                                    $matches = null;
 				}
-				$zhe800arr['20feng'] = $zhe20by;
-				// 采集20封顶结束
+				$zhe800arr['t'] = $zhet;
+                                // 采集今日更新天猫商品前100个结束
+//                                var_dump($zhe800arr);
 				$this->items = $zhe800arr;	
 				if($mode==2)
 					echo json_encode($this->items); 

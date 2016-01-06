@@ -19,6 +19,26 @@ function get_redirect_url($url){
      return $url;
    }
  }
+function get_redirect_url_pro($url, $referer="", $timeout = 10) {
+   $redirect_url = false;
+   $ch = curl_init();
+   curl_setopt($ch, CURLOPT_URL, $url);
+   curl_setopt($ch, CURLOPT_HEADER, TRUE);
+   curl_setopt($ch, CURLOPT_NOBODY, TRUE);//不返回请求体内容
+   curl_setopt($ch, CURLOPT_FOLLOWLOCATION,TRUE);//允许请求的链接跳转
+   curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+   curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept:*/*','User-Agent:Mozilla/4.0 (compatible; Win32; WinHttp.WinHttpRequest.5)','Connection: Keep-Alive','Referer:http://ai.taobao.com'));
+   if ($referer) {
+     curl_setopt($ch, CURLOPT_REFERER, $referer);//设置referer
+   }
+   $content = curl_exec($ch);
+   if(!curl_errno($ch)) {
+//        var_dump(curl_getinfo($ch));
+        $redirect_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);//获取最终请求的url地址
+   }
+   return $redirect_url;
+}
 function getidfromiidforuz($iid){
     $uziteminfo = file_get_contents('http://yinxiang.uz.taobao.com/d/getidfromiid?iid='.$iid);
     $uziteminfo = object_to_array(json_decode($uziteminfo));

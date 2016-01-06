@@ -29,34 +29,25 @@ class UzCaiji{
                 
 		if($website){
 			if($website=='huiyuangou'){ // 会员购
-				$this->url = 'http://huiyuangou.uz.taobao.com/';
-				$result = get_contents($this->url);
-//				echo $result;
+                                $huiyuangou = null;
+                                for($j=1;$j<=10;$j++){
+                                    $this->url = 'http://appapi.huipinzhe.com/mobapi/product/list?mod=listnew&page='.$j;
+//                                    echo $this->url;echo "<br />";
+                                    $result = file_get_contents($this->url);
+                                    $res = json_decode($result,TRUE);
+                                    foreach($res['goodsArray'] as $k => $v){
+                                        $itemRes = file_get_contents(get_redirect_url_pro($v['detailUrl']));
+                                        preg_match('/"itemId":"(\d+)"/i',$itemRes, $matches);
+                                        $djzk[] = array('iid'=>$matches[1],'nprice'=>$v['cPrice'],'pic'=>$v['picUrl']);
+                                        $itemRes = null;
+                                        $matches = null;
+                                    }
+                                    $huiyuangou[$j] = $djzk;
+                                    $djzk = null;
+                                    $result = null;
+                                    $res = null;
+                                }
 				
-                                // 每日特惠
-				$hygptn = '/class="daily"(.+?)class="sale"/is';
-				preg_match_all($hygptn,$result,$hygarr,PREG_SET_ORDER);
-			
-				$hygptn = '/class="li1"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)class="li2"(.+?)<b>(.+?)<\/b>/is';
-				preg_match_all($hygptn,$hygarr[0][0],$hygarr1,PREG_SET_ORDER);
-////				print_r($hygarr1);
-				foreach($hygarr1 as $k => $v){
-					$mrth[] = array('iid'=>$v[3],'nprice'=>$v[7]);
-				}
-				$huiyuangou['mrth'] = $mrth;
-                                
-                                // 独家折扣
-                                $hygarr = null;
-                                $hygptn = '/class="sale"(.+?)class="paging"/is';
-				preg_match_all($hygptn,$result,$hygarr,PREG_SET_ORDER);
-                                $hygarr1 = null;
-				$hygptn = '/class="li1"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)class="li2"(.+?)<b>(.+?)<\/b>/is';
-				preg_match_all($hygptn,$hygarr[0][0],$hygarr1,PREG_SET_ORDER);
-//				print_r($hygarr1);
-				foreach($hygarr1 as $k => $v){
-					$djzk[] = array('iid'=>$v[3],'nprice'=>$v[7]);
-				}
-                                $huiyuangou['djzk'] = $djzk;
 //				var_dump($huiyuangou);
 				$this->items = $huiyuangou;
 				if($mode==2)

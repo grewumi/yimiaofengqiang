@@ -425,21 +425,29 @@ class UzCaiji{
 					echo json_encode($this->items); 
 				//echo json_encode($this->items);
 			}elseif($website=='vipzxhd'){
-				$this->url = 'http://ttvip.uz.taobao.com/d/index?cid=62&mid=76';
-				$result = get_contents($this->url);
-				
-				$zxhdarr = null;
-				// 实惠推荐
-				$zxhdptn = '/class="goods_item"(.+?)class="goods_img"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)src="(.+?)"(.+?)class="promo_price(.+?)class="integer">(\d+\.?\d+)<\/em>/is';
-				preg_match_all($zxhdptn,$result,$zxhdarr,PREG_SET_ORDER);
-				//print_r($zxhdarr);
-				foreach($zxhdarr as $k => $v){
-					$vipbkrmarr[] = array('iid'=>$v[4],'nprice'=>$v[10],'pic'=>preg_replace('/_230x230.jpg/i','',$v[7]));
-				}  
-				$vipzxhd['vipbkrm'] = $vipbkrmarr; 
-//				var_dump($vipbkrmarr); 
-				// end - 实惠推荐
-				
+				$this->url = 'http://api.new0815.tuancu.com/api/item/lists';
+                                
+                                $contents = 'data={"key":"is_new","order":"ordid","order_by":"asc","page":1,"perPage":"200"}&token=';
+//                                    echo $contents;
+//                                    echo "<br />";
+                                $opts = array(
+                                    'http'=>array(
+                                        'method'=>"POST",
+                                        'content'=>$contents,
+                                        'timeout'=>900,
+//                                                'proxy'=>'tcp://222.88.236.235:80',
+//                                                'request_fulluri' => true
+                                ));
+                                $context = stream_context_create($opts);
+                                $result = @file_get_contents($this->url, false, $context);
+                                $res = json_decode($result,TRUE);
+                                foreach($res['data']['list'] as $k => $v){
+                                    $vipbkrmarr[] = array('iid'=>$v['taobao_id'],'nprice'=>$v['price']);//'pic'=>$v['img']
+                                }
+                                $vipzxhd['tuancu'] = $vipbkrmarr;
+                                $vipbkrmarr = null;
+                                $contents = "";
+                                
 //				var_dump($vipzxhd);
 				$this->items = $vipzxhd;
 				if($mode==2)
@@ -639,65 +647,20 @@ class UzCaiji{
 				if($mode==2)
 					echo json_encode($this->items);
 			}elseif($website=='jiejie'){
-				$this->url = 'http://jiejie.uz.taobao.com';
-				$result = get_contents($this->url);
-				$zxhdptn = '/class="jiu_bd(.+?)style="width:1024px;/is';
-				preg_match_all($zxhdptn,$result,$zxhdarr,PREG_SET_ORDER);
-				$xlqg = $zxhdarr[0][0]; // 限量抢购
-				
-				/*
-				$zxhdarr = null;
-				$zxhdptn = '/style="width:1024px;(.+?)class="jiu_top1/is';
-				preg_match_all($zxhdptn,$result,$zxhdarr,PREG_SET_ORDER);
-				//print_r($zxhdarr);
-				$shtj = $zxhdarr[1][0]; // 实惠推荐
-				*/
-				
-				$zxhdarr = null;
-				$zxhdptn = '/class="jiu_top1(.+?)class="page_div/is';
-				preg_match_all($zxhdptn,$result,$zxhdarr,PREG_SET_ORDER);
-				//print_r($zxhdarr);
-				$ypth = $zxhdarr[0][0]; // 优品特惠
-				//echo $ypth;
-				
-				$zxhdarr = null;
-				// 限量抢购
-				$zxhdptn = '/<li>(.+?)class="tao(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)class="vipprice"(.+?)<strong>(\d+\.?\d+)<\/strong>(.+?)<\/li>/is';
-				preg_match_all($zxhdptn,$xlqg,$zxhdarr,PREG_SET_ORDER);
-				//print_r($zxhdarr);
-				foreach($zxhdarr as $k => $v){
-					$xlqgarr[] = array('iid'=>$v[4],'nprice'=>$v[8]);
-				}
-				$vipzxhd['xlqg'] = $xlqgarr;
-				// end - 限量抢购
-				
-				/*$zxhdarr = null;
-				// 实惠推荐
-				$zxhdptn = '/class="goods_item"(.+?)class="goods_img"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)src="(.+?)"(.+?)class="promo_price(.+?)class="integer">(\d+\.?\d+)<\/em>/is';
-				preg_match_all($zxhdptn,$shtj,$zxhdarr,PREG_SET_ORDER);
-				//print_r($zxhdarr);
-				foreach($zxhdarr as $k => $v){
-					$shtjarr[] = array('iid'=>$v[4],'nprice'=>$v[10],'pic'=>$v[7]);
-				}  
-				$vipzxhd['shtj'] = $shtjarr; 
-				//var_dump($shtjarr); */
-				// end - 实惠推荐
-				
-				
-				$zxhdarr = null;
-				// 实惠推荐 && 优品特惠
-				$zxhdptn = '/class="goods_item"(.+?)class="goods_img"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"(.+?)src="(.+?)"(.+?)class="promo_price(.+?)class="integer">(\d+\.?\d+)<\/em>/is';
-				preg_match_all($zxhdptn,$ypth,$zxhdarr,PREG_SET_ORDER);
-				//print_r($zxhdarr);
-				foreach($zxhdarr as $k => $v){
-					$yptharr[] = array('iid'=>$v[4],'nprice'=>$v[10],'pic'=>$v[7]);
-				}
-				$vipzxhd['ypth'] = $yptharr;
+//				$this->url = 'http://api.new0815.tuancu.com/api/item/lists';
+//				$result = file_get_contents($this->url);
+//                                echo $this->url;
+//				$res = json_decode($result,TRUE);
+//                                var_dump($res);
+//				foreach($zxhdarr as $k => $v){
+//					$yptharr[] = array('iid'=>$v[4],'nprice'=>$v[10],'pic'=>$v[7]);
+//				}
+//				$vipzxhd['ypth'] = $yptharr;
 				//var_dump($yptharr);
 				// end - 实惠推荐 && 优品特惠
 				
 				//var_dump($vipzxhd);
-				$this->items = $vipzxhd;
+//				$this->items = $vipzxhd;
 				if($mode==2)
 					echo json_encode($this->items);
 				//echo json_encode($this->items);

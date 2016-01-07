@@ -32,13 +32,12 @@ class UzCaiji{
                                 $huiyuangou = null;
                                 for($j=1;$j<=10;$j++){
                                     $this->url = 'http://appapi.huipinzhe.com/mobapi/product/list?mod=listnew&page='.$j;
-//                                    echo $this->url;echo "<br />";
                                     $result = file_get_contents($this->url);
-                                    $res = json_decode($result,TRUE);
+                                    $res = json_decode($result,TRUE);                                  
                                     foreach($res['goodsArray'] as $k => $v){
-                                        $itemRes = file_get_contents(get_redirect_url_pro($v['detailUrl']));
-                                        preg_match('/"itemId":"(\d+)"/i',$itemRes, $matches);
-                                        $djzk[] = array('iid'=>$matches[1],'nprice'=>$v['cPrice'],'pic'=>$v['picUrl']);
+                                        $itemRes = parse_url(get_redirect_url_pro($v['detailUrl'],"http://ai.taobao.com"));
+                                        $itemRes = convertUrlQuery($itemRes['query']);
+                                        $djzk[] = array('iid'=>$itemRes['id'],'nprice'=>$v['cPrice'],'pic'=>$v['picUrl']);
                                         $itemRes = null;
                                         $matches = null;
                                     }
@@ -540,14 +539,14 @@ class UzCaiji{
 				if($mode==2)
 					echo json_encode($this->items);
 			}elseif($website=='mizheuz'){
-//				$this->url = 'http://m.mizhe.com/temai/all---1-20---1.html?callback=MizheTemaiGet1';
-//				$result = get_contents($this->url);
-//				$res = preg_replace('/MizheTemaiGet1/i','',$result);
-//                                $res = ltrim($res,'(');
-//                                $res = rtrim($res,')');
-//                                $mizheuzarr = json_decode($res,TRUE);
-//				foreach($mizheuzarr['tuan_items'] as $k => $v){
-//					$mizhe9[] = array('iid'=>$v[8],'nprice'=>$v['price']/100);
+//				$this->url = 'http://tuan.mizhe.com/portal/1.html';
+//				$result = file_get_contents($this->url);
+////                                echo $result;
+//                                $mizheptn = '/class="tuan-item"(.+?)class="detail(.+?)href="(.+?)"(.+?)class="price-info"(.+?)class="info-box"(.+?)<\/li>/is';
+//				preg_match_all($mizheptn,$result,$mizheuzarr,PREG_SET_ORDER);
+//                                var_dump($mizheuzarr);
+//				foreach($mizheuzarr as $k => $v){
+////					$mizhe9[] = array('iid'=>$v[8],'nprice'=>$v['price']/100);
 //				}
 //				$mizhe['mizhe9'] = $mizhe9;
 //				

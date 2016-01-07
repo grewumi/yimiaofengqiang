@@ -7,6 +7,10 @@ function getapiurl($website){
 	$apiIp = '121.199.33.15';
 	return 'http://'.$apiIp.'/uzcaiji/type/'.$website.'.html';
 }
+function get_redirect_url_once($url){
+   $header = get_headers($url, 1);
+   return $header['Location'][0];
+ }
 function get_redirect_url($url){
    $header = get_headers($url, 1);
    if (strpos($header[0], '301') !== false || strpos($header[0], '302') !== false) {
@@ -19,6 +23,23 @@ function get_redirect_url($url){
      return $url;
    }
  }
+function convertUrlQuery($query){
+    $queryParts = explode('&', $query);
+    $params = array();
+    foreach ($queryParts as $param){
+        $item = explode('=', $param);
+        $params[$item[0]] = $item[1];
+    }
+    return $params;
+}
+function getUrlQuery($array_query){
+    $tmp = array();
+    foreach($array_query as $k=>$param){
+        $tmp[] = $k.'='.$param;
+    }
+    $params = implode('&',$tmp);
+    return $params;
+}
 function get_redirect_url_pro($url, $referer="", $timeout = 10) {
    $redirect_url = false;
    $ch = curl_init();
@@ -28,11 +49,14 @@ function get_redirect_url_pro($url, $referer="", $timeout = 10) {
    curl_setopt($ch, CURLOPT_FOLLOWLOCATION,TRUE);//允许请求的链接跳转
    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept:*/*','User-Agent:Mozilla/4.0 (compatible; Win32; WinHttp.WinHttpRequest.5)','Connection: Keep-Alive','Referer:http://ai.taobao.com'));
-   if ($referer) {
+   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept:*/*','User-Agent:Mozilla/4.0 (compatible; Win32; WinHttp.WinHttpRequest.5)','Connection: Keep-Alive'));
+   curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,FALSE);
+   curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,FALSE);//严格校验2
+   if($referer){
      curl_setopt($ch, CURLOPT_REFERER, $referer);//设置referer
    }
    $content = curl_exec($ch);
+//   var_dump(curl_errno($ch));
    if(!curl_errno($ch)) {
 //        var_dump(curl_getinfo($ch));
         $redirect_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);//获取最终请求的url地址

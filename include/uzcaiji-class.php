@@ -446,47 +446,19 @@ class UzCaiji{
 					echo json_encode($this->items);
 				//echo json_encode($this->items);
 			}elseif($website=='tejiayitian'){
-				$this->url = 'http://tejiayitian.uz.taobao.com/';
-				$result = get_contents($this->url);
-				$tjytptn = '/class="hot"(.+?)class="slide"/is';
-				preg_match_all($tjytptn,$result,$tjytarr,PREG_SET_ORDER);
-				$bkR = $tjytarr[0][0]; // 爆款
-				
-				$tjytarr = null;
-				$tjytptn = '/class="list_box today_new"(.+?)class="ad"/is';
-				preg_match_all($tjytptn,$result,$tjytarr,PREG_SET_ORDER);
-				$f1R = $tjytarr[0][0]; // 一区
-				
-				$tjytarr = null;
-				$tjytptn = '/class="list_box nine"(.+?)class="right"/is';
-				preg_match_all($tjytptn,$result,$tjytarr,PREG_SET_ORDER);
-				$f9R = $tjytarr[0][0]; // 九块九区
-				
-				$tjytarr = null;
-				$tjytptn = '/class="hot_box"(.+?)<img(.+?)src="(.+?)"(.+?)<\/span>(.+?)(\d+\.?\d+)(.+?)class="go"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"/is';
-				preg_match_all($tjytptn,$bkR,$tjytarr,PREG_SET_ORDER);
-				foreach($tjytarr as $k=>$v){
-					$bk[] = array('iid'=>$v[10],'nprice'=>$v[6]);//,'pic'=>$v[3]
-				}
-				$tjyt['bk'] = $bk;
-				
-				$tjytarr = null;
-				$tjytptn = '/<li(.+?)class="img"(.+?)<img(.+?)src="(.+?)"(.+?)class="vip_price(.+?)>(.+?)(\d+\.?\d+)<\/span>(.+?)go_buy"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"/is';
-				preg_match_all($tjytptn,$f1R,$tjytarr,PREG_SET_ORDER);
-				foreach($tjytarr as $k=>$v){
-					$dx[] = array('iid'=>$v[12],'nprice'=>$v[8]);//,'pic'=>$v[4]
-				}
-				$tjyt['dx'] = $dx;
-				
-				$tjytarr = null;
-				$tjytptn = '/<li(.+?)class="left_img"(.+?)<img(.+?)src="(.+?)"(.+?)class="price"(.+?)class="red"(.+?)(\d+\.?\d+)(.+?)class="buy"(.+?)href="(.+?)[?,&,]id=(\d+)(.*?)"/is';
-				preg_match_all($tjytptn,$f9R,$tjytarr,PREG_SET_ORDER);
-				//print_r($tjytarr);
-				foreach($tjytarr as $k=>$v){
-					$tj99[] = array('iid'=>$v[12],'nprice'=>$v[8]);//,'pic'=>$v[4]
-				}
-				$tjyt['tj99'] = $tj99;
-				//var_dump($tjyt);
+                                for($i=0;$i<=10;$i++){
+                                    $this->url = 'http://m.tejiayitian.com/index/getajaxprc?p='.$i;
+                                    $result = get_contents($this->url);
+                                    $tjytarr = json_decode($result,TRUE);
+                                    foreach($tjytarr as $k=>$v){
+                                        preg_match('/biz-itemid="(\d+)"/i',file_get_contents("http://m.tejiayitian.com".$v['url']),$matchs);
+                                        $tj99[] = array('iid'=>$matchs[1],'nprice'=>$v['promotion']);//,'pic'=>$v[4]
+                                        $matchs = null;
+                                    }
+                                    $tjyt[$i] = $tj99;
+                                    $tj99 = null;
+                                }
+//				var_dump($tjyt);    
 				$this->items = $tjyt;
 				if($mode==2)
 					echo json_encode($this->items);

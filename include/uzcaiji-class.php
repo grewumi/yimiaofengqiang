@@ -519,18 +519,19 @@ class UzCaiji{
 				if($mode==2)
 					echo json_encode($this->items);
 			}elseif($website=='mizheuz'){
-//				$this->url = 'http://tuan.mizhe.com/portal/1.html';
-//				$result = file_get_contents($this->url);
-////                                echo $result;
-//                                $mizheptn = '/class="tuan-item"(.+?)class="detail(.+?)href="(.+?)"(.+?)class="price-info"(.+?)class="info-box"(.+?)<\/li>/is';
-//				preg_match_all($mizheptn,$result,$mizheuzarr,PREG_SET_ORDER);
-//                                var_dump($mizheuzarr);
-//				foreach($mizheuzarr as $k => $v){
-////					$mizhe9[] = array('iid'=>$v[8],'nprice'=>$v['price']/100);
-//				}
-//				$mizhe['mizhe9'] = $mizhe9;
-//				
-//				$this->items = $mizhe;
+				$this->url = 'http://m.mizhe.com/tuan/10yuan-all---1-100---1.html';
+				$result = get_url_content($this->url);
+                                $mizheuzarr = json_decode($result,TRUE);
+				foreach($mizheuzarr['tuan_hot_items'] as $k => $v){
+                                    $mizhehot[] = array('iid'=>$v['num_iid'],'nprice'=>$v['price']/100);
+				}
+                                $mizhe['hot'] = $mizhehot;
+                                foreach($mizheuzarr['tuan_items'] as $k => $v){
+                                    $mizhe9[] = array('iid'=>$v['num_iid'],'nprice'=>$v['price']/100);
+				}
+                                $mizhe['mizhe'] = $mizhe9;
+//				var_dump($mizhe);
+				$this->items = $mizhe;
 				if($mode==2)
 					echo json_encode($this->items);
 				

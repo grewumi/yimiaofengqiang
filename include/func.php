@@ -49,7 +49,7 @@ function get_redirect_url_pro($url, $referer="", $timeout = 10) {
    curl_setopt($ch, CURLOPT_FOLLOWLOCATION,TRUE);//允许请求的链接跳转
    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept:*/*','User-Agent:Mozilla/4.0 (compatible; Win32; WinHttp.WinHttpRequest.5)','Connection: Keep-Alive','X-FORWARDED-FOR:'.getRandIp(),'CLIENT-IP:'.getRandIp()));
+   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept:*/*','User-Agent:Mozilla/4.0 (compatible; Win32; WinHttp.WinHttpRequest.5)','Connection: Keep-Alive'));
    curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,FALSE);
    curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,FALSE);//严格校验2
    if($referer){
@@ -95,8 +95,9 @@ function get_url_content($url) {
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
-                curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11");
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-FORWARDED-FOR:'.getRandIp(),'CLIENT-IP:'.getRandIp(),'User-Agent:Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11'));
 		$contents = curl_exec($ch);
+//                echo $contents;
 		curl_close($ch);
 		return $contents;
 	}

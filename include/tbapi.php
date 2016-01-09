@@ -11,6 +11,8 @@ include_once 'tbtop/TbkItemsDetailGetRequest.php';
 include_once 'tbtop/TbkItemGetRequest.php';
 include_once 'tbtop/TbkItemInfoGetRequest.php';
 include_once 'tbtop/TbkShopsDetailGetRequest.php';
+include_once 'tbtop/TbkShopRecommendGetRequest.php';
+
 header("Content-Type:text/html;charset=gbk");
 
 //$app=array('21463466'=>'91cd273f32da3a640d237595a1e827e0');
@@ -223,6 +225,21 @@ function getShopDetail($nick){
         $resp = $c->execute($req);
         $resp = object_to_array($resp->tbk_shops->tbk_shop);
         return $resp;
+}
+function getShopRecommend($sellerid){
+    global $Key,$Secret;
+    $c = new TopClient;
+    $c->appkey = $Key;
+    $c->secretKey = $Secret;
+    $req = new TbkShopRecommendGetRequest;
+    $req->setFields("user_id,shop_title,shop_type,seller_nick,pict_url,shop_url");
+    $req->setUserId($sellerid);
+    $req->setCount("20");
+    $req->setPlatform("1");
+    $resp = $c->execute($req);
+    $resp = object_to_array($resp);
+    var_dump($resp);
+    return $resp;
 }
 function getItemDetail($num_iid,$mode=1){
  	if($mode==2){

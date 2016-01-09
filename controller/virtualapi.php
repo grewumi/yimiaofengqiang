@@ -85,6 +85,12 @@ class virtualapi extends spController{
 	  $shop = $this->spArgs('shop');
 	  echo '{"show":'.getvolume($iid,$shop).'}';		
   }
+  public function ymfqzs_getshopinfo(){
+      import("tbapi.php");
+      $sellerid = $this->spArgs("sellerid");
+      $shopinfo = getShopRecommend("2320550406");
+//      var_dump($shopinfo);
+  }
 }
 ?>
 

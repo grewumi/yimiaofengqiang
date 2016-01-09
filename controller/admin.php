@@ -78,7 +78,7 @@ class admin extends spController{
                 }else{
                     // 递归取得淘宝二级节点
                     if($GLOBALS['G_SP']['autocat']){
-                        $pcid = getPcidNew($item['cid']);
+                        $pcid = getPcidNew($item['iid']);
 //                        echo 'cid:'.$item['cid'];
 //                        echo ',pcid:'.$pcid;
 

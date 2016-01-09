@@ -90,6 +90,7 @@ class virtualapi extends spController{
       echo getPcidNew("524375021244");
   }
   public function ymfqzs_getshopstatus(){
+      $seller_nick = $this->spArgs("shopww");
       $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>$seller_nick));
       if($shopinfo){
           echo '{"status":"'.$shopinfo["status"].'"}';

@@ -96,6 +96,7 @@ class virtualapi extends spController{
       }else{
           echo '{"status":"0"}';
       }
+      $this->display("front/empty.html");
   }
   
 }

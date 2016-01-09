@@ -78,7 +78,8 @@ $spConfig = array(
 				'dbselect' => 'admin@dbselect',
 				'sqlout' => 'admin@sqlout',
 				'updateyj' => 'admin@updateyj',
-				'updateyjonce' => 'admin@updateyjonce',					
+				'updateyjonce' => 'admin@updateyjonce',	
+                                'getshopstatus'=>'virtualapi@ymfqzs_getshopstatus'
 			),
 			'args' => array( // 网址映射附加的隐藏参数，如果针对某个网址映射设置了隐藏参数，则在网址中仅会存在参数值，而参数名称被隐藏。
 				// 生成的网址将会是：http://www.example.com/search-thekey-2.html

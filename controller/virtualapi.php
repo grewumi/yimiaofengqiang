@@ -85,16 +85,19 @@ class virtualapi extends spController{
 	  $shop = $this->spArgs('shop');
 	  echo '{"show":'.getvolume($iid,$shop).'}';		
   }
-  public function ymfqzs_getshopinfo(){
-      import("tbapi.php");
-      $sellerid = $this->spArgs("sellerid");
-      $shopinfo = getShopRecommend("2320550406");
-      var_dump($shopinfo);
-  }
   public function getpcid(){
       import("tbapi.php");
       echo getPcidNew("524375021244");
   }
+  public function ymfqzs_getshopstatus(){
+      $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>$seller_nick));
+      if($shopinfo){
+          echo '{"status":"'.$shopinfo["status"].'"}';
+      }else{
+          echo '{"status":"0"}';
+      }
+  }
+  
 }
 ?>
 

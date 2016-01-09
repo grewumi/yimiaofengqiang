@@ -22,6 +22,15 @@ class admin extends spController{
         public function updateRank(){
             spClass('m_pro')->runSql('update fstk_pro set rank=500 where iid in (select t.iid from (select iid from fstk_pro where rank=499 and st<=curdate() and et>=curdate() and ischeck=1 and type!=87 and classification=1 and last_modify<curdate() order by rank asc,postdt desc limit 112,18446744073709551615)as t)');
         }
+        public function ymfqzs_getshopstatus(){
+            $seller_nick = $this->spArgs("shopww");
+            $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>$seller_nick));
+            if($shopinfo){
+                echo '{"status":'.$shopinfo['status'].'}';
+            }else{
+                echo '{"status":0}';
+            }
+        }
         public function login(){		
 		$cmd = $this->spArgs('cmd');
 		if($cmd=='out'){

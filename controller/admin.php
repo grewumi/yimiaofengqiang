@@ -1462,7 +1462,7 @@ class admin extends spController{
                     if($catMap){ //如果商品类目有映射
                         $itemTemp = array('cat'=>(int)$catMap['type']);
                     }else{
-                        $itemTemp = array('cat'=>42);
+                        $itemTemp = array('cat'=>43);
                     }
                     if($pros->update(array('iid'=>$v['iid']),$itemTemp))
                         echo $v['iid'].' 从分类'.$v['cat'].'更新分类到 '.$itemTemp['cat'].' 成功.<br />';

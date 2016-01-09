@@ -1460,7 +1460,7 @@ class admin extends spController{
                 $catmaps = spClass("m_catmap");
                 import('tbapi.php');
 		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and cat=42';
-		$items = $pros->findAll($where,'','','100');
+		$items = $pros->findAll($where);
 		foreach($items as $k=>$v){
                     $pcid = getPcidNew($v['iid']);
                     // 查询fstk_catmap对应类目

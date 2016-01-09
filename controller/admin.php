@@ -1449,18 +1449,11 @@ class admin extends spController{
 		}
 	}
         public function updatecat(){
-                set_time_limit(0);
-                // 采集开春哥
-		ini_set('memory_limit', '64M'); // 内存超载
-		ini_set('pcre.backtrack_limit', 999999999); // 回溯超载
-		ini_set('pcre.recursion_limit', 99999); // 资源开大就行
-		// end - 采集开春哥
-                
-		$pros = spClass('m_pro');
+                $pros = spClass('m_pro');
                 $catmaps = spClass("m_catmap");
                 import('tbapi.php');
 		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and cat=42';
-		$items = $pros->findAll($where);
+		$items = $pros->findAll($where,'','','100');
 		foreach($items as $k=>$v){
                     $pcid = getPcidNew($v['iid']);
                     // 查询fstk_catmap对应类目

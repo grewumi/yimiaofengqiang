@@ -1455,19 +1455,19 @@ class admin extends spController{
 		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and cat=42';
 		$items = $pros->findAll($where);
 		foreach($items as $k=>$v){
-			$pcid = getPcidNew($v['iid']);
-                        // 查询fstk_catmap对应类目
-                        $catMap = $catmaps->find(array('cid'=>$pcid),'','type');
-                        //var_dump($catMap);
-                        if($catMap){ //如果商品类目有映射
-                            $itemTemp = array('cat'=>(int)$catMap['type']);
-                        }else{
-                            $itemTemp = array('cat'=>42);
-                        }
-                        if($pros->update(array('iid'=>$v['iid']),$itemTemp))
-                            echo $v['iid'].' 从分类'.$v['cat'].'更新分类到 '.$itemTemp['cat'].' 成功.<br />';
-                        else
-                            echo $v['iid'].' 从分类'.$v['cat'].'更新分类到 '.$itemTemp['cat'].' 失败.<br />';
+                    $pcid = getPcidNew($v['iid']);
+                    // 查询fstk_catmap对应类目
+                    $catMap = $catmaps->find(array('cid'=>$pcid),'','type');
+                    //var_dump($catMap);
+                    if($catMap){ //如果商品类目有映射
+                        $itemTemp = array('cat'=>(int)$catMap['type']);
+                    }else{
+                        $itemTemp = array('cat'=>42);
+                    }
+                    if($pros->update(array('iid'=>$v['iid']),$itemTemp))
+                        echo $v['iid'].' 从分类'.$v['cat'].'更新分类到 '.$itemTemp['cat'].' 成功.<br />';
+                    else
+                        echo $v['iid'].' 从分类'.$v['cat'].'更新分类到 '.$itemTemp['cat'].' 失败.<br />';
 		}
 	}
 	// 更新佣金插件

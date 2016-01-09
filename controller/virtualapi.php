@@ -89,7 +89,11 @@ class virtualapi extends spController{
       import("tbapi.php");
       $sellerid = $this->spArgs("sellerid");
       $shopinfo = getShopRecommend("2320550406");
-//      var_dump($shopinfo);
+      var_dump($shopinfo);
+  }
+  public function getpcid(){
+      import("tbapi.php");
+      echo getPcidNew("524375021244");
   }
 }
 ?>

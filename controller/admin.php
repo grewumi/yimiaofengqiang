@@ -79,7 +79,6 @@ class admin extends spController{
                     // 递归取得淘宝二级节点
                     if($GLOBALS['G_SP']['autocat']){
                         $pcid = getPcidNew($item['cid']);
-                        $pcid = $pcid['cid'];
 //                        echo 'cid:'.$item['cid'];
 //                        echo ',pcid:'.$pcid;
 
@@ -1000,8 +999,7 @@ class admin extends spController{
 
                                     // 递归取得淘宝二级节点
                                     if($GLOBALS['G_SP']['autocat']){
-                                        $pcid = getPcidNew($item['cid']);
-                                        $pcid = $pcid['cid'];
+                                        $pcid = getPcidNew($item['iid']);
 
                                         // 查询fstk_catmap对应类目
                                         $catMap = $catmaps->find(array('cid'=>$pcid),'','type');
@@ -1448,6 +1446,28 @@ class admin extends spController{
 				echo '获取失败.<br />';
 			}
 			
+		}
+	}
+        public function updatecat(){
+		$pros = spClass('m_pro');
+                $catmaps = spClass("m_catmap");
+                import('tbapi.php');
+		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and cat=42';
+		$items = $pros->findAll($where);
+		foreach($items as $k=>$v){
+			$pcid = getPcidNew($v['iid']);
+                        // 查询fstk_catmap对应类目
+                        $catMap = $catmaps->find(array('cid'=>$pcid),'','type');
+                        //var_dump($catMap);
+                        if($catMap){ //如果商品类目有映射
+                            $itemTemp = array('cat'=>(int)$catMap['type']);
+                        }else{
+                            $itemTemp = array('cat'=>42);
+                        }
+                        if($pros->update(array('iid'=>$v['iid']),$itemTemp))
+                            echo $v['iid'].' 从分类'.$v['cat'].'更新分类到 '.$itemTemp['cat'].' 成功.<br />';
+                        else
+                            echo $v['iid'].' 从分类'.$v['cat'].'更新分类到 '.$itemTemp['cat'].' 失败.<br />';
 		}
 	}
 	// 更新佣金插件

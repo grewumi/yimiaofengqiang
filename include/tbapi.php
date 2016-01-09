@@ -142,21 +142,21 @@ function getPcid($cid){
 	
 }
 
-function getPcidNew($cid){
-	$resp = get_contents('http://tiangou.uz.taobao.com/top/getpcid.php?jsonp=1&id='.$cid);
-//        $resp = file_get_contents('http://www.432gou.com/?c=admin&a=getpcid&cid='.$cid);
-        $resp = json_decode(iconv('gbk','utf-8',trim($resp)),1);
-        if($resp){
-            $resp = array_multi2single($resp);
+function getPcidNew($iid){
+    $result = get_url_content("http://item.taobao.com/item.htm?id=".$iid);
+    if(preg_match('/"rootCatId":"(\d+)"/i', $result,$matches)){
+        return $matches[1];
+    }else{
+        $matches = null;
+        if(preg_match('/rcid=(\d+)/i', $result,$matches)){
+            return $matches[1];
         }else{
-            $resp = null;
+            return 9999;
         }
-        
-	if($resp){
-            return $resp;
-        }else{
-            return -1;
-        }
+    }
+    
+    return $result;
+	
 }
 /* if($_GET['mode']=='ajaxprocat'){
 	include 'dbconfig.php';
@@ -229,16 +229,14 @@ function getShopDetail($nick){
 function getShopRecommend($sellerid){
     global $Key,$Secret;
     $c = new TopClient;
-    $c->appkey = $Key;
-    $c->secretKey = $Secret;
+    $c->appkey = trim($Key);
+    $c->secretKey = trim($Secret);
     $req = new TbkShopRecommendGetRequest;
     $req->setFields("user_id,shop_title,shop_type,seller_nick,pict_url,shop_url");
     $req->setUserId($sellerid);
-    $req->setCount("20");
-    $req->setPlatform("1");
     $resp = $c->execute($req);
     $resp = object_to_array($resp);
-    var_dump($resp);
+//    var_dump($resp);
     return $resp;
 }
 function getItemDetail($num_iid,$mode=1){

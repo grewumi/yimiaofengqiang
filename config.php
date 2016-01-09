@@ -150,7 +150,7 @@ $spConfig = array(
 //            'tiangou'=>true,
 //            'jumei'=>true
         ),
-        'autocat'=>false
+        'autocat'=>true
 );
 $spConfig['randip'] = '121.199.33.15';
 if(LOCALDEVELOP){

@@ -1008,7 +1008,7 @@ class admin extends spController{
 
                                     // 递归取得淘宝二级节点
                                     if($GLOBALS['G_SP']['autocat']){
-                                        $pcid = getPcidNew($item['iid']);
+//                                        $pcid = getPcidNew($item['iid']);
 
                                         // 查询fstk_catmap对应类目
                                         $catMap = $catmaps->find(array('cid'=>$pcid),'','type');

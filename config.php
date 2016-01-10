@@ -78,6 +78,7 @@ $spConfig = array(
 				'sqlout' => 'admin@sqlout',
 				'updateyj' => 'admin@updateyj',
                                 'getshopstatus'=>'admin@ymfqzs_getshopstatus',
+                                'setshopstatus'=>'admin@ymfqzs_setshopstatus',
 				'updateyjonce' => 'admin@updateyjonce',	                             
 			),
 			'args' => array( // 网址映射附加的隐藏参数，如果针对某个网址映射设置了隐藏参数，则在网址中仅会存在参数值，而参数名称被隐藏。

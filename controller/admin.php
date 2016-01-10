@@ -31,6 +31,26 @@ class admin extends spController{
                 echo '{"status":0}';
             }
         }
+        public function ymfqzs_setshopstatus(){
+            $seller_nick = $this->spArgs("seller_nick");
+            $status = $this->spArgs("status");
+            $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>$seller_nick));
+            if($shopinfo){
+                // 更新status
+                if(spClass("m_ymfqzs")->update(array('shopww'=>$seller_nick),array('status'=>(int)$status)))
+                    echo '{"message":"更新成功！"}';
+                else
+                    echo '{"message":"更新失败！"}';
+            }else{
+                //插入新数据
+                import("tbapi.php");
+                $shop = getShopDetail($seller_nick);
+                if(spClass("m_ymfqzs")->create(array('shopww'=>$seller_nick,'status'=>(int)$status,'shopid'=>$shop['user_id'],'shopname'=>$shop['shop_title'])))
+                    echo '{"message":"新增成功！"}';
+                else
+                    echo '{"message":"新增失败！"}';
+            }
+        }
         public function login(){		
 		$cmd = $this->spArgs('cmd');
 		if($cmd=='out'){

@@ -35,6 +35,12 @@ class admin extends spController{
             $seller_nick = $this->spArgs("seller_nick");
             $status = $this->spArgs("status");
             $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>$seller_nick));
+            
+            // ×Ö·û×ª»»
+            $shopinfo['shopww'] = iconv('utf-8','gb2312',$shopinfo['shopww']);
+            $shopinfo['shop_title'] = iconv('utf-8','gb2312',$shopinfo['shop_title']);
+            $seller_nick = iconv('utf-8','gb2312',$seller_nick);
+            
             if($shopinfo){
                 // ¸üĞÂstatus
                 if(spClass("m_ymfqzs")->update(array('shopww'=>$seller_nick),array('status'=>(int)$status)))

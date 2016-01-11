@@ -27,6 +27,7 @@ class admin extends spController{
             $seller_nick = urldecode($seller_nick);
             
             $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>iconv('utf-8','gb2312',$seller_nick)));
+            
             if($shopinfo){
                 echo '{"status":'.$shopinfo['status'].',"seller_nick":"'.$seller_nick.'"}';
             }else{
@@ -38,11 +39,11 @@ class admin extends spController{
             $status = $this->spArgs("status");
             //转换编码与页面编码相同
 //            $seller_nick = iconv('utf-8','gb2312',$seller_nick);
-            $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>$seller_nick));
+            $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>iconv('utf-8','gb2312',$seller_nick)));
             
             if($shopinfo){
                 // 更新status
-                if(spClass("m_ymfqzs")->update(array('shopww'=>$seller_nick),array('status'=>(int)$status)))
+                if(spClass("m_ymfqzs")->update(array('shopww'=>iconv('utf-8','gb2312',$seller_nick)),array('status'=>(int)$status)))
                     echo '{"message":"更新成功！"}';
                 else
                     echo '{"message":"更新失败！"}';

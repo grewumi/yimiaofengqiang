@@ -34,7 +34,7 @@ class admin extends spController{
         public function ymfqzs_setshopstatus(){
             $seller_nick = $this->spArgs("seller_nick");
             $status = $this->spArgs("status");
-            
+            //转换编码与页面编码相同
             $seller_nick = iconv('utf-8','gb2312',$seller_nick);
             $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>$seller_nick));
             
@@ -49,7 +49,7 @@ class admin extends spController{
                 import("tbapi.php");
                 $shop = getShopDetail($seller_nick);
                 // 字符转换
-//                $shop['shopww'] = iconv('utf-8','gb2312',$shop['shopww']);
+                //转换编码与页面编码相同
                 $shop['shop_title'] = iconv('utf-8','gb2312',$shop['shop_title']);
                 
                 if(spClass("m_ymfqzs")->create(array('shopww'=>$seller_nick,'status'=>(int)$status,'shopid'=>$shop['user_id'],'shopname'=>$shop['shop_title'])))

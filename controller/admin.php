@@ -35,7 +35,7 @@ class admin extends spController{
             $seller_nick = $this->spArgs("seller_nick");
             $status = $this->spArgs("status");
             //转换编码与页面编码相同
-            $seller_nick = iconv('utf-8','gb2312',$seller_nick);
+//            $seller_nick = iconv('utf-8','gb2312',$seller_nick);
             $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>$seller_nick));
             
             if($shopinfo){
@@ -51,8 +51,9 @@ class admin extends spController{
                 // 字符转换
                 //转换编码与页面编码相同
                 $shop['shop_title'] = iconv('utf-8','gb2312',$shop['shop_title']);
+                $shop['seller_nick'] = iconv('utf-8','gb2312',$shop['seller_nick']);
                 
-                if(spClass("m_ymfqzs")->create(array('shopww'=>$seller_nick,'status'=>(int)$status,'shopid'=>$shop['user_id'],'shopname'=>$shop['shop_title'])))
+                if(spClass("m_ymfqzs")->create(array('shopww'=>$shop['seller_nick'],'status'=>(int)$status,'shopid'=>$shop['user_id'],'shopname'=>$shop['shop_title'])))
                     echo '{"message":"新增成功！"}';
                 else
                     echo '{"message":"新增失败！"}';

@@ -46,7 +46,7 @@ class admin extends spController{
             }else{
                 //插入新数据
                 import("tbapi.php");
-                $shop = getShopDetail($this->spArgs("seller_nick"));
+                $shop = getShopDetail($seller_nick);
                 // 字符转换
 //                $shop['shopww'] = iconv('utf-8','gb2312',$shop['shopww']);
                 $shop['shop_title'] = iconv('utf-8','gb2312',$shop['shop_title']);

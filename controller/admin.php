@@ -34,7 +34,7 @@ class admin extends spController{
         public function ymfqzs_setshopstatus(){
             $seller_nick = $this->spArgs("seller_nick");
             $status = $this->spArgs("status");
-            $seller_nick = iconv('utf-8','gb2312',$seller_nick);
+//            $seller_nick = iconv('utf-8','gb2312',$seller_nick);
             $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>$seller_nick));
             
             // ×Ö·û×ª»»

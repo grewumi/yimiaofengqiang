@@ -26,7 +26,7 @@ class admin extends spController{
             $seller_nick = $this->spArgs("shopww");
             $seller_nick = urldecode($seller_nick);
             
-            $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>trim($seller_nick)));
+            $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>iconv('utf-8','gb2312',$seller_nick)));
             if($shopinfo){
                 echo '{"status":'.$shopinfo['status'].',"seller_nick":"'.$seller_nick.'"}';
             }else{

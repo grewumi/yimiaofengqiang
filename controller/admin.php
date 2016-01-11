@@ -37,11 +37,6 @@ class admin extends spController{
 //            $seller_nick = iconv('utf-8','gb2312',$seller_nick);
             $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>$seller_nick));
             
-            // 字符转换
-            $shopinfo['shopww'] = iconv('utf-8','gb2312',$shopinfo['shopww']);
-            $shopinfo['shop_title'] = iconv('utf-8','gb2312',$shopinfo['shop_title']);
-            
-            
             if($shopinfo){
                 // 更新status
                 if(spClass("m_ymfqzs")->update(array('shopww'=>$seller_nick),array('status'=>(int)$status)))
@@ -52,6 +47,10 @@ class admin extends spController{
                 //插入新数据
                 import("tbapi.php");
                 $shop = getShopDetail($seller_nick);
+                // 字符转换
+//                $shop['shopww'] = iconv('utf-8','gb2312',$shop['shopww']);
+                $shop['shop_title'] = iconv('utf-8','gb2312',$shop['shop_title']);
+                
                 if(spClass("m_ymfqzs")->create(array('shopww'=>$seller_nick,'status'=>(int)$status,'shopid'=>$shop['user_id'],'shopname'=>$shop['shop_title'])))
                     echo '{"message":"新增成功！"}';
                 else

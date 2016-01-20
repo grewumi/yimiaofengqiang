@@ -29,6 +29,7 @@ class UzCaiji{
                 
 		if($website){
 			if($website=='huiyuangou'){ // ª·‘±π∫
+//                            echo get_redirect_url_pro("http://s.click.taobao.com/MUbiFex","http://ai.taobao.com");
                                 $huiyuangou = null;
                                 for($j=1;$j<=10;$j++){
                                     $this->url = 'http://appapi.huipinzhe.com/mobapi/product/list?mod=listnew&page='.$j;

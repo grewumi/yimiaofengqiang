@@ -294,7 +294,7 @@ class UzCaiji{
 				$result = file_get_contents($this->url);
 				$zhe8arr1 = json_decode($result,TRUE);
                                 foreach($zhe8arr1['objects'] as $k => $v){
-                                    preg_match('/(.+?)id=(\d+)(.*?)/i',get_redirect_url($v['wap_url']),$matches);
+                                    preg_match('/(.+?)id=(\d+)(.*?)/i',get_redirect_url_pro("http://out.zhe800.com/m/deal/".$v['id']."?iousjkl=12e54067f51deafc6a0f51b476df164d",get_redirect_url($v['wap_url'])),$matches);
                                     $zhet[] = array('iid'=>$matches[2],'nprice'=>$v['price']/100);
                                     $matches = null;
 				}

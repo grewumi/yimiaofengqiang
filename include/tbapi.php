@@ -237,7 +237,7 @@ function getItemDetail($num_iid,$mode=1){
                 if(!$result){
                     return -1;
                 }else{
-			$volume = 200;
+			
 			$item = array(
 				"iid"=>$num_iid,
 				"title"=>htmlspecialchars($result['title']),
@@ -256,6 +256,8 @@ function getItemDetail($num_iid,$mode=1){
 				"volume"=>$tkresult['volume'],
                                 "slink"=>$tkresult['seller_id'],
 			);
+                        if(!$item['volume'])
+                            $item['volume'] = 200;
 			$item['title'] = preg_replace('/°æ.+?°ø/i','',$item['title']);
 			//var_dump($item);
 			// ‘À∑—

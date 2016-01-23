@@ -278,18 +278,20 @@ class UzCaiji{
 				}
 			}elseif($website=='zhe800'){ // 折800
 				// 采集今日更新淘宝商品前100个per_page=100&shop_type=0
+                                
 				$this->url = 'http://m.zhe800.com/m/api/deals/today?per_page=100&image_type=small&image_model=jpg&page=1&user_type=1&user_role=1&tag_url=all&parent_url_name=&shop_type=0&path_url=all';
-				$result = get_contents($this->url);
+				$result = file_get_contents($this->url);
 				$zhe8arr1 = json_decode($result,TRUE);
                                 foreach($zhe8arr1['objects'] as $k => $v){
-                                    preg_match('/(.+?)id=(\d+)(.*?)/i',get_redirect_url($v['wap_url']),$matches);
+                                    preg_match('/(.+?)id=(\d+)(.*?)/i',get_redirect_url_pro("http://out.zhe800.com/m/deal/".$v['id']."?iousjkl=12e54067f51deafc6a0f51b476df164d",get_redirect_url($v['wap_url'])),$matches);
                                     $zhec[] = array('iid'=>$matches[2],'nprice'=>$v['price']/100);
                                     $matches = null;
 				}
 				$zhe800arr['c'] = $zhec;
+//                                var_dump($zhe800arr);
 				// 采集今日更新淘宝商品前100个结束
 				$this->url = 'http://m.zhe800.com/m/api/deals/today?per_page=100&image_type=small&image_model=jpg&page=1&user_type=1&user_role=1&tag_url=all&parent_url_name=&shop_type=1&path_url=all';
-				$result = get_contents($this->url);
+				$result = file_get_contents($this->url);
 				$zhe8arr1 = json_decode($result,TRUE);
                                 foreach($zhe8arr1['objects'] as $k => $v){
                                     preg_match('/(.+?)id=(\d+)(.*?)/i',get_redirect_url($v['wap_url']),$matches);
@@ -297,6 +299,7 @@ class UzCaiji{
                                     $matches = null;
 				}
 				$zhe800arr['t'] = $zhet;
+                                
                                 // 采集今日更新天猫商品前100个结束
 //                                var_dump($zhe800arr);
 				$this->items = $zhe800arr;	

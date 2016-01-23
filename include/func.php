@@ -11,6 +11,7 @@ function get_redirect_url_once($url){
    $header = get_headers($url, 1);
    return $header['Location'][0];
  }
+
 function get_redirect_url($url){
    $header = get_headers($url, 1);
    if (strpos($header[0], '301') !== false || strpos($header[0], '302') !== false) {

@@ -717,8 +717,26 @@ class UzCaiji{
 				if($mode==2)
 					echo json_encode($this->items);
 				
-			}
-			
+                        }elseif($website=='meguo'){
+                            for($j=1;$j<=5;$j++){
+                                $this->url = 'http://m.meguo.com/index/ajax-load-type?dataType=default&cate_id=&order=default&page='.$j;
+                                $result = file_get_contents($this->url);
+                                $res = json_decode($result,TRUE);   
+    //                            var_dump($res);
+                                foreach($res['data'] as $k => $v){
+                                    $itemRes = parse_url(get_redirect_url_pro($v['wap_click_url'],"http://ai.taobao.com"));
+                                    $itemRes = convertUrlQuery($itemRes['query']);
+                                    $djzk[] = array('iid'=>$itemRes['id'],'nprice'=>$v['coupon_price'],'pic'=>$v['pic_url']);
+                                    $itemRes = null;
+                                    $djzk = null;
+                                }
+                                $megou[$j] = $djzk;
+//                                var_dump($megou);
+                                $this->items = $megou;
+				if($mode==2)
+                                    echo json_encode($this->items);
+                            }
+                         }
 		}
 	}
 	

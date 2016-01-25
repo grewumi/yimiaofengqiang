@@ -732,10 +732,10 @@ class UzCaiji{
                                 }
                                 $megou[$j] = $djzk;
 //                                var_dump($megou);
-                                $this->items = $megou;
-				if($mode==2)
-                                    echo json_encode($this->items);
                             }
+                            $this->items = $megou;
+                            if($mode==2)
+                                echo json_encode($this->items);
                          }
 		}
 	}

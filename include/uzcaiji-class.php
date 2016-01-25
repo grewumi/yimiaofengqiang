@@ -718,7 +718,7 @@ class UzCaiji{
 					echo json_encode($this->items);
 				
                         }elseif($website=='meguo'){
-                            for($j=1;$j<=5;$j++){
+                            for($j=1;$j<=10;$j++){
                                 $this->url = 'http://m.meguo.com/index/ajax-load-type?dataType=default&cate_id=&order=default&page='.$j;
                                 $result = file_get_contents($this->url);
                                 $res = json_decode($result,TRUE);   

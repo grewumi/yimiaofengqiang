@@ -728,12 +728,13 @@ class UzCaiji{
                                     $itemRes = convertUrlQuery($itemRes['query']);
                                     $djzk[] = array('iid'=>$itemRes['id'],'nprice'=>$v['coupon_price'],'pic'=>$v['pic_url']);
                                     $itemRes = null;
-                                    $djzk = null;
                                 }
                                 $megou[$j] = $djzk;
+                                $djzk = null;
 //                                var_dump($megou);
                             }
-                            $this->items = $megou;
+                            var_dump($megou);
+//                            $this->items = $megou;
                             if($mode==2)
                                 echo json_encode($this->items);
                          }

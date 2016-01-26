@@ -1492,7 +1492,7 @@ class admin extends spController{
                 $pros = spClass('m_pro');
                 $catmaps = spClass("m_catmap");
                 import('tbapi.php');
-		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and cat=42';
+		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and cat=42 and act_from!=43';
 		$items = $pros->findAll($where,'','','100');
 		foreach($items as $k=>$v){
                     $pcid = getPcidNew($v['iid']);

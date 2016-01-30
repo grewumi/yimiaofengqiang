@@ -356,7 +356,7 @@ class admin extends spController{
                         $where = "title like '%".urldecode($q)."%'";
                     }
 //                    $itemsTemp = $pros->spPager($page,56)->findAll($where,$order);
-                    $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);
+                    $itemsTemp = $pros->spCache(-1)->getmypage($where,$order,$page,56);
                     
                 }else{
 //                echo $where;

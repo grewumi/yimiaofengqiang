@@ -1535,9 +1535,25 @@ class admin extends spController{
                         echo $v['iid'].' 更新slink为'.$itemTemp['slink'].' 失败.<br />';
                 }
             }else{
-                echo '无需更新！';
+                echo 'slink无需更新！';
             }
-            //
+            //更新shopname,ww,nick
+            $where = 'ww="" or nick="" or shopname=""';
+            $items = $pros->findAll($where);
+            if(!empty($items)){
+                foreach($items as $k=>$v){
+                    $iteminfo = getItemDetail($v['iid']);
+                    $itemTemp['ww'] = $iteminfo['ww'];
+                    $itemTemp['nick'] = $iteminfo['nick'];
+                    $itemTemp['shopname'] = $iteminfo['shopname'];
+                    if($pros->update(array('iid'=>$v['iid']),$itemTemp))
+                        echo $v['iid'].' 更新shopname为'.$itemTemp['shopname'].' 成功.<br />';
+                    else
+                        echo $v['iid'].' 更新shopname为'.$itemTemp['shopname'].' 成功.<br />';
+                }
+            }else{
+                echo 'shopname,ww,nick无需更新！';
+            }
         }
 	// 更新佣金插件
 	public function updateyjonce(){

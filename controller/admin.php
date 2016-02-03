@@ -1543,9 +1543,9 @@ class admin extends spController{
             if(!empty($items)){
                 foreach($items as $k=>$v){
                     $iteminfo = getItemDetail($v['iid']);
-                    $itemTemp['ww'] = $iteminfo['ww'];
-                    $itemTemp['nick'] = $iteminfo['nick'];
-                    $itemTemp['shopname'] = $iteminfo['shopname'];
+                    $itemTemp['ww'] = iconv('utf-8','gbk',$iteminfo['ww']);
+                    $itemTemp['nick'] = iconv('utf-8','gbk',$iteminfo['nick']);
+                    $itemTemp['shopname'] = iconv('utf-8','gbk',$iteminfo['shopname']);
                     if($pros->update(array('iid'=>$v['iid']),$itemTemp))
                         echo $v['iid'].' 更新shopname为'.$itemTemp['shopname'].' 成功.<br />';
                     else

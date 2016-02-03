@@ -1511,6 +1511,32 @@ class admin extends spController{
                         echo $v['iid'].' 从分类'.$v['cat'].'更新分类到 '.$itemTemp['cat'].' 失败.<br />';
 		}
 	}
+        public function updateshopname(){
+            set_time_limit(0);
+            
+            // 采集开春哥
+            ini_set('memory_limit', '64M'); // 内存超载
+            ini_set('pcre.backtrack_limit', 999999999); // 回溯超载
+            ini_set('pcre.recursion_limit', 99999); // 资源开大就行
+            // end - 采集开春哥
+            
+            //更新slink
+            $pros = spClass('m_pro');
+            import('tbapi.php');
+            $where = 'slink=""';
+            $items = $pros->findAll($where);
+            if(!empty($items)){
+                foreach($items as $k=>$v){
+                    $iteminfo = getItemDetail($v['iid']);
+                    $itemTemp['slink'] = $iteminfo['slink'];
+                    if($pros->update(array('iid'=>$v['iid']),$itemTemp))
+                        echo $v['iid'].' 更新slink为'.$itemTemp['slink'].' 成功.<br />';
+                    else
+                        echo $v['iid'].' 更新slink为'.$itemTemp['slink'].' 失败.<br />';
+                }
+            }
+            //
+        }
 	// 更新佣金插件
 	public function updateyjonce(){
 		if(!$_SESSION['admin'])

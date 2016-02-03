@@ -1528,7 +1528,7 @@ class admin extends spController{
             if(!empty($items)){
                 foreach($items as $k=>$v){
                     $iteminfo = getItemDetail($v['iid']);
-                    if($item<0){
+                    if($iteminfo<0){
                         echo $v['iid'].' 获取信息失败!<br/>';
                     }else{
                         $itemTemp['slink'] = $iteminfo['slink'];
@@ -1547,7 +1547,7 @@ class admin extends spController{
             if(!empty($items)){
                 foreach($items as $k=>$v){
                     $iteminfo = getItemDetail($v['iid']);
-                    if($item<0){
+                    if($iteminfo<0){
                         echo $v['iid'].' 获取信息失败!<br/>';
                     }else{
                         $itemTemp['ww'] = iconv('utf-8','gbk',$iteminfo['ww']);

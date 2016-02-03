@@ -1528,11 +1528,15 @@ class admin extends spController{
             if(!empty($items)){
                 foreach($items as $k=>$v){
                     $iteminfo = getItemDetail($v['iid']);
-                    $itemTemp['slink'] = $iteminfo['slink'];
-                    if($pros->update(array('iid'=>$v['iid']),$itemTemp))
-                        echo $v['iid'].' 更新slink为'.$itemTemp['slink'].' 成功.<br />';
-                    else
-                        echo $v['iid'].' 更新slink为'.$itemTemp['slink'].' 失败.<br />';
+                    if($item<0){
+                        echo $v['iid'].' 获取信息失败!<br/>';
+                    }else{
+                        $itemTemp['slink'] = $iteminfo['slink'];
+                        if($pros->update(array('iid'=>$v['iid']),$itemTemp))
+                            echo $v['iid'].' 更新slink为'.$itemTemp['slink'].' 成功.<br />';
+                        else
+                            echo $v['iid'].' 更新slink为'.$itemTemp['slink'].' 失败.<br />';
+                    }
                 }
             }else{
                 echo 'slink无需更新！';
@@ -1543,13 +1547,17 @@ class admin extends spController{
             if(!empty($items)){
                 foreach($items as $k=>$v){
                     $iteminfo = getItemDetail($v['iid']);
-                    $itemTemp['ww'] = iconv('utf-8','gbk',$iteminfo['ww']);
-                    $itemTemp['nick'] = iconv('utf-8','gbk',$iteminfo['nick']);
-                    $itemTemp['shopname'] = iconv('utf-8','gbk',$iteminfo['shopname']);
-                    if($pros->update(array('iid'=>$v['iid']),$itemTemp))
-                        echo $v['iid'].' 更新shopname为'.$itemTemp['shopname'].' 成功.<br />';
-                    else
-                        echo $v['iid'].' 更新shopname为'.$itemTemp['shopname'].' 成功.<br />';
+                    if($item<0){
+                        echo $v['iid'].' 获取信息失败!<br/>';
+                    }else{
+                        $itemTemp['ww'] = iconv('utf-8','gbk',$iteminfo['ww']);
+                        $itemTemp['nick'] = iconv('utf-8','gbk',$iteminfo['nick']);
+                        $itemTemp['shopname'] = iconv('utf-8','gbk',$iteminfo['shopname']);
+                        if($pros->update(array('iid'=>$v['iid']),$itemTemp))
+                            echo $v['iid'].' 更新shopname为'.$itemTemp['shopname'].' 成功.<br />';
+                        else
+                            echo $v['iid'].' 更新shopname为'.$itemTemp['shopname'].' 成功.<br />';
+                    }
                 }
             }else{
                 echo 'shopname,ww,nick无需更新！';

@@ -72,7 +72,8 @@ class main extends spController{
                         import("tbapi.php");
                         $iteminfo = getItemDetail($pro['iid']);
                         $pro['ww'] = iconv('utf-8','gbk',$iteminfo['nick']); 
-                        $pros->update(array('iid'=>$pro['iid']),array('ww'=>$pro['ww'],'nick'=>$pro['ww']));
+                        if(iconv('utf-8','gbk',$iteminfo['nick'])!=$pro['ww'])
+                            $pros->update(array('iid'=>$pro['iid']),array('ww'=>$pro['ww'],'nick'=>$pro['ww']));
                     }
                     if(!$$pro['volume']){
                         import("tbapi.php");
@@ -119,7 +120,8 @@ class main extends spController{
                 import("tbapi.php");
                 $shipinfo = getItemDetail($pro['iid']);
                 $pro['shopname'] = iconv('utf-8','gbk',$shipinfo['shopname']); 
-                $pros->update(array('iid'=>$pro['iid']),array('shopname'=>$pro['shopname']));
+                if(iconv('utf-8','gbk',$iteminfo['shopname'])!=$pro['shopname'])
+                    $pros->update(array('iid'=>$pro['iid']),array('shopname'=>$pro['shopname']));
             }
             
             $this->pro = $pro;

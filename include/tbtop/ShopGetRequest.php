@@ -3,7 +3,7 @@
  * TOP API: taobao.shop.get request
  * 
  * @author auto create
- * @since 1.0, 2013-04-24 16:44:35
+ * @since 1.0, 2015.12.21
  */
 class ShopGetRequest
 {

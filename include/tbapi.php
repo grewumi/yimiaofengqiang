@@ -11,7 +11,7 @@ include_once 'tbtop/TbkItemsDetailGetRequest.php';
 include_once 'tbtop/TbkItemGetRequest.php';
 include_once 'tbtop/TbkItemInfoGetRequest.php';
 include_once 'tbtop/TbkShopsDetailGetRequest.php';
-
+include_once 'tbtop/TbkShopGetRequest.php';
 header("Content-Type:text/html;charset=gbk");
 
 //$app=array('21463466'=>'91cd273f32da3a640d237595a1e827e0');
@@ -65,21 +65,17 @@ function getShop($nick){
 	if($resp)
 		return $resp;
 }
-function getShopNew($sid){
-	$resp = get_contents('http://tiangou.uz.taobao.com/top/3.php?sid='.$sid);
-//        $resp = file_get_contents('http://www.432gou.com/?c=admin&a=getpcid&cid='.$cid);
-        $resp = json_decode(iconv('gbk','utf-8',trim($resp)),1);
-        if($resp){
-            $resp = array_multi2single($resp);
-        }else{
-            $resp = null;
-        }
-        
-	if($resp){
-            return $resp;
-        }else{
-            return -1;
-        }
+function getShopNew($seller_nick){
+        global $Key,$Secret;
+	$c = new TopClient;
+        $c->appkey = $Key;
+        $c->secretKey = $Secret;
+        $req = new TbkShopGetRequest;
+        $req->setFields("user_id,shop_title,shop_type,seller_nick,pict_url,shop_url");
+        $req->setQ($seller_nick);
+        $resp = $c->execute($req);
+        $resp = object_to_array($resp->results->n_tbk_shop);
+        return $resp;
 }
 function getItem($num_iid,$mode='taoke')
 {
@@ -91,7 +87,7 @@ function getItem($num_iid,$mode='taoke')
 	//$c->secretKey = trim($Secret);
 	if($mode == 'normal'){
 		$req = new TbkItemInfoGetRequest;
-                $req->setFields("num_iid,title,pict_url,reserve_price,zk_final_price,user_type,provcity,item_url,small_images");
+                $req->setFields("num_iid,title,pict_url,reserve_price,zk_final_price,user_type,provcity,item_url,small_images,nick,seller_id,volume");
                 $req->setNumIids($num_iid);
                 $resp = $c->execute($req);
 		$resp = object_to_array($resp->results->n_tbk_item);
@@ -102,8 +98,9 @@ function getItem($num_iid,$mode='taoke')
                 $req->setFields("num_iid,seller_id,nick,title,price,volume,pic_url,item_url,shop_url");
                 $req->setNumIids($num_iid);
                 $resp = $c->execute($req);
+                var_dump($resp);
 		$resp = object_to_array($resp->tbk_items->tbk_item);
-//		var_dump($resp);
+		
 	}elseif($mode == 'approve_status'){
 		$req = new ItemGetRequest;
 		$req->setFields("approve_status");
@@ -222,6 +219,7 @@ function getShopDetail($nick){
         $req->setFields("user_id,seller_nick,shop_title,pic_url,shop_url");
         $req->setSellerNicks($nick);
         $resp = $c->execute($req);
+//        var_dump($resp);
         $resp = object_to_array($resp->tbk_shops->tbk_shop);
         return $resp;
 }
@@ -230,7 +228,7 @@ function getItemDetail($num_iid,$mode=1){
 		$result = getItem($num_iid,'approve_status');
 	}else{
 		$result = getItem($num_iid,'normal');
-                $tkresult = getItem($num_iid,'taoke');
+//                $tkresult = getItem($num_iid,'taoke');
 //		$result = getItemNew($num_iid,'normal');
 //                var_dump($result);
 //                var_dump($tkresult);
@@ -241,8 +239,8 @@ function getItemDetail($num_iid,$mode=1){
 			$item = array(
 				"iid"=>$num_iid,
 				"title"=>htmlspecialchars($result['title']),
-				"nick"=>htmlspecialchars($tkresult['nick']),
-                                "ww"=>htmlspecialchars($tkresult['nick']),
+				"nick"=>htmlspecialchars($result['nick']),
+                                "ww"=>htmlspecialchars($result['nick']),
 				"pic"=>$result['pict_url'],//'http://img01.taobaocdn.com/bao/uploaded/'                                
 				"oprice"=>$result['reserve_price'],
                                 "nprice"=>$result['zk_final_price'],
@@ -253,8 +251,8 @@ function getItemDetail($num_iid,$mode=1){
 				"rank"=>500,
 				"postdt"=>date("Y-m-d"),
 				"ischeck"=>1,
-				"volume"=>$tkresult['volume'],
-                                "slink"=>$tkresult['seller_id'],
+				"volume"=>$result['volume'],
+                                "slink"=>$result['seller_id'],
 			);
                         if(!$item['volume'])
                             $item['volume'] = 200;
@@ -274,8 +272,8 @@ function getItemDetail($num_iid,$mode=1){
                         
 //                      $item['commission_rate'] = getCommissionRate($item['iid']);
                         $item['commission_rate'] = -1;
-                        
-                        $shopinfo = getShopDetail($item['nick']);
+//                        echo $item['nick'];
+                        $shopinfo = getShopNew($item['ww']);
                         $item['shopname'] = htmlspecialchars($shopinfo['shop_title']);
 //			var_dump($shopinfo);
                         if($mode==3){//Í¼Æ¬¼¯

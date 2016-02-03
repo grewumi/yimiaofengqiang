@@ -1534,6 +1534,8 @@ class admin extends spController{
                     else
                         echo $v['iid'].' 更新slink为'.$itemTemp['slink'].' 失败.<br />';
                 }
+            }else{
+                echo '无需更新！';
             }
             //
         }

@@ -52,7 +52,7 @@ class admin extends spController{
             }else{
                 //插入新数据
                 import("tbapi.php");
-                $shop = getShopNew(iconv('utf-8','gb2312',$seller_nick));
+                $shop = getShopNew($seller_nick);
                 // 字符转换
                 //转换编码与页面编码相同
                 $shop['shop_title'] = iconv('utf-8','gb2312',$shop['shop_title']);

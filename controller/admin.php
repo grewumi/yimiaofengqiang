@@ -42,8 +42,8 @@ class admin extends spController{
 //            $seller_nick = iconv('utf-8','gb2312',$seller_nick);
             $shopinfo = spClass("m_ymfqzs")->find(array("shopww"=>iconv('utf-8','gb2312',$seller_nick)));
             
-            header("Content-type: application/json");
             if($shopinfo){
+                header("Content-type: application/json");
                 // 更新status
                 if(spClass("m_ymfqzs")->update(array('shopww'=>iconv('utf-8','gb2312',$seller_nick)),array('status'=>(int)$status)))
                     echo '{"ok":true,"data":{"message":"'.iconv('gb2312','utf-8',"更新成功！").'"}}';
@@ -52,12 +52,12 @@ class admin extends spController{
             }else{
                 //插入新数据
                 import("tbapi.php");
-                $shop = getShopNew(iconv('utf-8','gb2312',$seller_nick));
+                $shop = getShopNew($seller_nick);
                 // 字符转换
                 //转换编码与页面编码相同
                 $shop['shop_title'] = iconv('utf-8','gb2312',$shop['shop_title']);
                 $shop['seller_nick'] = iconv('utf-8','gb2312',$shop['seller_nick']);
-                
+                header("Content-type: application/json");
                 if(spClass("m_ymfqzs")->create(array('shopww'=>$shop['seller_nick'],'status'=>(int)$status,'shopid'=>$shop['user_id'],'shopname'=>$shop['shop_title'])))
                     echo '{"ok":true,"data":{"message":"'.iconv('gb2312','utf-8',"新增成功！").'"}}';
                 else

@@ -46,9 +46,9 @@ class admin extends spController{
             if($shopinfo){
                 // 更新status
                 if(spClass("m_ymfqzs")->update(array('shopww'=>iconv('utf-8','gb2312',$seller_nick)),array('status'=>(int)$status)))
-                    echo '{"ok":true,"data":{"message":"'.iconv('gb2312','utf-8',"更新成功！").'"}}';
+                    echo '{"ok":true,"data":{"message":"update success"}}';
                 else
-                    echo '{"ok":true,"data":{"message":"'.iconv('gb2312','utf-8',"更新失败！").'"}}';
+                    echo '{"ok":true,"data":{"message":"update failed"}}';
             }else{
                 //插入新数据
                 import("tbapi.php");
@@ -59,9 +59,9 @@ class admin extends spController{
                 $shop['seller_nick'] = iconv('utf-8','gb2312',$shop['seller_nick']);
                 
                 if(spClass("m_ymfqzs")->create(array('shopww'=>$shop['seller_nick'],'status'=>(int)$status,'shopid'=>$shop['user_id'],'shopname'=>$shop['shop_title'])))
-                    echo '{"ok":true,"data":{"message":"'.iconv('gb2312','utf-8',"新增成功！").'"}}';
+                    echo '{"ok":true,"data":{"message":"create success"}}';
                 else
-                    echo '{"ok":true,"data":{"message":"'.iconv('gb2312','utf-8',"新增失败！").'"}}';
+                    echo '{"ok":true,"data":{"message":"create failed"}}';
             }
         }
         public function login(){		

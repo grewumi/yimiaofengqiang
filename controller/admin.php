@@ -1522,6 +1522,16 @@ class admin extends spController{
                         echo $v['iid'].' 从分类'.$v['cat'].'更新分类到 '.$itemTemp['cat'].' 失败.<br />';
 		}
 	}
+        public function updatetags(){
+            $pros = spClass('m_pro');
+            $where = 'st<=curdate() and et>=curdate() and ischeck=1';
+            $items = $pros->findAll($where,'','','100');
+            foreach($items as $k=>$v){
+                if(!$v['tags']){
+                    echo $v['tags'].' 没有提取标签 <br/>';
+                }
+            }
+        }
         public function updateshopname(){
             set_time_limit(0);
             

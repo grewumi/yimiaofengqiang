@@ -139,7 +139,18 @@ function getvolume(){
 		
 	});
 }
-
+function jiatag(){
+    $(".jiatag").click(function(){
+        var title = $("#title").val();
+        $.post("/include/pscws23/jiatag.php",{
+            title:title,
+            js:1
+        },function(data){
+            var dataObj=eval("("+data+")"); //转换为json对象
+            $("#tags").val(dataObj.tags);
+        });
+    });
+}
 function userhuoqu(){
 	$("input#yijianhuoqu").click(function(){
 		var iid = $("#iid").val();		

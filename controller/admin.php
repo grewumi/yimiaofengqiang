@@ -1101,6 +1101,7 @@ class admin extends spController{
                                             unset($item['pic']);
                                             unset($item['link']);
                                             unset($item['ischeck']);
+                                            unset($item['commission_rate']);
                                             //$item['et'] = date("Y-m-d",86400*7+time());
                                             //$itemPostdt = $pros->find(array('iid'=>$v['iid']));
                                             //$item['postdt'] = $itemPostdt['postdt'];
@@ -1528,7 +1529,9 @@ class admin extends spController{
             $items = $pros->findAll($where,'','','100');
             foreach($items as $k=>$v){
                 if(!$v['tags']){
-                    echo $v['tags'].' 没有提取标签 <br/>';
+                    echo $v['iid'].' 没有提取标签 <br/>';
+                    echo '开始提取标签！ <br/>';
+                    
                 }
             }
         }

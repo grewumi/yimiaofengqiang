@@ -186,15 +186,19 @@ else
 }
 header("Content-type: text/html; charset=gbk");
 $mydata = $_POST['title'];
-//echo $mydata;
+if(!$mydata){
+    $mydata = urldecode($_GET['title']);
+}
 $encode = mb_detect_encoding($mydata, array("ASCII","UTF-8","GB2312","GBK","BIG5")); 
 if($encode == 'UTF-8'){
     $mydata = iconv('utf-8','gb2312',$mydata);
 }
+//echo $mydata;
 //js调用数据
 $js = $_POST['js'];
 //$mydata = "婴儿隔尿垫 防水超大透气床单可洗月经垫纯棉新生儿用品 宝宝床垫";
 //$js = 1;
+
 if($mydata){
     // 清除最后的 \r\n\t
     if (!is_null($mydata)) 
@@ -219,6 +223,11 @@ if($js){
         $tag_js .= $v.' ';
     }
     echo '{"tags":"'.trim($tag_js).'"}';
+}else{
+    foreach($tags as &$v){
+        $v = iconv('gb2312','utf-8',$v);
+    }
+    echo json_encode($tags);
 }
 
 ?>

@@ -699,7 +699,7 @@ class admin extends spController{
                                         'quan'=>$_POST['quan'],
 			);
                         if($_POST['tags']){
-                            $tags = $var=explode(" ",$_POST['tags']);
+                            $tags = explode(" ",$_POST['tags']);
                             $item['tags'] = serialize($tags);
                         }
 			if($_POST['commissionrate'])
@@ -1525,14 +1525,38 @@ class admin extends spController{
 	}
         public function updatetags(){
             $pros = spClass('m_pro');
-            $where = 'st<=curdate() and et>=curdate() and ischeck=1';
+            $where = 'st<=curdate() and et>=curdate() and ischeck=1 and tags is null';
             $items = $pros->findAll($where,'','','100');
             foreach($items as $k=>$v){
+                echo '-----商品：'.$v['iid'].'开始处理标签-----<br />';
                 if(!$v['tags']){
-                    echo $v['iid'].' 没有提取标签 <br/>';
-                    echo '开始提取标签！ <br/>';
-                    
+                    echo ' 没有提取标签 <br/>';
+                    echo '开始提取标签 <br/>';
+                    //url传参，转换参数编码为utf-8
+                    $url = "http://".$_SERVER['HTTP_HOST']."/include/pscws23/jiatag.php?title=".urlencode(iconv('gb2312','utf-8',$v['title']));
+//                    echo $url.'<br/>';
+                    $result = file_get_contents($url);
+                    $result = json_decode($result,1);
+                    //接收参数，编码转换成页面编码gbk
+                    foreach($result as &$iv){
+                        $iv = iconv('utf-8','gb2312',$iv);
+                    }
+//                    var_dump($result);
+//                    echo serialize($result).'<br />';
+                    if(!empty($result)){
+                        echo '提取标签成功 <br/>';
+                        echo '开始录入数据库 <br/>';
+                        if($pros->update(array('iid'=>$v['iid']),array('tags'=>serialize($result))))
+                            '录入数据库成功 <br/>';
+                        else
+                            '录入数据库失败 <br/>';
+                    }else{
+                        echo '提取标签失败 <br/>';
+                    }                  
+                }else{
+                    echo '已经提取出标签，无需处理<br />';
                 }
+                echo '处理标签结束-----↘<br />';
             }
         }
         public function updateshopname(){

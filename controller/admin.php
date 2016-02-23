@@ -1552,6 +1552,10 @@ class admin extends spController{
                             '录入数据库失败 <br/>';
                     }else{
                         echo '提取标签失败 <br/>';
+                        if($pros->update(array('iid'=>$v['iid']),array('tags'=>'failed')))
+                            '录入数据库成功 <br/>';
+                        else
+                            '录入数据库失败 <br/>';
                     }                 
                 }else{
                     echo '已经提取出标签，无需处理<br />';

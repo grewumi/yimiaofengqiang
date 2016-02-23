@@ -1527,6 +1527,7 @@ class admin extends spController{
             $pros = spClass('m_pro');
             $where = 'st<=curdate() and et>=curdate() and ischeck=1 and tags is null and title is not null';
             $items = $pros->findAll($where,'','','100');
+            
             foreach($items as $k=>$v){
                 echo '-----商品：'.$v['iid'].'开始处理标签-----<br />';
                 if(!$v['tags']){

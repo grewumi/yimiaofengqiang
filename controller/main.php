@@ -226,8 +226,7 @@ class main extends spController{
                 }
                 if(!$procat && !$type && !$price && !$act_from && !$q){
                     $itemsC1 = $pros->spCache(480)->findAll($where.' and classification=2',$order);
-                    $itemsC2 = $pros->spCache(480)->findAll($where.' and classification=3',$order);
-                    
+                    $itemsC2 = $pros->spCache(480)->findAll($where.' and classification=3',$order);                    
                 }
 		$this->siderads = $siderads;
 //		var_dump($itemsTemp);
@@ -241,6 +240,13 @@ class main extends spController{
 //                var_dump($pros->spPager()->getPager());
                 $pagersync = $this->spArgs('pagersync');
 		$this->items = $this->dataswitch($itemsTemp['data']);
+                
+                // tags ºÏ¼¯
+                $tags = array();
+                foreach($this->items as $k=>$v){
+                    $tags[] = $v['tags'];
+                }
+//                var_dump($tags);
                 $this->itemsC1 = $this->dataswitch($itemsC1);
                 $this->itemsC2 = $this->dataswitch($itemsC2);
                 if(!$itemList && !$itemsC1 && $q )

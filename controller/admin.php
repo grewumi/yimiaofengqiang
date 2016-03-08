@@ -1541,6 +1541,7 @@ class admin extends spController{
                     else
                         echo $v['iid'].' 从分类'.$v['cat'].'更新分类到 '.$itemTemp['cat'].' 失败.<br />';
 		}
+                $pros->update(array('cat'=>43),array('cat'=>42,'act_from'=>43));
 	}
         public function updatetags(){
             $pros = spClass('m_pro');
@@ -1581,6 +1582,7 @@ class admin extends spController{
                 }
                 echo '处理标签结束-----↘<br />';
             }
+//            $pros->update(array(),array());
         }
         public function updateshopname(){
             set_time_limit(0);

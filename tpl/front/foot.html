@@ -1,6 +1,7 @@
 <div class="tags_and_shop_around">
     <div class="tags_and_shop">
         {if $items}
+        <h3 style="color:gray;font-size:16px;">精选店铺</h3>
         <div class="tags">
             <a target="_blank" href="/">一秒疯抢</a>
             {foreach key=k item=v from=$items}
@@ -20,6 +21,16 @@
             {/foreach}
         </div>
         {/if}
+        {if $tags}
+        <h3 style="color:gray;font-size:16px;">热门标签</h3>
+        <div class="tags">
+            <a target="_blank" href="/">一秒疯抢</a>
+            {foreach item=v from=$tags}
+            <a target="_blank" href="{spUrl c=main tag=$v}">{$v}</a>
+            {/foreach}
+        </div>
+        {/if}
+        
     </div>
 </div>
 <div class="xiai-foot-around">

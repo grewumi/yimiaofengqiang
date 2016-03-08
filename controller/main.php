@@ -167,9 +167,13 @@ class main extends spController{
 		
 		// url参数搜索
 		$this->q = urlencode($q);
+                
+                $tag = iconv('utf-8','gbk',urldecode($this->spArgs('tag')));
+                //echo $tag;
 		if($q)
-			$q = "title like '%".$q."%'";
-						
+                    $q = "title like '%".$q."%'";
+		if($tag)
+                    $tag = "tags like '%".$tag."%'";
 		// 价格排序Url参数对应Sql查询串
 		$sqlPrice = array(
 				'1'=>'nprice<=1',
@@ -216,21 +220,25 @@ class main extends spController{
 		if($q){
 			$where = $q.' and '.$baseSql;
 		}
+                //标签
+                if($tag){
+                    $where = $tag.' and '.$baseSql;
+                }
                 $jingxuan = $pros->spCache(3600)->findAll($where.' and type=89',$order);
-		if($price || $procat || $type || $act_from || $q){
+		if($price || $procat || $type || $act_from || $q || $tag){
                     if($q)
                         $itemsTemp = $pros->spCache(-1)->getmypage($where,$order,$page,56);
                     $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);
                 }else{
                     $itemsTemp = $pros->spCache(480)->getmypage($where.' and classification=1',$order,$page,56);
                 }
-                if(!$procat && !$type && !$price && !$act_from && !$q){
+                if(!$procat && !$type && !$price && !$act_from && !$q && !$tag){
                     $itemsC1 = $pros->spCache(480)->findAll($where.' and classification=2',$order);
                     $itemsC2 = $pros->spCache(480)->findAll($where.' and classification=3',$order);                    
                 }
 		$this->siderads = $siderads;
 //		var_dump($itemsTemp);
-		if(!$procat && !$type && !$price && !$act_from && !$q)
+		if(!$procat && !$type && !$price && !$act_from && !$q && !$tag)
                     $this->index = "index";
                 $this->act_from = $act_from;
 		$this->procat = $procat;
@@ -244,8 +252,10 @@ class main extends spController{
                 // tags 合集
                 $tags = array();
                 foreach($this->items as $k=>$v){
-                    $tags[] = $v['tags'];
+                    if($v['tags'])
+                        $tags = array_merge($tags,unserialize($v['tags']));
                 }
+                $this->tags = array_slice(array_unique($tags),0,101);
 //                var_dump($tags);
                 $this->itemsC1 = $this->dataswitch($itemsC1);
                 $this->itemsC2 = $this->dataswitch($itemsC2);

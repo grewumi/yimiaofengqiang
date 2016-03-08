@@ -12,11 +12,13 @@ class admin extends spController{
 		$pros = spClass('m_pro');
 		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and postdt>=curdate()';
 		
-                foreach($website as $k=>&$v){
-			if($k!='none')
-				$v['tcounts'] = count($pros->findAll('act_from='.$v['actType'].' and '.$where));
-		}
-		
+//                foreach($website as $k=>&$v){
+//                    if($k!='none'){
+//                        //$v['tcounts'] = count($pros->findAll('act_from='.$v['actType'].' and '.$where));
+//                        $spClass('m_website')->update(array('acttype'=>$v['actType']),array('tcounts'=>count($pros->findAll('act_from='.$v['actType'].' and '.$where))));
+//                    }	
+//		}
+//		var_dump($website);
 		$this->website = $website; 
 	} 
         public function updateRank(){
@@ -1202,6 +1204,7 @@ class admin extends spController{
 //				}
 //			}
 		if($actType && $GLOBALS['G_SP']['autocat']){
+                        $where = 'st<=curdate() and et>=curdate() and ischeck=1 and postdt>=curdate()';
 			if($actType == 15){ // 赚宝
                                  
                             for($page=1;$page<=1;$page++){
@@ -1209,6 +1212,7 @@ class admin extends spController{
                                $xiaiCaiji->Caiji($type);
                                $items = $xiaiCaiji->getitems();
                                $this->getitems($items, $actType);
+                               
                            }
                                 
 			}elseif($actType == 10 || $actType == 16){ // 秒杀通,特价疯抢采集5页
@@ -1225,6 +1229,7 @@ class admin extends spController{
 				$items = $xiaiCaiji->getitems();
 				//var_dump($items);
 				$this->getitems($items, $actType);
+                                $spClass('m_website')->update(array('acttype'=>$actType),array('tcounts'=>count($pros->findAll('act_from='.$actType.' and '.$where))));
 			}
 		}else{
                     if(!$GLOBALS['G_SP']['autocat'] && $actType){

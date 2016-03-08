@@ -6,7 +6,7 @@ define('SETFILETOUZ',1);
 
 $websiteTemp = spClass("m_website")->findAll(array('iscaiji'=>1),'rank desc');
 foreach($websiteTemp as $k=>$v){
-    $website[$v['ename']] = array('actType'=>(int)$v['acttype'],'name'=>$v['name'],'rank'=>(int)$v['rank']);
+    $website[$v['ename']] = array('actType'=>(int)$v['acttype'],'name'=>$v['name'],'rank'=>(int)$v['rank'],'tcounts'=>$v['tcounts']);
 }
 $website['none'] = null;
 $_SERVER['website'] = $website;

@@ -15,7 +15,7 @@ class admin extends spController{
 //                foreach($website as $k=>&$v){
 //                    if($k!='none'){
 //                        //$v['tcounts'] = count($pros->findAll('act_from='.$v['actType'].' and '.$where));
-//                        $spClass('m_website')->update(array('acttype'=>$v['actType']),array('tcounts'=>count($pros->findAll('act_from='.$v['actType'].' and '.$where))));
+//                        spClass('m_website')->update(array('acttype'=>$v['actType']),array('tcounts'=>count($pros->findAll('act_from='.$v['actType'].' and '.$where))));
 //                    }	
 //		}
 //		var_dump($website);
@@ -1229,7 +1229,7 @@ class admin extends spController{
 				$items = $xiaiCaiji->getitems();
 				//var_dump($items);
 				$this->getitems($items, $actType);
-                                $spClass('m_website')->update(array('acttype'=>$actType),array('tcounts'=>count($pros->findAll('act_from='.$actType.' and '.$where))));
+                                $spClass("m_website")->update(array('acttype'=>$actType),array('tcounts'=>count($pros->findAll('act_from='.$actType.' and '.$where))));
 			}
 		}else{
                     if(!$GLOBALS['G_SP']['autocat'] && $actType){
@@ -1244,10 +1244,23 @@ class admin extends spController{
                     }else
 			echo '没有选择采集站点!';
 		}
+                //采集后更新每日更新数据
+                $where = 'st<=curdate() and et>=curdate() and ischeck=1 and postdt>=curdate()';
+                spClass('m_website')->update(array('acttype'=>$actType),array('tcounts'=>count($pros->findAll('act_from='.$actType.' and '.$where))));
+                
                 $this->todayPros = $pros->spCache(-1)->findCount('st<=curdate() and et>=curdate() and postdt>=curdate()');
 		//$this->website = $website;
 		$this->display("admin/uzcaiji.html");
 	}
+        public function updatetcounts(){
+            $pros = spClass('m_pro');
+		$where = 'st<=curdate() and et>=curdate() and ischeck=1 and postdt>=curdate()';
+                foreach($this->website as $k=>&$v){
+                    if($k!='none'){
+                        spClass('m_website')->update(array('acttype'=>$v['actType']),array('tcounts'=>count($pros->findAll('act_from='.$v['actType'].' and '.$where))));
+                    }	
+		}
+        }
 	public function postDataToUzPhp($item,$uz){
 //		var_dump($item);
 		if($uz=='admin'){

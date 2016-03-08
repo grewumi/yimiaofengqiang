@@ -23,8 +23,8 @@
 					<a href="{spUrl c=admin a=yjuzcaiji}" target="_blank">一键采集</a>
 				</div>
 				<div class="proget-ctrl">
-					<h3>采集</h3>				
-					{foreach key=k item=v from=$website}
+					<h3>采集<a style="padding-left:10px;font-size:16px;font-weight:100;color:gray;" target="_blank" href="/?c=admin&a=updatetcounts">强制更新每日采集数据数量</a></h3>		
+                                        {foreach key=k item=v from=$website}
 					<a href="{spUrl c=admin a=uzcaiji type=$k}">{$v.name}<b>{$v.tcounts}</b></a>
 					{/foreach}
 				</div>

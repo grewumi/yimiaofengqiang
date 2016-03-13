@@ -77,6 +77,18 @@ function getShopNew($seller_nick){
         $resp = object_to_array($resp->results->n_tbk_shop);
         return $resp;
 }
+function getShopNew1($seller_id){
+        global $Key,$Secret;
+	$c = new TopClient;
+        $c->appkey = $Key;
+        $c->secretKey = $Secret;
+        $req = new TbkShopGetRequest;
+        $req->setFields("user_id,shop_title,shop_type,seller_nick,pict_url,shop_url");
+        $req->setQ($seller_id);
+        $resp = $c->execute($req);
+        $resp = object_to_array($resp->results->n_tbk_shop);
+        return $resp;
+}
 function getItem($num_iid,$mode='taoke')
 {
 	global $Key,$Secret;

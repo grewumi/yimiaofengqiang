@@ -4,7 +4,7 @@ define('COMISSIONRATESORT',0);
 define('SETAJAXTOUZ',0);
 define('SETFILETOUZ',1);
 
-$websiteTemp = spClass("m_website")->findAll(array('iscaiji'=>1),'rank desc');
+$websiteTemp = spClass("m_website")->spCache(480)->findAll(array('iscaiji'=>1),'rank desc');
 foreach($websiteTemp as $k=>$v){
     $website[$v['ename']] = array('actType'=>(int)$v['acttype'],'name'=>$v['name'],'rank'=>(int)$v['rank'],'tcounts'=>$v['tcounts']);
 }

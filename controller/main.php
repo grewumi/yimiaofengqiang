@@ -226,7 +226,7 @@ class main extends spController{
                 }
                 $jingxuan = $pros->spCache(3600)->findAll($where.' and type=89',$order);
 		if($price || $procat || $type || $act_from || $q || $tag){
-                    if($q){
+                    if($q || $tag){
                         $itemsTemp = $pros->spCache(-1)->getmypage($where,$order,$page,56);
                     }
                     $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);

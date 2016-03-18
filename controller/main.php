@@ -226,9 +226,8 @@ class main extends spController{
                 }
                 $jingxuan = $pros->spCache(3600)->findAll($where.' and type=89',$order);
 		if($price || $procat || $type || $act_from || $q || $tag){
-                    if($q || $tag){
-                        $itemsTemp1["qt".$q.$tag] = $pros->spCache(480)->getmypage($where,$order,$page,56);
-                        $itemsTemp = $itemsTemp1[$q.$tag];
+                    if($q){
+                        $itemsTemp = $pros->spCache(-1)->getmypage($where,$order,$page,56);
                     }
                     $itemsTemp = $pros->spCache(480)->getmypage($where,$order,$page,56);
                 }else{
@@ -261,7 +260,7 @@ class main extends spController{
 //                var_dump($tags);
                 $this->itemsC1 = $this->dataswitch($itemsC1);
                 $this->itemsC2 = $this->dataswitch($itemsC2);
-                if(!$itemList && !$itemsC1 && $q )
+                if(!$itemList && !$itemsC1 && $q)
                     $this->searchnull = 1;
 		$this->admin = $_SESSION['admin'];
 		$this->page = $page;

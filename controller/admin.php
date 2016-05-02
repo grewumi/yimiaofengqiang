@@ -1105,6 +1105,7 @@ class admin extends spController{
                                             unset($item['ischeck']);
                                             unset($item['commission_rate']);
                                             unset($item['tags']);
+                                            unset($item['istopcommissionrate']);
                                             //$item['et'] = date("Y-m-d",86400*7+time());
                                             //$itemPostdt = $pros->find(array('iid'=>$v['iid']));
                                             //$item['postdt'] = $itemPostdt['postdt'];

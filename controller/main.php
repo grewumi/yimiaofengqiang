@@ -199,7 +199,7 @@ class main extends spController{
 		$act_from = $this->spArgs('act_from');		
 		$pros = spClass("m_pro");
                 $ads = spClass("m_ad");
-                
+                $qmiaosha = $this->spArgs("qmiaosha");
                 $siderads = $ads->spCache(3600)->findAll('st<=curdate() and et>=curdate() and cat=0','rank desc');
                 $sideradsync = $this->spArgs('sideradsync');
 			
@@ -224,8 +224,13 @@ class main extends spController{
                 if($tag){
                     $where = $tag.' and '.$baseSql;
                 }
+                //ÄÚ²¿È¯ÃëÉ±
+                if($qmiaosha){
+                    $this->qmiaosha = $qmiaosha;
+                    $where = $baseSql.' and quan is not null';
+                }
                 $jingxuan = $pros->spCache(3600)->findAll($where.' and type=89',$order);
-		if($price || $procat || $type || $act_from || $q || $tag){
+		if($price || $procat || $type || $act_from || $q || $tag || $qmiaosha){
                     if($q || $tag){
                         $itemsTemp = $pros->spCache(-1)->getmypage($where,$order,$page,56);
                     }
@@ -233,13 +238,13 @@ class main extends spController{
                 }else{
                     $itemsTemp = $pros->spCache(480)->getmypage($where.' and classification=1',$order,$page,56);
                 }
-                if(!$procat && !$type && !$price && !$act_from && !$q && !$tag){
+                if(!$procat && !$type && !$price && !$act_from && !$q && !$tag && !$qmiaosha){
                     $itemsC1 = $pros->spCache(480)->findAll($where.' and classification=2',$order);
                     $itemsC2 = $pros->spCache(480)->findAll($where.' and classification=3',$order);                    
                 }
 		$this->siderads = $siderads;
 //		var_dump($itemsTemp);
-		if(!$procat && !$type && !$price && !$act_from && !$q && !$tag)
+		if(!$procat && !$type && !$price && !$act_from && !$q && !$tag && !$qmiaosha)
                     $this->index = "index";
                 $this->act_from = $act_from;
 		$this->procat = $procat;

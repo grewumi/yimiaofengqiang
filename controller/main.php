@@ -227,7 +227,7 @@ class main extends spController{
                 //ÄÚ²¿È¯ÃëÉ±
                 if($qmiaosha){
                     $this->qmiaosha = $qmiaosha;
-                    $where = $baseSql.' and quan is not null';
+                    $where = $baseSql.' and quan is not null and quan <> ""';
                 }
                 $jingxuan = $pros->spCache(3600)->findAll($where.' and type=89',$order);
 		if($price || $procat || $type || $act_from || $q || $tag || $qmiaosha){

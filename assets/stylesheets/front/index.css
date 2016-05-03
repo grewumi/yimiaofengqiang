@@ -51,6 +51,15 @@ body{
 	background:url(/assets/images/front/jx.png);
         z-index:10;
 }
+.item-list .item .sign-nbq{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100px;
+	height:100px;
+	background:url(/assets/images/front/nbq.png);
+        z-index:10;
+}
 /* end - 商品标记 */
 /* 每个商品单元内的内容定位 */
 .item-list .item a{

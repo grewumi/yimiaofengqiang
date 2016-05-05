@@ -83,8 +83,9 @@ class admin extends spController{
 			$query = parse_url($link);	
 			$pars = convertUrlQuery($query["query"]); 
 			$iid = $pars["id"];
-			$item = getItem($iid);
-			print_r($item);
+			$single[] = array('iid'=>$iid,'nprice'=>$nprice,'quan'=>$quan,'mquan'=>$mquan);
+			$item['single'] = $single;
+			$this->getitems($item, 1);
 		}
 		else{
 			echo "Failed！";
@@ -1074,10 +1075,17 @@ class admin extends spController{
                                     if($v['pic'])
                                         $item['pic'] = $v['pic'];
                                     // end - 现价  && 图片
-
+					
+				    // 手机券 && 电脑券
+				    if($v['quan'])
+					$item['quan'] = $v['quan'];
+				    if($v['mquan'])
+					$item['mquan'] = $v['mquan'];
+				    // END - 手机券 && 电脑券
+				     
                                     // 递归取得淘宝二级节点
                                     if($GLOBALS['G_SP']['autocat']){
-//                                        $pcid = getPcidNew($item['iid']);
+                                        $pcid = getPcidNew($item['iid']);
 
                                         // 查询fstk_catmap对应类目
                                         $catMap = $catmaps->find(array('cid'=>$pcid),'','type');
@@ -1130,6 +1138,8 @@ class admin extends spController{
                                             unset($item['commission_rate']);
                                             unset($item['tags']);
                                             unset($item['istopcommissionrate']);
+                                            unset($item['quan']);
+                                            unset($item['mquan']);
                                             //$item['et'] = date("Y-m-d",86400*7+time());
                                             //$itemPostdt = $pros->find(array('iid'=>$v['iid']));
                                             //$item['postdt'] = $itemPostdt['postdt'];

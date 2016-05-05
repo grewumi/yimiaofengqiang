@@ -41,7 +41,7 @@ function getUrlQuery($array_query){
     $params = implode('&',$tmp);
     return $params;
 }
-function get_redirect_url_pro($url, $referer="", $timeout = 10) {
+function get_redirect_url_pro($url, $referer="", $timeout = 10, $mobie = false) {
    $redirect_url = false;
    $ch = curl_init();
    curl_setopt($ch, CURLOPT_URL, $url);
@@ -50,7 +50,10 @@ function get_redirect_url_pro($url, $referer="", $timeout = 10) {
    curl_setopt($ch, CURLOPT_FOLLOWLOCATION,TRUE);//允许请求的链接跳转
    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept:*/*','User-Agent:Mozilla/4.0 (compatible; Win32; WinHttp.WinHttpRequest.5)','Connection: Keep-Alive'));
+   if($mobie)
+   	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept:*/*','User-Agent:Mozilla/5.0 (iPhone; CPU iPhone OS 9_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/47.0.2526.70 Mobile/13C71 Safari/601.1.46','Connection: Keep-Alive'));
+   else
+   	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept:*/*','User-Agent:Mozilla/4.0 (compatible; Win32; WinHttp.WinHttpRequest.5)','Connection: Keep-Alive'));
    curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,FALSE);
    curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,FALSE);//严格校验2
    if($referer){

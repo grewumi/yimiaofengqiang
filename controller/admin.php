@@ -71,6 +71,7 @@ class admin extends spController{
 		$nprice = $this->spArgs("nprice");
 		$quan = $this->spArgs("quan");
 		$link = $this->spArgs("link");
+		$postdt = $this->spArgs("postdt");
 		if($link && $quan && $nprice){
 			//电脑券和手机券
 			$query = parse_url(get_redirect_url_pro($quan,'',10,true));
@@ -83,7 +84,10 @@ class admin extends spController{
 			$query = parse_url($link);	
 			$pars = convertUrlQuery($query["query"]); 
 			$iid = $pars["id"];
-			$single[] = array('iid'=>$iid,'nprice'=>$nprice,'quan'=>$quan,'mquan'=>$mquan);
+			if($postdt)
+				$single[] = array('iid'=>$iid,'nprice'=>$nprice,'quan'=>$quan,'mquan'=>$mquan,'postdt'=>date("Y-m-d H:i:s"));
+			else
+				$single[] = array('iid'=>$iid,'nprice'=>$nprice,'quan'=>$quan,'mquan'=>$mquan);
 			$item['single'] = $single;
 			$this->getitems($item, 1);
 		}
@@ -1143,13 +1147,19 @@ class admin extends spController{
                                             //$item['et'] = date("Y-m-d",86400*7+time());
                                             //$itemPostdt = $pros->find(array('iid'=>$v['iid']));
                                             //$item['postdt'] = $itemPostdt['postdt'];
+					    if($v['postdt']){
+						$item['postdt'] = $v['postdt'];
+						$tips = "同时更新排序";
+					    }else{
+						unset($item['postdt']);
+					    }
 
                                             if(!$pros->update(array('iid'=>$v['iid']),$item)){
                                                     echo $v['iid'].' 更新失败,数据库操作失败!<br/>';
                                             }else{
                                                     //$this->upyjscript($v['iid'],$actType);
                                                     //$this->updateyjPhp($v['iid']);
-                                                    echo $v['iid'].' 更新成功!<br/>';
+                                                    echo $v['iid'].' 更新成功!'.$tips.'<br/>';
                                             }
 
                                     }

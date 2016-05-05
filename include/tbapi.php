@@ -249,7 +249,7 @@ function getItemDetail($num_iid,$mode=1){
 				"cid"=>0,
 				"link"=>'http://item.taobao.com/item.htm?id='.$num_iid,
 				"rank"=>500,
-				"postdt"=>date("Y-m-d"),
+				"postdt"=>date("Y-m-d H:i:s"),
 				"ischeck"=>1,
 				"volume"=>$result['volume'],
                                 "slink"=>$result['seller_id'],

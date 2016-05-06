@@ -72,14 +72,14 @@ class admin extends spController{
 		$quan = $this->spArgs("quan");
 		$link = $this->spArgs("link");
 		$postdt = $this->spArgs("postdt");
-		if($link && $quan && $nprice){
-			//电脑券和手机券
-			$query = parse_url(get_redirect_url_pro($quan,'',10,true));
-			$pars = convertUrlQuery($query["query"]);
-			$activityId = $pars["activity_id"];
-			$sellerId = $pars["seller_id"];
-			$quan = "https://taoquan.taobao.com/coupon/unify_apply.htm?sellerId=".$sellerId."&activityId=".$activityId;
-			$mquan = "http://shop.m.taobao.com/shop/coupon.htm?activityId=".$activityId."&sellerId=".$sellerId;
+		//电脑券和手机券
+		$query = parse_url(get_redirect_url_pro($quan,'',10,true));
+		$pars = convertUrlQuery($query["query"]);
+		$activityId = $pars["activity_id"];
+		$sellerId = $pars["seller_id"];
+		$quan = "https://taoquan.taobao.com/coupon/unify_apply.htm?sellerId=".$sellerId."&activityId=".$activityId;
+		$mquan = "http://shop.m.taobao.com/shop/coupon.htm?activityId=".$activityId."&sellerId=".$sellerId;
+		if($link && $activityId && $sellerId && $nprice){
 			//商品IID
 			$query = parse_url($link);	
 			$pars = convertUrlQuery($query["query"]); 
@@ -92,7 +92,7 @@ class admin extends spController{
 			$this->getitems($item, 1);
 		}
 		else{
-			echo "Failed！";
+			echo "Failed";
 		}
 	}
         public function login(){		
@@ -1144,8 +1144,8 @@ class admin extends spController{
                                             unset($item['commission_rate']);
                                             unset($item['tags']);
                                             unset($item['istopcommissionrate']);
-                                            unset($item['quan']);
-                                            unset($item['mquan']);
+                                            //unset($item['quan']);
+                                            //unset($item['mquan']);
                                             //$item['et'] = date("Y-m-d",86400*7+time());
                                             //$itemPostdt = $pros->find(array('iid'=>$v['iid']));
                                             //$item['postdt'] = $itemPostdt['postdt'];

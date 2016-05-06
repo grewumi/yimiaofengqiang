@@ -73,13 +73,9 @@ class admin extends spController{
 		$link = $this->spArgs("link");
 		$postdt = $this->spArgs("postdt");
 		//电脑券和手机券
-		$query = parse_url(get_redirect_url_pro($quan,'',10,true));
-		$pars = convertUrlQuery($query["query"]);
-		$activityId = $pars["activity_id"];
-		$sellerId = $pars["seller_id"];
-		$quan = "https://taoquan.taobao.com/coupon/unify_apply.htm?sellerId=".$sellerId."&activityId=".$activityId;
-		$mquan = "http://shop.m.taobao.com/shop/coupon.htm?activityId=".$activityId."&sellerId=".$sellerId;
-		if($link && $activityId && $sellerId && $nprice){
+		$quan = $this->spArgs('quan');
+		$mquan = $this->spArgs('mquan');
+		if($link && $quan && $mquan && $nprice){
 			//商品IID
 			$query = parse_url($link);	
 			$pars = convertUrlQuery($query["query"]); 

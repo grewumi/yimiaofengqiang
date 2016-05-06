@@ -541,6 +541,7 @@ class admin extends spController{
                                         'slink'=>$_POST['slink'],
                                         'shopname'=>$_POST['shopname'],
                                         'quan'=>$_POST['quan'],
+                                        'mquan'=>$_POST['mquan'],
 			);
 			if($_POST['commissionrate'])
 				$item['commission_rate'] = $_POST['commissionrate'];
@@ -728,6 +729,7 @@ class admin extends spController{
                                         'slink'=>$_POST['slink'],
                                         'shopname'=>$_POST['shopname'],
                                         'quan'=>$_POST['quan'],
+                                        'mquan'=>$_POST['mquan'],
 			);
                         if($_POST['tags']){
                             $tags = explode(" ",$_POST['tags']);

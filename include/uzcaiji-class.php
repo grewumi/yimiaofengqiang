@@ -35,10 +35,10 @@ class UzCaiji{
                                     $this->url = 'http://appapi.huipinzhe.com/mobapi/product/list?mod=listnew&page='.$j;
                                     $result = file_get_contents($this->url);
                                     $res = json_decode($result,TRUE);                                  
-                                    foreach($res['goodsArray'] as $k => $v){
-                                        $itemRes = parse_url(get_redirect_url_pro($v['detailUrl'],"http://ai.taobao.com"));
-                                        $itemRes = convertUrlQuery($itemRes['query']);
-                                        $djzk[] = array('iid'=>$itemRes['id'],'nprice'=>$v['cPrice'],'pic'=>$v['picUrl']);
+                                    foreach($res['data']['goodsArray'] as $k => $v){
+                                        //$itemRes = parse_url(get_redirect_url_pro($v['detailUrl'],"http://ai.taobao.com"));
+                                        //$itemRes = convertUrlQuery($itemRes['query']);
+                                        $djzk[] = array('iid'=>$v['item_id'],'nprice'=>$v['cPrice'],'pic'=>$v['picUrl']);
                                         $itemRes = null;
                                         $matches = null;
                                     }
@@ -48,7 +48,7 @@ class UzCaiji{
                                     $res = null;
                                 }
 				
-//				var_dump($huiyuangou);
+				//var_dump($huiyuangou);
 				$this->items = $huiyuangou;
 				if($mode==2)
 					echo json_encode($this->items);
@@ -278,12 +278,14 @@ class UzCaiji{
 				}
 			}elseif($website=='zhe800'){ // 折800
 				// 采集今日更新淘宝商品前100个per_page=100&shop_type=0
-                                
+				//echo get_redirect_url("http://out.tao800.com/m/deal/4233923");
+				//echo get_redirect_url_pro("http://out.zhe800.com/m/deal/4233923?referer=&afjkle=146278887434086421881&iousjkl=b7fD",get_redirect_url("http://out.tao800.com/m/deal/4233923"))
+                                /*
 				$this->url = 'http://m.zhe800.com/m/api/deals/today?per_page=100&image_type=small&image_model=jpg&page=1&user_type=1&user_role=1&tag_url=all&parent_url_name=&shop_type=0&path_url=all';
 				$result = file_get_contents($this->url);
 				$zhe8arr1 = json_decode($result,TRUE);
                                 foreach($zhe8arr1['objects'] as $k => $v){
-                                    preg_match('/(.+?)id=(\d+)(.*?)/i',get_redirect_url_pro("http://out.zhe800.com/m/deal/".$v['id']."?iousjkl=12e54067f51deafc6a0f51b476df164d",get_redirect_url($v['wap_url'])),$matches);
+                                    //preg_match('/(.+?)id=(\d+)(.*?)/i',get_redirect_url_pro("http://out.zhe800.com/m/deal/".$v['id']."?iousjkl=12e54067f51deafc6a0f51b476df164d",get_redirect_url($v['wap_url'])),$matches);
                                     $zhec[] = array('iid'=>$matches[2],'nprice'=>$v['price']/100);
                                     $matches = null;
 				}
@@ -299,10 +301,10 @@ class UzCaiji{
                                     $matches = null;
 				}
 				$zhe800arr['t'] = $zhet;
-                                
+                                */ 
                                 // 采集今日更新天猫商品前100个结束
-//                                var_dump($zhe800arr);
-				$this->items = $zhe800arr;	
+                                //var_dump($zhe800arr);
+				//$this->items = $zhe800arr;	
 				if($mode==2)
 					echo json_encode($this->items); 
 			}elseif($website=='zhuanbao'){ // 开心赚宝
@@ -463,14 +465,14 @@ class UzCaiji{
                                     $result = get_contents($this->url);
                                     $tjytarr = json_decode($result,TRUE);
                                     foreach($tjytarr as $k=>$v){
-                                        preg_match('/biz-itemid="(\d+)"/i',file_get_contents("http://m.tejiayitian.com".$v['url']),$matchs);
+                                        preg_match('/biz-itemid="(\d+)"/i',file_get_contents("http://tejiayitian.com".$v['url']),$matchs);
                                         $tj99[] = array('iid'=>$matchs[1],'nprice'=>$v['promotion']);//,'pic'=>$v[4]
                                         $matchs = null;
                                     }
                                     $tjyt[$i] = $tj99;
                                     $tj99 = null;
                                 }
-//				var_dump($tjyt);    
+				//var_dump($tjyt);    
 				$this->items = $tjyt;
 				if($mode==2)
 					echo json_encode($this->items);
@@ -534,7 +536,7 @@ class UzCaiji{
                                     $mizhe9[] = array('iid'=>$v['num_iid'],'nprice'=>$v['price']/100);
 				}
                                 $mizhe['mizhe'] = $mizhe9;
-//				var_dump($mizhe);
+				//var_dump($mizhe);
 				$this->items = $mizhe;
 				if($mode==2)
 					echo json_encode($this->items);
@@ -733,7 +735,7 @@ class UzCaiji{
                                 $djzk = null;
 //                                var_dump($megou);
                             }
-//                            var_dump($megou);
+                            //var_dump($megou);
                             $this->items = $megou;
                             if($mode==2)
                                 echo json_encode($this->items);

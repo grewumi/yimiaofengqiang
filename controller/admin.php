@@ -72,18 +72,44 @@ class admin extends spController{
 		$quan = $this->spArgs("quan");
 		$link = $this->spArgs("link");
 		$postdt = $this->spArgs("postdt");
+		$pic = $this->spArgs("pic");
 		//电脑券和手机券
 		$quan = $this->spArgs('quan');
 		$mquan = $this->spArgs('mquan');
-		if($link && $quan && $mquan && $nprice){
+		if($link && $nprice){
 			//商品IID
 			$query = parse_url($link);	
 			$pars = convertUrlQuery($query["query"]); 
 			$iid = $pars["id"];
-			if($postdt)
-				$single[] = array('iid'=>$iid,'nprice'=>$nprice,'quan'=>$quan,'mquan'=>$mquan,'postdt'=>date("Y-m-d H:i:s"));
-			else
-				$single[] = array('iid'=>$iid,'nprice'=>$nprice,'quan'=>$quan,'mquan'=>$mquan);
+			if($postdt){
+				if($pic){
+					if($quan && $mquan){
+						$single[] = array('iid'=>$iid,'nprice'=>$nprice,'pic'=>$pic,'quan'=>$quan,'mquan'=>$mquan,'postdt'=>date("Y-m-d H:i:s"));
+					}else{
+						$single[] = array('iid'=>$iid,'nprice'=>$nprice,'pic'=>$pic,'postdt'=>date("Y-m-d H:i:s"));
+					}
+				}else{
+					if($quan && $mquan){
+						$single[] = array('iid'=>$iid,'nprice'=>$nprice,'quan'=>$quan,'mquan'=>$mquan,'postdt'=>date("Y-m-d H:i:s"));
+					}else{
+						$single[] = array('iid'=>$iid,'nprice'=>$nprice,'postdt'=>date("Y-m-d H:i:s"));
+					}
+				}
+			}else{
+				if($pic){
+					if($quan && $mquan){
+						$single[] = array('iid'=>$iid,'nprice'=>$nprice,'pic'=>$pic,'quan'=>$quan,'mquan'=>$mquan);
+					}else{
+						$single[] = array('iid'=>$iid,'nprice'=>$nprice,'pic'=>$pic);
+					}
+				}else{
+					if($quan && $mquan){
+						$single[] = array('iid'=>$iid,'nprice'=>$nprice,'quan'=>$quan,'mquan'=>$mquan);
+					}else{
+						$single[] = array('iid'=>$iid,'nprice'=>$nprice);
+					}
+				}
+			}
 			$item['single'] = $single;
 			$this->getitems($item, 1);
 		}

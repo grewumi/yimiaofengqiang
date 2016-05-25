@@ -69,18 +69,22 @@ class admin extends spController{
 	//接收POST数据
 	public function receive(){
 		$nprice = $this->spArgs("nprice");
+		$act_from = $this->spArgs("act_from");
 		$quan = $this->spArgs("quan");
 		$link = $this->spArgs("link");
 		$postdt = $this->spArgs("postdt");
 		$pic = $this->spArgs("pic");
+		$iid = $this->spArgs("iid");
 		//电脑券和手机券
 		$quan = $this->spArgs('quan');
 		$mquan = $this->spArgs('mquan');
-		if($link && $nprice){
+		if(($link || $iid) && $nprice){
 			//商品IID
-			$query = parse_url($link);	
-			$pars = convertUrlQuery($query["query"]); 
-			$iid = $pars["id"];
+			if(!$iid){
+				$query = parse_url($link);	
+				$pars = convertUrlQuery($query["query"]); 
+				$iid = $pars["id"];
+			}
 			if($postdt){
 				if($pic){
 					if($quan && $mquan){
@@ -111,7 +115,11 @@ class admin extends spController{
 				}
 			}
 			$item['single'] = $single;
-			$this->getitems($item, 1);
+			if($act_from){
+				$this->getitems($item, $act_from);
+			}else{
+				$this->getitems($item, 1);
+			}
 		}
 		else{
 			echo "Failed";
@@ -1098,8 +1106,8 @@ class admin extends spController{
                                 }else{
 //                                    echo $v['iid'].' 获取信息CG!<br/>';
                                     // 现价  && 图片
-                                    if($v['nprice'])
-                                        $item['nprice'] = $v['nprice'];
+				    if($v['nprice'])
+                                       	$item['nprice'] = $v['nprice'];
                                     if($v['pic'])
                                         $item['pic'] = $v['pic'];
                                     // end - 现价  && 图片
@@ -1138,10 +1146,11 @@ class admin extends spController{
                                     $item['shopname'] = iconv('utf-8','gb2312',$item['shopname']);
                                     // end - 字符转换
 
-                                    if($actType)
+				    if($actType){
                                             $item['act_from'] = $actType;
-                                    else
+				    }else{
                                             $item['act_from'] = 1;
+				    }
                                     $item['last_modify'] = date("Y-m-d H:i:s");
 //                                    $item['volume'] = getvolume($v['iid'],$item['shopshow']);
                                   

@@ -32,8 +32,35 @@ class main extends spController{
            import("tbapi.php");
            var_dump(get_TbkItems($this->spArgs("page")));
         }
-
-
+	public function getTaoCode(){
+		import("tbapi.php");
+		$logo = $this->spArgs("pic");
+		$text = $this->spArgs("text");
+		$url = $this->spArgs("sourceurl");
+		if($logo && $text && $url){
+			$text = iconv('gb2312','utf-8',$text);
+			$userid = "410996667";
+			$taoCode = getTaoCode($logo,$text,$url,$userid);
+			if($taoCode){
+				echo "领券，复制这条信息，打开手机淘宝，".text.iconv('utf-8','gb2312',$taoCode);
+			}
+		}
+		$this->display("front/getTaoCode.html");
+	}
+	public function quan(){
+		$quan = $this->spArgs("url");
+		$content = get_mobie_url_content($quan);
+		$quanlogo = "http://assets.alicdn.com/mw/app/msp/h5/images/coupon.png";
+		$shop = iconv('utf-8','gbk',getShopFromQuan($content));
+		$quanzhi = iconv('utf-8','gbk',getQuanZhiFromQuan($content));
+		$text = "领取【".$shop."】的".$quanzhi."元内部优惠券";
+		header("Content-type: text/html; charset=gbk");
+		if($quanzhi != ""){
+			echo '{"havequan":"true","logo":"'.$quanlogo.'","text":"'.$text.'"}';
+		}else {
+			echo '{"havequan":"false","logo":"'.$quanlogo.'","text":"'.$text.'"}';
+		}
+	}
         public function mailindex($mailindex=1){
 		$this->index($mailindex);
 	}
@@ -47,7 +74,7 @@ class main extends spController{
             Prop3=19,2  
             ";  
             Header("Content-type: application/octet-stream");  
-            header("Content-Disposition: attachment; filename=一秒疯抢.url;");  
+            header("Content-Disposition: attachment; filename=败家九块九.url;");  
             echo $Shortcut;
         } 
 

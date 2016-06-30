@@ -106,6 +106,28 @@ function get_url_content($url) {
 		return $contents;
 	}
 }
+function get_mobie_url_content($url){
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('User-Agent:Mozilla/5.0 (iPhone; CPU iPhone OS 9_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/47.0.2526.70 Mobile/13C71 Safari/601.1.46'));
+	$contents = curl_exec($ch);
+	curl_close($ch);
+	return $contents;
+}
+function getShopFromQuan($content){
+	$pattern = '/<title>(.+?)<\/title>/i';
+	preg_match($pattern, $content,$matches);
+	return $matches[1];
+}
+function getQuanZhiFromQuan($content){
+	$pattern = '/<dt>(.+?)<\/dt>/i';
+	preg_match($pattern, $content,$matches);
+	$pattern = '/(\d+)/i';
+	preg_match($pattern, $matches[1],$matches1);
+	return $matches1[1];
+}
 function post_contents($url,$data){
     // 创建一个新cURL资源
     $proxy = 'http://202.114.144.15:8088';

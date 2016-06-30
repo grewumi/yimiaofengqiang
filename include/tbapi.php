@@ -12,6 +12,8 @@ include_once 'tbtop/TbkItemGetRequest.php';
 include_once 'tbtop/TbkItemInfoGetRequest.php';
 include_once 'tbtop/TbkShopsDetailGetRequest.php';
 include_once 'tbtop/TbkShopGetRequest.php';
+include_once 'tbtop/WirelessShareTpwdCreateRequest.php';
+include_once 'tbtop/IsvTpwdInfo.php';
 header("Content-Type:text/html;charset=gbk");
 
 //$app=array('21463466'=>'91cd273f32da3a640d237595a1e827e0');
@@ -50,7 +52,27 @@ function get_TbkItems($page=1,$cat){
     $resp = $c->execute($req);
     return object_to_array($resp->results);
 }
-
+function getTaoCode($logo,$text,$url,$userid){
+	global $Key,$Secret;
+	$c = new TopClient;
+	$c->appkey = $Key;
+	$c->secretKey = $Secret;
+	$req = new WirelessShareTpwdCreateRequest;
+	$tpwd_param = new IsvTpwdInfo;
+	//$tpwd_param->ext="{\"xx\":\"xx\"}";
+	$tpwd_param->logo = $logo;
+	$tpwd_param->text = $text;
+	$tpwd_param->url = $url;
+	$tpwd_param->user_id = $userid;
+	//var_dump(json_encode($tpwd_param));
+	$req->setTpwdParam(json_encode($tpwd_param));
+	$resp = $c->execute($req);
+	//var_dump($resp);
+	if($resp->model)
+		return $resp->model;
+	else 
+		return false;
+}
 function getShop($nick){
 	global $Key,$Secret;
 	$c = new TopClient;

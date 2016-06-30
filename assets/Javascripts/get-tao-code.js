@@ -31,52 +31,30 @@ function huoqu(){
 					}
 				});
 			}
+			//下单链接
+			if(url.indexOf("s.click.taobao.com")>=0)
+			{
+				$.ajax(
+				{ 
+					url:"/sclick.html", 
+					type:'POST',
+					data:{
+					    url:url, 
+					},
+					success: function(data){
+						var dataObj = eval("(" + data + ")"); //转换为json对象
+						//alert(dataObj.data);
+						if(dataObj.ok === "false"){
+							alert("未知错误");
+							return;
+						}
+						$("#pic").val(dataObj.logo);
+						$("#text").val(dataObj.text);
+						$("#sourceurl").val(url);  
+					}
+				});
+			}
 		}
-		
-//		$.get("/iteminfo.html",{
-//		    iid:iid
-//		},function(data){
-//                    var dataObj=eval("("+data+")"); //转换为json对象
-//			//alert(data);
-//                    if(parseInt(dataObj.iid)<0){
-//                         alert('商品未开始或已下架或者没有开通淘客！');
-//                         return;
-//                    }
-//		    $("input#title").val(dataObj.title);
-//		    $("input#oprice").val(dataObj.oprice);
-//                    $("input#nprice").val(dataObj.nprice);
-//		    $("input#link").val(dataObj.link);
-//		    $("input#pic").val(dataObj.pic);
-//		    $("input#ww").val(dataObj.nick);
-//                    $("input#shopname").val(dataObj.shopname);
-//                    $("input#commissionrate").val(dataObj.commission_rate);
-//                    $("input#volume").val(dataObj.volume);
-//                    $("input#slink").val(dataObj.slink);
-//                    $("#cat option[value='" + dataObj.cat + "']").attr("selected", true); 
-//		    if(dataObj.carriage){
-//		    	$(":radio[name='carriage'][value='1']").attr("checked","checked");
-//		    }else{
-//		    	$(":radio[name='carriage'][value='0']").attr("checked","checked");
-//		    }
-//                    //alert(dataObj.shopshow);
-//                    if(dataObj.shopshow)// 是否天猫
-//                            $(":radio[name='shopshow'][value='1']").attr("checked","checked");
-//                    else
-//                            $(":radio[name='shopshow'][value='0']").attr("checked","checked");
-//
-//                    if(dataObj.shopv)// 是否VIP
-//                            $(":radio[name='shopv'][value='1']").attr("checked","checked");
-//                    else
-//                            $(":radio[name='shopv'][value='0']").attr("checked","checked");
-//                        
-//                    var imgs = dataObj.item_imgs.split(",");
-//                    var imghtml = "";
-//                    for(var i = 0; i < imgs.length; i++){
-//                        imghtml += "<img onclick='changepic(this)' class='sect' src='" + imgs[i] + "' />";
-//                    }
-//                    $(".pro-pic-list").empty();
-//                    $(".pro-pic-list").append(imghtml);
-//		});
         });
 }
 

@@ -37,15 +37,45 @@ class main extends spController{
 		$logo = $this->spArgs("pic");
 		$text = $this->spArgs("text");
 		$url = $this->spArgs("sourceurl");
-		if($logo && $text && $url){
-			$text = iconv('gb2312','utf-8',$text);
-			$userid = "410996667";
-			$taoCode = getTaoCode($logo,$text,$url,$userid);
-			if($taoCode){
-				echo "领券，复制这条信息，打开手机淘宝，".text.iconv('utf-8','gb2312',$taoCode);
+		$userid = "410996667";
+		//券链接
+		if (!is_bool(strpos($url,"coupon"))){
+			if($logo && $text && $url){
+				$textPar = iconv('gb2312','utf-8',$text);
+				$taoCode = getTaoCode($logo,$textPar,$url,$userid);
+				if($taoCode){
+					echo "领券，复制这条信息，打开手机淘宝，".$text.iconv('utf-8','gb2312',$taoCode);
+				}
+			}
+		}
+		//下单链接
+		if (!is_bool(strpos($url,"s.click.taobao.com"))){
+			if($logo && $text && $url){
+				$textPar = iconv('gb2312','utf-8',$text);
+				$taoCode = getTaoCode($logo,$textPar,$url,$userid);
+				if($taoCode){
+					echo "下单，复制这条信息，打开手机淘宝，购买".$text.iconv('utf-8','gb2312',$taoCode);
+				}
 			}
 		}
 		$this->display("front/getTaoCode.html");
+	}
+	public function sclick(){
+		import("tbapi.php");
+		$url = $this->spArgs("url");
+		$itemRes = parse_url(get_redirect_url_pro($url,"http://ai.taobao.com"));
+		$itemRes = convertUrlQuery($itemRes['query']);
+		$iid = $itemRes['id'];
+		$item = getItemDetail($iid);
+		
+		$text = iconv('utf-8','gbk',$item['title']);
+		$logo = $item['pic'];
+		header("Content-type: text/html; charset=gbk");
+		if($text && $logo){
+			echo '{"ok":"true","logo":"'.$logo.'","text":"'.$text.'"}';
+		}else{
+			echo '{"ok":"false","logo":"'.$logo.'","text":"'.$text.'"}';
+		}
 	}
 	public function quan(){
 		$quan = $this->spArgs("url");

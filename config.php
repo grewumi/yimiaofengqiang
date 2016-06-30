@@ -47,6 +47,7 @@ $spConfig = array(
 //				'user'=>'main@user',
 				'taocode'=>'main@getTaoCode',
 				'quan'=>'main@quan',
+				'sclick'=>'main@sclick',
                                 'taoke'=>'main@emptyhtml',
                                 'qiandao'=>'user@qiandao',
                                 'ajaxqd'=>'user@ajaxqd',

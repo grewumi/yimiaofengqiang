@@ -44,7 +44,7 @@ class main extends spController{
 				$textPar = iconv('gb2312','utf-8',$text);
 				$taoCode = getTaoCode($logo,$textPar,$url,$userid);
 				if($taoCode){
-					echo "领券，复制这条信息，打开手机淘宝，".$text.iconv('utf-8','gb2312',$taoCode);
+					echo "第一步，领券，复制这条信息，打开手机淘宝，".$text.iconv('utf-8','gb2312',$taoCode);
 				}
 			}
 		}
@@ -54,7 +54,7 @@ class main extends spController{
 				$textPar = iconv('gb2312','utf-8',$text);
 				$taoCode = getTaoCode($logo,$textPar,$url,$userid);
 				if($taoCode){
-					echo "下单，复制这条信息，打开手机淘宝，购买".$text.iconv('utf-8','gb2312',$taoCode);
+					echo "第二步，下单，复制这条信息，打开手机淘宝，购买".$text.iconv('utf-8','gb2312',$taoCode);
 				}
 			}
 		}
